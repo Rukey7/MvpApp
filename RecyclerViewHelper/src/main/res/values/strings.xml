@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">HelperLibrary</string>
+
+    <string name="loading_desc">Loading...</string>
+    <string name="no_more_data">- end -</string>
+</resources>

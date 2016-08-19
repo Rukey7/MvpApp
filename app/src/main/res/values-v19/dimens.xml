@@ -1,0 +1,6 @@
+<resources>
+
+    <!-- ToolBar -->
+    <dimen name="toolbar_margin_top">24dp</dimen>
+    <dimen name="tab_bar_margin_top">80dp</dimen>
+</resources>
