@@ -2,6 +2,7 @@ package com.dl7.myapp;
 
 import android.app.Application;
 
+import com.dl7.myapp.api.RetrofitService;
 import com.dl7.myapp.injector.components.ApplicationComponent;
 import com.dl7.myapp.injector.components.DaggerApplicationComponent;
 import com.dl7.myapp.injector.modules.ApplicationModule;
@@ -44,5 +45,6 @@ public class AndroidApplication extends Application {
             LeakCanary.install(this);
             Logger.init();
         }
+        RetrofitService.init();
     }
 }

@@ -24,32 +24,35 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:recyclerview-v7:23.4.0'
-    compile 'com.android.support:cardview-v7:23.4.0'
-    compile 'com.android.support:support-v4:23.4.0'
     // leakcanary
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
     // butterknife
-    compile 'com.jakewharton:butterknife:8.2.1'
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
     // rxjava
+    // dagger
+    apt 'com.google.dagger:dagger-compiler:2.6'
+    // retrofit
+    // logger
+    // greendao
+    // glide
+    compile project(':RecyclerViewHelper')
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:recyclerview-v7:23.4.0'
+    compile 'com.android.support:cardview-v7:23.4.0'
+    compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.jakewharton:butterknife:8.2.1'
     compile 'io.reactivex:rxjava:1.1.9'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
-    // dagger
     compile 'com.google.dagger:dagger:2.6'
-    apt 'com.google.dagger:dagger-compiler:2.6'
-    // retrofit
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-    // logger
     compile 'com.orhanobut:logger:1.15'
-    // greendao
     compile 'org.greenrobot:greendao:3.1.0'
-    // glide
     compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile project(':RecyclerViewHelper')
+    compile 'com.android.support:design:23.4.0'
+    // circleimageview
+    compile 'de.hdodenhof:circleimageview:2.1.0'
 }

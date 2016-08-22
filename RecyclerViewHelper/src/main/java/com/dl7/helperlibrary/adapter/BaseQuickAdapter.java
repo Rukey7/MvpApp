@@ -83,6 +83,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
      */
     protected abstract int attachLayoutRes();
 
+
     /**
      * Implement this method and use the helper to adapt the view to the given item.
      *
@@ -202,6 +203,8 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
         }
         return baseViewHolder;
     }
+
+
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {

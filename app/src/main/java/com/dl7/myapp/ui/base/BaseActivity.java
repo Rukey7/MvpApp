@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -29,7 +30,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 绑定布局文件
-     * @return  布局文件ID
+     *
+     * @return 布局文件ID
      */
     protected abstract int attachLayoutRes();
 
@@ -47,9 +49,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(attachLayoutRes());
         _initInjector();
         _initSystemBarTint();
         ButterKnife.bind(this);
+        initViews();
+        updateViews();
     }
 
     private void _initInjector() {
@@ -90,7 +95,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 设置状态栏颜色
      */
-    private void _initSystemBarTint() {
+    protected void _initSystemBarTint() {
         // 设置状态栏全透明
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
@@ -100,8 +105,20 @@ public abstract class BaseActivity extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//                getWindow().addFlags(WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
+    }
+
+    /**
+     * 获取深主题色
+     *
+     * @return
+     */
+    public int getDarkColorPrimary() {
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.colorPrimaryDark, typedValue, true);
+        return typedValue.data;
     }
 
     /**

@@ -1,17 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.dl7.myapp.MainActivity">
+    tools:context=".ui.home.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <!--
+    scroll(0x00000001):要和滚动联动都要设置这个标志;
+    enterAlways(0x00000004):跟随滚动视图的上下滚动;
+    enterAlwaysCollapsed(0x00000008):当滚动视图滚动到底时，View只能以minHeight的高度滚入界面;
+    exitUntilCollapsed(0x00000002):跟随滚动视图的上下滚动,但滚出时会预留minHeight的高度，实际能滚动的距离为(layout_height-minHeight);
+    snap(0x00000010):根据滚动释放时的状态来自动执行完整的enter或者exit动画;
+    -->
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"/>
-</RelativeLayout>
+        android:layout_marginTop="@dimen/toolbar_margin_top"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            app:tabIndicatorColor="@android:color/white"
+            android:layout_height="wrap_content"/>
+    </android.support.design.widget.AppBarLayout>
+
+    <!-- 遮挡状态栏透明的部分 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:background="?attr/colorPrimary"
+        android:layout_height="@dimen/toolbar_margin_top"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+</android.support.design.widget.CoordinatorLayout>

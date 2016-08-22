@@ -1,11 +1,13 @@
 <resources>
 
-    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:fitsSystemWindows">false</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <!-- Base application theme. -->
@@ -16,19 +18,12 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <!--这是文本的主要颜色，用于工具栏标题-->
-        <item name="android:textColorPrimary">@color/toolbar_text</item>
+        <!--<item name="android:textColorPrimary">@color/toolbar_text</item>-->
         <!--这是次文本的主要颜色，用于工具栏次标题-->
-        <item name="android:textColorSecondary">@color/toolbar_text</item>
+        <!--<item name="android:textColorSecondary">@color/toolbar_text</item>-->
         <!--分割线颜色-->
-        <item name="android:divider">@color/divider_line</item>
+        <!--<item name="android:divider">@color/divider_line</item>-->
         <!--<item name="android:windowBackground">@color/window_background</item>-->
     </style>
 
-    <style name="AppBaseTheme.SystemBarTranslucent" parent="AppBaseTheme">
-        <item name="android:fitsSystemWindows">false</item>
-    </style>
-
-    <style name="AppSplashTheme" parent="AppBaseTheme.SystemBarTranslucent">
-        <!--<item name="android:windowBackground">@mipmap/introd_defual</item>-->
-    </style>
 </resources>
