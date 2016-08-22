@@ -48,7 +48,13 @@ public class MainActivity extends BaseActivity {
         initToolBar(mToolBar, true, "MVP");
         _initTabLayout();
         _initDrawerLayout();
-        RetrofitService.newsList();
+        RetrofitService.getNewsList(RetrofitService.NEWS_BEST);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        RetrofitService.getNewsListNext(RetrofitService.NEWS_BEST);
     }
 
     @Override

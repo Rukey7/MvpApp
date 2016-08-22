@@ -43,7 +43,7 @@ public class AndroidApplication extends Application {
     private void _initConfig() {
         if (BuildConfig.DEBUG) {
             LeakCanary.install(this);
-            Logger.init();
+            Logger.init("LogTAG");
         }
         RetrofitService.init();
     }
