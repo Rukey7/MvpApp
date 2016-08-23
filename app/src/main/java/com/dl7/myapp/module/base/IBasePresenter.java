@@ -9,5 +9,10 @@ public interface IBasePresenter {
     /**
      * 更新视图界面
      */
-    void updateViews();
+    void loadData();
+
+    /**
+     * 加载更多数据
+     */
+    void loadMoreData();
 }

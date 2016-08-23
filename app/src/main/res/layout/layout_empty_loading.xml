@@ -31,11 +31,12 @@
             android:textSize="16sp"/>
     </RelativeLayout>
 
-    <com.github.ybq.android.spinkit.SpinKitView
+    <com.dl7.helperlibrary.indicator.SpinKitView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/empty_loading"
         android:visibility="gone"
-        style="@style/SpinKitView.Circle"
+        android:padding="20dp"
+        style="@style/SpinKitView.CubeGrid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

@@ -14,6 +14,7 @@ import android.view.WindowManager;
 
 import com.dl7.myapp.R;
 import com.dl7.myapp.adapter.ViewPagerAdapter;
+import com.dl7.myapp.api.RetrofitService;
 import com.dl7.myapp.injector.HasComponent;
 import com.dl7.myapp.injector.components.NewsListComponent;
 import com.dl7.myapp.module.base.BaseActivity;
@@ -46,7 +47,6 @@ public class MainActivity extends BaseActivity implements HasComponent<NewsListC
 
     @Override
     protected void initViews() {
-
         initToolBar(mToolBar, true, "MVP");
         _initTabLayout();
         _initDrawerLayout();
@@ -93,18 +93,20 @@ public class MainActivity extends BaseActivity implements HasComponent<NewsListC
     private void _initTabLayout() {
         List<Fragment> fragments = new ArrayList<>();
         List<String> titles = new ArrayList<>();
-        titles.add("One");
-        titles.add("Two");
-        titles.add("Three");
-        for (String title : titles) {
-            fragments.add(NewsListFragment.newInstance(title));
-        }
+        titles.add("头条");
+        titles.add("精选");
+        titles.add("娱乐");
+        titles.add("体育");
+        fragments.add(NewsListFragment.newInstance(RetrofitService.NEWS_HEAD_LINE));
+        fragments.add(NewsListFragment.newInstance(RetrofitService.NEWS_BEST));
+        fragments.add(NewsListFragment.newInstance(RetrofitService.NEWS_ENTERTAINMENT));
+        fragments.add(NewsListFragment.newInstance(RetrofitService.NEWS_SPORT));
 
         mPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         mPagerAdapter.setFragments(fragments);
         mPagerAdapter.setTitles(titles);
         mViewPager.setAdapter(mPagerAdapter);
-        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setOffscreenPageLimit(4);
         mTabLayout.setupWithViewPager(mViewPager);
     }
 

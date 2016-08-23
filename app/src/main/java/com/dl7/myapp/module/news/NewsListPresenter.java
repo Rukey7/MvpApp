@@ -4,7 +4,6 @@ import com.dl7.myapp.api.RetrofitService;
 import com.dl7.myapp.api.bean.NewsBean;
 import com.dl7.myapp.module.base.IBasePresenter;
 import com.dl7.myapp.view.EmptyLayout;
-import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -17,20 +16,29 @@ import rx.Subscriber;
 public class NewsListPresenter implements IBasePresenter {
 
     private INewsListView mView;
+    private int mNewsType;
 
-    public NewsListPresenter(INewsListView view) {
+    public NewsListPresenter(INewsListView view, @RetrofitService.NewsType int newsType) {
         this.mView = view;
+        this.mNewsType = newsType;
     }
 
     @Override
-    public void updateViews() {
+    public void loadData() {
         _getData();
     }
 
+    @Override
+    public void loadMoreData() {
+        _getMoreData();
+    }
+
+    /**
+     * 获取数据
+     */
     private void _getData() {
-        Logger.w("_getData");
         mView.showLoading();
-        RetrofitService.getNewsList(RetrofitService.NEWS_HEAD_LINE)
+        RetrofitService.getNewsList(mNewsType)
                 .subscribe(new Subscriber<List<NewsBean>>() {
                     @Override
                     public void onCompleted() {
@@ -42,19 +50,37 @@ public class NewsListPresenter implements IBasePresenter {
                         mView.showNetError(new EmptyLayout.OnRetryListener() {
                             @Override
                             public void onRetry() {
-                                updateViews();
+                                loadData();
                             }
                         });
                     }
 
                     @Override
                     public void onNext(List<NewsBean> newsList) {
-                        Logger.w(newsList.size()+"");
-                        Logger.i(newsList.toString());
-                        mView.updateList(newsList);
+                        mView.loadData(newsList);
                     }
                 });
     }
 
+    /**
+     * 获取更多数据
+     */
+    private void _getMoreData() {
+        RetrofitService.getNewsListNext(mNewsType)
+                .subscribe(new Subscriber<List<NewsBean>>() {
+                    @Override
+                    public void onCompleted() {
+                    }
 
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.loadNoData();
+                    }
+
+                    @Override
+                    public void onNext(List<NewsBean> newsList) {
+                        mView.loadMoreData(newsList);
+                    }
+                });
+    }
 }

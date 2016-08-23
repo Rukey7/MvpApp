@@ -11,5 +11,20 @@ import java.util.List;
  */
 public interface INewsListView extends IBaseView {
 
-    void updateList(List<NewsBean> newsList);
+    /**
+     * 加载数据
+     * @param newsList 新闻列表
+     */
+    void loadData(List<NewsBean> newsList);
+
+    /**
+     * 加载更多
+     * @param newsList 新闻列表
+     */
+    void loadMoreData(List<NewsBean> newsList);
+
+    /**
+     * 没有数据
+     */
+    void loadNoData();
 }

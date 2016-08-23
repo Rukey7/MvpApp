@@ -59,7 +59,7 @@ public class RetrofitService {
     private static final String CACHE_CONTROL_CACHE = "only-if-cached, max-stale=" + CACHE_STALE_SEC;
     //查询网络的Cache-Control设置
     //(假如请求了服务器并在a时刻返回响应结果，则在max-age规定的秒数内，浏览器将不会发送对应的请求到服务器，数据由缓存直接返回)
-    static final String CACHE_CONTROL_NETWORK = "Cache-Control: public, max-age=3600";
+    static final String CACHE_CONTROL_NETWORK = "Cache-Control: public, max-age=10";
 
     static final String HOST = "http://c.3g.163.com/";
 
@@ -117,7 +117,6 @@ public class RetrofitService {
             if (NetUtil.isNetworkAvailable(AndroidApplication.getContext())) {
                 //有网的时候读接口上的@Headers里的配置，你可以在这里进行统一的设置
                 String cacheControl = request.cacheControl().toString();
-                Logger.i(cacheControl);
                 return originalResponse.newBuilder()
                         .header("Cache-Control", cacheControl)
                         .removeHeader("Pragma")

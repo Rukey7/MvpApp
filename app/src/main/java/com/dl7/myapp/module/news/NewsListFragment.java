@@ -1,11 +1,14 @@
 package com.dl7.myapp.module.news;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 
+import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
 import com.dl7.helperlibrary.helper.RecyclerViewHelper;
+import com.dl7.helperlibrary.listener.OnRequestDataListener;
 import com.dl7.myapp.R;
-import com.dl7.myapp.adapter.NewsListAdapter;
+import com.dl7.myapp.api.RetrofitService;
 import com.dl7.myapp.api.bean.NewsBean;
 import com.dl7.myapp.injector.components.DaggerNewsListComponent;
 import com.dl7.myapp.injector.modules.NewsListModule;
@@ -25,24 +28,35 @@ import butterknife.BindView;
  */
 public class NewsListFragment extends BaseFragment implements INewsListView {
 
-    public static final String FRAG_KEY = "FragKey";
+    private static final String NEWS_TYPE_KEY = "NewsTypeKey";
 
     @BindView(R.id.rv_news_list)
     RecyclerView mRvNewsList;
-//    @BindView(R.id.empty_layout)
-//    EmptyLayout mEmptyLayout;
+    @BindView(R.id.empty_layout)
+    EmptyLayout mEmptyLayout;
 
-    NewsListAdapter mAdapter;
+    @Inject
+    BaseQuickAdapter mAdapter;
     @Inject
     IBasePresenter mPresenter;
 
+    private int mNewsType;
 
-    public static NewsListFragment newInstance(String title) {
+
+    public static NewsListFragment newInstance(@RetrofitService.NewsType int newsType) {
         NewsListFragment fragment = new NewsListFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(FRAG_KEY, title);
+        bundle.putInt(NEWS_TYPE_KEY, newsType);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mNewsType = getArguments().getInt(NEWS_TYPE_KEY, -1);
+        }
     }
 
     @Override
@@ -54,36 +68,51 @@ public class NewsListFragment extends BaseFragment implements INewsListView {
     protected void initViews() {
         DaggerNewsListComponent.builder()
                 .applicationComponent(getAppComponent())
-                .newsListModule(new NewsListModule(this))
+                .newsListModule(new NewsListModule(this, mNewsType))
                 .build()
                 .inject(this);
-        mAdapter = new NewsListAdapter(getContext());
-        RecyclerViewHelper.initRecyclerViewV(getContext(), mRvNewsList, true, mAdapter);
+        RecyclerViewHelper.initRecyclerViewV(getContext(), mRvNewsList, true, mAdapter, new OnRequestDataListener() {
+            @Override
+            public void onLoadMore() {
+                mPresenter.loadMoreData();
+            }
+        });
     }
 
     @Override
     protected void updateViews() {
-        mPresenter.updateViews();
+        mPresenter.loadData();
     }
 
     @Override
     public void showLoading() {
-//        mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_LOADING);
+        mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_LOADING);
     }
 
     @Override
     public void hideLoading() {
-//        mEmptyLayout.hide();
+        mEmptyLayout.hide();
     }
 
     @Override
     public void showNetError(final EmptyLayout.OnRetryListener onRetryListener) {
-//        mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_NO_NET);
-//        mEmptyLayout.setRetryListener(onRetryListener);
+        mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_NO_NET);
+        mEmptyLayout.setRetryListener(onRetryListener);
     }
 
     @Override
-    public void updateList(List<NewsBean> newsList) {
+    public void loadData(List<NewsBean> newsList) {
         mAdapter.updateItems(newsList);
+    }
+
+    @Override
+    public void loadMoreData(List<NewsBean> newsList) {
+        mAdapter.loadComplete();
+        mAdapter.addItems(newsList);
+    }
+
+    @Override
+    public void loadNoData() {
+        mAdapter.noMoreData();
     }
 }

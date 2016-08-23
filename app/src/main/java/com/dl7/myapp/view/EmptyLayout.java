@@ -32,8 +32,7 @@ public class EmptyLayout extends FrameLayout {
     public static final int STATUS_NO_DATA = 3;
     private Context mContext;
     private OnRetryListener mOnRetryListener;
-    private int mEmptyStatus;
-
+    private int mEmptyStatus = STATUS_LOADING;
 
     @BindView(R.id.iv_empty_icon)
     ImageView mIvEmptyIcon;
@@ -62,6 +61,7 @@ public class EmptyLayout extends FrameLayout {
     private void init() {
         View.inflate(mContext, R.layout.layout_empty_loading, this);
         ButterKnife.bind(this);
+        _switchEmptyView();
     }
 
     /**
