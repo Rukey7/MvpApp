@@ -14,4 +14,8 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="avatar_width">80dp</dimen>
     <dimen name="avatar_height">80dp</dimen>
+
+    <!-- News List -->
+    <dimen name="news_icon_width">100dp</dimen>
+    <dimen name="news_icon_height">70dp</dimen>
 </resources>

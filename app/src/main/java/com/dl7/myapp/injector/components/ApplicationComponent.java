@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.dl7.myapp.injector.modules.ApplicationModule;
 import com.dl7.myapp.rxbus.RxBus;
-import com.dl7.myapp.ui.base.BaseActivity;
+import com.dl7.myapp.module.base.BaseActivity;
 
 import javax.inject.Singleton;
 

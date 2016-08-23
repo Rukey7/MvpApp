@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.MainActivity">
+    tools:context=".module.home.MainActivity">
 
     <!--
     scroll(0x00000001):要和滚动联动都要设置这个标志;

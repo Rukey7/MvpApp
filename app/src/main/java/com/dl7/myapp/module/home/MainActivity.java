@@ -1,4 +1,4 @@
-package com.dl7.myapp.ui.home;
+package com.dl7.myapp.module.home;
 
 import android.os.Build;
 import android.support.design.widget.NavigationView;
@@ -14,16 +14,17 @@ import android.view.WindowManager;
 
 import com.dl7.myapp.R;
 import com.dl7.myapp.adapter.ViewPagerAdapter;
-import com.dl7.myapp.api.RetrofitService;
-import com.dl7.myapp.ui.TabFragment;
-import com.dl7.myapp.ui.base.BaseActivity;
+import com.dl7.myapp.injector.HasComponent;
+import com.dl7.myapp.injector.components.NewsListComponent;
+import com.dl7.myapp.module.base.BaseActivity;
+import com.dl7.myapp.module.news.NewsListFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements HasComponent<NewsListComponent> {
 
     @BindView(R.id.tool_bar)
     Toolbar mToolBar;
@@ -45,21 +46,14 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+
         initToolBar(mToolBar, true, "MVP");
         _initTabLayout();
         _initDrawerLayout();
-        RetrofitService.getNewsList(RetrofitService.NEWS_BEST);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        RetrofitService.getNewsListNext(RetrofitService.NEWS_BEST);
     }
 
     @Override
     protected void updateViews() {
-
     }
 
     @Override
@@ -103,7 +97,7 @@ public class MainActivity extends BaseActivity {
         titles.add("Two");
         titles.add("Three");
         for (String title : titles) {
-            fragments.add(TabFragment.newInstance(title));
+            fragments.add(NewsListFragment.newInstance(title));
         }
 
         mPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -112,5 +106,10 @@ public class MainActivity extends BaseActivity {
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setOffscreenPageLimit(3);
         mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    @Override
+    public NewsListComponent getComponent() {
+        return null;
     }
 }

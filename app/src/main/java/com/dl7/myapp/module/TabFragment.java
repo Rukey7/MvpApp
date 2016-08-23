@@ -1,4 +1,4 @@
-package com.dl7.myapp.ui;
+package com.dl7.myapp.module;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

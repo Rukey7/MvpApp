@@ -51,8 +51,13 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'com.orhanobut:logger:1.15'
     compile 'org.greenrobot:greendao:3.1.0'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
+    //    compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.android.support:design:23.4.0'
     // circleimageview
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    // slider
+    compile 'com.daimajia.slider:library:1.1.5'
+    // picasso
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.nineoldandroids:library:2.4.0'
 }

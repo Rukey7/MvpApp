@@ -1,4 +1,4 @@
-package com.dl7.myapp.ui.base;
+package com.dl7.myapp.module.base;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -108,17 +107,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 //                getWindow().addFlags(WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
-    }
-
-    /**
-     * 获取深主题色
-     *
-     * @return
-     */
-    public int getDarkColorPrimary() {
-        TypedValue typedValue = new TypedValue();
-        getTheme().resolveAttribute(R.attr.colorPrimaryDark, typedValue, true);
-        return typedValue.data;
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.dl7.myapp;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.dl7.myapp.api.RetrofitService;
 import com.dl7.myapp.injector.components.ApplicationComponent;
@@ -16,10 +17,12 @@ import com.squareup.leakcanary.LeakCanary;
 public class AndroidApplication extends Application {
 
     private ApplicationComponent mAppComponent;
+    private static Context sContext;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        sContext = this;
         _initInjector();
         _initConfig();
     }
@@ -35,6 +38,10 @@ public class AndroidApplication extends Application {
 
     public ApplicationComponent getAppComponent() {
         return mAppComponent;
+    }
+
+    public static Context getContext() {
+        return sContext;
     }
 
     /**
