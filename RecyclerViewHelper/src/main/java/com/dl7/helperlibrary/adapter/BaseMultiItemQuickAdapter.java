@@ -1,7 +1,6 @@
 package com.dl7.helperlibrary.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
@@ -29,10 +28,13 @@ public abstract class BaseMultiItemQuickAdapter<T extends MultiItemEntity> exten
     public BaseMultiItemQuickAdapter(Context context, List<T> data) {
         super(context, data);
         attachItemType();
+        if (layouts == null || layouts.size() == 0) {
+            throw new RuntimeException("Please add item use 'addItemType(int type, int layoutResId)' " +
+                    "in the 'attachItemType' method");
+        }
     }
     public BaseMultiItemQuickAdapter(Context context) {
-        super(context);
-        attachItemType();
+        super(context, null);
     }
 
     @Override
@@ -46,8 +48,6 @@ public abstract class BaseMultiItemQuickAdapter<T extends MultiItemEntity> exten
     }
 
     private int getLayoutId(int viewType) {
-        Log.e("BaseMultiItemQuickAdapt", ""+viewType);
-        Log.e("BaseMultiItemQuickAdapt", ""+(layouts == null));
         return layouts.get(viewType);
     }
 
