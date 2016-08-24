@@ -98,7 +98,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
         if (count == 0 && mEmptyView != null) {
             return 1;
         }
-        if (mIsLoadMoreEnable) {
+        if (mIsLoadMoreEnable && mData.size() != 0) {
             count++;
         }
         return count;
@@ -124,6 +124,15 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
         } else if (mFooterView != null && position == (getItemCount() - 1)) {
             return FOOTER_VIEW;
         }
+        return getDefItemViewType(position - getHeaderViewsCount());
+    }
+
+    /**
+     * 获取 ItemView 类型，对于多种布局的 RecyclerView 有用
+     * @param position
+     * @return
+     */
+    protected int getDefItemViewType(int position) {
         return super.getItemViewType(position);
     }
 
@@ -179,7 +188,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
         if (mParentView == null) {
             mParentView = parent;
         }
-        BaseViewHolder baseViewHolder = null;
+        BaseViewHolder baseViewHolder;
         switch (viewType) {
             case LOADING_VIEW:
                 baseViewHolder = new BaseViewHolder(mLoadingView);
@@ -194,14 +203,30 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
                 baseViewHolder = new BaseViewHolder(mFooterView);
                 break;
             default:
-                View view = mLayoutInflater.inflate(mLayoutResId, parent, false);
-                baseViewHolder = new BaseViewHolder(view);
+//                View view = mLayoutInflater.inflate(mLayoutResId, parent, false);
+//                baseViewHolder = new BaseViewHolder(view);
+                baseViewHolder = onCreateDefViewHolder(parent, viewType);
                 // 设置用于单项刷新的tag标识
                 baseViewHolder.itemView.setTag(R.id.view_holder_tag, baseViewHolder);
                 _initItemClickListener(baseViewHolder);
                 break;
         }
         return baseViewHolder;
+    }
+
+    /**
+     * 创建 ViewHolder
+     * @param parent    parent
+     * @param viewType  ItemView 类型，对于多种布局的 RecyclerView 有用
+     * @return BaseViewHolder
+     */
+    protected BaseViewHolder onCreateDefViewHolder(ViewGroup parent, int viewType) {
+        return createBaseViewHolder(parent, mLayoutResId);
+    }
+
+    protected BaseViewHolder createBaseViewHolder(ViewGroup parent, int layoutResId) {
+        View view = mLayoutInflater.inflate(layoutResId, parent, false);
+        return new BaseViewHolder(view);
     }
 
     @Override
@@ -227,6 +252,9 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
 
     public void setRequestDataListener(OnRequestDataListener listener) {
         this.onRequestDataListener = listener;
+        if (!mIsLoadMoreEnable) {
+            this.enableLoadMore(true);
+        }
     }
 
     public void enableLoadMore(boolean isEnable) {

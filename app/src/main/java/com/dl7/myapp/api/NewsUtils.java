@@ -1,13 +1,17 @@
 package com.dl7.myapp.api;
 
+import android.support.annotation.NonNull;
+
+import com.dl7.myapp.api.bean.NewsBean;
+
 /**
  * Created by Rukey7 on 2016/8/22.
- * 常亮
+ * 工具类
  */
-public final class NewsContact {
+public final class NewsUtils {
 
-    private NewsContact() {
-        throw new RuntimeException("NewsContact cannot be initialized!");
+    private NewsUtils() {
+        throw new RuntimeException("NewsUtils cannot be initialized!");
     }
 
     // 头条
@@ -19,6 +23,7 @@ public final class NewsContact {
     // 体育
     private static final String NEWS_SPORT_STR = "T1348649079062";
 
+    private static final int HAS_HEAD = 1;
 
     /**
      * 类型转换为字符串
@@ -40,5 +45,15 @@ public final class NewsContact {
         }
 
         return null;
+    }
+
+    /**
+     * 判断是否为广告
+     * @param newsBean
+     * @return
+     */
+    public static boolean isAbNews(@NonNull NewsBean newsBean) {
+        return (newsBean.getHasHead() == HAS_HEAD &&
+                newsBean.getAds() != null && newsBean.getAds().size() > 1);
     }
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:text="里约奥运会"
+        android:maxLines="1"
+        android:layout_margin="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_icon_1"
+            android:src="@mipmap/icon_default"
+            android:layout_marginLeft="10dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/news_icon_height"/>
+
+        <ImageView
+            android:id="@+id/iv_icon_2"
+            android:src="@mipmap/icon_default"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/news_icon_height"/>
+
+        <ImageView
+            android:id="@+id/iv_icon_3"
+            android:src="@mipmap/icon_default"
+            android:layout_marginRight="10dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/news_icon_height"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="图集"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_gravity="right"
+            android:text="2016-08-23 11:48:46"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </FrameLayout>
+</LinearLayout>

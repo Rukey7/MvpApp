@@ -60,4 +60,6 @@ dependencies {
     // picasso
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.nineoldandroids:library:2.4.0'
+    // recyclerview-animators
+    compile 'jp.wasabeef:recyclerview-animators:2.2.3'
 }

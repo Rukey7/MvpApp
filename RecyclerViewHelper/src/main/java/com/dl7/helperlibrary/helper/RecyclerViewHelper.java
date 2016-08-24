@@ -49,7 +49,6 @@ public class RecyclerViewHelper {
     public static void initRecyclerViewV(Context context, RecyclerView view, boolean isDivided, BaseQuickAdapter adapter,
                                          OnRequestDataListener listener) {
         initRecyclerViewV(context, view, isDivided, adapter);
-        adapter.enableLoadMore(true);
         adapter.setRequestDataListener(listener);
     }
 

@@ -1,8 +1,7 @@
 package com.dl7.myapp.injector.modules;
 
 import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
-import com.dl7.myapp.adapter.NewsListAdapter;
-import com.dl7.myapp.injector.PerFragment;
+import com.dl7.myapp.adapter.NewsMultiListAdapter;
 import com.dl7.myapp.module.base.IBasePresenter;
 import com.dl7.myapp.module.news.NewsListFragment;
 import com.dl7.myapp.module.news.NewsListPresenter;
@@ -25,7 +24,6 @@ public class NewsListModule {
         this.mNewsType = newsType;
     }
 
-    @PerFragment
     @Provides
     public IBasePresenter providePresenter() {
         return new NewsListPresenter(mNewsListView, mNewsType);
@@ -33,6 +31,6 @@ public class NewsListModule {
 
     @Provides
     public BaseQuickAdapter provideAdapter() {
-        return new NewsListAdapter(mNewsListView.getContext());
+        return new NewsMultiListAdapter(mNewsListView.getContext());
     }
 }

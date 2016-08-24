@@ -136,7 +136,7 @@ public class RetrofitService {
         @Override
         public Response intercept(Chain chain) throws IOException {
             final Request request = chain.request();
-            Logger.d(request.url().toString());
+            Logger.w(request.url().toString());
             final Response response = chain.proceed(request);
 
             final ResponseBody responseBody = response.body();
@@ -171,26 +171,26 @@ public class RetrofitService {
      * 获取新闻列表
      * @return
      */
-    public static Observable<List<NewsBean>> getNewsList(@NewsType int newsType) {
+    public static Observable<NewsBean> getNewsList(@NewsType int newsType) {
         synchronized (key) {
             sNewsPage.put(newsType, 0);
         }
         Observable<Map<String, List<NewsBean>>> newsList;
         if (newsType == NEWS_HEAD_LINE) {
-            newsList = mService.getNewsList("headline", NewsContact.convertNewsType(newsType), 0);
+            newsList = mService.getNewsList("headline", NewsUtils.convertNewsType(newsType), 0);
         } else {
-            newsList = mService.getNewsList("list", NewsContact.convertNewsType(newsType), 0);
+            newsList = mService.getNewsList("list", NewsUtils.convertNewsType(newsType), 0);
         }
         return newsList.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(_flatMapNews(NewsContact.convertNewsType(newsType)));
+                .flatMap(_flatMapNews(NewsUtils.convertNewsType(newsType)));
     }
 
     /**
      * 获取下一页新闻列表
      * @return
      */
-    public static Observable<List<NewsBean>> getNewsListNext(@NewsType int newsType) {
+    public static Observable<NewsBean> getNewsListNext(@NewsType int newsType) {
         int page;
         synchronized (key) {
             Integer prePage = sNewsPage.get(newsType);
@@ -204,13 +204,13 @@ public class RetrofitService {
 
         Observable<Map<String, List<NewsBean>>> newsList;
         if (newsType == NEWS_HEAD_LINE) {
-            newsList = mService.getNewsList("headline", NewsContact.convertNewsType(newsType), page);
+            newsList = mService.getNewsList("headline", NewsUtils.convertNewsType(newsType), page);
         } else {
-            newsList = mService.getNewsList("list", NewsContact.convertNewsType(newsType), page);
+            newsList = mService.getNewsList("list", NewsUtils.convertNewsType(newsType), page);
         }
         return newsList.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(_flatMapNews(NewsContact.convertNewsType(newsType)));
+                .flatMap(_flatMapNews(NewsUtils.convertNewsType(newsType)));
     }
 
     /**
@@ -248,11 +248,11 @@ public class RetrofitService {
      * @param typeStr 新闻类型
      * @return
      */
-    private static Func1<Map<String, List<NewsBean>>, Observable<List<NewsBean>>> _flatMapNews(final String typeStr) {
-        return new Func1<Map<String, List<NewsBean>>, Observable<List<NewsBean>>>() {
+    private static Func1<Map<String, List<NewsBean>>, Observable<NewsBean>> _flatMapNews(final String typeStr) {
+        return new Func1<Map<String, List<NewsBean>>, Observable<NewsBean>>() {
             @Override
-            public Observable<List<NewsBean>> call(Map<String, List<NewsBean>> newsListMap) {
-                return Observable.just(newsListMap.get(typeStr));
+            public Observable<NewsBean> call(Map<String, List<NewsBean>> newsListMap) {
+                return Observable.from(newsListMap.get(typeStr));
             }
         };
     }

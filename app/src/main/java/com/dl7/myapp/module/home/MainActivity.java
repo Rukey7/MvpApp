@@ -15,8 +15,6 @@ import android.view.WindowManager;
 import com.dl7.myapp.R;
 import com.dl7.myapp.adapter.ViewPagerAdapter;
 import com.dl7.myapp.api.RetrofitService;
-import com.dl7.myapp.injector.HasComponent;
-import com.dl7.myapp.injector.components.NewsListComponent;
 import com.dl7.myapp.module.base.BaseActivity;
 import com.dl7.myapp.module.news.NewsListFragment;
 
@@ -25,7 +23,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseActivity implements HasComponent<NewsListComponent> {
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.tool_bar)
     Toolbar mToolBar;
@@ -108,10 +106,5 @@ public class MainActivity extends BaseActivity implements HasComponent<NewsListC
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setOffscreenPageLimit(4);
         mTabLayout.setupWithViewPager(mViewPager);
-    }
-
-    @Override
-    public NewsListComponent getComponent() {
-        return null;
     }
 }

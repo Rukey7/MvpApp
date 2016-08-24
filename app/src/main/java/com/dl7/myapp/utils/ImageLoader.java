@@ -17,7 +17,7 @@ public final class ImageLoader {
 
 
     public static void loadCenterInside(Context context, String url, ImageView view, int defaultResId) {
-        Picasso.with(context).load(url).placeholder(defaultResId).into(view);
+        Picasso.with(context).load(url).fit().placeholder(defaultResId).into(view);
     }
 
     public static void loadCenterCrop(Context context, String url, ImageView view, int defaultResId) {
