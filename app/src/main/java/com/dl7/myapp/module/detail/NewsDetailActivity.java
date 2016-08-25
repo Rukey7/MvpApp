@@ -11,13 +11,13 @@ import android.widget.TextView;
 import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
 import com.dl7.helperlibrary.helper.RecyclerViewHelper;
 import com.dl7.myapp.R;
+import com.dl7.myapp.api.NewsUtils;
 import com.dl7.myapp.api.bean.NewsDetailBean;
 import com.dl7.myapp.injector.components.DaggerNewsDetailComponent;
 import com.dl7.myapp.injector.modules.NewsDetailModule;
 import com.dl7.myapp.module.base.BaseActivity;
 import com.dl7.myapp.module.base.IBasePresenter;
 import com.dl7.myapp.utils.ListUtils;
-import com.dl7.myapp.utils.ToastUtils;
 import com.dl7.myapp.views.EmptyLayout;
 import com.zzhoujay.richtext.RichText;
 import com.zzhoujay.richtext.callback.OnURLClickListener;
@@ -108,12 +108,6 @@ public class NewsDetailActivity extends BaseActivity implements INewsDetailView 
         mTvSource.setText(newsDetailBean.getSource());
         mTvTime.setText(newsDetailBean.getPtime());
         RichText.from(newsDetailBean.getBody())
-                .urlClick(new OnURLClickListener() {
-                    @Override
-                    public boolean urlClicked(String url) {
-                        return false;
-                    }
-                })
                 .into(mTvContent);
         _handleSpInfo(newsDetailBean.getSpinfo());
         _handleRelatedNews(newsDetailBean);
@@ -136,7 +130,10 @@ public class NewsDetailActivity extends BaseActivity implements INewsDetailView 
                     .urlClick(new OnURLClickListener() {
                         @Override
                         public boolean urlClicked(String url) {
-                            ToastUtils.showToast(url);
+                            String newsId = NewsUtils.clipNewsIdFromUrl(url);
+                            if (newsId != null) {
+                                launch(NewsDetailActivity.this, newsId);
+                            }
                             return true;
                         }
                     })
