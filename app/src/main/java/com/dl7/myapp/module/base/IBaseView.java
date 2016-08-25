@@ -1,6 +1,6 @@
 package com.dl7.myapp.module.base;
 
-import com.dl7.myapp.view.EmptyLayout;
+import com.dl7.myapp.views.EmptyLayout;
 
 /**
  * Created by long on 2016/8/23.

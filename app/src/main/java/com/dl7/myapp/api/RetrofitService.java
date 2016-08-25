@@ -59,7 +59,7 @@ public class RetrofitService {
     private static final String CACHE_CONTROL_CACHE = "only-if-cached, max-stale=" + CACHE_STALE_SEC;
     //查询网络的Cache-Control设置
     //(假如请求了服务器并在a时刻返回响应结果，则在max-age规定的秒数内，浏览器将不会发送对应的请求到服务器，数据由缓存直接返回)
-    static final String CACHE_CONTROL_NETWORK = "Cache-Control: public, max-age=10";
+    static final String CACHE_CONTROL_NETWORK = "Cache-Control: public, max-age=3600";
 
     static final String HOST = "http://c.3g.163.com/";
 
@@ -86,7 +86,7 @@ public class RetrofitService {
                 .addInterceptor(sLoggingInterceptor)
                 .addInterceptor(sRewriteCacheControlInterceptor)
                 .addNetworkInterceptor(sRewriteCacheControlInterceptor)
-                .connectTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(10, TimeUnit.SECONDS)
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()

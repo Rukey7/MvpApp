@@ -5,11 +5,11 @@ import com.dl7.myapp.api.RetrofitService;
 import com.dl7.myapp.api.bean.NewsBean;
 import com.dl7.myapp.entity.NewsMultiItem;
 import com.dl7.myapp.module.base.IBasePresenter;
-import com.dl7.myapp.view.EmptyLayout;
+import com.dl7.myapp.views.EmptyLayout;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
-import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Func1;
 
@@ -46,44 +46,89 @@ public class NewsListPresenter implements IBasePresenter {
      */
     private void _getData() {
         mView.showLoading();
-        Observable<NewsBean> observable = RetrofitService.getNewsList(mNewsType);
-        observable.filter(new Func1<NewsBean, Boolean>() {
-            @Override
-            public Boolean call(NewsBean newsBean) {
-                if (NewsUtils.isAbNews(newsBean)) {
-                    mView.loadAdData(newsBean);
-                }
-                return !NewsUtils.isAbNews(newsBean);
-            }
-        }).map(new Func1<NewsBean, NewsMultiItem>() {
-            @Override
-            public NewsMultiItem call(NewsBean newsBean) {
-                if (NEWS_ITEM_PHOTO_SET.equals(newsBean.getSkipType())) {
-                    return new NewsMultiItem(NewsMultiItem.ITEM_TYPE_PHOTO_SET, newsBean);
-                }
-                return new NewsMultiItem(NewsMultiItem.ITEM_TYPE_NORMAL, newsBean);
-            }
-        }).buffer(MAX_NEWS_LIST_PAGE).subscribe(new Subscriber<List<NewsMultiItem>>() {
-            @Override
-            public void onCompleted() {
-                mView.hideLoading();
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                mView.showNetError(new EmptyLayout.OnRetryListener() {
+        RetrofitService.getNewsList(mNewsType)
+                .filter(new Func1<NewsBean, Boolean>() {
                     @Override
-                    public void onRetry() {
-                        loadData();
+                    public Boolean call(NewsBean newsBean) {
+                        if (NewsUtils.isAbNews(newsBean)) {
+                            mView.loadAdData(newsBean);
+                        }
+                        return !NewsUtils.isAbNews(newsBean);
+                    }
+                })
+                .map(new Func1<NewsBean, NewsMultiItem>() {
+                    @Override
+                    public NewsMultiItem call(NewsBean newsBean) {
+                        if (NEWS_ITEM_PHOTO_SET.equals(newsBean.getSkipType())) {
+                            return new NewsMultiItem(NewsMultiItem.ITEM_TYPE_PHOTO_SET, newsBean);
+                        }
+                        return new NewsMultiItem(NewsMultiItem.ITEM_TYPE_NORMAL, newsBean);
+                    }
+                })
+                .buffer(MAX_NEWS_LIST_PAGE)
+                .subscribe(new Subscriber<List<NewsMultiItem>>() {
+                    @Override
+                    public void onCompleted() {
+                        mView.hideLoading();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Logger.e(e.toString());
+                        mView.showNetError(new EmptyLayout.OnRetryListener() {
+                            @Override
+                            public void onRetry() {
+                                loadData();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onNext(List<NewsMultiItem> newsMultiItems) {
+                        mView.loadData(newsMultiItems);
                     }
                 });
-            }
 
-            @Override
-            public void onNext(List<NewsMultiItem> newsMultiItems) {
-                mView.loadData(newsMultiItems);
-            }
-        });
+//        RetrofitService.getNewsList(mNewsType).filter(new Func1<NewsBean, Boolean>() {
+//            @Override
+//            public Boolean call(NewsBean newsBean) {
+//                if (NewsUtils.isAbNews(newsBean)) {
+//                    mView.loadAdData(newsBean);
+//                }
+//                return !NewsUtils.isAbNews(newsBean);
+//            }
+//        }).map(new Func1<NewsBean, NewsMultiItem>() {
+//            @Override
+//            public NewsMultiItem call(NewsBean newsBean) {
+//                if (NEWS_ITEM_PHOTO_SET.equals(newsBean.getSkipType())) {
+//                    return new NewsMultiItem(NewsMultiItem.ITEM_TYPE_PHOTO_SET, newsBean);
+//                }
+//                return new NewsMultiItem(NewsMultiItem.ITEM_TYPE_NORMAL, newsBean);
+//            }
+//        }).buffer(MAX_NEWS_LIST_PAGE).subscribe(new Subscriber<List<NewsMultiItem>>() {
+//            @Override
+//            public void onCompleted() {
+//                Logger.w("onCompleted");
+//                mView.hideLoading();
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                Logger.e(e.toString());
+//                mView.showNetError(new EmptyLayout.OnRetryListener() {
+//                    @Override
+//                    public void onRetry() {
+//                        loadData();
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onNext(List<NewsMultiItem> newsMultiItems) {
+//                Logger.w("onCompleted");
+//                mView.loadData(newsMultiItems);
+//            }
+//        });
     }
 
     /**
@@ -104,7 +149,6 @@ public class NewsListPresenter implements IBasePresenter {
                 .subscribe(new Subscriber<List<NewsMultiItem>>() {
                     @Override
                     public void onCompleted() {
-
                     }
 
                     @Override

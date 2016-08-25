@@ -1,6 +1,7 @@
 package com.dl7.myapp.adapter;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.dl7.helperlibrary.adapter.BaseMultiItemQuickAdapter;
@@ -8,6 +9,7 @@ import com.dl7.helperlibrary.adapter.BaseViewHolder;
 import com.dl7.myapp.R;
 import com.dl7.myapp.api.bean.NewsBean;
 import com.dl7.myapp.entity.NewsMultiItem;
+import com.dl7.myapp.module.detail.NewsDetailActivity;
 import com.dl7.myapp.utils.ImageLoader;
 
 import java.util.List;
@@ -49,12 +51,18 @@ public class NewsMultiListAdapter extends BaseMultiItemQuickAdapter<NewsMultiIte
      * @param holder
      * @param item
      */
-    private void _handleNewsNormal(BaseViewHolder holder, NewsBean item) {
+    private void _handleNewsNormal(BaseViewHolder holder, final NewsBean item) {
         ImageView newsIcon = holder.getView(R.id.iv_icon);
         ImageLoader.loadCenterInside(mContext, item.getImgsrc(), newsIcon, R.mipmap.icon_default);
         holder.setText(R.id.tv_title, item.getTitle())
                 .setText(R.id.tv_source, _clipSource(item.getSource()))
                 .setText(R.id.tv_time, item.getPtime());
+        holder.getConvertView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NewsDetailActivity.launch(mContext, item.getPostid());
+            }
+        });
     }
 
     /**

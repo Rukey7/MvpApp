@@ -7,6 +7,7 @@ import com.dl7.myapp.api.RetrofitService;
 import com.dl7.myapp.injector.components.ApplicationComponent;
 import com.dl7.myapp.injector.components.DaggerApplicationComponent;
 import com.dl7.myapp.injector.modules.ApplicationModule;
+import com.dl7.myapp.utils.ToastUtils;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
 
@@ -53,5 +54,6 @@ public class AndroidApplication extends Application {
             Logger.init("LogTAG");
         }
         RetrofitService.init();
+        ToastUtils.init(this);
     }
 }

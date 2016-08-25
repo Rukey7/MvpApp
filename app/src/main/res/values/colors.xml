@@ -2,10 +2,11 @@
 <resources>
     <color name="colorPrimary">#009688</color>
     <color name="colorPrimaryDark">#009688</color>
-    <color name="colorAccent">#03a9f4</color>
+    <color name="colorAccent">#5677fc</color>
 
     <!--配色-->
     <color name="toolbar_text">#ffffff</color>
-    <color name="divider_line">#a5ffffff</color>
+    <color name="divider_line">#dddddd</color>
     <color name="window_background">#303030</color>
+    <color name="special_text">#e51c23</color>
 </resources>

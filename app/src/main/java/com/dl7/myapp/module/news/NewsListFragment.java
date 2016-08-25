@@ -19,7 +19,7 @@ import com.dl7.myapp.injector.modules.NewsListModule;
 import com.dl7.myapp.module.base.BaseFragment;
 import com.dl7.myapp.module.base.IBasePresenter;
 import com.dl7.myapp.utils.SliderHelper;
-import com.dl7.myapp.view.EmptyLayout;
+import com.dl7.myapp.views.EmptyLayout;
 
 import java.util.List;
 
@@ -95,12 +95,6 @@ public class NewsListFragment extends BaseFragment implements INewsListView {
                 .newsListModule(new NewsListModule(this, mNewsType))
                 .build()
                 .inject(this);
-//        RecyclerViewHelper.initRecyclerViewV(getContext(), mRvNewsList, true, mAdapter, new OnRequestDataListener() {
-//            @Override
-//            public void onLoadMore() {
-//                mPresenter.loadMoreData();
-//            }
-//        });
         SlideInRightAnimationAdapter animAdapter = new SlideInRightAnimationAdapter(mAdapter);
         RecyclerViewHelper.initRecyclerViewV(mContext, mRvNewsList, true, new AlphaInAnimationAdapter(animAdapter));
         mAdapter.setRequestDataListener(new OnRequestDataListener() {

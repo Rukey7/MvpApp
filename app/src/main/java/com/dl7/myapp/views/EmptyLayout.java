@@ -1,4 +1,4 @@
-package com.dl7.myapp.view;
+package com.dl7.myapp.views;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
