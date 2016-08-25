@@ -22,7 +22,6 @@
         android:layout_height="match_parent"
         tools:context=".module.home.MainActivity">
 
-
         <!--
         scroll(0x00000001):要和滚动联动都要设置这个标志;
         enterAlways(0x00000004):跟随滚动视图的上下滚动;
