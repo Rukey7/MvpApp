@@ -109,7 +109,7 @@ public class NewsDetailBean {
      * href :
      */
 
-    private List<RelativeSysEntity> relative_sys;
+    private List<NewsItemBean> relative_sys;
 
     public String getBody() {
         return body;
@@ -343,11 +343,11 @@ public class NewsDetailBean {
         this.apps = apps;
     }
 
-    public List<RelativeSysEntity> getRelative_sys() {
+    public List<NewsItemBean> getRelative_sys() {
         return relative_sys;
     }
 
-    public void setRelative_sys(List<RelativeSysEntity> relative_sys) {
+    public void setRelative_sys(List<NewsItemBean> relative_sys) {
         this.relative_sys = relative_sys;
     }
 
@@ -504,81 +504,6 @@ public class NewsDetailBean {
 
         public void setTopicName(String topicName) {
             this.topicName = topicName;
-        }
-    }
-
-    public static class RelativeSysEntity {
-        private String id;
-        private String title;
-        private String source;
-        private String imgsrc;
-        private String docID;
-        private String type;
-        private String ptime;
-        private String href;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getSource() {
-            return source;
-        }
-
-        public void setSource(String source) {
-            this.source = source;
-        }
-
-        public String getImgsrc() {
-            return imgsrc;
-        }
-
-        public void setImgsrc(String imgsrc) {
-            this.imgsrc = imgsrc;
-        }
-
-        public String getDocID() {
-            return docID;
-        }
-
-        public void setDocID(String docID) {
-            this.docID = docID;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
-
-        public String getPtime() {
-            return ptime;
-        }
-
-        public void setPtime(String ptime) {
-            this.ptime = ptime;
-        }
-
-        public String getHref() {
-            return href;
-        }
-
-        public void setHref(String href) {
-            this.href = href;
         }
     }
 }

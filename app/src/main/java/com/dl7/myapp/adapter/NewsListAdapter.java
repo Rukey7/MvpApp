@@ -34,7 +34,7 @@ public class NewsListAdapter extends BaseQuickAdapter<NewsBean> {
     @Override
     protected void convert(BaseViewHolder holder, NewsBean item) {
         ImageView newsIcon = holder.getView(R.id.iv_icon);
-        ImageLoader.loadCenterInside(mContext, item.getImgsrc(), newsIcon, R.mipmap.icon_default);
+        ImageLoader.loadFit(mContext, item.getImgsrc(), newsIcon, R.mipmap.icon_default);
         holder.setText(R.id.tv_title, item.getTitle())
                 .setText(R.id.tv_source, _clipSource(item.getSource()))
                 .setText(R.id.tv_time, item.getPtime());

@@ -10,4 +10,6 @@
     <color name="window_background">#303030</color>
     <color name="special_text">#e51c23</color>
 
+    <color name="expanded_title">#607d8b</color>
+    <color name="collapsed_title">#ffffff</color>
 </resources>

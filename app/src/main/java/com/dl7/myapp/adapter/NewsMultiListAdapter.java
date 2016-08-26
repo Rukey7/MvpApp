@@ -7,9 +7,11 @@ import android.widget.ImageView;
 import com.dl7.helperlibrary.adapter.BaseMultiItemQuickAdapter;
 import com.dl7.helperlibrary.adapter.BaseViewHolder;
 import com.dl7.myapp.R;
+import com.dl7.myapp.api.NewsUtils;
 import com.dl7.myapp.api.bean.NewsBean;
 import com.dl7.myapp.entity.NewsMultiItem;
 import com.dl7.myapp.module.detail.NewsDetailActivity;
+import com.dl7.myapp.module.special.SpecialActivity;
 import com.dl7.myapp.utils.ImageLoader;
 
 import java.util.List;
@@ -53,14 +55,18 @@ public class NewsMultiListAdapter extends BaseMultiItemQuickAdapter<NewsMultiIte
      */
     private void _handleNewsNormal(BaseViewHolder holder, final NewsBean item) {
         ImageView newsIcon = holder.getView(R.id.iv_icon);
-        ImageLoader.loadCenterInside(mContext, item.getImgsrc(), newsIcon, R.mipmap.icon_default);
+        ImageLoader.loadFit(mContext, item.getImgsrc(), newsIcon, R.mipmap.icon_default);
         holder.setText(R.id.tv_title, item.getTitle())
                 .setText(R.id.tv_source, _clipSource(item.getSource()))
                 .setText(R.id.tv_time, item.getPtime());
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NewsDetailActivity.launch(mContext, item.getPostid());
+                if (NewsUtils.isNewsSpecial(item.getSkipType())) {
+                    SpecialActivity.launch(mContext, item.getSpecialID());
+                } else {
+                    NewsDetailActivity.launch(mContext, item.getPostid());
+                }
             }
         });
     }
@@ -75,9 +81,9 @@ public class NewsMultiListAdapter extends BaseMultiItemQuickAdapter<NewsMultiIte
         newsPhoto[0] = holder.getView(R.id.iv_icon_1);
         newsPhoto[1] = holder.getView(R.id.iv_icon_2);
         newsPhoto[2] = holder.getView(R.id.iv_icon_3);
-        ImageLoader.loadCenterInside(mContext, item.getImgsrc(), newsPhoto[0], R.mipmap.icon_default);
+        ImageLoader.loadFit(mContext, item.getImgsrc(), newsPhoto[0], R.mipmap.icon_default);
         for (int i = 0; i < Math.min(2, item.getImgextra().size()); i++) {
-            ImageLoader.loadCenterInside(mContext, item.getImgextra().get(i).getImgsrc(),
+            ImageLoader.loadFit(mContext, item.getImgextra().get(i).getImgsrc(),
                     newsPhoto[i+1], R.mipmap.icon_default);
         }
         holder.setText(R.id.tv_title, item.getTitle())

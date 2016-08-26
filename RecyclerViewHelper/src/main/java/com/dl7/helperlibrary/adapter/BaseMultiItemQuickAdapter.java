@@ -1,7 +1,6 @@
 package com.dl7.helperlibrary.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
@@ -14,7 +13,7 @@ import java.util.List;
  */
 public abstract class BaseMultiItemQuickAdapter<T extends MultiItemEntity> extends BaseQuickAdapter {
 
-    private static final int MULTI_ADAPTER_NULL_LAYOUT = -1;
+    static final int MULTI_ADAPTER_NULL_LAYOUT = -1;
     /**
      * layouts indexed with their types
      */
@@ -30,9 +29,8 @@ public abstract class BaseMultiItemQuickAdapter<T extends MultiItemEntity> exten
         super(context, data);
         attachItemType();
         if (layouts == null || layouts.size() == 0) {
-            Log.e("BaseMultiItemQuickAdapt", "RuntimeException");
-            throw new RuntimeException("Please add item use 'addItemType(int type, int layoutResId)' " +
-                    "in the 'attachItemType' method");
+            throw new IllegalAccessError("Please add item use 'addItemType(int type, int layoutResId)' " +
+                    "in the 'attachItemType()' method");
         }
     }
     public BaseMultiItemQuickAdapter(Context context) {

@@ -1,6 +1,7 @@
 package com.dl7.myapp.utils;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -16,8 +17,10 @@ public final class ImageLoader {
     }
 
 
-    public static void loadCenterInside(Context context, String url, ImageView view, int defaultResId) {
-        Picasso.with(context).load(url).fit().placeholder(defaultResId).into(view);
+    public static void loadFit(Context context, String url, ImageView view, int defaultResId) {
+        if (!TextUtils.isEmpty(url)) {
+            Picasso.with(context).load(url).fit().placeholder(defaultResId).into(view);
+        }
     }
 
     public static void loadCenterCrop(Context context, String url, ImageView view, int defaultResId) {

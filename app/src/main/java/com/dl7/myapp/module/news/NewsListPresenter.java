@@ -11,6 +11,7 @@ import com.orhanobut.logger.Logger;
 import java.util.List;
 
 import rx.Subscriber;
+import rx.functions.Action0;
 import rx.functions.Func1;
 
 /**
@@ -18,10 +19,6 @@ import rx.functions.Func1;
  * 新闻列表 Presenter
  */
 public class NewsListPresenter implements IBasePresenter {
-
-    private static final int MAX_NEWS_LIST_PAGE = 40;
-    private static final String NEWS_ITEM_PHOTO_SET = "photoset";
-
 
     private INewsListView mView;
     private int mNewsType;
@@ -33,20 +30,13 @@ public class NewsListPresenter implements IBasePresenter {
 
     @Override
     public void getData() {
-        _getData();
-    }
-
-    @Override
-    public void getMoreData() {
-        _getMoreData();
-    }
-
-    /**
-     * 获取数据
-     */
-    private void _getData() {
-        mView.showLoading();
         RetrofitService.getNewsList(mNewsType)
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mView.showLoading();
+                    }
+                })
                 .filter(new Func1<NewsBean, Boolean>() {
                     @Override
                     public Boolean call(NewsBean newsBean) {
@@ -59,13 +49,13 @@ public class NewsListPresenter implements IBasePresenter {
                 .map(new Func1<NewsBean, NewsMultiItem>() {
                     @Override
                     public NewsMultiItem call(NewsBean newsBean) {
-                        if (NEWS_ITEM_PHOTO_SET.equals(newsBean.getSkipType())) {
+                        if (NewsUtils.isNewsPhotoSet(newsBean.getSkipType())) {
                             return new NewsMultiItem(NewsMultiItem.ITEM_TYPE_PHOTO_SET, newsBean);
                         }
                         return new NewsMultiItem(NewsMultiItem.ITEM_TYPE_NORMAL, newsBean);
                     }
                 })
-                .buffer(MAX_NEWS_LIST_PAGE)
+                .toList()
                 .subscribe(new Subscriber<List<NewsMultiItem>>() {
                     @Override
                     public void onCompleted() {
@@ -88,64 +78,21 @@ public class NewsListPresenter implements IBasePresenter {
                         mView.loadData(newsMultiItems);
                     }
                 });
-
-//        RetrofitService.getNewsList(mNewsType).filter(new Func1<NewsBean, Boolean>() {
-//            @Override
-//            public Boolean call(NewsBean newsBean) {
-//                if (NewsUtils.isAbNews(newsBean)) {
-//                    mView.loadAdData(newsBean);
-//                }
-//                return !NewsUtils.isAbNews(newsBean);
-//            }
-//        }).map(new Func1<NewsBean, NewsMultiItem>() {
-//            @Override
-//            public NewsMultiItem call(NewsBean newsBean) {
-//                if (NEWS_ITEM_PHOTO_SET.equals(newsBean.getSkipType())) {
-//                    return new NewsMultiItem(NewsMultiItem.ITEM_TYPE_PHOTO_SET, newsBean);
-//                }
-//                return new NewsMultiItem(NewsMultiItem.ITEM_TYPE_NORMAL, newsBean);
-//            }
-//        }).buffer(MAX_NEWS_LIST_PAGE).subscribe(new Subscriber<List<NewsMultiItem>>() {
-//            @Override
-//            public void onCompleted() {
-//                Logger.w("onCompleted");
-//                mView.hideLoading();
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//                Logger.e(e.toString());
-//                mView.showNetError(new EmptyLayout.OnRetryListener() {
-//                    @Override
-//                    public void onRetry() {
-//                        getData();
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public void onNext(List<NewsMultiItem> newsMultiItems) {
-//                Logger.w("onCompleted");
-//                mView.getData(newsMultiItems);
-//            }
-//        });
     }
 
-    /**
-     * 获取更多数据
-     */
-    private void _getMoreData() {
+    @Override
+    public void getMoreData() {
         RetrofitService.getNewsListNext(mNewsType)
                 .map(new Func1<NewsBean, NewsMultiItem>() {
                     @Override
                     public NewsMultiItem call(NewsBean newsBean) {
-                        if (NEWS_ITEM_PHOTO_SET.equals(newsBean.getSkipType())) {
+                        if (NewsUtils.isNewsPhotoSet(newsBean.getSkipType())) {
                             return new NewsMultiItem(NewsMultiItem.ITEM_TYPE_PHOTO_SET, newsBean);
                         }
                         return new NewsMultiItem(NewsMultiItem.ITEM_TYPE_NORMAL, newsBean);
                     }
                 })
-                .buffer(MAX_NEWS_LIST_PAGE)
+                .toList()
                 .subscribe(new Subscriber<List<NewsMultiItem>>() {
                     @Override
                     public void onCompleted() {

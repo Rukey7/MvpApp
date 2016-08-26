@@ -30,6 +30,10 @@ public final class NewsUtils {
     // 新闻ID前缀，eg：BV9KHEMS0001124J
     private static final String NEWS_ID_PREFIX = "BV";
 
+    private static final String NEWS_ITEM_SPECIAL = "special";
+    private static final String NEWS_ITEM_PHOTO_SET = "photoset";
+
+
     /**
      * 类型转换为字符串
      * @param type  newsID
@@ -74,5 +78,18 @@ public final class NewsUtils {
             newsId = url.substring(index, index + NEWS_ID_LENGHT);
         }
         return newsId;
+    }
+
+    /**
+     * 判断新闻类型
+     * @param skipType
+     * @return
+     */
+    public static boolean isNewsSpecial(String skipType) {
+        return NEWS_ITEM_SPECIAL.equals(skipType);
+    }
+
+    public static boolean isNewsPhotoSet(String skipType) {
+        return NEWS_ITEM_PHOTO_SET.equals(skipType);
     }
 }
