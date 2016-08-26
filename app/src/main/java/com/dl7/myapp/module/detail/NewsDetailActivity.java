@@ -46,10 +46,6 @@ public class NewsDetailActivity extends BaseActivity implements INewsDetailView 
     EmptyLayout mEmptyLayout;
     @BindView(R.id.tv_content)
     TextView mTvContent;
-    @BindView(R.id.tv_topic_name)
-    TextView mTvTopicName;
-    @BindView(R.id.rv_related_news)
-    RecyclerView mRvRelatedNews;
 
     @Inject
     IBasePresenter mPresenter;
@@ -78,12 +74,11 @@ public class NewsDetailActivity extends BaseActivity implements INewsDetailView 
                 .build()
                 .inject(this);
         initToolBar(mToolBar, true, "新闻详情");
-        RecyclerViewHelper.initRecyclerViewV(this, mRvRelatedNews, false, mRelatedAdapter);
     }
 
     @Override
     protected void updateViews() {
-        mPresenter.loadData();
+        mPresenter.getData();
     }
 
     @Override
@@ -146,10 +141,16 @@ public class NewsDetailActivity extends BaseActivity implements INewsDetailView 
      * @param newsDetailBean
      */
     private void _handleRelatedNews(NewsDetailBean newsDetailBean) {
-        if (!ListUtils.isEmpty(newsDetailBean.getHuati())) {
-            mTvTopicName.setText(newsDetailBean.getHuati().get(0).getTopicName());
-        }
         if (!ListUtils.isEmpty(newsDetailBean.getRelative_sys())) {
+            ViewStub stub = (ViewStub) findViewById(R.id.vs_related_news);
+            assert stub != null;
+            stub.inflate();
+            TextView mTvTopicName = (TextView) findViewById(R.id.tv_topic_name);
+            if (!ListUtils.isEmpty(newsDetailBean.getHuati())) {
+                mTvTopicName.setText(newsDetailBean.getHuati().get(0).getTopicName());
+            }
+            RecyclerView mRvRelatedNews = (RecyclerView) findViewById(R.id.rv_related_news);
+            RecyclerViewHelper.initRecyclerViewV(this, mRvRelatedNews, false, mRelatedAdapter);
             mRelatedAdapter.updateItems(newsDetailBean.getRelative_sys());
         }
     }

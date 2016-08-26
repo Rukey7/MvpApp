@@ -9,43 +9,40 @@ import java.util.List;
 public class NewsDetailBean {
 
     /**
-     * body : <p>　　日本外务省24日公布了为援助原慰安妇向韩国财团提供10亿日元(约合人民币6621万元)的支出明细。财团将向包括去世者在内的245人(包括代理人)支付现金。资金用途设想为医疗和护理等。其中向每位在世者支付约1000万日元(约合人民币66万)，向已去世的原慰安妇家属等最多支付约200万日元(约合人民币13万)。日本外相岸田文雄与韩国外长尹炳世当天下午在东京的外务省举行了会谈，就推进面向未来的日韩关系达成了一致。</p><p>　　据日本共同社8月24日报道，韩国财团方面就作为“治愈金”向原慰安妇及其家属支付现金进行了探讨，日方同意了此事。</p><p>　　关于10亿日元，日韩两国政府称之为对“为恢复所有慰安妇名誉与尊严以及治愈心灵创伤的项目”的支出。日方主张没有法律责任并非赔偿金。</p><p>　　据日本外务省透露，韩国财团将听取原慰安妇及代理人的要求，结合去年12月日韩共识发放资金。预计用途将包括逝者丧葬相关费用以及其家人的奖学金等。</p><p>　　日韩外长在会谈中再次确认了双方切实履行去年年底达成的日韩共识的方针。岸田文雄再次就要求撤去首尔日本大使馆前的少女像一事要求韩国“努力妥善解决”。</p><p>　　岸田向尹炳世介绍称，24日的内阁会议批准了向韩国财团提供10亿日元资金。此外岸田还谈及8月15日韩国跨党派国会议员团登上岛根县竹岛(韩国称独岛)问题，并提出了抗议。</p><!--SPINFO#0--><p>原标题：日外务省公布韩国慰安妇赔偿明细：在世可拿66万 去世的最多13万</p>
+     * body : <!--IMG#0--><!--IMG#1--><!--IMG#2--><!--IMG#3--><!--IMG#4--><p>　　  8月26日，王宝强更新微博，晒出和刘国梁王楠等人合照，配文称：“奥运精神，兄弟之情，举杯同庆，其乐融融。”</p><p>　　照片发布后，网友纷纷留言称：“宝宝我们都支持你。”“宝宝，喜欢你开心地笑，加油。”</p><!--SPINFO#0--><!--SPINFO#1--><!--SPINFO#2-->
      * users : []
+     * replyCount : 61251
      * ydbaike : []
-     * spinfo : [{"ref":"<!--SPINFO#0-->","spcontent":"<p>　　<a href=\"http://3g.163.com/news/16/0815/02/BUFPTGJB00014Q4P.html\">日本将给韩国10亿日元作\"慰安妇\"受害者治愈金<\/a><\/p><p>　　8月12日，日本外务大臣岸田文雄与韩国外交部长尹炳世举行电话会谈，日方确认将出资10亿日元(约合987万美元)作为韩国\u201c慰安妇\u201d受害者\u201c治愈金\u201d。韩国外交部当天表示，两国外长在会谈中重申，应通过切实履行\u201c慰安妇\u201d协议，尽早恢复\u201c慰安妇\u201d受害者名誉和尊严，并治愈其心理创伤。<\/p>","sptype":"回顾"}]
-     * replyCount : 58657
-     * source_url : http://world.huanqiu.com/exclusive/2016-08/9356054.html
+     * spinfo : [{"ref":"<!--SPINFO#0-->","spcontent":"<p>　　<a href=\"http://3g.163.com/ntes/16/0825/12/BVAK755300963VRO.html\">曝王宝强9套房产均不在其名下称必须要孩子<\/a><\/p><p>　　王宝强离婚案沉寂了快一周，最近又有媒体陆续查到他在美国的房产，位于山的那边海的那边的美利坚南加州地区，但是目前房产的处理尚未有任何眉目。<\/p><p>　　重案组37号打探到的消息是，<b>宝宝虽然坐拥9套房产，但均没有登记在他个人名下\u2026\u2026此外，王宝强离婚案件或将不公开审理，而王宝强本人最在意的是要回孩子的抚养权。<\/b><\/p>","sptype":"回顾"},{"ref":"<!--SPINFO#1-->","spcontent":"<p>　　<a href=\"http://3g.163.com/ent/16/0815/11/BUGOHCKE00031H2L.html\">王宝强称马蓉曾伤害家人网友:他家出过2次车祸<\/a><\/p><p>　　王宝强起诉称，其与马蓉于2010年2月10日在河北邢台登记结婚，婚后育有一子一女。婚后其为家庭幸福安定不懈努力，但马蓉在婚姻关系存续期间，不仅与其经纪人宋喆发生婚外不正当两性关系，更有隐藏、转移夫妻共同财产、破坏家庭伤害家人的恶劣行为，致使双方感情彻底破裂。<\/p><p>　　对此，网友们纷纷猜测：\u201c伤害家人？不免让人想起宝宝家曾经出过两次车祸。\u201d\u201c细思极恐！\u201d\u201c感觉要变成刑事案件了！\u201d<\/p>","sptype":"推荐"},{"ref":"<!--SPINFO#2-->","spcontent":"<p>　　<a href=\"http://3g.163.com/ent/16/0816/18/BUK3PUEV00031H2L.html\">王宝强借款交费=财产被冻结?无法草率判断<\/a><\/p><p>　　京师律师事务所家庭婚姻部主任律师魏绍玲表示，\u201c借款交费\u201d一事，在无法知晓实情的前提下，不能草率判断其是否存在财产已被\u201c冻结\u201d情况。<\/p><p>　　魏绍玲表示，所谓\u201c冻结\u201d是指诉前财产保全，是指利害关系人因情况紧急，不立即申请财产保全将会使其合法权益受到难以弥补的损害的，可以在起诉前向人民法院申请，由人民法院所采取的一种财产保全措施。如果王宝强担心财产有被转移的可能，可以向法院申请诉前财产保全。<\/p><p>　　朝阳法院透露，王宝强一方预估财产总额至少为1个亿，法院遂按1亿元暂计财产价值，依据《诉讼费交纳办法》收取了诉讼费24.9575万元。<\/p>","sptype":"推荐"}]
      * link : []
-     * shareLink : http://c.m.163.com/news/a/BVA37SOL00014JB6.html?spss=newsapp&spsw=1
+     * shareLink : http://c.m.163.com/news/a/BVCGCEOC00963VRO.html?spss=newsapp&spsw=1
      * votes : []
-     * img : []
+     * img : [{"ref":"<!--IMG#0-->","pixel":"577*501","alt":"","src":"http://cms-bucket.nosdn.127.net/62b047f116804ffc96de7eb7fb73b5b420160826061217.jpeg"},{"ref":"<!--IMG#1-->","pixel":"549*293","alt":"","src":"http://cms-bucket.nosdn.127.net/d9767e682e1f425e83c31686b9eb774b20160826061545.jpeg"},{"ref":"<!--IMG#2-->","pixel":"550*293","alt":"","src":"http://cms-bucket.nosdn.127.net/74d86bb8a35b489ba9789914b8742b7020160826061545.jpeg"},{"ref":"<!--IMG#3-->","pixel":"550*420","alt":"","src":"http://cms-bucket.nosdn.127.net/875ee8d0294e4dd9bdb9d0758dfa945220160826061545.jpeg"},{"ref":"<!--IMG#4-->","pixel":"579*504","alt":"","src":"http://cms-bucket.nosdn.127.net/9f162273443a45a6837332b9eb2ff22d20160826061010.jpeg"}]
      * digest :
-     * dkeys : 慰安妇,赔偿,日本
-     * topiclist_news : [{"hasCover":false,"subnum":"3.2万","alias":"Top News","tname":"头条","ename":"androidnews","tid":"T1348647909107","cid":"C1348646712614"},{"hasCover":false,"subnum":"超过1000万","alias":"Top News","tname":"头条","ename":"iosnews","tid":"T1348647853363","cid":"C1348646712614"},{"hasCover":false,"subnum":"1.6万","alias":"yaowenspecial","tname":"精选","ename":"yaowenspecial","tid":"T1467284926140","cid":"C1348647991705"},{"hasCover":false,"subnum":"359","alias":"zonghe","tname":"海外","ename":"zonghe","tid":"T1462426218632","cid":"C1419315163934"}]
-     * ec : 王民和_bjs2974
-     * topiclist : [{"hasCover":false,"subnum":"626.8万","alias":"24小时即时国际重大新闻资讯","tname":"网易国际","ename":"guoji","tid":"T1348648122539","cid":"C1378977941637"}]
-     * docid : BVA37SOL00014JB6
+     * topiclist_news : [{"hasCover":false,"subnum":"0","alias":"yaowentuisong","tname":"要闻推送","ename":"pushliebiao","tid":"T1350294190231","cid":"C1350294152567"},{"hasCover":false,"subnum":"3.2万","alias":"Top News","tname":"头条","ename":"androidnews","tid":"T1348647909107","cid":"C1348646712614"},{"hasCover":false,"subnum":"超过1000万","alias":"Top News","tname":"头条","ename":"iosnews","tid":"T1348647853363","cid":"C1348646712614"},{"hasCover":false,"subnum":"0","alias":"todayNews2","tname":"今日要闻","ename":"todayNews2","tid":"T1429173762551","cid":"C1350294152567"},{"hasCover":false,"subnum":"0","alias":"newsToday1","tname":"今日要闻","ename":"newsToday1","tid":"T1429173683626","cid":"C1350294152567"},{"hasCover":false,"subnum":"1.6万","alias":"yaowenspecial","tname":"精选","ename":"yaowenspecial","tid":"T1467284926140","cid":"C1348647991705"},{"hasCover":false,"subnum":"0","alias":"androidpush","tname":"push列表（android）","ename":"androidpush","tid":"T1371543208049","cid":"C1350294152567"}]
+     * dkeys : 王宝强
+     * ec : 张美玲_NN5644
+     * topiclist : []
+     * docid : BVCGCEOC00963VRO
      * picnews : true
-     * title : 日公布韩慰安妇赔偿:在世的66万 去世最多13万
+     * title : 王宝强婚变后首次发声：举杯同庆 其乐融融
      * tid :
      * template : normal
-     * threadVote : 1
-     * askbar : [{"title":"军事评论员","headpicurl":"http://dingyue.nosdn.127.net/bbJxOHulJfzB2fzKyslP4bs4q3EjBAYTZ4qtvZxiNQhoY1465719317989.jpg","alias":"我是军事评论员杨艳月，有关军事、武器、国际政治的相关问题，问我吧！","expertId":"EX01392770972601712204","name":"杨艳月","concernCount":41174}]
-     * threadAgainst : 5
+     * threadVote : 3
+     * threadAgainst : 6
      * boboList : []
-     * replyBoard : news3_bbs
-     * source : 环球时报-环球网
-     * huati : [{"topicId":"SJ02406994076370798774","topicName":"社会"}]
+     * replyBoard : 3g_bbs
+     * source : 王宝强微博
+     * huati : [{"topicId":"SJ0693453310829241827","topicName":"说说宝强离婚"},{"topicId":"SJ5992393058376197754","topicName":"心疼宝强"},{"topicId":"SJ8679178013232906633","topicName":"一句话挺宝宝"}]
      * hasNext : false
      * voicecomment : off
      * apps : []
-     * relative_sys : [{"id":"BV8T28SL0001124J","title":"外交部回应\"200条中国渔船聚集日本东海岸外\"","source":"外交部网站","imgsrc":"http://cms-bucket.nosdn.127.net/df4bb495e0ff445dad39ad3f5fdc9f6c20160824203538.jpeg","docID":"BV8T28SL0001124J","type":"doc","ptime":"2016-08-24 20:33:57","href":""},{"id":"BV017NNJ05148MLI","title":"二战揭秘：日本女人为何要争抢着去做慰安妇？","source":"海外星云","imgsrc":"http://dingyue.nosdn.127.net/mxG3MlCqlPU5FLfTdB2RN90F1YHlv7Nej9K7g9ILAkjOW1471744406261.jpg","docID":"BV017NNJ05148MLI","type":"doc","ptime":"2016-08-21 09:53:41","href":""},{"id":"BUQMDFRB00014OVF","title":"将军激辩\u201c萨德\u201d：韩国是不是中国的敌人？","source":"环球时报","imgsrc":"http://img4.cache.netease.com/cnews/2016/8/19/201608190807072df18.jpg","docID":"BUQMDFRB00014OVF","type":"doc","ptime":"2016-08-19 08:08:22","href":""}]
-     * ptime : 2016-08-25 07:39:00
+     * relative_sys : [{"id":"BUTFDDM200031H2L","title":"王宝强疑似\u201c小三\u201d大起底 马蓉宋喆能洗白吗？","source":"网易娱乐","imgsrc":"http://cms-bucket.nosdn.127.net/c463a63824a44934a70181803643ce4020160820101529.png","docID":"BUTFDDM200031H2L","type":"doc","ptime":"2016-08-20 10:03:43","href":""},{"id":"BV2KL1T50517A1MA","title":"王宝强离婚\u201c家丑外扬\u201d，冲动背后是何屈辱？","source":"娱乐扒皮","imgsrc":"http://dingyue.nosdn.127.net/IJd0r7vyLD5o9eu8blPNcCFjZ3X84OwUjtXnRSPFOHc1k1471831889067transferflag.png","docID":"BV2KL1T50517A1MA","type":"doc","ptime":"2016-08-22 10:11:30","href":""},{"id":"BUQKA9V305218K77","title":"王宝强越来越占优势，因为有这些明星为他撑腰！","source":"李洪伙","imgsrc":"http://dingyue.nosdn.127.net/llW4z85gLN4fJVO53qjz7wp66ELkQnQeQWGxrpQbiyiBx1471417117492compressflag.png","docID":"BUQKA9V305218K77","type":"doc","ptime":"2016-08-19 07:31:41","href":""}]
+     * ptime : 2016-08-26 06:09:17
      */
 
     private String body;
     private int replyCount;
-    private String source_url;
     private String shareLink;
     private String digest;
     private String dkeys;
@@ -66,62 +63,49 @@ public class NewsDetailBean {
     private List<?> ydbaike;
     /**
      * ref : <!--SPINFO#0-->
-     * spcontent : <p>　　<a href="http://3g.163.com/news/16/0815/02/BUFPTGJB00014Q4P.html">日本将给韩国10亿日元作"慰安妇"受害者治愈金</a></p><p>　　8月12日，日本外务大臣岸田文雄与韩国外交部长尹炳世举行电话会谈，日方确认将出资10亿日元(约合987万美元)作为韩国“慰安妇”受害者“治愈金”。韩国外交部当天表示，两国外长在会谈中重申，应通过切实履行“慰安妇”协议，尽早恢复“慰安妇”受害者名誉和尊严，并治愈其心理创伤。</p>
+     * spcontent : <p>　　<a href="http://3g.163.com/ntes/16/0825/12/BVAK755300963VRO.html">曝王宝强9套房产均不在其名下称必须要孩子</a></p><p>　　王宝强离婚案沉寂了快一周，最近又有媒体陆续查到他在美国的房产，位于山的那边海的那边的美利坚南加州地区，但是目前房产的处理尚未有任何眉目。</p><p>　　重案组37号打探到的消息是，<b>宝宝虽然坐拥9套房产，但均没有登记在他个人名下……此外，王宝强离婚案件或将不公开审理，而王宝强本人最在意的是要回孩子的抚养权。</b></p>
      * sptype : 回顾
      */
 
     private List<SpinfoEntity> spinfo;
     private List<?> link;
     private List<?> votes;
-    private List<?> img;
+    /**
+     * ref : <!--IMG#0-->
+     * pixel : 577*501
+     * alt :
+     * src : http://cms-bucket.nosdn.127.net/62b047f116804ffc96de7eb7fb73b5b420160826061217.jpeg
+     */
+
+    private List<ImgEntity> img;
     /**
      * hasCover : false
-     * subnum : 3.2万
-     * alias : Top News
-     * tname : 头条
-     * ename : androidnews
-     * tid : T1348647909107
-     * cid : C1348646712614
+     * subnum : 0
+     * alias : yaowentuisong
+     * tname : 要闻推送
+     * ename : pushliebiao
+     * tid : T1350294190231
+     * cid : C1350294152567
      */
 
     private List<TopiclistNewsEntity> topiclist_news;
-    /**
-     * hasCover : false
-     * subnum : 626.8万
-     * alias : 24小时即时国际重大新闻资讯
-     * tname : 网易国际
-     * ename : guoji
-     * tid : T1348648122539
-     * cid : C1378977941637
-     */
-
-    private List<TopiclistEntity> topiclist;
-    /**
-     * title : 军事评论员
-     * headpicurl : http://dingyue.nosdn.127.net/bbJxOHulJfzB2fzKyslP4bs4q3EjBAYTZ4qtvZxiNQhoY1465719317989.jpg
-     * alias : 我是军事评论员杨艳月，有关军事、武器、国际政治的相关问题，问我吧！
-     * expertId : EX01392770972601712204
-     * name : 杨艳月
-     * concernCount : 41174
-     */
-
-    private List<AskbarEntity> askbar;
+    private List<?> topiclist;
     private List<?> boboList;
     /**
-     * topicId : SJ02406994076370798774
-     * topicName : 社会
+     * topicId : SJ0693453310829241827
+     * topicName : 说说宝强离婚
      */
 
     private List<HuatiEntity> huati;
     private List<?> apps;
     /**
-     * id : BV8T28SL0001124J
-     * title : 外交部回应"200条中国渔船聚集日本东海岸外"
-     * source : 外交部网站
-     * imgsrc : http://cms-bucket.nosdn.127.net/df4bb495e0ff445dad39ad3f5fdc9f6c20160824203538.jpeg
-     * docID : BV8T28SL0001124J
+     * id : BUTFDDM200031H2L
+     * title : 王宝强疑似“小三”大起底 马蓉宋喆能洗白吗？
+     * source : 网易娱乐
+     * imgsrc : http://cms-bucket.nosdn.127.net/c463a63824a44934a70181803643ce4020160820101529.png
+     * docID : BUTFDDM200031H2L
      * type : doc
-     * ptime : 2016-08-24 20:33:57
+     * ptime : 2016-08-20 10:03:43
      * href :
      */
 
@@ -141,14 +125,6 @@ public class NewsDetailBean {
 
     public void setReplyCount(int replyCount) {
         this.replyCount = replyCount;
-    }
-
-    public String getSource_url() {
-        return source_url;
-    }
-
-    public void setSource_url(String source_url) {
-        this.source_url = source_url;
     }
 
     public String getShareLink() {
@@ -319,11 +295,11 @@ public class NewsDetailBean {
         this.votes = votes;
     }
 
-    public List<?> getImg() {
+    public List<ImgEntity> getImg() {
         return img;
     }
 
-    public void setImg(List<?> img) {
+    public void setImg(List<ImgEntity> img) {
         this.img = img;
     }
 
@@ -335,20 +311,12 @@ public class NewsDetailBean {
         this.topiclist_news = topiclist_news;
     }
 
-    public List<TopiclistEntity> getTopiclist() {
+    public List<?> getTopiclist() {
         return topiclist;
     }
 
-    public void setTopiclist(List<TopiclistEntity> topiclist) {
+    public void setTopiclist(List<?> topiclist) {
         this.topiclist = topiclist;
-    }
-
-    public List<AskbarEntity> getAskbar() {
-        return askbar;
-    }
-
-    public void setAskbar(List<AskbarEntity> askbar) {
-        this.askbar = askbar;
     }
 
     public List<?> getBoboList() {
@@ -410,6 +378,45 @@ public class NewsDetailBean {
 
         public void setSptype(String sptype) {
             this.sptype = sptype;
+        }
+    }
+
+    public static class ImgEntity {
+        private String ref;
+        private String pixel;
+        private String alt;
+        private String src;
+
+        public String getRef() {
+            return ref;
+        }
+
+        public void setRef(String ref) {
+            this.ref = ref;
+        }
+
+        public String getPixel() {
+            return pixel;
+        }
+
+        public void setPixel(String pixel) {
+            this.pixel = pixel;
+        }
+
+        public String getAlt() {
+            return alt;
+        }
+
+        public void setAlt(String alt) {
+            this.alt = alt;
+        }
+
+        public String getSrc() {
+            return src;
+        }
+
+        public void setSrc(String src) {
+            this.src = src;
         }
     }
 
@@ -476,129 +483,6 @@ public class NewsDetailBean {
 
         public void setCid(String cid) {
             this.cid = cid;
-        }
-    }
-
-    public static class TopiclistEntity {
-        private boolean hasCover;
-        private String subnum;
-        private String alias;
-        private String tname;
-        private String ename;
-        private String tid;
-        private String cid;
-
-        public boolean isHasCover() {
-            return hasCover;
-        }
-
-        public void setHasCover(boolean hasCover) {
-            this.hasCover = hasCover;
-        }
-
-        public String getSubnum() {
-            return subnum;
-        }
-
-        public void setSubnum(String subnum) {
-            this.subnum = subnum;
-        }
-
-        public String getAlias() {
-            return alias;
-        }
-
-        public void setAlias(String alias) {
-            this.alias = alias;
-        }
-
-        public String getTname() {
-            return tname;
-        }
-
-        public void setTname(String tname) {
-            this.tname = tname;
-        }
-
-        public String getEname() {
-            return ename;
-        }
-
-        public void setEname(String ename) {
-            this.ename = ename;
-        }
-
-        public String getTid() {
-            return tid;
-        }
-
-        public void setTid(String tid) {
-            this.tid = tid;
-        }
-
-        public String getCid() {
-            return cid;
-        }
-
-        public void setCid(String cid) {
-            this.cid = cid;
-        }
-    }
-
-    public static class AskbarEntity {
-        private String title;
-        private String headpicurl;
-        private String alias;
-        private String expertId;
-        private String name;
-        private int concernCount;
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getHeadpicurl() {
-            return headpicurl;
-        }
-
-        public void setHeadpicurl(String headpicurl) {
-            this.headpicurl = headpicurl;
-        }
-
-        public String getAlias() {
-            return alias;
-        }
-
-        public void setAlias(String alias) {
-            this.alias = alias;
-        }
-
-        public String getExpertId() {
-            return expertId;
-        }
-
-        public void setExpertId(String expertId) {
-            this.expertId = expertId;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public int getConcernCount() {
-            return concernCount;
-        }
-
-        public void setConcernCount(int concernCount) {
-            this.concernCount = concernCount;
         }
     }
 

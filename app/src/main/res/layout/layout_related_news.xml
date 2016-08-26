@@ -32,8 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:text="动物世界"/>
+            android:layout_marginLeft="10dp"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_related_news"

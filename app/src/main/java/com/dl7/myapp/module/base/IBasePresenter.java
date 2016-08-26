@@ -7,12 +7,12 @@ package com.dl7.myapp.module.base;
 public interface IBasePresenter {
 
     /**
-     * 更新视图界面
+     * 获取网络数据，更新界面
      */
-    void loadData();
+    void getData();
 
     /**
      * 加载更多数据
      */
-    void loadMoreData();
+    void getMoreData();
 }

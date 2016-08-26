@@ -51,9 +51,14 @@
 
     <ViewStub
         android:id="@+id/vs_related_content"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout="@layout/layout_related_content"/>
 
-    <include layout="@layout/layout_related_news"/>
+    <ViewStub
+        android:id="@+id/vs_related_news"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout="@layout/layout_related_news"/>
+    <!--<include layout="@layout/layout_related_news"/>-->
 </LinearLayout>

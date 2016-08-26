@@ -32,12 +32,12 @@ public class NewsListPresenter implements IBasePresenter {
     }
 
     @Override
-    public void loadData() {
+    public void getData() {
         _getData();
     }
 
     @Override
-    public void loadMoreData() {
+    public void getMoreData() {
         _getMoreData();
     }
 
@@ -78,7 +78,7 @@ public class NewsListPresenter implements IBasePresenter {
                         mView.showNetError(new EmptyLayout.OnRetryListener() {
                             @Override
                             public void onRetry() {
-                                loadData();
+                                getData();
                             }
                         });
                     }
@@ -118,7 +118,7 @@ public class NewsListPresenter implements IBasePresenter {
 //                mView.showNetError(new EmptyLayout.OnRetryListener() {
 //                    @Override
 //                    public void onRetry() {
-//                        loadData();
+//                        getData();
 //                    }
 //                });
 //            }
@@ -126,7 +126,7 @@ public class NewsListPresenter implements IBasePresenter {
 //            @Override
 //            public void onNext(List<NewsMultiItem> newsMultiItems) {
 //                Logger.w("onCompleted");
-//                mView.loadData(newsMultiItems);
+//                mView.getData(newsMultiItems);
 //            }
 //        });
     }

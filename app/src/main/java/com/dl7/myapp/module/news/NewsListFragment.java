@@ -100,14 +100,14 @@ public class NewsListFragment extends BaseFragment implements INewsListView {
         mAdapter.setRequestDataListener(new OnRequestDataListener() {
             @Override
             public void onLoadMore() {
-                mPresenter.loadMoreData();
+                mPresenter.getMoreData();
             }
         });
     }
 
     @Override
     protected void updateViews() {
-        mPresenter.loadData();
+        mPresenter.getData();
     }
 
     @Override
