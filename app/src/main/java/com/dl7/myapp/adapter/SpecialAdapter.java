@@ -7,8 +7,10 @@ import android.widget.ImageView;
 import com.dl7.helperlibrary.adapter.BaseSectionQuickAdapter;
 import com.dl7.helperlibrary.adapter.BaseViewHolder;
 import com.dl7.myapp.R;
+import com.dl7.myapp.api.NewsUtils;
 import com.dl7.myapp.entity.SpecialItem;
 import com.dl7.myapp.module.detail.NewsDetailActivity;
+import com.dl7.myapp.module.special.SpecialActivity;
 import com.dl7.myapp.utils.ImageLoader;
 
 import java.util.List;
@@ -53,7 +55,11 @@ public class SpecialAdapter extends BaseSectionQuickAdapter<SpecialItem> {
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NewsDetailActivity.launch(mContext, item.t.getId());
+                if (NewsUtils.isNewsSpecial(item.t.getSkipType())) {
+                    SpecialActivity.launch(mContext, item.t.getSpecialID());
+                } else {
+                    NewsDetailActivity.launch(mContext, item.t.getPostid());
+                }
             }
         });
     }

@@ -24,6 +24,24 @@ public class NewsItemBean {
     private String lmodify;
     private String imgsrc;
     private String ptime;
+    private String skipType;
+    private String specialID;
+
+    public String getSkipType() {
+        return skipType;
+    }
+
+    public void setSkipType(String skipType) {
+        this.skipType = skipType;
+    }
+
+    public String getSpecialID() {
+        return specialID;
+    }
+
+    public void setSpecialID(String specialID) {
+        this.specialID = specialID;
+    }
 
     public String getId() {
         return id;

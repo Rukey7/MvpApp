@@ -30,6 +30,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class SpecialActivity extends BaseActivity implements ISpecialView {
 
@@ -77,7 +79,8 @@ public class SpecialActivity extends BaseActivity implements ISpecialView {
         initToolBar(mToolBar, true, "");
         mCollapsingToolBar.setExpandedTitleColor(ContextCompat.getColor(this, R.color.expanded_title));
         mCollapsingToolBar.setCollapsedTitleTextColor(ContextCompat.getColor(this, R.color.collapsed_title));
-        RecyclerViewHelper.initRecyclerViewV(this, mRvNewsList, true, mSpecialAdapter);
+        ScaleInAnimationAdapter animAdapter = new ScaleInAnimationAdapter(mSpecialAdapter);
+        RecyclerViewHelper.initRecyclerViewV(this, mRvNewsList, true, new AlphaInAnimationAdapter(animAdapter));
     }
 
     @Override

@@ -86,10 +86,8 @@ public class SpecialPresenter implements IBasePresenter {
                     .doOnNext(new Action1<TopicsEntity>() {
                         @Override
                         public void call(TopicsEntity topicsEntity) {
-                            Logger.i(topicsEntity.getIndex() + "");
-                            int index = topicsEntity.getIndex() - 1;
-                            specialItems[index] = new SpecialItem(true, topicsEntity.getTname());
-                            Logger.d(topicsEntity.getTname());
+                            specialItems[topicsEntity.getIndex() - 1] = new SpecialItem(true,
+                                    topicsEntity.getIndex() + "/" + specialItems.length + " " + topicsEntity.getTname());
                         }
                     })
                     // 排序
@@ -120,51 +118,5 @@ public class SpecialPresenter implements IBasePresenter {
                                     .startWith(specialItems[topicsEntity.getIndex() - 1]);
                         }
                     });
-
-//
-//                .map(new Func1<TopicsEntity, List<NewsItemBean>>() {
-//                    @Override
-//                    public List<NewsItemBean> call(TopicsEntity topicsEntity) {
-//                        return topicsEntity.getDocs();
-//                    }
-//                })
-//                .flatMap(new Func1<List<NewsItemBean>, Observable<SpecialItem>>() {
-//                    @Override
-//                    public Observable<SpecialItem> call(List<NewsItemBean> newsItemList) {
-//                        Observable.from(newsItemList).map(new Func1<NewsItemBean, SpecialItem>() {
-//                            @Override
-//                            public SpecialItem call(NewsItemBean newsItemBean) {
-//                                return new SpecialItem(newsItemBean);
-//                            }
-//                        }).startWith();
-//                        return null;
-//                    }
-//                })
-//
-//
-//                //
-//                .flatMap(new Func1<List<TopicsEntity>, Observable<List<NewsItemBean>>>() {
-//                    @Override
-//                    public Observable<List<NewsItemBean>> call(List<TopicsEntity> topicsEntities) {
-//                        List<List<NewsItemBean>> lists = new ArrayList<List<NewsItemBean>>();
-//                        for (TopicsEntity topicsEntity : topicsEntities) {
-//                            lists.add(topicsEntity.getDocs());
-//                        }
-//                        return Observable.from(lists);
-//                    }
-//                })
-//                .subscribe(new Action1<List<NewsItemBean>>() {
-//                    @Override
-//                    public void call(List<NewsItemBean> newsItemList) {
-//                        Observable.from(newsItemList)
-//                                .map(new Func1<NewsItemBean, SpecialItem>() {
-//                                    @Override
-//                                    public SpecialItem call(NewsItemBean newsItemBean) {
-//                                        return null;
-//                                    }
-//                                })
-//                    }
-//                });
-
     }
 }
