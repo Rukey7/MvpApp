@@ -37,7 +37,6 @@ public class PhotoSetActivity extends BaseActivity implements IPhotoSetView {
     IBasePresenter mPresenter;
 
     private String mPhotoSetId;
-    private PhotoPagerAdapter mAdapter;
 
     public static void launch(Context context, String newsId) {
         Intent intent = new Intent(context, PhotoSetActivity.class);

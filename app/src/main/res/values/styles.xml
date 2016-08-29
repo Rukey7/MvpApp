@@ -44,4 +44,14 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/colorAccent</item>
     </style>
+
+    <style name="photo_main">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="photo_content">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 </resources>

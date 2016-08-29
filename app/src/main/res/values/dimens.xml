@@ -23,6 +23,9 @@
     <!-- News Detail-->
     <dimen name="related_news_height">310dp</dimen>
 
-
     <dimen name="app_bar_height">180dp</dimen>
+
+    <!-- Photo set -->
+    <dimen name="photo_set_desc_height">400dp</dimen>
+    <dimen name="photo_set_desc_margin_top">100dp</dimen>
 </resources>

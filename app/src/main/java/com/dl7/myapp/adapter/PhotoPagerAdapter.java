@@ -43,7 +43,7 @@ public class PhotoPagerAdapter extends PagerAdapter {
 //        View view = LayoutInflater.from(mContext).inflate(R.layout.adapter_photo_set, null, false);
 //        PhotoView photo = (PhotoView) view.findViewById(R.id.iv_photo);
         PhotoView photo = new PhotoView(mContext);
-        ImageLoader.loadFitCenter(mContext, mImgList.get(position), photo, R.mipmap.icon_default);
+        ImageLoader.loadCenterCrop(mContext, mImgList.get(position), photo, R.mipmap.icon_default);
         container.addView(photo);
         return photo;
     }
