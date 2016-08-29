@@ -80,7 +80,8 @@ public class SpecialPresenter implements IBasePresenter {
 
 
     private Observable<SpecialItem> _convertSpecialBeanToItem(SpecialBean specialBean) {
-        final SpecialItem[] specialItems = new SpecialItem[specialBean.getTopics().size()];
+        // 这边 +1 是接口数据还有个 topicsplus 的字段可能是穿插在 topics 字段列表中间。这里没有处理 topicsplus
+        final SpecialItem[] specialItems = new SpecialItem[specialBean.getTopics().size() + 1];
         return Observable.from(specialBean.getTopics())
                     // 获取头部
                     .doOnNext(new Action1<TopicsEntity>() {

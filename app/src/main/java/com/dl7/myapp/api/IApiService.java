@@ -2,6 +2,7 @@ package com.dl7.myapp.api;
 
 import com.dl7.myapp.api.bean.NewsBean;
 import com.dl7.myapp.api.bean.NewsDetailBean;
+import com.dl7.myapp.api.bean.PhotoSetBean;
 import com.dl7.myapp.api.bean.SpecialBean;
 
 import java.util.List;
@@ -57,4 +58,14 @@ public interface IApiService {
     @GET("nc/article/{newsId}/full.html")
     Observable<Map<String, NewsDetailBean>> getNewsDetail(@Path("newsId") String newsId);
 
+    /**
+     * 获取新闻详情
+     * eg: http://c.3g.163.com/photo/api/set/0006/2136404.json
+     *
+     * @param photoId 图集ID
+     * @return
+     */
+    @Headers(CACHE_CONTROL_NETWORK)
+    @GET("photo/api/set/{photoId}.json")
+    Observable<PhotoSetBean> getPhotoSet(@Path("photoId") String photoId);
 }

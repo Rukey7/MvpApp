@@ -11,8 +11,11 @@ import com.dl7.myapp.api.NewsUtils;
 import com.dl7.myapp.api.bean.NewsBean;
 import com.dl7.myapp.entity.NewsMultiItem;
 import com.dl7.myapp.module.detail.NewsDetailActivity;
+import com.dl7.myapp.module.photo.PhotoSetActivity;
 import com.dl7.myapp.module.special.SpecialActivity;
 import com.dl7.myapp.utils.ImageLoader;
+import com.dl7.myapp.utils.StringUtils;
+import com.flyco.labelview.LabelView;
 
 import java.util.List;
 
@@ -57,8 +60,17 @@ public class NewsMultiListAdapter extends BaseMultiItemQuickAdapter<NewsMultiIte
         ImageView newsIcon = holder.getView(R.id.iv_icon);
         ImageLoader.loadFit(mContext, item.getImgsrc(), newsIcon, R.mipmap.icon_default);
         holder.setText(R.id.tv_title, item.getTitle())
-                .setText(R.id.tv_source, _clipSource(item.getSource()))
+                .setText(R.id.tv_source, StringUtils.clipNewsSource(item.getSource()))
                 .setText(R.id.tv_time, item.getPtime());
+
+        if (NewsUtils.isNewsSpecial(item.getSkipType())) {
+            LabelView labelView = holder.getView(R.id.label_view);
+            labelView.setVisibility(View.VISIBLE);
+            labelView.setText("专题");
+        } else {
+            holder.setVisible(R.id.label_view, false);
+        }
+
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +88,7 @@ public class NewsMultiListAdapter extends BaseMultiItemQuickAdapter<NewsMultiIte
      * @param holder
      * @param item
      */
-    private void _handleNewsPhotoSet(BaseViewHolder holder, NewsBean item) {
+    private void _handleNewsPhotoSet(BaseViewHolder holder, final NewsBean item) {
         ImageView[] newsPhoto = new ImageView[3];
         newsPhoto[0] = holder.getView(R.id.iv_icon_1);
         newsPhoto[1] = holder.getView(R.id.iv_icon_2);
@@ -87,14 +99,13 @@ public class NewsMultiListAdapter extends BaseMultiItemQuickAdapter<NewsMultiIte
                     newsPhoto[i+1], R.mipmap.icon_default);
         }
         holder.setText(R.id.tv_title, item.getTitle())
+                .setText(R.id.tv_source, StringUtils.clipNewsSource(item.getSource()))
                 .setText(R.id.tv_time, item.getPtime());
-    }
-
-    private String _clipSource(String source) {
-        int i = source.indexOf("-");
-        if (i != -1) {
-            return source.substring(0, i);
-        }
-        return source;
+        holder.getConvertView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PhotoSetActivity.launch(mContext, item.getPhotosetID());
+            }
+        });
     }
 }

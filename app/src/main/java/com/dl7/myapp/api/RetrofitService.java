@@ -6,8 +6,10 @@ import android.util.SparseArray;
 import com.dl7.myapp.AndroidApplication;
 import com.dl7.myapp.api.bean.NewsBean;
 import com.dl7.myapp.api.bean.NewsDetailBean;
+import com.dl7.myapp.api.bean.PhotoSetBean;
 import com.dl7.myapp.api.bean.SpecialBean;
 import com.dl7.myapp.utils.NetUtil;
+import com.dl7.myapp.utils.StringUtils;
 import com.orhanobut.logger.Logger;
 
 import java.io.File;
@@ -242,6 +244,16 @@ public class RetrofitService {
                 });
     }
 
+    /**
+     * 获取图集
+     * @param photoId 图集ID
+     * @return
+     */
+    public static Observable<PhotoSetBean> getPhotoSet(String photoId) {
+        return mService.getPhotoSet(StringUtils.clipPhotoSetId(photoId))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 
     /**
      * 类型转换

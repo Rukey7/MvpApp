@@ -4,7 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 /**
  * Created by long on 2016/8/23.
@@ -19,11 +19,14 @@ public final class ImageLoader {
 
     public static void loadFit(Context context, String url, ImageView view, int defaultResId) {
         if (!TextUtils.isEmpty(url)) {
-            Picasso.with(context).load(url).fit().placeholder(defaultResId).into(view);
+//            Picasso.with(context).load(url).fit().placeholder(defaultResId).into(view);
+            view.setScaleType(ImageView.ScaleType.FIT_XY);
+            Glide.with(context).load(url).fitCenter().placeholder(defaultResId).crossFade().into(view);
         }
     }
 
-    public static void loadCenterCrop(Context context, String url, ImageView view, int defaultResId) {
-        Picasso.with(context).load(url).centerCrop().placeholder(defaultResId).into(view);
+    public static void loadFitCenter(Context context, String url, ImageView view, int defaultResId) {
+//        Picasso.with(context).load(url).centerInside().placeholder(defaultResId).into(view);
+        Glide.with(context).load(url).fitCenter().crossFade().placeholder(defaultResId).into(view);
     }
 }

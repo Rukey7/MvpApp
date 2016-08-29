@@ -64,4 +64,7 @@ dependencies {
     compile 'jp.wasabeef:recyclerview-animators:2.2.3'
     // html text
     compile 'com.zzhoujay.richtext:richtext:2.0.9'
+    // LabelView
+    compile 'com.flyco.labelview:FlycoLabelView_Lib:1.0.2@aar'
+    compile 'com.github.chrisbanes.photoview:library:1.2.4'
 }

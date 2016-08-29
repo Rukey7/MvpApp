@@ -12,6 +12,7 @@ import com.dl7.myapp.entity.SpecialItem;
 import com.dl7.myapp.module.detail.NewsDetailActivity;
 import com.dl7.myapp.module.special.SpecialActivity;
 import com.dl7.myapp.utils.ImageLoader;
+import com.dl7.myapp.utils.StringUtils;
 
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class SpecialAdapter extends BaseSectionQuickAdapter<SpecialItem> {
         ImageView newsIcon = holder.getView(R.id.iv_icon);
         ImageLoader.loadFit(mContext, item.t.getImgsrc(), newsIcon, R.mipmap.icon_default);
         holder.setText(R.id.tv_title, item.t.getTitle())
-                .setText(R.id.tv_source, _clipSource(item.t.getSource()))
+                .setText(R.id.tv_source, StringUtils.clipNewsSource(item.t.getSource()))
                 .setText(R.id.tv_time, item.t.getPtime());
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,13 +63,5 @@ public class SpecialAdapter extends BaseSectionQuickAdapter<SpecialItem> {
                 }
             }
         });
-    }
-
-    private String _clipSource(String source) {
-        int i = source.indexOf("-");
-        if (i != -1) {
-            return source.substring(0, i);
-        }
-        return source;
     }
 }
