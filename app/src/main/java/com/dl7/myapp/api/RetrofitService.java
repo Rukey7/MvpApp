@@ -55,7 +55,7 @@ public class RetrofitService {
     // 体育
     public static final int NEWS_SPORT = 3;
 
-    //设缓存有效期为两天
+    //设缓存有效期为1天
     static final long CACHE_STALE_SEC = 60 * 60 * 24 * 1;
     //查询缓存的Cache-Control设置，为if-only-cache时只查询缓存而不会请求服务器，max-stale可以配合设置缓存失效时间
     private static final String CACHE_CONTROL_CACHE = "only-if-cached, max-stale=" + CACHE_STALE_SEC;

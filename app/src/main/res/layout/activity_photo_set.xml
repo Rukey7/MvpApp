@@ -15,47 +15,16 @@
 
     <include layout="@layout/layout_toolbar_transparent"/>
 
-
-    <LinearLayout
+    <com.dl7.myapp.views.ScrollOverLayout
         android:layout_width="match_parent"
         android:layout_gravity="bottom"
-        android:layout_height="@dimen/photo_set_desc_height"
-        android:orientation="vertical">
+        android:layout_height="200dp">
 
-        <LinearLayout
+        <TextView
+            android:background="@color/colorAccent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_title"
-                style="@style/photo_main"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:id="@+id/tv_cur_index"
-                style="@style/photo_main"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:id="@+id/tv_photo_sum"
-                style="@style/photo_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </android.support.v4.widget.NestedScrollView>
-    </LinearLayout>
+            android:layout_height="match_parent"/>
+    </com.dl7.myapp.views.ScrollOverLayout>
 
     <com.dl7.myapp.views.EmptyLayout
         android:id="@+id/empty_layout"
