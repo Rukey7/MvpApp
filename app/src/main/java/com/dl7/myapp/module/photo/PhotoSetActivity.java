@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import com.dl7.myapp.R;
 import com.dl7.myapp.adapter.PhotoPagerAdapter;
@@ -14,6 +15,7 @@ import com.dl7.myapp.injector.modules.PhotoSetModule;
 import com.dl7.myapp.module.base.BaseActivity;
 import com.dl7.myapp.module.base.IBasePresenter;
 import com.dl7.myapp.views.EmptyLayout;
+import com.dl7.myapp.views.ScrollOverLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +37,18 @@ public class PhotoSetActivity extends BaseActivity implements IPhotoSetView {
 
     @Inject
     IBasePresenter mPresenter;
+    @BindView(R.id.tv_title)
+    TextView mTvTitle;
+    @BindView(R.id.tv_content)
+    TextView mTvContent;
+    @BindView(R.id.scroll_layout)
+    ScrollOverLayout mScrollLayout;
+    @BindView(R.id.tv_index)
+    TextView mTvIndex;
 
     private String mPhotoSetId;
+    private PhotoPagerAdapter mAdapter;
+    private List<PhotosEntity> mPhotosEntities;
 
     public static void launch(Context context, String newsId) {
         Intent intent = new Intent(context, PhotoSetActivity.class);
@@ -83,11 +95,33 @@ public class PhotoSetActivity extends BaseActivity implements IPhotoSetView {
     @Override
     public void loadData(PhotoSetBean photoSetBean) {
         List<String> imgUrls = new ArrayList<>();
-        List<PhotosEntity> entities = photoSetBean.getPhotos();
-        for (PhotosEntity entity : entities) {
+        mPhotosEntities = photoSetBean.getPhotos();
+        for (PhotosEntity entity : mPhotosEntities) {
             imgUrls.add(entity.getImgurl());
         }
-        mVpPhoto.setAdapter(new PhotoPagerAdapter(this, imgUrls));
+        mAdapter = new PhotoPagerAdapter(this, imgUrls);
+        mAdapter.setListener(new PhotoPagerAdapter.OnPhotoClickListener() {
+            @Override
+            public void onPhotoClick() {
+                if (mScrollLayout.getScrollStatus() == ScrollOverLayout.STATUS_EXIT) {
+                    mScrollLayout.setScrollStatus(ScrollOverLayout.STATUS_COLLAPSED);
+                } else {
+                    mScrollLayout.setScrollStatus(ScrollOverLayout.STATUS_EXIT);
+                }
+            }
+        });
+        mVpPhoto.setAdapter(mAdapter);
         mVpPhoto.setOffscreenPageLimit(imgUrls.size());
+        mTvTitle.setText(photoSetBean.getSetname());
+        mTvContent.setText(mPhotosEntities.get(0).getNote());
+        mTvIndex.setText("1/" + mPhotosEntities.size());
+        mVpPhoto.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                mTvContent.setText(mPhotosEntities.get(position).getNote());
+                mTvIndex.setText((position + 1) + "/" + mPhotosEntities.size());
+            }
+        });
     }
+
 }

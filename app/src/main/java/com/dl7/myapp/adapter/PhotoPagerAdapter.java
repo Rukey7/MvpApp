@@ -11,6 +11,7 @@ import com.dl7.myapp.utils.ImageLoader;
 import java.util.List;
 
 import uk.co.senab.photoview.PhotoView;
+import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
  * Created by long on 2016/8/29.
@@ -20,6 +21,7 @@ public class PhotoPagerAdapter extends PagerAdapter {
 
     private List<String> mImgList;
     private Context mContext;
+    private OnPhotoClickListener mListener;
 
 
     public PhotoPagerAdapter(Context context, List<String> imgList) {
@@ -40,16 +42,30 @@ public class PhotoPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-//        View view = LayoutInflater.from(mContext).inflate(R.layout.adapter_photo_set, null, false);
-//        PhotoView photo = (PhotoView) view.findViewById(R.id.iv_photo);
         PhotoView photo = new PhotoView(mContext);
         ImageLoader.loadCenterCrop(mContext, mImgList.get(position), photo, R.mipmap.icon_default);
         container.addView(photo);
+        photo.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
+            @Override
+            public void onPhotoTap(View view, float x, float y) {
+                if (mListener != null) {
+                    mListener.onPhotoClick();
+                }
+            }
+        });
         return photo;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View) object);
+    }
+
+    public void setListener(OnPhotoClickListener listener) {
+        mListener = listener;
+    }
+
+    public interface OnPhotoClickListener {
+        void onPhotoClick();
     }
 }

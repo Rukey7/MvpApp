@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,14 +17,55 @@
     <include layout="@layout/layout_toolbar_transparent"/>
 
     <com.dl7.myapp.views.ScrollOverLayout
+        android:id="@+id/scroll_layout"
         android:layout_width="match_parent"
+        android:layout_height="@dimen/photo_set_desc_height"
         android:layout_gravity="bottom"
-        android:layout_height="200dp">
+        android:background="@color/photo_set_bg"
+        app:fix_height="@dimen/photo_set_desc_fix_height">
 
-        <TextView
-            android:background="@color/colorAccent"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/tv_index"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <com.dl7.myapp.views.ScrollContentView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"/>
+            </com.dl7.myapp.views.ScrollContentView>
+        </LinearLayout>
     </com.dl7.myapp.views.ScrollOverLayout>
 
     <com.dl7.myapp.views.EmptyLayout

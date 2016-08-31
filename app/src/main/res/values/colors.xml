@@ -12,4 +12,6 @@
 
     <color name="expanded_title">#607d8b</color>
     <color name="collapsed_title">#ffffff</color>
+
+    <color name="photo_set_bg">#44000000</color>
 </resources>
