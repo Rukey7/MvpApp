@@ -82,8 +82,8 @@ public class RecyclerViewHelper {
      * @param view
      */
     public static void initRecyclerViewG(Context context, RecyclerView view, boolean isDivided,
-                                         RecyclerView.Adapter adapter) {
-        GridLayoutManager layoutManager = new GridLayoutManager(context, 3);
+                                         RecyclerView.Adapter adapter, int column) {
+        GridLayoutManager layoutManager = new GridLayoutManager(context, column);
         view.setHasFixedSize(true);
         view.setLayoutManager(layoutManager);
         view.setItemAnimator(new DefaultItemAnimator());
@@ -92,8 +92,8 @@ public class RecyclerViewHelper {
         }
     }
 
-    public static void initRecyclerViewG(Context context, RecyclerView view, RecyclerView.Adapter adapter) {
-        initRecyclerViewG(context, view, false, adapter);
+    public static void initRecyclerViewG(Context context, RecyclerView view, RecyclerView.Adapter adapter, int column) {
+        initRecyclerViewG(context, view, false, adapter, column);
     }
 
     /**

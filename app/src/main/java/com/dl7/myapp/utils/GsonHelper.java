@@ -5,7 +5,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +46,6 @@ public final class GsonHelper {
     public static <T> List<T> convertEntities(String jsonData, Class<T> entityClass) {
         List<T> entities = new ArrayList<>();
         try {
-            Logger.e(jsonData);
             JsonArray jsonArray = sJsonParser.parse(jsonData).getAsJsonArray();
             for (JsonElement element : jsonArray) {
                 entities.add(sGson.fromJson(element, entityClass));

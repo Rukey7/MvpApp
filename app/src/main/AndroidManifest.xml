@@ -27,6 +27,8 @@
         </activity>
         <activity android:name=".module.photo.PhotoSetActivity">
         </activity>
+        <activity android:name=".module.manage.ManageActivity">
+        </activity>
     </application>
 
 </manifest>

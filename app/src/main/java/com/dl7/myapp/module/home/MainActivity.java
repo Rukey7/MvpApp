@@ -15,19 +15,16 @@ import android.view.WindowManager;
 import com.dl7.myapp.R;
 import com.dl7.myapp.adapter.ViewPagerAdapter;
 import com.dl7.myapp.api.RetrofitService;
-import com.dl7.myapp.local.table.NewsTypeBean;
 import com.dl7.myapp.module.base.BaseActivity;
+import com.dl7.myapp.module.manage.ManageActivity;
 import com.dl7.myapp.module.news.NewsListFragment;
-import com.dl7.myapp.utils.AssetsHelper;
-import com.dl7.myapp.utils.GsonHelper;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.tool_bar)
     Toolbar mToolBar;
@@ -52,9 +49,6 @@ public class MainActivity extends BaseActivity {
         initToolBar(mToolBar, true, "MVP");
         _initTabLayout();
         _initDrawerLayout();
-
-        List<NewsTypeBean> channels = GsonHelper.convertEntities(AssetsHelper.readData(this, "NewsChannel"), NewsTypeBean.class);
-        Logger.e(channels.toString());
     }
 
     @Override
@@ -85,14 +79,7 @@ public class MainActivity extends BaseActivity {
         mDrawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
-        mNavView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-                item.setChecked(true);
-                mDrawerLayout.closeDrawers();
-                return true;
-            }
-        });
+        mNavView.setNavigationItemSelectedListener(this);
     }
 
     private void _initTabLayout() {
@@ -115,5 +102,19 @@ public class MainActivity extends BaseActivity {
         mViewPager.setOffscreenPageLimit(4);
         mTabLayout.setupWithViewPager(mViewPager);
 
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.nav_gallery:
+                break;
+            case R.id.nav_manage:
+                ManageActivity.launch(this);
+                break;
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
