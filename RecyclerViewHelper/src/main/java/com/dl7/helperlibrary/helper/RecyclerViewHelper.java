@@ -71,6 +71,7 @@ public class RecyclerViewHelper {
         if (isDivided) {
             view.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL_LIST));
         }
+        view.setAdapter(adapter);
     }
 
     public static void initRecyclerViewH(Context context, RecyclerView view, RecyclerView.Adapter adapter) {
@@ -90,6 +91,7 @@ public class RecyclerViewHelper {
         if (isDivided) {
             view.addItemDecoration(new DividerGridItemDecoration(context));
         }
+        view.setAdapter(adapter);
     }
 
     public static void initRecyclerViewG(Context context, RecyclerView view, RecyclerView.Adapter adapter, int column) {
