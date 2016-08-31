@@ -32,11 +32,6 @@ public class PhotoSetActivity extends BaseActivity implements IPhotoSetView {
     Toolbar mToolbar;
     @BindView(R.id.vp_photo)
     ViewPager mVpPhoto;
-    @BindView(R.id.empty_layout)
-    EmptyLayout mEmptyLayout;
-
-    @Inject
-    IBasePresenter mPresenter;
     @BindView(R.id.tv_title)
     TextView mTvTitle;
     @BindView(R.id.tv_content)
@@ -45,6 +40,11 @@ public class PhotoSetActivity extends BaseActivity implements IPhotoSetView {
     ScrollOverLayout mScrollLayout;
     @BindView(R.id.tv_index)
     TextView mTvIndex;
+    @BindView(R.id.empty_layout)
+    EmptyLayout mEmptyLayout;
+
+    @Inject
+    IBasePresenter mPresenter;
 
     private String mPhotoSetId;
     private PhotoPagerAdapter mAdapter;

@@ -15,8 +15,12 @@ import android.view.WindowManager;
 import com.dl7.myapp.R;
 import com.dl7.myapp.adapter.ViewPagerAdapter;
 import com.dl7.myapp.api.RetrofitService;
+import com.dl7.myapp.local.table.NewsTypeBean;
 import com.dl7.myapp.module.base.BaseActivity;
 import com.dl7.myapp.module.news.NewsListFragment;
+import com.dl7.myapp.utils.AssetsHelper;
+import com.dl7.myapp.utils.GsonHelper;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +52,9 @@ public class MainActivity extends BaseActivity {
         initToolBar(mToolBar, true, "MVP");
         _initTabLayout();
         _initDrawerLayout();
+
+        List<NewsTypeBean> channels = GsonHelper.convertEntities(AssetsHelper.readData(this, "NewsChannel"), NewsTypeBean.class);
+        Logger.e(channels.toString());
     }
 
     @Override
@@ -101,10 +108,12 @@ public class MainActivity extends BaseActivity {
         fragments.add(NewsListFragment.newInstance(RetrofitService.NEWS_SPORT));
 
         mPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        mPagerAdapter.setFragments(fragments);
-        mPagerAdapter.setTitles(titles);
+        mPagerAdapter.setDatas(fragments, titles);
+//        mPagerAdapter.setFragments(fragments);
+//        mPagerAdapter.setTitles(titles);
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setOffscreenPageLimit(4);
         mTabLayout.setupWithViewPager(mViewPager);
+
     }
 }

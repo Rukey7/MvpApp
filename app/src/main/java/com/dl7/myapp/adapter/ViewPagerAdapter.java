@@ -47,4 +47,10 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         this.mTitles = mTitles;
         notifyDataSetChanged();
     }
+
+    public void setDatas(List<Fragment> fragments, List<String> mTitles) {
+        this.fragments = fragments;
+        this.mTitles = mTitles;
+        notifyDataSetChanged();
+    }
 }
