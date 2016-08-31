@@ -11,6 +11,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <include layout="@layout/layout_toolbar"/>
+
         <TextView
             style="@style/manage_title"
             android:layout_width="match_parent"
@@ -20,7 +22,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_checked_list"
             android:layout_width="match_parent"
-            android:layout_height="600dp"/>
+            android:layout_height="wrap_content"/>
 
         <TextView
             style="@style/manage_title"

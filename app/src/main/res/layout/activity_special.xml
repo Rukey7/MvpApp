@@ -38,7 +38,6 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/tool_bar"
                 android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/toolbar_margin_top"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"/>
