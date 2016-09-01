@@ -34,7 +34,7 @@ public class RecyclerViewHelper {
                                          RecyclerView.Adapter adapter) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        view.setHasFixedSize(true);
+//        view.setHasFixedSize(true);
         view.setLayoutManager(layoutManager);
         view.setItemAnimator(new DefaultItemAnimator());
         if (isDivided) {
@@ -66,7 +66,6 @@ public class RecyclerViewHelper {
                                          RecyclerView.Adapter adapter) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        view.setHasFixedSize(true);
         view.setLayoutManager(layoutManager);
         view.setItemAnimator(new DefaultItemAnimator());
         if (isDivided) {
@@ -85,8 +84,7 @@ public class RecyclerViewHelper {
      */
     public static void initRecyclerViewG(Context context, RecyclerView view, boolean isDivided,
                                          RecyclerView.Adapter adapter, int column) {
-        GridLayoutManager layoutManager = new GridLayoutManager(context, column);
-        view.setHasFixedSize(true);
+        GridLayoutManager layoutManager = new GridLayoutManager(context, column, LinearLayoutManager.VERTICAL, false);
         view.setLayoutManager(layoutManager);
         view.setItemAnimator(new DefaultItemAnimator());
         if (isDivided) {

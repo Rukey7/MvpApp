@@ -22,7 +22,6 @@ public class NewsTypeDao {
     private List<NewsTypeBean> mUncheckedList;
 
 
-
     private NewsTypeDao() {
     }
 
@@ -37,5 +36,13 @@ public class NewsTypeDao {
         if (beanDao.count() == 0) {
             beanDao.insertInTx(sAllChannels.subList(0, 3));
         }
+    }
+
+    /**
+     * 获取所有栏目
+     * @return
+     */
+    public static List<NewsTypeBean> getAllChannels() {
+        return sAllChannels;
     }
 }

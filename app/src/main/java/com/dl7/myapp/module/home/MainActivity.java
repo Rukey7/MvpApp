@@ -71,6 +71,20 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
+    public void loadData(List<NewsTypeBean> checkList) {
+        List<Fragment> fragments = new ArrayList<>();
+        List<String> titles = new ArrayList<>();
+        for (NewsTypeBean bean : checkList) {
+            titles.add(bean.getName());
+            fragments.add(NewsListFragment.newInstance(bean.getTypeId()));
+        }
+        mPagerAdapter.setDatas(fragments, titles);
+        mViewPager.setAdapter(mPagerAdapter);
+        mViewPager.setOffscreenPageLimit(checkList.size());
+        mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    @Override
     public void onBackPressed() {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -93,7 +107,6 @@ public class MainActivity extends BaseActivity
                 this, mDrawerLayout, mToolBar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.setDrawerListener(toggle);
         toggle.syncState();
-
         mNavView.setNavigationItemSelectedListener(this);
     }
 
@@ -109,19 +122,5 @@ public class MainActivity extends BaseActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    public void loadData(List<NewsTypeBean> checkList) {
-        List<Fragment> fragments = new ArrayList<>();
-        List<String> titles = new ArrayList<>();
-        for (NewsTypeBean bean : checkList) {
-            titles.add(bean.getName());
-            fragments.add(NewsListFragment.newInstance(bean.getTypeId()));
-        }
-        mPagerAdapter.setDatas(fragments, titles);
-        mViewPager.setAdapter(mPagerAdapter);
-        mViewPager.setOffscreenPageLimit(checkList.size());
-        mTabLayout.setupWithViewPager(mViewPager);
     }
 }

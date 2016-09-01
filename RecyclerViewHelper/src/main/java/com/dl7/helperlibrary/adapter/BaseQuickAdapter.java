@@ -23,6 +23,7 @@ import com.dl7.helperlibrary.indicator.Style;
 import com.dl7.helperlibrary.indicator.sprite.Sprite;
 import com.dl7.helperlibrary.listener.OnRecyclerViewItemClickListener;
 import com.dl7.helperlibrary.listener.OnRecyclerViewItemLongClickListener;
+import com.dl7.helperlibrary.listener.OnRemoveDataListener;
 import com.dl7.helperlibrary.listener.OnRequestDataListener;
 
 import java.util.Collections;
@@ -52,6 +53,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
     private OnRecyclerViewItemClickListener mItemClickListener;
     private OnRecyclerViewItemLongClickListener mItemLongClickListener;
     private OnRequestDataListener onRequestDataListener;
+    private OnRemoveDataListener mRemoveDataListener;
     // drag and swipe
     private OnStartDragListener mDragStartListener;
     private SimpleItemTouchHelperCallback mDragCallback;
@@ -445,8 +447,13 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
         if (position > mData.size() - 1) {
             return;
         }
-        mData.remove(position);
-        notifyItemRemoved(_calcPosition(position));
+        int pos = _calcPosition(position);
+        if (mRemoveDataListener != null) {
+            // 放在 mData.remove(pos) 前，不然外面获取不到数据
+            mRemoveDataListener.onRemove(pos);
+        }
+        mData.remove(pos);
+        notifyItemRemoved(pos);
     }
 
     /**
@@ -485,7 +492,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
         return position;
     }
 
-    /************************************点击监听****************************************/
+    /************************************监听****************************************/
 
     /**
      * Register a callback to be invoked when an item in this AdapterView has
@@ -507,6 +514,13 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
         this.mItemLongClickListener = listener;
     }
 
+    /**
+     * 设置移除监听
+     * @param removeDataListener
+     */
+    public void setRemoveDataListener(OnRemoveDataListener removeDataListener) {
+        mRemoveDataListener = removeDataListener;
+    }
 
     /**
      * init the baseViewHolder to register onRecyclerViewItemClickListener and onRecyclerViewItemLongClickListener

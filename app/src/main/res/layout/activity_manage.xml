@@ -9,25 +9,53 @@
 
     <include layout="@layout/layout_toolbar"/>
 
-    <TextView
-        style="@style/manage_title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="当前栏目"/>
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/manage_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的栏目"/>
+
+        <TextView
+            style="@style/manage_sub_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="长按拖拽或左滑删除"/>
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_checked_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <TextView
-        style="@style/manage_title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="添加更多栏目"/>
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/manage_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="更多栏目"/>
+
+        <TextView
+            style="@style/manage_sub_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="点击添加"/>
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_unchecked_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"/>
 </LinearLayout>

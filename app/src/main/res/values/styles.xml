@@ -57,11 +57,12 @@
     </style>
 
     <style name="manage_title">
-        <item name="android:textSize">14sp</item>
-        <item name="android:padding">10dp</item>
-        <!--<item name="android:background">@color/divider_line</item>-->
+        <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="manage_sub_title">
+        <item name="android:textSize">12sp</item>
+    </style>
 
     <declare-styleable name="ScrollOverLayout">
         <attr name="layout_height" format="dimension"/>
