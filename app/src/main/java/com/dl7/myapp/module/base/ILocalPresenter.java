@@ -18,4 +18,10 @@ public interface ILocalPresenter<T> extends IBasePresenter {
      */
     void delete(T data);
 
+    /**
+     * 交换位置
+     * @param fromPos   起始位置
+     * @param toPos     目标位置
+     */
+    void swap(int fromPos, int toPos);
 }

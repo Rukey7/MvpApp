@@ -21,6 +21,7 @@ import com.dl7.myapp.module.base.BaseActivity;
 import com.dl7.myapp.module.base.IBasePresenter;
 import com.dl7.myapp.module.channel.ChannelActivity;
 import com.dl7.myapp.module.news.NewsListFragment;
+import com.dl7.myapp.rxbus.RxBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,8 @@ public class MainActivity extends BaseActivity
     ViewPagerAdapter mPagerAdapter;
     @Inject
     IBasePresenter mPresenter;
+    @Inject
+    RxBus mRxBus;
 
 
     @Override

@@ -6,25 +6,37 @@ import rx.subjects.SerializedSubject;
 import rx.subjects.Subject;
 
 /**
- * courtesy: https://gist.github.com/benjchristensen/04eef9ca0851f3a5d7bf
+ * RxBus
  */
 public class RxBus {
 
-    //private final PublishSubject<Object> _bus = PublishSubject.create();
+    private static volatile RxBus defaultInstance;
 
-    // If multiple threads are going to emit events to this
-    // then it must be made thread-safe like this instead
-    private final Subject<Object, Object> _bus = new SerializedSubject<>(PublishSubject.create());
-
-    public void send(Object o) {
-        _bus.onNext(o);
+    private final Subject<Object, Object> bus;
+    // PublishSubject只会把在订阅发生的时间点之后来自原始Observable的数据发射给观察者
+    public RxBus() {
+        bus = new SerializedSubject<>(PublishSubject.create());
     }
 
-    public Observable<Object> toObserverable() {
-        return _bus;
+    // 单例RxBus
+    public static RxBus getDefault() {
+        if (defaultInstance == null) {
+            synchronized (RxBus.class) {
+                if (defaultInstance == null) {
+                    defaultInstance = new RxBus();
+                }
+            }
+        }
+        return defaultInstance ;
     }
 
-    public boolean hasObservers() {
-        return _bus.hasObservers();
+    // 发送一个新的事件
+    public void post (Object o) {
+        bus.onNext(o);
+    }
+
+    // 根据传递的 eventType 类型返回特定类型(eventType)的 被观察者
+    public <T> Observable<T> toObservable (Class<T> eventType) {
+        return bus.ofType(eventType);
     }
 }

@@ -56,7 +56,8 @@ public class NewsTypeBean {
     @Override
     public String toString() {
         return "NewsTypeBean{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", typeId='" + typeId + '\'' +
                 '}';
     }

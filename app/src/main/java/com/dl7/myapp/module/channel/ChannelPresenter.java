@@ -73,10 +73,16 @@ public class ChannelPresenter implements ILocalPresenter<NewsTypeBean> {
     @Override
     public void insert(NewsTypeBean data) {
         mDbDao.insert(data);
+        Logger.e(mDbDao.queryBuilder().list().toString());
     }
 
     @Override
     public void delete(NewsTypeBean data) {
         mDbDao.delete(data);
+    }
+
+    @Override
+    public void swap(int fromPos, int toPos) {
+        Logger.w(mDbDao.queryBuilder().list().toString());
     }
 }

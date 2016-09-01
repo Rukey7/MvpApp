@@ -21,6 +21,7 @@ import com.dl7.helperlibrary.indicator.SpinKitView;
 import com.dl7.helperlibrary.indicator.SpriteFactory;
 import com.dl7.helperlibrary.indicator.Style;
 import com.dl7.helperlibrary.indicator.sprite.Sprite;
+import com.dl7.helperlibrary.listener.OnItemMoveListener;
 import com.dl7.helperlibrary.listener.OnRecyclerViewItemClickListener;
 import com.dl7.helperlibrary.listener.OnRecyclerViewItemLongClickListener;
 import com.dl7.helperlibrary.listener.OnRemoveDataListener;
@@ -56,6 +57,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
     private OnRemoveDataListener mRemoveDataListener;
     // drag and swipe
     private OnStartDragListener mDragStartListener;
+    private OnItemMoveListener mItemMoveListener;
     private SimpleItemTouchHelperCallback mDragCallback;
     private int mDragFixCount = 0;  // 固定数量，从0开始算
     private Drawable mDragFixDrawable;
@@ -566,6 +568,9 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
         if (fromPosition >= mDragFixCount && toPosition >= mDragFixCount) {
             Collections.swap(mData, fromPosition, toPosition);
             notifyItemMoved(fromPosition, toPosition);
+            if (mItemMoveListener != null) {
+                mItemMoveListener.onItemMove(fromPosition, toPosition);
+            }
             return true;
         }
         return false;
@@ -588,6 +593,10 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
         if (mDragStartListener != null) {
             mDragStartListener.onStartDrag(viewHolder);
         }
+    }
+
+    public void setItemMoveListener(OnItemMoveListener itemMoveListener) {
+        mItemMoveListener = itemMoveListener;
     }
 
     /**

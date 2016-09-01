@@ -42,7 +42,7 @@ public class ScrollOverLayout extends FrameLayout {
     private int mFixHeight;
     private int mCriticalY;
 
-
+    // 检测快速滑动
     private SimpleOnGestureListener mGestureListener = new SimpleOnGestureListener() {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
@@ -78,7 +78,6 @@ public class ScrollOverLayout extends FrameLayout {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ScrollOverLayout, 0, 0);
         mFixHeight = a.getDimensionPixelOffset(R.styleable.ScrollOverLayout_fix_height, mFixHeight);
         a.recycle();
-
     }
 
     @Override

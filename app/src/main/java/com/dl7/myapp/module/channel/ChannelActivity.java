@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
 import com.dl7.helperlibrary.helper.RecyclerViewHelper;
+import com.dl7.helperlibrary.listener.OnItemMoveListener;
 import com.dl7.helperlibrary.listener.OnRecyclerViewItemClickListener;
 import com.dl7.helperlibrary.listener.OnRemoveDataListener;
 import com.dl7.myapp.R;
@@ -77,6 +78,14 @@ public class ChannelActivity extends BaseActivity implements IChannelView {
                 mUncheckedAdapter.addLastItem(mCheckedAdapter.getItem(position));
             }
         });
+        // 设置移动监听器
+        mCheckedAdapter.setItemMoveListener(new OnItemMoveListener() {
+            @Override
+            public void onItemMove(int fromPosition, int toPosition) {
+                mPresenter.swap(fromPosition, toPosition);
+            }
+        });
+        // 设置点击删除
         mUncheckedAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
