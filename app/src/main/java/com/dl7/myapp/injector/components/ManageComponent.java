@@ -2,7 +2,7 @@ package com.dl7.myapp.injector.components;
 
 import com.dl7.myapp.injector.PerActivity;
 import com.dl7.myapp.injector.modules.ManageModule;
-import com.dl7.myapp.module.manage.ManageActivity;
+import com.dl7.myapp.module.channel.ChannelActivity;
 
 import dagger.Component;
 
@@ -13,5 +13,5 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = ApplicationComponent.class, modules = ManageModule.class)
 public interface ManageComponent {
-    void inject(ManageActivity activity);
+    void inject(ChannelActivity activity);
 }

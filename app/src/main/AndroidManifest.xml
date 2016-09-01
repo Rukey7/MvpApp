@@ -27,7 +27,7 @@
         </activity>
         <activity android:name=".module.photo.PhotoSetActivity">
         </activity>
-        <activity android:name=".module.manage.ManageActivity">
+        <activity android:name=".module.channel.ChannelActivity">
         </activity>
     </application>
 

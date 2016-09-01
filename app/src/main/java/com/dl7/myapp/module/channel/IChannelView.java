@@ -1,4 +1,4 @@
-package com.dl7.myapp.module.manage;
+package com.dl7.myapp.module.channel;
 
 import com.dl7.myapp.local.table.NewsTypeBean;
 
@@ -8,7 +8,7 @@ import java.util.List;
  * Created by long on 2016/9/1.
  * 栏目管理接口
  */
-public interface IManageView {
+public interface IChannelView {
 
     /**
      * 显示数据

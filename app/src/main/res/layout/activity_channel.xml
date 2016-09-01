@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.dl7.myapp.module.manage.ManageActivity">
+    tools:context=".module.channel.ChannelActivity">
 
     <include layout="@layout/layout_toolbar"/>
 

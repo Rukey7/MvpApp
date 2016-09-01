@@ -1,4 +1,4 @@
-package com.dl7.myapp.module.manage;
+package com.dl7.myapp.module.channel;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +16,7 @@ import com.dl7.myapp.injector.components.DaggerManageComponent;
 import com.dl7.myapp.injector.modules.ManageModule;
 import com.dl7.myapp.local.table.NewsTypeBean;
 import com.dl7.myapp.module.base.BaseActivity;
-import com.dl7.myapp.module.base.IBasePresenter;
+import com.dl7.myapp.module.base.ILocalPresenter;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ import butterknife.BindView;
 import jp.wasabeef.recyclerview.animators.FlipInBottomXAnimator;
 import jp.wasabeef.recyclerview.animators.ScaleInAnimator;
 
-public class ManageActivity extends BaseActivity implements IManageView {
+public class ChannelActivity extends BaseActivity implements IChannelView {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -40,17 +40,17 @@ public class ManageActivity extends BaseActivity implements IManageView {
     @Inject
     BaseQuickAdapter mUncheckedAdapter;
     @Inject
-    IBasePresenter mPresenter;
+    ILocalPresenter mPresenter;
 
 
     public static void launch(Context context) {
-        Intent intent = new Intent(context, ManageActivity.class);
+        Intent intent = new Intent(context, ChannelActivity.class);
         context.startActivity(intent);
     }
 
     @Override
     protected int attachLayoutRes() {
-        return R.layout.activity_manage;
+        return R.layout.activity_channel;
     }
 
     @Override
@@ -73,6 +73,7 @@ public class ManageActivity extends BaseActivity implements IManageView {
         mCheckedAdapter.setRemoveDataListener(new OnRemoveDataListener() {
             @Override
             public void onRemove(int position) {
+                mPresenter.delete(mCheckedAdapter.getItem(position));
                 mUncheckedAdapter.addLastItem(mCheckedAdapter.getItem(position));
             }
         });
@@ -81,6 +82,7 @@ public class ManageActivity extends BaseActivity implements IManageView {
             public void onItemClick(View view, int position) {
                 // 添加要放在删除前，不然获取不到对应数据
                 mCheckedAdapter.addLastItem(mUncheckedAdapter.getItem(position));
+                mPresenter.insert(mUncheckedAdapter.getItem(position));
                 mUncheckedAdapter.removeItem(position);
             }
         });

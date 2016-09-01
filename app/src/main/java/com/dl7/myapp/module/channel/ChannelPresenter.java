@@ -1,9 +1,9 @@
-package com.dl7.myapp.module.manage;
+package com.dl7.myapp.module.channel;
 
 import com.dl7.myapp.local.dao.NewsTypeDao;
 import com.dl7.myapp.local.table.NewsTypeBean;
 import com.dl7.myapp.local.table.NewsTypeBeanDao;
-import com.dl7.myapp.module.base.IBasePresenter;
+import com.dl7.myapp.module.base.ILocalPresenter;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -19,12 +19,12 @@ import rx.schedulers.Schedulers;
  * Created by long on 2016/9/1.
  * 栏目管理 Presenter
  */
-public class ManagePresenter implements IBasePresenter {
+public class ChannelPresenter implements ILocalPresenter<NewsTypeBean> {
 
-    private final IManageView mView;
+    private final IChannelView mView;
     private final NewsTypeBeanDao mDbDao;
 
-    public ManagePresenter(IManageView view, NewsTypeBeanDao dbDao) {
+    public ChannelPresenter(IChannelView view, NewsTypeBeanDao dbDao) {
         mView = view;
         mDbDao = dbDao;
     }
@@ -68,5 +68,15 @@ public class ManagePresenter implements IBasePresenter {
 
     @Override
     public void getMoreData() {
+    }
+
+    @Override
+    public void insert(NewsTypeBean data) {
+        mDbDao.insert(data);
+    }
+
+    @Override
+    public void delete(NewsTypeBean data) {
+        mDbDao.delete(data);
     }
 }

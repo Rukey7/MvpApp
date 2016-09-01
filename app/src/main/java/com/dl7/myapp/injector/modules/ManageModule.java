@@ -4,9 +4,9 @@ import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
 import com.dl7.myapp.adapter.ManageAdapter;
 import com.dl7.myapp.injector.PerActivity;
 import com.dl7.myapp.local.table.DaoSession;
-import com.dl7.myapp.module.base.IBasePresenter;
-import com.dl7.myapp.module.manage.ManageActivity;
-import com.dl7.myapp.module.manage.ManagePresenter;
+import com.dl7.myapp.module.base.ILocalPresenter;
+import com.dl7.myapp.module.channel.ChannelActivity;
+import com.dl7.myapp.module.channel.ChannelPresenter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -18,9 +18,9 @@ import dagger.Provides;
 @Module
 public class ManageModule {
 
-    private final ManageActivity mView;
+    private final ChannelActivity mView;
 
-    public ManageModule(ManageActivity view) {
+    public ManageModule(ChannelActivity view) {
         mView = view;
     }
 
@@ -31,7 +31,7 @@ public class ManageModule {
 
     @PerActivity
     @Provides
-    public IBasePresenter provideManagePresenter(DaoSession daoSession) {
-        return new ManagePresenter(mView, daoSession.getNewsTypeBeanDao());
+    public ILocalPresenter provideManagePresenter(DaoSession daoSession) {
+        return new ChannelPresenter(mView, daoSession.getNewsTypeBeanDao());
     }
 }

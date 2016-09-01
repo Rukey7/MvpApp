@@ -19,7 +19,7 @@ import com.dl7.myapp.injector.modules.MainModule;
 import com.dl7.myapp.local.table.NewsTypeBean;
 import com.dl7.myapp.module.base.BaseActivity;
 import com.dl7.myapp.module.base.IBasePresenter;
-import com.dl7.myapp.module.manage.ManageActivity;
+import com.dl7.myapp.module.channel.ChannelActivity;
 import com.dl7.myapp.module.news.NewsListFragment;
 
 import java.util.ArrayList;
@@ -116,7 +116,7 @@ public class MainActivity extends BaseActivity
             case R.id.nav_gallery:
                 break;
             case R.id.nav_manage:
-                ManageActivity.launch(this);
+                ChannelActivity.launch(this);
                 break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
