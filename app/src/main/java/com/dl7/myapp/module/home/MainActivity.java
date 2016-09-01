@@ -14,17 +14,23 @@ import android.view.WindowManager;
 
 import com.dl7.myapp.R;
 import com.dl7.myapp.adapter.ViewPagerAdapter;
-import com.dl7.myapp.api.RetrofitService;
+import com.dl7.myapp.injector.components.DaggerMainComponent;
+import com.dl7.myapp.injector.modules.MainModule;
+import com.dl7.myapp.local.table.NewsTypeBean;
 import com.dl7.myapp.module.base.BaseActivity;
+import com.dl7.myapp.module.base.IBasePresenter;
 import com.dl7.myapp.module.manage.ManageActivity;
 import com.dl7.myapp.module.news.NewsListFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity
+        implements IMainView, NavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.tool_bar)
     Toolbar mToolBar;
@@ -37,7 +43,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
 
-    private ViewPagerAdapter mPagerAdapter;
+    @Inject
+    ViewPagerAdapter mPagerAdapter;
+    @Inject
+    IBasePresenter mPresenter;
+
 
     @Override
     protected int attachLayoutRes() {
@@ -46,13 +56,18 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     protected void initViews() {
-        initToolBar(mToolBar, true, "MVP");
-        _initTabLayout();
+        DaggerMainComponent.builder()
+                .applicationComponent(getAppComponent())
+                .mainModule(new MainModule(this))
+                .build()
+                .inject(this);
+        initToolBar(mToolBar, true, "网易新闻");
         _initDrawerLayout();
     }
 
     @Override
     protected void updateViews() {
+        mPresenter.getData();
     }
 
     @Override
@@ -82,28 +97,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mNavView.setNavigationItemSelectedListener(this);
     }
 
-    private void _initTabLayout() {
-        List<Fragment> fragments = new ArrayList<>();
-        List<String> titles = new ArrayList<>();
-        titles.add("头条");
-        titles.add("精选");
-        titles.add("娱乐");
-        titles.add("体育");
-        fragments.add(NewsListFragment.newInstance(RetrofitService.NEWS_HEAD_LINE));
-        fragments.add(NewsListFragment.newInstance(RetrofitService.NEWS_BEST));
-        fragments.add(NewsListFragment.newInstance(RetrofitService.NEWS_ENTERTAINMENT));
-        fragments.add(NewsListFragment.newInstance(RetrofitService.NEWS_SPORT));
-
-        mPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        mPagerAdapter.setDatas(fragments, titles);
-//        mPagerAdapter.setFragments(fragments);
-//        mPagerAdapter.setTitles(titles);
-        mViewPager.setAdapter(mPagerAdapter);
-        mViewPager.setOffscreenPageLimit(4);
-        mTabLayout.setupWithViewPager(mViewPager);
-
-    }
-
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -116,5 +109,19 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void loadData(List<NewsTypeBean> checkList) {
+        List<Fragment> fragments = new ArrayList<>();
+        List<String> titles = new ArrayList<>();
+        for (NewsTypeBean bean : checkList) {
+            titles.add(bean.getName());
+            fragments.add(NewsListFragment.newInstance(bean.getTypeId()));
+        }
+        mPagerAdapter.setDatas(fragments, titles);
+        mViewPager.setAdapter(mPagerAdapter);
+        mViewPager.setOffscreenPageLimit(checkList.size());
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 }

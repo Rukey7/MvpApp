@@ -18,17 +18,17 @@ import dagger.Provides;
 public class NewsListModule {
 
     private final NewsListFragment mNewsListView;
-    private final int mNewsType;
+    private final String mNewsId;
 
-    public NewsListModule(NewsListFragment view, int newsType) {
+    public NewsListModule(NewsListFragment view, String newsId) {
         this.mNewsListView = view;
-        this.mNewsType = newsType;
+        this.mNewsId = newsId;
     }
 
     @PerFragment
     @Provides
     public IBasePresenter providePresenter() {
-        return new NewsListPresenter(mNewsListView, mNewsType);
+        return new NewsListPresenter(mNewsListView, mNewsId);
     }
 
     @PerFragment

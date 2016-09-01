@@ -1,6 +1,12 @@
 package com.dl7.myapp.local.dao;
 
+import android.content.Context;
+
+import com.dl7.myapp.local.table.DaoSession;
 import com.dl7.myapp.local.table.NewsTypeBean;
+import com.dl7.myapp.local.table.NewsTypeBeanDao;
+import com.dl7.myapp.utils.AssetsHelper;
+import com.dl7.myapp.utils.GsonHelper;
 
 import java.util.List;
 
@@ -10,13 +16,26 @@ import java.util.List;
  */
 public class NewsTypeDao {
 
-    // 当前选中
-    private List<NewsTypeBean> mCheckedList;
+    // 所有栏目
+    private static List<NewsTypeBean> sAllChannels;
     // 未选中
     private List<NewsTypeBean> mUncheckedList;
 
 
-    public NewsTypeDao() {
 
+    private NewsTypeDao() {
+    }
+
+    /**
+     * 更新本地数据，如果数据库新闻列表栏目为 0 则添加头 3 个栏目
+     * @param context
+     * @param daoSession
+     */
+    public static void updateLocalData(Context context, DaoSession daoSession) {
+        sAllChannels = GsonHelper.convertEntities(AssetsHelper.readData(context, "NewsChannel"), NewsTypeBean.class);
+        NewsTypeBeanDao beanDao = daoSession.getNewsTypeBeanDao();
+        if (beanDao.count() == 0) {
+            beanDao.insertInTx(sAllChannels.subList(0, 3));
+        }
     }
 }

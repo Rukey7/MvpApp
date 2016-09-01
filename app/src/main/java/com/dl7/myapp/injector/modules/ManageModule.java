@@ -1,9 +1,12 @@
 package com.dl7.myapp.injector.modules;
 
-import android.content.Context;
-
 import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
 import com.dl7.myapp.adapter.ManageAdapter;
+import com.dl7.myapp.injector.PerActivity;
+import com.dl7.myapp.local.table.DaoSession;
+import com.dl7.myapp.module.base.IBasePresenter;
+import com.dl7.myapp.module.manage.ManageActivity;
+import com.dl7.myapp.module.manage.ManagePresenter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -15,14 +18,20 @@ import dagger.Provides;
 @Module
 public class ManageModule {
 
-    private final Context mContext;
+    private final ManageActivity mView;
 
-    public ManageModule(Context context) {
-        mContext = context;
+    public ManageModule(ManageActivity view) {
+        mView = view;
     }
 
     @Provides
     public BaseQuickAdapter provideManageAdapter() {
-        return new ManageAdapter(mContext);
+        return new ManageAdapter(mView);
+    }
+
+    @PerActivity
+    @Provides
+    public IBasePresenter provideManagePresenter(DaoSession daoSession) {
+        return new ManagePresenter(mView, daoSession.getNewsTypeBeanDao());
     }
 }

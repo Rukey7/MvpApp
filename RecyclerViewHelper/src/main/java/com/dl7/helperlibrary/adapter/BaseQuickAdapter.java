@@ -1,10 +1,14 @@
 package com.dl7.helperlibrary.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -12,6 +16,7 @@ import android.widget.TextView;
 import com.dl7.helperlibrary.R;
 import com.dl7.helperlibrary.helper.ItemTouchHelperAdapter;
 import com.dl7.helperlibrary.helper.OnStartDragListener;
+import com.dl7.helperlibrary.helper.SimpleItemTouchHelperCallback;
 import com.dl7.helperlibrary.indicator.SpinKitView;
 import com.dl7.helperlibrary.indicator.SpriteFactory;
 import com.dl7.helperlibrary.indicator.Style;
@@ -47,7 +52,11 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
     private OnRecyclerViewItemClickListener mItemClickListener;
     private OnRecyclerViewItemLongClickListener mItemLongClickListener;
     private OnRequestDataListener onRequestDataListener;
+    // drag and swipe
     private OnStartDragListener mDragStartListener;
+    private SimpleItemTouchHelperCallback mDragCallback;
+    private int mDragFixCount = 0;  // 固定数量，从0开始算
+    private Drawable mDragFixDrawable;
     // load more
     private boolean mIsLoadMoreEnable;
     private boolean mIsLoadingNow;
@@ -202,8 +211,6 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
                 baseViewHolder = new BaseViewHolder(mFooterView);
                 break;
             default:
-//                View view = mLayoutInflater.inflate(mLayoutResId, parent, false);
-//                baseViewHolder = new BaseViewHolder(view);
                 baseViewHolder = onCreateDefViewHolder(parent, viewType);
                 // 设置用于单项刷新的tag标识
                 baseViewHolder.itemView.setTag(R.id.view_holder_tag, baseViewHolder);
@@ -242,6 +249,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
                 break;
             default:
                 convert((BaseViewHolder) holder, mData.get(holder.getLayoutPosition() - getHeaderViewsCount()));
+                _setDragFixBackground(holder, position);
                 break;
         }
     }
@@ -522,15 +530,31 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
                 }
             });
         }
+        if (mDragCallback != null && mDragFixCount > 0) {
+            baseViewHolder.itemView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (baseViewHolder.getLayoutPosition() < mDragFixCount) {
+                        mDragCallback.setEnable(false);
+                    } else {
+                        mDragCallback.setEnable(true);
+                    }
+                    return false;
+                }
+            });
+        }
     }
 
     /************************************拖拽滑动****************************************/
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
-        Collections.swap(mData, fromPosition, toPosition);
-        notifyItemMoved(fromPosition, toPosition);
-        return true;
+        if (fromPosition >= mDragFixCount && toPosition >= mDragFixCount) {
+            Collections.swap(mData, fromPosition, toPosition);
+            notifyItemMoved(fromPosition, toPosition);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -542,14 +566,52 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
         mDragStartListener = dragStartListener;
     }
 
+    public void setDragCallback(SimpleItemTouchHelperCallback dragCallback) {
+        mDragCallback = dragCallback;
+    }
+
     protected void startDrag(RecyclerView.ViewHolder viewHolder) {
         if (mDragStartListener != null) {
             mDragStartListener.onStartDrag(viewHolder);
         }
     }
 
+    /**
+     * 该方法在添加列表数据前调用
+     * @param dragFixCount  固定的数量
+     */
+    public void setDragFixCount(int dragFixCount) {
+        mDragFixCount = dragFixCount;
+        if (mDragFixDrawable == null) {
+            mDragFixDrawable = ContextCompat.getDrawable(mContext, R.drawable.shape_drag_default);
+        }
+    }
+
+    public void setDragFixDrawable(int fixColor) {
+        mDragFixDrawable = new ColorDrawable(fixColor);
+    }
+
+    public void setDragFixDrawable(Drawable drawable) {
+        mDragFixDrawable = drawable;
+    }
+
     public void setDragColor(int dragColor) {
         BaseViewHolder.setDragColor(dragColor);
+    }
+
+    public void setDragDrawable(Drawable drawable) {
+        BaseViewHolder.setDragDrawable(drawable);
+    }
+
+    /**
+     * 设置固定项的背景色
+     * @param holder
+     * @param position
+     */
+    private void _setDragFixBackground(RecyclerView.ViewHolder holder, int position) {
+        if (position < mDragFixCount) {
+            holder.itemView.setBackgroundDrawable(mDragFixDrawable);
+        }
     }
 
     /************************************* Tag标志 ****************************************/

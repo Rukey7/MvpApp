@@ -36,6 +36,9 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
     public static final float ALPHA_FULL = 1.0f;
 
     private final ItemTouchHelperAdapter mAdapter;
+    private boolean mIsDragAndSwipeEnabled = true;
+    private int mDragFlags;
+    private int mSwipeFlags;
 
     public SimpleItemTouchHelperCallback(ItemTouchHelperAdapter adapter) {
         mAdapter = adapter;
@@ -43,26 +46,71 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
     @Override
     public boolean isLongPressDragEnabled() {
-        return true;
+        return mIsDragAndSwipeEnabled;
     }
 
     @Override
     public boolean isItemViewSwipeEnabled() {
-        return true;
+        return mIsDragAndSwipeEnabled;
+    }
+
+    /**
+     * 对外提供可控的拖拽使能
+     * @param enable
+     */
+    public void setEnable(boolean enable) {
+        mIsDragAndSwipeEnabled = enable;
+    }
+
+    /**
+     * 设置拖拽控制标志位
+     * eg: ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT |
+     *  ItemTouchHelper.RIGHT | ItemTouchHelper.START | ItemTouchHelper.END
+     * @param dragFlags
+     */
+    public void setDragFlags(int dragFlags) {
+        mDragFlags = dragFlags;
+    }
+
+    /**
+     * 设置滑动控制标志位
+     * eg: ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT |
+     *  ItemTouchHelper.RIGHT | ItemTouchHelper.START | ItemTouchHelper.END
+     * @param swipeFlags
+     */
+    public void setSwipeFlags(int swipeFlags) {
+        mSwipeFlags = swipeFlags;
     }
 
     @Override
     public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
         // Set movement flags based on the layout manager
+        int dragFlags;
+        int swipeFlags;
         if (recyclerView.getLayoutManager() instanceof GridLayoutManager) {
-            final int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
-            final int swipeFlags = 0;
-            return makeMovementFlags(dragFlags, swipeFlags);
+            if (mDragFlags != 0) {
+                dragFlags = mDragFlags;
+            } else {
+                dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
+            }
+            if (mSwipeFlags != 0) {
+                swipeFlags = mSwipeFlags;
+            } else {
+                swipeFlags = ItemTouchHelper.START;
+            }
         } else {
-            final int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
-            final int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
-            return makeMovementFlags(dragFlags, swipeFlags);
+            if (mDragFlags != 0) {
+                dragFlags = mDragFlags;
+            } else {
+                dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+            }
+            if (mSwipeFlags != 0) {
+                swipeFlags = mSwipeFlags;
+            } else {
+                swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
+            }
         }
+        return makeMovementFlags(dragFlags, swipeFlags);
     }
 
     @Override

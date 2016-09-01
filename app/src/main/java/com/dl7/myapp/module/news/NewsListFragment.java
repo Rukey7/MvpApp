@@ -11,7 +11,6 @@ import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
 import com.dl7.helperlibrary.helper.RecyclerViewHelper;
 import com.dl7.helperlibrary.listener.OnRequestDataListener;
 import com.dl7.myapp.R;
-import com.dl7.myapp.api.RetrofitService;
 import com.dl7.myapp.api.bean.NewsBean;
 import com.dl7.myapp.entity.NewsMultiItem;
 import com.dl7.myapp.injector.components.DaggerNewsListComponent;
@@ -48,13 +47,13 @@ public class NewsListFragment extends BaseFragment implements INewsListView {
     IBasePresenter mPresenter;
     private SliderLayout mAdSlider;
 
-    private int mNewsType;
+    private String mNewsId;
 
 
-    public static NewsListFragment newInstance(@RetrofitService.NewsType int newsType) {
+    public static NewsListFragment newInstance(String newsId) {
         NewsListFragment fragment = new NewsListFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(NEWS_TYPE_KEY, newsType);
+        bundle.putString(NEWS_TYPE_KEY, newsId);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -63,7 +62,7 @@ public class NewsListFragment extends BaseFragment implements INewsListView {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mNewsType = getArguments().getInt(NEWS_TYPE_KEY, -1);
+            mNewsId = getArguments().getString(NEWS_TYPE_KEY);
         }
     }
 
@@ -92,7 +91,7 @@ public class NewsListFragment extends BaseFragment implements INewsListView {
     protected void initViews() {
         DaggerNewsListComponent.builder()
                 .applicationComponent(getAppComponent())
-                .newsListModule(new NewsListModule(this, mNewsType))
+                .newsListModule(new NewsListModule(this, mNewsId))
                 .build()
                 .inject(this);
         SlideInRightAnimationAdapter animAdapter = new SlideInRightAnimationAdapter(mAdapter);

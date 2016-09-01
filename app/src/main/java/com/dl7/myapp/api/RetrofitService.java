@@ -1,6 +1,5 @@
 package com.dl7.myapp.api;
 
-import android.support.annotation.IntDef;
 import android.util.SparseArray;
 
 import com.dl7.myapp.AndroidApplication;
@@ -14,8 +13,6 @@ import com.orhanobut.logger.Logger;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
 import java.util.List;
@@ -45,15 +42,6 @@ import rx.schedulers.Schedulers;
  * 整个网络通信服务的启动控制，必须先调用初始化函数才能正常使用网络通信接口
  */
 public class RetrofitService {
-
-    // 头条
-    public static final int NEWS_HEAD_LINE = 0;
-    // 精选
-    public static final int NEWS_BEST = 1;
-    // 娱乐
-    public static final int NEWS_ENTERTAINMENT = 2;
-    // 体育
-    public static final int NEWS_SPORT = 3;
 
     //设缓存有效期为1天
     static final long CACHE_STALE_SEC = 60 * 60 * 24 * 1;
@@ -160,7 +148,7 @@ public class RetrofitService {
             }
 
             if (contentLength != 0) {
-                Logger.json(buffer.clone().readString(charset));
+//                Logger.json(buffer.clone().readString(charset));
             }
 
             return response;
@@ -173,46 +161,35 @@ public class RetrofitService {
      * 获取新闻列表
      * @return
      */
-    public static Observable<NewsBean> getNewsList(@NewsType int newsType) {
+    public static Observable<NewsBean> getNewsList(String newsId) {
         synchronized (key) {
-            sNewsPage.put(newsType, 0);
+            sNewsPage.put(newsId.hashCode(), 0);
         }
-        Observable<Map<String, List<NewsBean>>> newsList;
-        if (newsType == NEWS_HEAD_LINE) {
-            newsList = mService.getNewsList("headline", NewsUtils.convertNewsType(newsType), 0);
-        } else {
-            newsList = mService.getNewsList("list", NewsUtils.convertNewsType(newsType), 0);
-        }
-        return newsList.subscribeOn(Schedulers.io())
+        return mService.getNewsList(newsId, 0)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(_flatMapNews(NewsUtils.convertNewsType(newsType)));
+                .flatMap(_flatMapNews(newsId));
     }
 
     /**
      * 获取下一页新闻列表
      * @return
      */
-    public static Observable<NewsBean> getNewsListNext(@NewsType int newsType) {
+    public static Observable<NewsBean> getNewsListNext(String newsId) {
         int page;
         synchronized (key) {
-            Integer prePage = sNewsPage.get(newsType);
+            Integer prePage = sNewsPage.get(newsId.hashCode());
             if (prePage == null) {
                 page = 0;
             } else {
                 page = prePage + INCREASE_PAGE;
             }
-            sNewsPage.put(newsType, page);
+            sNewsPage.put(newsId.hashCode(), page);
         }
-
-        Observable<Map<String, List<NewsBean>>> newsList;
-        if (newsType == NEWS_HEAD_LINE) {
-            newsList = mService.getNewsList("headline", NewsUtils.convertNewsType(newsType), page);
-        } else {
-            newsList = mService.getNewsList("list", NewsUtils.convertNewsType(newsType), page);
-        }
-        return newsList.subscribeOn(Schedulers.io())
+        return mService.getNewsList(newsId, page)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(_flatMapNews(NewsUtils.convertNewsType(newsType)));
+                .flatMap(_flatMapNews(newsId));
     }
 
     /**
@@ -281,12 +258,5 @@ public class RetrofitService {
                 return Observable.just(specialMap.get(specialId));
             }
         };
-    }
-
-    /***************************************************************************************/
-
-    @Retention(RetentionPolicy.SOURCE)
-    @IntDef({NEWS_HEAD_LINE, NEWS_BEST, NEWS_ENTERTAINMENT, NEWS_SPORT})
-    public @interface NewsType {
     }
 }

@@ -7,6 +7,7 @@ import com.dl7.myapp.api.RetrofitService;
 import com.dl7.myapp.injector.components.ApplicationComponent;
 import com.dl7.myapp.injector.components.DaggerApplicationComponent;
 import com.dl7.myapp.injector.modules.ApplicationModule;
+import com.dl7.myapp.local.dao.NewsTypeDao;
 import com.dl7.myapp.local.table.DaoMaster;
 import com.dl7.myapp.local.table.DaoSession;
 import com.dl7.myapp.utils.ToastUtils;
@@ -21,7 +22,7 @@ import org.greenrobot.greendao.database.Database;
  */
 public class AndroidApplication extends Application {
 
-    private static final String DB_NAME = "MvpApp-db";
+    private static final String DB_NAME = "news-db";
 
     private ApplicationComponent mAppComponent;
     private static Context sContext;
@@ -31,18 +32,11 @@ public class AndroidApplication extends Application {
     public void onCreate() {
         super.onCreate();
         sContext = this;
-        _initInjector();
         _initConfig();
+        _initDatabase();
+        _initInjector();
     }
 
-    /**
-     * 初始化注射器
-     */
-    private void _initInjector() {
-        mAppComponent = DaggerApplicationComponent.builder()
-                .applicationModule(new ApplicationModule(this))
-                .build();
-    }
 
     public ApplicationComponent getAppComponent() {
         return mAppComponent;
@@ -52,8 +46,23 @@ public class AndroidApplication extends Application {
         return sContext;
     }
 
-    public DaoSession getDaoSession() {
-        return mDaoSession;
+    /**
+     * 初始化注射器
+     */
+    private void _initInjector() {
+        mAppComponent = DaggerApplicationComponent.builder()
+                .applicationModule(new ApplicationModule(this, mDaoSession))
+                .build();
+    }
+
+    /**
+     * 初始化数据库
+     */
+    private void _initDatabase() {
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, DB_NAME);
+        Database database = helper.getWritableDb();
+        mDaoSession = new DaoMaster(database).newSession();
+        NewsTypeDao.updateLocalData(this, mDaoSession);
     }
 
     /**
@@ -66,9 +75,5 @@ public class AndroidApplication extends Application {
         }
         RetrofitService.init();
         ToastUtils.init(this);
-
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, DB_NAME);
-        Database database = helper.getWritableDb();
-        mDaoSession = new DaoMaster(database).newSession();
     }
 }

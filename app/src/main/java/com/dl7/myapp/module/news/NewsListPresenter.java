@@ -21,16 +21,16 @@ import rx.functions.Func1;
 public class NewsListPresenter implements IBasePresenter {
 
     private INewsListView mView;
-    private int mNewsType;
+    private String mNewsId;
 
-    public NewsListPresenter(INewsListView view, @RetrofitService.NewsType int newsType) {
+    public NewsListPresenter(INewsListView view, String newsId) {
         this.mView = view;
-        this.mNewsType = newsType;
+        this.mNewsId = newsId;
     }
 
     @Override
     public void getData() {
-        RetrofitService.getNewsList(mNewsType)
+        RetrofitService.getNewsList(mNewsId)
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
@@ -82,7 +82,7 @@ public class NewsListPresenter implements IBasePresenter {
 
     @Override
     public void getMoreData() {
-        RetrofitService.getNewsListNext(mNewsType)
+        RetrofitService.getNewsListNext(mNewsId)
                 .map(new Func1<NewsBean, NewsMultiItem>() {
                     @Override
                     public NewsMultiItem call(NewsBean newsBean) {

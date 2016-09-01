@@ -23,17 +23,15 @@ public interface IApiService {
 
     /**
      * 获取新闻列表
-     * eg: http://c.m.163.com/nc/article/headline/T1348647909107/60-20.html
+     * eg: http://c.m.163.com/nc/article/list/T1348647909107/60-20.html
      *
-     * @param name headline 或者 list
      * @param type 新闻类型
      * @param startPage 起始页码
      * @return
      */
     @Headers(CACHE_CONTROL_NETWORK)
-    @GET("nc/article/{list}/{type}/{startPage}-20.html")
-    Observable<Map<String, List<NewsBean>>> getNewsList(@Path("list") String name,
-                                                        @Path("type") String type,
+    @GET("nc/article/list/{type}/{startPage}-20.html")
+    Observable<Map<String, List<NewsBean>>> getNewsList(@Path("type") String type,
                                                         @Path("startPage") int startPage);
 
     /**

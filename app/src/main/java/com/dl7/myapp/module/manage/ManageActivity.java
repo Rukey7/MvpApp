@@ -2,7 +2,7 @@ package com.dl7.myapp.module.manage;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
@@ -13,8 +13,7 @@ import com.dl7.myapp.injector.components.DaggerManageComponent;
 import com.dl7.myapp.injector.modules.ManageModule;
 import com.dl7.myapp.local.table.NewsTypeBean;
 import com.dl7.myapp.module.base.BaseActivity;
-import com.dl7.myapp.utils.AssetsHelper;
-import com.dl7.myapp.utils.GsonHelper;
+import com.dl7.myapp.module.base.IBasePresenter;
 
 import java.util.List;
 
@@ -22,7 +21,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
-public class ManageActivity extends BaseActivity {
+public class ManageActivity extends BaseActivity implements IManageView {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -35,6 +34,8 @@ public class ManageActivity extends BaseActivity {
     BaseQuickAdapter mCheckedAdapter;
     @Inject
     BaseQuickAdapter mUncheckedAdapter;
+    @Inject
+    IBasePresenter mPresenter;
 
 
     public static void launch(Context context) {
@@ -50,23 +51,34 @@ public class ManageActivity extends BaseActivity {
     @Override
     protected void initViews() {
         DaggerManageComponent.builder()
+                .applicationComponent(getAppComponent())
                 .manageModule(new ManageModule(this))
                 .build()
                 .inject(this);
         initToolBar(mToolbar, true, "栏目管理");
         RecyclerViewHelper.initRecyclerViewG(this, mRvCheckedList, mCheckedAdapter, 4);
         RecyclerViewHelper.initRecyclerViewG(this, mRvUncheckedList, mUncheckedAdapter, 4);
-        RecyclerViewHelper.startDragAndSwipe(mRvCheckedList, mCheckedAdapter);
-        mCheckedAdapter.setDragColor(Color.RED);
+        RecyclerViewHelper.startDragAndSwipe(mRvCheckedList, mCheckedAdapter, 3);
+        mCheckedAdapter.setDragDrawable(ContextCompat.getDrawable(this, R.drawable.shape_channel_drag));
     }
 
     @Override
     protected void updateViews() {
-        List<NewsTypeBean> channels = GsonHelper.convertEntities(AssetsHelper.readData(this, "NewsChannel"),
-                NewsTypeBean.class);
-        List<NewsTypeBean> subList = channels.subList(0, 10);
-        List<NewsTypeBean> list = channels.subList(10, 20);
-        mUncheckedAdapter.updateItems(subList);
-        mCheckedAdapter.updateItems(list);
+        mPresenter.getData();
+//        List<NewsTypeBean> channels = GsonHelper.convertEntities(AssetsHelper.readData(this, "NewsChannel"),
+//                NewsTypeBean.class);
+//        List<NewsTypeBean> subList = channels.subList(0, 10);
+//        List<NewsTypeBean> list = channels.subList(10, 20);
+//        mUncheckedAdapter.updateItems(subList);
+//        mCheckedAdapter.updateItems(list);
+//        NewsTypeBeanDao beanDao = mDaoSession.getNewsTypeBeanDao();
+////        long insert = beanDao.insert(channels.get(0));
+//        QueryBuilder<NewsTypeBean> queryBuilder = beanDao.queryBuilder();
+//        Logger.e(queryBuilder.list().toString());
+    }
+
+    @Override
+    public void loadData(List<NewsTypeBean> checkList, List<NewsTypeBean> uncheckList) {
+
     }
 }

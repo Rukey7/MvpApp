@@ -2,6 +2,7 @@ package com.dl7.helperlibrary.helper;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -104,7 +105,7 @@ public class RecyclerViewHelper {
      * @param adapter 适配器
      */
     public static void startDragAndSwipe(RecyclerView view, BaseQuickAdapter adapter) {
-        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
+        SimpleItemTouchHelperCallback callback = new SimpleItemTouchHelperCallback(adapter);
         final ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(view);
         adapter.setDragStartListener(new OnStartDragListener() {
@@ -113,6 +114,42 @@ public class RecyclerViewHelper {
                 itemTouchHelper.startDrag(viewHolder);
             }
         });
+        adapter.setDragCallback(callback);
         adapter.setDragColor(Color.LTGRAY);
+    }
+
+    /**
+     * 启动拖拽和滑动
+     * @param view 视图
+     * @param adapter 适配器
+     * @param dragFixCount 固定数量
+     */
+    public static void startDragAndSwipe(RecyclerView view, BaseQuickAdapter adapter, int dragFixCount) {
+        startDragAndSwipe(view, adapter);
+        adapter.setDragFixCount(dragFixCount);
+    }
+
+    /**
+     * 启动拖拽和滑动
+     * @param view 视图
+     * @param adapter 适配器
+     * @param dragFixCount 固定数量
+     * @param fixColor 固定背景色
+     */
+    public static void startDragAndSwipe(RecyclerView view, BaseQuickAdapter adapter, int dragFixCount, int fixColor) {
+        startDragAndSwipe(view, adapter, dragFixCount);
+        adapter.setDragFixDrawable(fixColor);
+    }
+
+    /**
+     * 启动拖拽和滑动
+     * @param view 视图
+     * @param adapter 适配器
+     * @param dragFixCount 固定数量
+     * @param fixDrawable 固定背景色
+     */
+    public static void startDragAndSwipe(RecyclerView view, BaseQuickAdapter adapter, int dragFixCount, Drawable fixDrawable) {
+        startDragAndSwipe(view, adapter, dragFixCount);
+        adapter.setDragFixDrawable(fixDrawable);
     }
 }

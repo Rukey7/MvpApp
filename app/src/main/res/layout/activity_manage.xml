@@ -1,39 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.dl7.myapp.module.manage.ManageActivity">
 
-    <LinearLayout
+    <include layout="@layout/layout_toolbar"/>
+
+    <TextView
+        style="@style/manage_title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:text="当前栏目"/>
 
-        <include layout="@layout/layout_toolbar"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_checked_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-        <TextView
-            style="@style/manage_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="当前栏目"/>
+    <TextView
+        style="@style/manage_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="添加更多栏目"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_checked_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            style="@style/manage_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="添加更多栏目"/>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_unchecked_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-
-</android.support.v4.widget.NestedScrollView>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_unchecked_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

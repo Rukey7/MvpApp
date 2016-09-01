@@ -3,8 +3,8 @@ package com.dl7.myapp.injector.components;
 import android.content.Context;
 
 import com.dl7.myapp.injector.modules.ApplicationModule;
+import com.dl7.myapp.local.table.DaoSession;
 import com.dl7.myapp.rxbus.RxBus;
-import com.dl7.myapp.module.base.BaseActivity;
 
 import javax.inject.Singleton;
 
@@ -18,9 +18,10 @@ import dagger.Component;
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
 
-    void inject(BaseActivity baseActivity);
+//    void inject(BaseActivity baseActivity);
 
     // provide
     Context getContext();
     RxBus getRxBus();
+    DaoSession getDaoSession();
 }

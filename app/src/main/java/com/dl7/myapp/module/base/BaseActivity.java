@@ -49,16 +49,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(attachLayoutRes());
-        _initInjector();
+//        _initInjector();
         _initSystemBarTint();
         ButterKnife.bind(this);
         initViews();
         updateViews();
     }
 
-    private void _initInjector() {
-        this.getAppComponent().inject(this);
-    }
+//    private void _initInjector() {
+//        this.getAppComponent().inject(this);
+//    }
 
     /**
      * 添加 Fragment
