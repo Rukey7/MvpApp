@@ -22,7 +22,7 @@ import com.dl7.myapp.local.table.NewsTypeBean;
 import com.dl7.myapp.module.base.BaseActivity;
 import com.dl7.myapp.module.base.IRxBusPresenter;
 import com.dl7.myapp.module.channel.ChannelActivity;
-import com.dl7.myapp.module.news.NewsListFragment;
+import com.dl7.myapp.module.newslist.NewsListFragment;
 import com.dl7.myapp.rxbus.event.DbUpdateEvent;
 
 import java.util.ArrayList;
@@ -139,8 +139,7 @@ public class MainActivity extends BaseActivity
             case R.id.nav_manage:
                 break;
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 }

@@ -28,6 +28,7 @@
         android:background="?attr/colorPrimary"/>
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/sv_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="@dimen/toolbar_margin_top"
@@ -49,6 +50,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         app:layout_behavior="com.dl7.myapp.views.behavior.ScrollAwareFABBehavior"
-        android:src="@mipmap/ic_clear_white_24dp"
+        android:src="@mipmap/ic_arrow_upward_white_24dp"
         android:layout_margin="16dp"/>
 </android.support.design.widget.CoordinatorLayout>

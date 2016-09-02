@@ -3,8 +3,10 @@ package com.dl7.myapp.api;
 import android.util.SparseArray;
 
 import com.dl7.myapp.AndroidApplication;
+import com.dl7.myapp.api.bean.BeautyPhotoBean;
 import com.dl7.myapp.api.bean.NewsBean;
 import com.dl7.myapp.api.bean.NewsDetailBean;
+import com.dl7.myapp.api.bean.PhotoBean;
 import com.dl7.myapp.api.bean.PhotoSetBean;
 import com.dl7.myapp.api.bean.SpecialBean;
 import com.dl7.myapp.utils.NetUtil;
@@ -58,6 +60,7 @@ public class RetrofitService {
     private static Object key = new Object();
     // 保存新闻列表的当前页码
     private static SparseArray<Integer> sNewsPage;
+    private static int sBeautyPage = 0;
     // 递增页码
     private static final int INCREASE_PAGE = 20;
 
@@ -233,6 +236,50 @@ public class RetrofitService {
     }
 
     /**
+     * 获取图片列表
+     * @return
+     */
+    public static Observable<List<PhotoBean>> getPhotoList() {
+        return mService.getPhotoList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 获取更多图片列表
+     * @return
+     */
+    public static Observable<List<PhotoBean>> getPhotoMoreList(String setId) {
+        return mService.getPhotoMoreList(setId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 获取美女图片
+     * @return
+     */
+    public static Observable<BeautyPhotoBean> getBeautyPhoto() {
+        sBeautyPage = 0;
+        return mService.getBeautyPhoto(sBeautyPage)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(_flatMapPhotos());
+    }
+
+    /**
+     * 获取更多美女图片
+     * @return
+     */
+    public static Observable<BeautyPhotoBean> getMoreBeautyPhoto() {
+        sBeautyPage += INCREASE_PAGE;
+        return mService.getBeautyPhoto(sBeautyPage)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(_flatMapPhotos());
+    }
+
+    /**
      * 类型转换
      * @param typeStr 新闻类型
      * @return
@@ -259,4 +306,18 @@ public class RetrofitService {
             }
         };
     }
+
+    /**
+     * 类型转换
+     * @return
+     */
+    private static Func1<Map<String, List<BeautyPhotoBean>>, Observable<BeautyPhotoBean>> _flatMapPhotos() {
+        return new Func1<Map<String, List<BeautyPhotoBean>>, Observable<BeautyPhotoBean>>() {
+            @Override
+            public Observable<BeautyPhotoBean> call(Map<String, List<BeautyPhotoBean>> newsListMap) {
+                return Observable.from(newsListMap.get("美女"));
+            }
+        };
+    }
+
 }

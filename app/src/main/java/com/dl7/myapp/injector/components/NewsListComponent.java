@@ -2,7 +2,7 @@ package com.dl7.myapp.injector.components;
 
 import com.dl7.myapp.injector.PerFragment;
 import com.dl7.myapp.injector.modules.NewsListModule;
-import com.dl7.myapp.module.news.NewsListFragment;
+import com.dl7.myapp.module.newslist.NewsListFragment;
 
 import dagger.Component;
 

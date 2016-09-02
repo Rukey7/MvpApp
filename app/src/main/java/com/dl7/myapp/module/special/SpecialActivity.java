@@ -65,6 +65,11 @@ public class SpecialActivity extends BaseActivity implements ISpecialView {
     }
 
     @Override
+    protected boolean isSystemBarTranslucent() {
+        return false;
+    }
+
+    @Override
     protected int attachLayoutRes() {
         return R.layout.activity_special;
     }

@@ -3,6 +3,7 @@ package com.dl7.myapp.module.detail;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.ViewStub;
@@ -27,6 +28,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class NewsDetailActivity extends BaseActivity implements INewsDetailView {
 
@@ -42,6 +44,8 @@ public class NewsDetailActivity extends BaseActivity implements INewsDetailView 
     TextView mTvSource;
     @BindView(R.id.tv_time)
     TextView mTvTime;
+    @BindView(R.id.sv_content)
+    NestedScrollView mSvContent;
     @BindView(R.id.empty_layout)
     EmptyLayout mEmptyLayout;
     @BindView(R.id.tv_content)
@@ -138,6 +142,7 @@ public class NewsDetailActivity extends BaseActivity implements INewsDetailView 
 
     /**
      * 处理关联新闻
+     *
      * @param newsDetailBean
      */
     private void _handleRelatedNews(NewsDetailBean newsDetailBean) {
@@ -153,5 +158,11 @@ public class NewsDetailActivity extends BaseActivity implements INewsDetailView 
             RecyclerViewHelper.initRecyclerViewV(this, mRvRelatedNews, false, mRelatedAdapter);
             mRelatedAdapter.updateItems(newsDetailBean.getRelative_sys());
         }
+    }
+
+    @OnClick(R.id.fab_coping)
+    public void onClick() {
+        mSvContent.stopNestedScroll();
+        mSvContent.smoothScrollTo(0, 0);
     }
 }

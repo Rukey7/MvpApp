@@ -1,14 +1,14 @@
-package com.dl7.myapp.module.home;
+package com.dl7.myapp.module.news;
 
 import com.dl7.myapp.local.table.NewsTypeBean;
 
 import java.util.List;
 
 /**
- * Created by long on 2016/9/1.
- * 主页接口
+ * Created by long on 2016/9/2.
+ * 新闻接口
  */
-public interface IMainView {
+public interface INewsView {
 
     /**
      * 显示数据

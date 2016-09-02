@@ -4,8 +4,8 @@ import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
 import com.dl7.myapp.adapter.NewsMultiListAdapter;
 import com.dl7.myapp.injector.PerFragment;
 import com.dl7.myapp.module.base.IBasePresenter;
-import com.dl7.myapp.module.news.NewsListFragment;
-import com.dl7.myapp.module.news.NewsListPresenter;
+import com.dl7.myapp.module.newslist.NewsListFragment;
+import com.dl7.myapp.module.newslist.NewsListPresenter;
 
 import dagger.Module;
 import dagger.Provides;

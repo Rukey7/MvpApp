@@ -1,4 +1,4 @@
-package com.dl7.myapp.module.news;
+package com.dl7.myapp.module.newslist;
 
 import com.dl7.myapp.api.NewsUtils;
 import com.dl7.myapp.api.RetrofitService;

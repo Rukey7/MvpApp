@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -18,6 +19,7 @@ import com.dl7.myapp.AndroidApplication;
 import com.dl7.myapp.R;
 import com.dl7.myapp.injector.components.ApplicationComponent;
 import com.dl7.myapp.injector.modules.ActivityModule;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import butterknife.ButterKnife;
 
@@ -49,16 +51,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(attachLayoutRes());
-//        _initInjector();
-        _initSystemBarTint();
+        _initSystemBarTint(isSystemBarTranslucent());
         ButterKnife.bind(this);
         initViews();
         updateViews();
     }
-
-//    private void _initInjector() {
-//        this.getAppComponent().inject(this);
-//    }
 
     /**
      * 添加 Fragment
@@ -92,21 +89,49 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     /**
+     * 设置状态是否透明
+     */
+    protected boolean isSystemBarTranslucent() {
+        return false;
+    }
+
+    /**
      * 设置状态栏颜色
      */
-    protected void _initSystemBarTint() {
-        // 设置状态栏全透明
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//                getWindow().addFlags(WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY);
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+    protected void _initSystemBarTint(boolean isSystemBarTranslucent) {
+        if (isSystemBarTranslucent) {
+            // 设置状态栏全透明
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Window window = getWindow();
+                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                window.setStatusBarColor(Color.TRANSPARENT);
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            }
+            return;
         }
+        // 沉浸式状态栏
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
+                Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintColor(getDarkColorPrimary());
+        }
+    }
+
+    /**
+     * 获取深主题色
+     *
+     * @return
+     */
+    public int getDarkColorPrimary() {
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.colorPrimaryDark, typedValue, true);
+        return typedValue.data;
     }
 
     /**

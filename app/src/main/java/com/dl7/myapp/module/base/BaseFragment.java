@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,6 +73,17 @@ public abstract class BaseFragment extends Fragment {
      */
     protected ApplicationComponent getAppComponent() {
         return ((AndroidApplication) getActivity().getApplication()).getAppComponent();
+    }
+
+    /**
+     * 初始化 Toolbar
+     *
+     * @param toolbar
+     * @param homeAsUpEnabled
+     * @param title
+     */
+    protected void initToolBar(Toolbar toolbar, boolean homeAsUpEnabled, String title) {
+        ((BaseActivity)getActivity()).initToolBar(toolbar, homeAsUpEnabled, title);
     }
 
     /**

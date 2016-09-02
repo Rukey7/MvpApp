@@ -12,7 +12,7 @@
         style="@style/news_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="意大利地震已致至少120人遇难 震区仍时有余震"/>
+        android:text="这是标题~"/>
 
     <LinearLayout
         android:layout_width="match_parent"

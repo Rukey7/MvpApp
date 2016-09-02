@@ -1,4 +1,4 @@
-package com.dl7.myapp.module.news;
+package com.dl7.myapp.module.newslist;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

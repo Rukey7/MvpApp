@@ -1,4 +1,4 @@
-package com.dl7.myapp.module.news;
+package com.dl7.myapp.module.newslist;
 
 import com.dl7.myapp.api.bean.NewsBean;
 import com.dl7.myapp.entity.NewsMultiItem;
