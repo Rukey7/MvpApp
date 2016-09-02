@@ -10,7 +10,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.dl7.myapp.R;
 import com.dl7.myapp.adapter.ViewPagerAdapter;
@@ -63,10 +65,11 @@ public class MainActivity extends BaseActivity
                 .build()
                 .inject(this);
         initToolBar(mToolBar, true, "网易新闻");
+        _setCustomToolbar();
         _initDrawerLayout();
-        mPresenter.registerRxBus(DbUpdateEvent.class);
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
+        mPresenter.registerRxBus(DbUpdateEvent.class);
     }
 
     @Override
@@ -100,6 +103,17 @@ public class MainActivity extends BaseActivity
         }
     }
 
+    private void _setCustomToolbar() {
+        View view = getLayoutInflater().inflate(R.layout.layout_custom_toolbar, mToolBar);
+        ImageView ivChannel = (ImageView) view.findViewById(R.id.iv_channel);
+        ivChannel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ChannelActivity.launch(MainActivity.this);
+            }
+        });
+    }
+
     private void _initDrawerLayout() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
@@ -123,7 +137,6 @@ public class MainActivity extends BaseActivity
             case R.id.nav_gallery:
                 break;
             case R.id.nav_manage:
-                ChannelActivity.launch(this);
                 break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
