@@ -53,4 +53,9 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         this.mTitles = mTitles;
         notifyDataSetChanged();
     }
+
+    public void addData(Fragment fragment, String title) {
+        fragments.add(fragment);
+        mTitles.add(title);
+    }
 }

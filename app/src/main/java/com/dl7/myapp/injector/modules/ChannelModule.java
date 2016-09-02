@@ -7,6 +7,7 @@ import com.dl7.myapp.local.table.DaoSession;
 import com.dl7.myapp.module.base.ILocalPresenter;
 import com.dl7.myapp.module.channel.ChannelActivity;
 import com.dl7.myapp.module.channel.ChannelPresenter;
+import com.dl7.myapp.rxbus.RxBus;
 
 import dagger.Module;
 import dagger.Provides;
@@ -16,11 +17,11 @@ import dagger.Provides;
  * 管理
  */
 @Module
-public class ManageModule {
+public class ChannelModule {
 
     private final ChannelActivity mView;
 
-    public ManageModule(ChannelActivity view) {
+    public ChannelModule(ChannelActivity view) {
         mView = view;
     }
 
@@ -31,7 +32,7 @@ public class ManageModule {
 
     @PerActivity
     @Provides
-    public ILocalPresenter provideManagePresenter(DaoSession daoSession) {
-        return new ChannelPresenter(mView, daoSession.getNewsTypeBeanDao());
+    public ILocalPresenter provideManagePresenter(DaoSession daoSession, RxBus rxBus) {
+        return new ChannelPresenter(mView, daoSession.getNewsTypeBeanDao(), rxBus);
     }
 }

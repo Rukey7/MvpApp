@@ -4,6 +4,8 @@ import com.dl7.myapp.local.dao.NewsTypeDao;
 import com.dl7.myapp.local.table.NewsTypeBean;
 import com.dl7.myapp.local.table.NewsTypeBeanDao;
 import com.dl7.myapp.module.base.ILocalPresenter;
+import com.dl7.myapp.rxbus.RxBus;
+import com.dl7.myapp.rxbus.event.DbUpdateEvent;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.List;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -23,10 +26,12 @@ public class ChannelPresenter implements ILocalPresenter<NewsTypeBean> {
 
     private final IChannelView mView;
     private final NewsTypeBeanDao mDbDao;
+    private final RxBus mRxBus;
 
-    public ChannelPresenter(IChannelView view, NewsTypeBeanDao dbDao) {
+    public ChannelPresenter(IChannelView view, NewsTypeBeanDao dbDao, RxBus rxBus) {
         mView = view;
         mDbDao = dbDao;
+        mRxBus = rxBus;
     }
 
 
@@ -72,17 +77,77 @@ public class ChannelPresenter implements ILocalPresenter<NewsTypeBean> {
 
     @Override
     public void insert(NewsTypeBean data) {
-        mDbDao.insert(data);
-        Logger.e(mDbDao.queryBuilder().list().toString());
+        mDbDao.rx().insert(data)
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<NewsTypeBean>() {
+                    @Override
+                    public void onCompleted() {
+                        mRxBus.post(new DbUpdateEvent());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Logger.e(e.toString());
+                    }
+
+                    @Override
+                    public void onNext(NewsTypeBean newsTypeBean) {
+                        Logger.w(newsTypeBean.toString());
+                    }
+                });
     }
 
     @Override
     public void delete(NewsTypeBean data) {
-        mDbDao.delete(data);
+        mDbDao.rx().delete(data)
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<Void>() {
+                    @Override
+                    public void onCompleted() {
+                        mRxBus.post(new DbUpdateEvent());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Logger.e(e.toString());
+                    }
+
+                    @Override
+                    public void onNext(Void aVoid) {
+                    }
+                });
     }
 
     @Override
-    public void swap(int fromPos, int toPos) {
-        Logger.w(mDbDao.queryBuilder().list().toString());
+    public void update(List<NewsTypeBean> list) {
+        // 这做法不太妥当，而且列表在交互位置时可能产生很多无用的交互没处理掉，暂时没想到简便的方法来处理，以后有想法再改。
+        Observable.from(list)
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        // 清空数据库
+                        mDbDao.deleteAll();
+                    }
+                })
+                .subscribeOn(Schedulers.computation())
+                .subscribe(new Subscriber<NewsTypeBean>() {
+                    @Override
+                    public void onCompleted() {
+                        mRxBus.post(new DbUpdateEvent());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Logger.e(e.toString());
+                    }
+
+                    @Override
+                    public void onNext(NewsTypeBean newsTypeBean) {
+                        // 把ID清除再加入数据库会从新按列表顺序递增ID
+                        newsTypeBean.setId(null);
+                        mDbDao.save(newsTypeBean);
+                    }
+                });
     }
+
 }

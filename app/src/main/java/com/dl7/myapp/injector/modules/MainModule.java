@@ -3,9 +3,10 @@ package com.dl7.myapp.injector.modules;
 import com.dl7.myapp.adapter.ViewPagerAdapter;
 import com.dl7.myapp.injector.PerActivity;
 import com.dl7.myapp.local.table.DaoSession;
-import com.dl7.myapp.module.base.IBasePresenter;
+import com.dl7.myapp.module.base.IRxBusPresenter;
 import com.dl7.myapp.module.home.MainActivity;
 import com.dl7.myapp.module.home.MainPresenter;
+import com.dl7.myapp.rxbus.RxBus;
 
 import dagger.Module;
 import dagger.Provides;
@@ -25,8 +26,8 @@ public class MainModule {
 
     @PerActivity
     @Provides
-    public IBasePresenter provideMainPresenter(DaoSession daoSession) {
-        return new MainPresenter(mView, daoSession.getNewsTypeBeanDao());
+    public IRxBusPresenter provideMainPresenter(DaoSession daoSession, RxBus rxBus) {
+        return new MainPresenter(mView, daoSession.getNewsTypeBeanDao(), rxBus);
     }
 
     @PerActivity

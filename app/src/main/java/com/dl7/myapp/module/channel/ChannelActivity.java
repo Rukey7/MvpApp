@@ -14,7 +14,7 @@ import com.dl7.helperlibrary.listener.OnRecyclerViewItemClickListener;
 import com.dl7.helperlibrary.listener.OnRemoveDataListener;
 import com.dl7.myapp.R;
 import com.dl7.myapp.injector.components.DaggerManageComponent;
-import com.dl7.myapp.injector.modules.ManageModule;
+import com.dl7.myapp.injector.modules.ChannelModule;
 import com.dl7.myapp.local.table.NewsTypeBean;
 import com.dl7.myapp.module.base.BaseActivity;
 import com.dl7.myapp.module.base.ILocalPresenter;
@@ -58,7 +58,7 @@ public class ChannelActivity extends BaseActivity implements IChannelView {
     protected void initViews() {
         DaggerManageComponent.builder()
                 .applicationComponent(getAppComponent())
-                .manageModule(new ManageModule(this))
+                .channelModule(new ChannelModule(this))
                 .build()
                 .inject(this);
         initToolBar(mToolbar, true, "栏目管理");
@@ -74,25 +74,26 @@ public class ChannelActivity extends BaseActivity implements IChannelView {
         mCheckedAdapter.setRemoveDataListener(new OnRemoveDataListener() {
             @Override
             public void onRemove(int position) {
-                mPresenter.delete(mCheckedAdapter.getItem(position));
                 mUncheckedAdapter.addLastItem(mCheckedAdapter.getItem(position));
+                mPresenter.delete(mCheckedAdapter.getItem(position));
             }
         });
         // 设置移动监听器
         mCheckedAdapter.setItemMoveListener(new OnItemMoveListener() {
             @Override
             public void onItemMove(int fromPosition, int toPosition) {
-                mPresenter.swap(fromPosition, toPosition);
+                mPresenter.update(mCheckedAdapter.getData());
             }
         });
         // 设置点击删除
         mUncheckedAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                // 添加要放在删除前，不然获取不到对应数据
-                mCheckedAdapter.addLastItem(mUncheckedAdapter.getItem(position));
-                mPresenter.insert(mUncheckedAdapter.getItem(position));
+                // 删除前获取数据，不然获取不到对应数据
+                Object data = mUncheckedAdapter.getItem(position);
                 mUncheckedAdapter.removeItem(position);
+                mCheckedAdapter.addLastItem(data);
+                mPresenter.insert(data);
             }
         });
     }

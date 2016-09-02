@@ -1,5 +1,7 @@
 package com.dl7.myapp.module.base;
 
+import java.util.List;
+
 /**
  * Created by long on 2016/9/1.
  * 提供本地数据库操作的 Presenter
@@ -19,9 +21,8 @@ public interface ILocalPresenter<T> extends IBasePresenter {
     void delete(T data);
 
     /**
-     * 交换位置
-     * @param fromPos   起始位置
-     * @param toPos     目标位置
+     * 更新数据
+     * @param list   所有数据
      */
-    void swap(int fromPos, int toPos);
+    void update(List<T> list);
 }

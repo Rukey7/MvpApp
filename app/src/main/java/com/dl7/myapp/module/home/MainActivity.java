@@ -18,10 +18,10 @@ import com.dl7.myapp.injector.components.DaggerMainComponent;
 import com.dl7.myapp.injector.modules.MainModule;
 import com.dl7.myapp.local.table.NewsTypeBean;
 import com.dl7.myapp.module.base.BaseActivity;
-import com.dl7.myapp.module.base.IBasePresenter;
+import com.dl7.myapp.module.base.IRxBusPresenter;
 import com.dl7.myapp.module.channel.ChannelActivity;
 import com.dl7.myapp.module.news.NewsListFragment;
-import com.dl7.myapp.rxbus.RxBus;
+import com.dl7.myapp.rxbus.event.DbUpdateEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,9 +47,7 @@ public class MainActivity extends BaseActivity
     @Inject
     ViewPagerAdapter mPagerAdapter;
     @Inject
-    IBasePresenter mPresenter;
-    @Inject
-    RxBus mRxBus;
+    IRxBusPresenter mPresenter;
 
 
     @Override
@@ -66,6 +64,9 @@ public class MainActivity extends BaseActivity
                 .inject(this);
         initToolBar(mToolBar, true, "网易新闻");
         _initDrawerLayout();
+        mPresenter.registerRxBus(DbUpdateEvent.class);
+        mViewPager.setAdapter(mPagerAdapter);
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 
     @Override
@@ -82,9 +83,12 @@ public class MainActivity extends BaseActivity
             fragments.add(NewsListFragment.newInstance(bean.getTypeId()));
         }
         mPagerAdapter.setDatas(fragments, titles);
-        mViewPager.setAdapter(mPagerAdapter);
-        mViewPager.setOffscreenPageLimit(checkList.size());
-        mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.unregisterRxBus();
     }
 
     @Override
@@ -102,7 +106,7 @@ public class MainActivity extends BaseActivity
             localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
             //将侧边栏顶部延伸至status bar
             mDrawerLayout.setFitsSystemWindows(true);
-            //将主页面顶部延伸至status bar;虽默认为false,但经测试,DrawerLayout需显示设置
+            //将主页面顶部延伸至status bar
             mDrawerLayout.setClipToPadding(false);
         }
 

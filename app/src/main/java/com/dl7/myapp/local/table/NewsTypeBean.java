@@ -11,7 +11,7 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 public class NewsTypeBean {
 
-    @Id
+    @Id(autoincrement = true)
     private Long id;
     private String name;
     private String typeId;

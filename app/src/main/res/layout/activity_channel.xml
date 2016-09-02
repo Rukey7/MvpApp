@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="长按拖拽或左滑删除"/>
+            android:text="长按拖拽排序或左滑删除"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

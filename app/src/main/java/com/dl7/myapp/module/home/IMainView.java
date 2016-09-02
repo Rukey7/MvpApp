@@ -15,4 +15,6 @@ public interface IMainView {
      * @param checkList     选中栏目
      */
     void loadData(List<NewsTypeBean> checkList);
+
+
 }
