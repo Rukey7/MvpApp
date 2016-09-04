@@ -2,8 +2,8 @@ package com.dl7.myapp.injector.modules;
 
 import com.dl7.myapp.injector.PerActivity;
 import com.dl7.myapp.module.base.IBasePresenter;
-import com.dl7.myapp.module.photo.PhotoSetActivity;
-import com.dl7.myapp.module.photo.PhotoSetPresenter;
+import com.dl7.myapp.module.photoset.PhotoSetActivity;
+import com.dl7.myapp.module.photoset.PhotoSetPresenter;
 
 import dagger.Module;
 import dagger.Provides;

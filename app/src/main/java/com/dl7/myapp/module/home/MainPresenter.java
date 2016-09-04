@@ -47,24 +47,37 @@ public class MainPresenter implements IRxBusPresenter {
 
     @Override
     public <T> void registerRxBus(Class<T> eventType) {
-        mRxSubscription = mRxBus.toObservable(eventType)
-                .subscribe(new Action1<T>() {
-                    @Override
-                    public void call(T t) {
-                        getData();
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
+        Subscription subscription = mRxBus.doSubscribe(eventType, new Action1<T>() {
+            @Override
+            public void call(T t) {
+                getData();
+            }
+        }, new Action1<Throwable>() {
+            @Override
+            public void call(Throwable throwable) {
 
-                    }
-                });
+            }
+        });
+        mRxBus.addSubscription(this, subscription);
+//        mRxSubscription = mRxBus.toObservable(eventType)
+//                .subscribe(new Action1<T>() {
+//                    @Override
+//                    public void call(T t) {
+//                        getData();
+//                    }
+//                }, new Action1<Throwable>() {
+//                    @Override
+//                    public void call(Throwable throwable) {
+//
+//                    }
+//                });
     }
 
     @Override
     public void unregisterRxBus() {
-        if (!mRxSubscription.isUnsubscribed()) {
-            mRxSubscription.unsubscribe();
-        }
+//        if (!mRxSubscription.isUnsubscribed()) {
+//            mRxSubscription.unsubscribe();
+//        }
+        mRxBus.unSubscribe(this);
     }
 }

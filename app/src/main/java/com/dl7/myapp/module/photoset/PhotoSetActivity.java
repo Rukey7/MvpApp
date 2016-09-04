@@ -1,4 +1,4 @@
-package com.dl7.myapp.module.photo;
+package com.dl7.myapp.module.photoset;
 
 import android.content.Context;
 import android.content.Intent;

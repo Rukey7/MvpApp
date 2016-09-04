@@ -1,42 +1,129 @@
 package com.dl7.myapp.rxbus;
 
+import java.util.HashMap;
+
 import rx.Observable;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 import rx.subjects.PublishSubject;
 import rx.subjects.SerializedSubject;
-import rx.subjects.Subject;
+import rx.subscriptions.CompositeSubscription;
 
 /**
+ * http://www.jianshu.com/p/3a3462535b4d
  * RxBus
  */
 public class RxBus {
 
-    private static volatile RxBus defaultInstance;
+//    private static volatile RxBus mInstance;
+    private SerializedSubject<Object, Object> mSubject;
+    private HashMap<String, CompositeSubscription> mSubscriptionMap;
 
-    private final Subject<Object, Object> bus;
-    // PublishSubject只会把在订阅发生的时间点之后来自原始Observable的数据发射给观察者
+
     public RxBus() {
-        bus = new SerializedSubject<>(PublishSubject.create());
+        mSubject = new SerializedSubject<>(PublishSubject.create());
     }
 
-    // 单例RxBus
-    public static RxBus getDefault() {
-        if (defaultInstance == null) {
+    // 这里使用Dagger来处理单例
+    /*
+    private RxBus() {
+        mSubject = new SerializedSubject<>(PublishSubject.create());
+    }
+
+    public static RxBus getInstance() {
+        if (mInstance == null) {
             synchronized (RxBus.class) {
-                if (defaultInstance == null) {
-                    defaultInstance = new RxBus();
+                if (mInstance == null) {
+                    mInstance = new RxBus();
                 }
             }
         }
-        return defaultInstance ;
+        return mInstance;
+    }*/
+
+    /**
+     * 发送事件
+     *
+     * @param o
+     */
+    public void post(Object o) {
+        mSubject.onNext(o);
     }
 
-    // 发送一个新的事件
-    public void post (Object o) {
-        bus.onNext(o);
+    /**
+     * 返回指定类型的Observable实例
+     *
+     * @param type
+     * @param <T>
+     * @return
+     */
+    public <T> Observable<T> toObservable(final Class<T> type) {
+        return mSubject.ofType(type);
     }
 
-    // 根据传递的 eventType 类型返回特定类型(eventType)的 被观察者
-    public <T> Observable<T> toObservable (Class<T> eventType) {
-        return bus.ofType(eventType);
+    /**
+     * 是否已有观察者订阅
+     *
+     * @return
+     */
+    public boolean hasObservers() {
+        return mSubject.hasObservers();
+    }
+
+    /**
+     * 一个默认的订阅方法
+     *
+     * @param type
+     * @param next
+     * @param error
+     * @param <T>
+     * @return
+     */
+    public <T> Subscription doSubscribe(Class<T> type, Action1<T> next, Action1<Throwable> error) {
+        return toObservable(type)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(next, error);
+    }
+
+    /**
+     * 保存订阅后的subscription
+     * @param o
+     * @param subscription
+     */
+    public void addSubscription(Object o, Subscription subscription) {
+        if (mSubscriptionMap == null) {
+            mSubscriptionMap = new HashMap<>();
+        }
+        String key = o.getClass().getName();
+        if (mSubscriptionMap.get(key) != null) {
+            mSubscriptionMap.get(key).add(subscription);
+        } else {
+            CompositeSubscription compositeSubscription = new CompositeSubscription();
+            compositeSubscription.add(subscription);
+            mSubscriptionMap.put(key, compositeSubscription);
+        }
+    }
+
+    /**
+     * 取消订阅
+     * @param o
+     */
+    public void unSubscribe(Object o) {
+        if (mSubscriptionMap == null) {
+            return;
+        }
+
+        String key = o.getClass().getName();
+        if (!mSubscriptionMap.containsKey(key)){
+            return;
+        }
+        if (mSubscriptionMap.get(key) != null) {
+            mSubscriptionMap.get(key).unsubscribe();
+        }
+
+        mSubscriptionMap.remove(key);
     }
 }

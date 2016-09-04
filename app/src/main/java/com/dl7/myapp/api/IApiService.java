@@ -91,7 +91,7 @@ public interface IApiService {
     Observable<List<PhotoBean>> getPhotoMoreList(@Path("setId") String setId);
 
     /**
-     * 获取美女图片
+     * 获取美女图片，这个API不完整，省略了好多参数
      * eg: http://c.3g.163.com/recommend/getChanListNews?channel=T1456112189138&size=20&offset=0
      *
      * @param offset 起始页码

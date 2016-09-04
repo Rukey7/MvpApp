@@ -11,7 +11,7 @@ import com.dl7.myapp.api.NewsUtils;
 import com.dl7.myapp.api.bean.NewsBean;
 import com.dl7.myapp.entity.NewsMultiItem;
 import com.dl7.myapp.module.detail.NewsDetailActivity;
-import com.dl7.myapp.module.photo.PhotoSetActivity;
+import com.dl7.myapp.module.photoset.PhotoSetActivity;
 import com.dl7.myapp.module.special.SpecialActivity;
 import com.dl7.myapp.utils.ImageLoader;
 import com.dl7.myapp.utils.StringUtils;

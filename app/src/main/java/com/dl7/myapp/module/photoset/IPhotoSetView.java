@@ -1,4 +1,4 @@
-package com.dl7.myapp.module.photo;
+package com.dl7.myapp.module.photoset;
 
 import com.dl7.myapp.api.bean.PhotoSetBean;
 import com.dl7.myapp.module.base.IBaseView;
