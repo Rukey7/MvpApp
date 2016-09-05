@@ -50,7 +50,6 @@ public class MainActivity extends BaseNavActivity implements IMainView {
 
     public static void launch(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         context.startActivity(intent);
     }
 

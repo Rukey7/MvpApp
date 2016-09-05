@@ -259,7 +259,7 @@ public class RetrofitService {
      * 获取美女图片
      * @return
      */
-    public static Observable<BeautyPhotoBean> getBeautyPhoto() {
+    public static Observable<List<BeautyPhotoBean>> getBeautyPhoto() {
         sBeautyPage = 0;
         return mService.getBeautyPhoto(sBeautyPage)
                 .subscribeOn(Schedulers.io())
@@ -271,7 +271,7 @@ public class RetrofitService {
      * 获取更多美女图片
      * @return
      */
-    public static Observable<BeautyPhotoBean> getMoreBeautyPhoto() {
+    public static Observable<List<BeautyPhotoBean>> getMoreBeautyPhoto() {
         sBeautyPage += INCREASE_PAGE;
         return mService.getBeautyPhoto(sBeautyPage)
                 .subscribeOn(Schedulers.io())
@@ -311,11 +311,11 @@ public class RetrofitService {
      * 类型转换
      * @return
      */
-    private static Func1<Map<String, List<BeautyPhotoBean>>, Observable<BeautyPhotoBean>> _flatMapPhotos() {
-        return new Func1<Map<String, List<BeautyPhotoBean>>, Observable<BeautyPhotoBean>>() {
+    private static Func1<Map<String, List<BeautyPhotoBean>>, Observable<List<BeautyPhotoBean>>> _flatMapPhotos() {
+        return new Func1<Map<String, List<BeautyPhotoBean>>, Observable<List<BeautyPhotoBean>>>() {
             @Override
-            public Observable<BeautyPhotoBean> call(Map<String, List<BeautyPhotoBean>> newsListMap) {
-                return Observable.from(newsListMap.get("美女"));
+            public Observable<List<BeautyPhotoBean>> call(Map<String, List<BeautyPhotoBean>> newsListMap) {
+                return Observable.just(newsListMap.get("美女"));
             }
         };
     }

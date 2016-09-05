@@ -1,4 +1,4 @@
-package com.dl7.myapp.module.photolist;
+package com.dl7.myapp.module.beauty;
 
 import android.support.v7.widget.RecyclerView;
 
@@ -6,11 +6,12 @@ import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
 import com.dl7.helperlibrary.helper.RecyclerViewHelper;
 import com.dl7.helperlibrary.listener.OnRequestDataListener;
 import com.dl7.myapp.R;
-import com.dl7.myapp.api.bean.PhotoBean;
-import com.dl7.myapp.injector.components.DaggerPhotoListComponent;
-import com.dl7.myapp.injector.modules.PhotoListModule;
+import com.dl7.myapp.api.bean.BeautyPhotoBean;
+import com.dl7.myapp.injector.components.DaggerBeautyComponent;
+import com.dl7.myapp.injector.modules.BeautyModule;
 import com.dl7.myapp.module.base.BaseFragment;
 import com.dl7.myapp.module.base.IBasePresenter;
+import com.dl7.myapp.module.photolist.IPhotoListView;
 import com.dl7.myapp.views.EmptyLayout;
 
 import java.util.List;
@@ -22,9 +23,9 @@ import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 
 /**
  * Created by long on 2016/9/5.
- * 图片列表
+ * 美女图片
  */
-public class PhotoListFragment extends BaseFragment implements IPhotoListView<PhotoBean> {
+public class BeautyFragment extends BaseFragment implements IPhotoListView<BeautyPhotoBean> {
 
     @BindView(R.id.rv_photo_list)
     RecyclerView mRvPhotoList;
@@ -44,12 +45,13 @@ public class PhotoListFragment extends BaseFragment implements IPhotoListView<Ph
 
     @Override
     protected void initViews() {
-        DaggerPhotoListComponent.builder()
+        DaggerBeautyComponent.builder()
                 .applicationComponent(getAppComponent())
-                .photoListModule(new PhotoListModule(this))
+                .beautyModule(new BeautyModule(this))
                 .build()
                 .inject(this);
-        RecyclerViewHelper.initRecyclerViewV(mContext, mRvPhotoList, new SlideInBottomAnimationAdapter(mAdapter));
+        SlideInBottomAnimationAdapter slideAdapter = new SlideInBottomAnimationAdapter(mAdapter);
+        RecyclerViewHelper.initRecyclerViewV(mContext, mRvPhotoList, slideAdapter);
         mAdapter.setRequestDataListener(new OnRequestDataListener() {
             @Override
             public void onLoadMore() {
@@ -80,12 +82,12 @@ public class PhotoListFragment extends BaseFragment implements IPhotoListView<Ph
     }
 
     @Override
-    public void loadData(List<PhotoBean> photoList) {
+    public void loadData(List<BeautyPhotoBean> photoList) {
         mAdapter.updateItems(photoList);
     }
 
     @Override
-    public void loadMoreData(List<PhotoBean> photoList) {
+    public void loadMoreData(List<BeautyPhotoBean> photoList) {
         mAdapter.addItems(photoList);
     }
 

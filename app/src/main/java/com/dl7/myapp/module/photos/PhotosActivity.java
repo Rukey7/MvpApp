@@ -14,6 +14,7 @@ import com.dl7.myapp.adapter.ViewPagerAdapter;
 import com.dl7.myapp.injector.components.DaggerPhotosComponent;
 import com.dl7.myapp.injector.modules.PhotosModule;
 import com.dl7.myapp.module.base.BaseNavActivity;
+import com.dl7.myapp.module.beauty.BeautyFragment;
 import com.dl7.myapp.module.photolist.PhotoListFragment;
 
 import java.util.ArrayList;
@@ -42,7 +43,6 @@ public class PhotosActivity extends BaseNavActivity {
 
     public static void launch(Context context) {
         Intent intent = new Intent(context, PhotosActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         context.startActivity(intent);
     }
 
@@ -71,7 +71,7 @@ public class PhotosActivity extends BaseNavActivity {
         titles.add("生活");
         titles.add("美女");
         fragments.add(new PhotoListFragment());
-        fragments.add(new PhotoListFragment());
+        fragments.add(new BeautyFragment());
         mPagerAdapter.setDatas(fragments, titles);
     }
 

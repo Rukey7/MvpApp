@@ -27,6 +27,22 @@ public final class ImageLoader {
 
     public static void loadCenterCrop(Context context, String url, ImageView view, int defaultResId) {
 //        Picasso.with(context).load(url).centerInside().placeholder(defaultResId).into(view);
-        Glide.with(context).load(url).fitCenter().crossFade().placeholder(defaultResId).into(view);
+        Glide.with(context).load(url).centerCrop().crossFade().placeholder(defaultResId).into(view);
+    }
+
+    public static void loadFitOverride(Context context, String url, ImageView view, int defaultResId,
+                                       int width, int height) {
+        if (!TextUtils.isEmpty(url)) {
+            int scaleWidth = view.getMeasuredWidth();
+            if (scaleWidth < 0) {
+                // 重新自适应大小
+                int scaleHeight = (int) (height * (scaleWidth * 1.0f / width));
+                Glide.with(context).load(url).fitCenter().override(scaleWidth, scaleHeight)
+                        .placeholder(defaultResId).crossFade().into(view);
+            } else {
+                Glide.with(context).load(url).fitCenter().override(width * 2, height * 2)
+                        .placeholder(defaultResId).crossFade().into(view);
+            }
+        }
     }
 }

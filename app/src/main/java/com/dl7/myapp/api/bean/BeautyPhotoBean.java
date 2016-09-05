@@ -199,4 +199,29 @@ public class BeautyPhotoBean {
     public void setUpTimes(int upTimes) {
         this.upTimes = upTimes;
     }
+
+    @Override
+    public String toString() {
+        return "BeautyPhotoBean{" +
+                "adtype=" + adtype +
+                ", boardid='" + boardid + '\'' +
+                ", clkNum=" + clkNum +
+                ", digest='" + digest + '\'' +
+                ", docid='" + docid + '\'' +
+                ", downTimes=" + downTimes +
+                ", img='" + img + '\'' +
+                ", imgType=" + imgType +
+                ", imgsrc='" + imgsrc + '\'' +
+                ", picCount=" + picCount +
+                ", pixel='" + pixel + '\'' +
+                ", program='" + program + '\'' +
+                ", prompt='" + prompt + '\'' +
+                ", recType=" + recType +
+                ", replyCount=" + replyCount +
+                ", replyid='" + replyid + '\'' +
+                ", source='" + source + '\'' +
+                ", title='" + title + '\'' +
+                ", upTimes=" + upTimes +
+                '}';
+    }
 }
