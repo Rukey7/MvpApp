@@ -39,7 +39,7 @@ public class StringUtils {
             return photoId;
         }
         int i = photoId.indexOf("|");
-        if (i > 4) {
+        if (i >= 4) {
             String result = photoId.replace('|', '/');
             return result.substring(i - 4);
         }

@@ -14,7 +14,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppBaseTheme">
-        <activity android:name=".module.home.MainActivity">
+        <activity android:name=".module.home.MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -28,6 +29,9 @@
         <activity android:name=".module.photoset.PhotoSetActivity">
         </activity>
         <activity android:name=".module.channel.ChannelActivity">
+        </activity>
+        <activity android:name=".module.photos.PhotosActivity"
+                  android:launchMode="singleTask">
         </activity>
     </application>
 

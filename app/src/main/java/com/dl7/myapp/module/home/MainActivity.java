@@ -1,17 +1,14 @@
 package com.dl7.myapp.module.home;
 
-import android.os.Build;
+import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.dl7.myapp.R;
@@ -19,7 +16,7 @@ import com.dl7.myapp.adapter.ViewPagerAdapter;
 import com.dl7.myapp.injector.components.DaggerMainComponent;
 import com.dl7.myapp.injector.modules.MainModule;
 import com.dl7.myapp.local.table.NewsTypeBean;
-import com.dl7.myapp.module.base.BaseActivity;
+import com.dl7.myapp.module.base.BaseNavActivity;
 import com.dl7.myapp.module.base.IRxBusPresenter;
 import com.dl7.myapp.module.channel.ChannelActivity;
 import com.dl7.myapp.module.newslist.NewsListFragment;
@@ -32,8 +29,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseActivity
-        implements IMainView, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseNavActivity implements IMainView {
 
     @BindView(R.id.tool_bar)
     Toolbar mToolBar;
@@ -52,6 +48,12 @@ public class MainActivity extends BaseActivity
     IRxBusPresenter mPresenter;
 
 
+    public static void launch(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        context.startActivity(intent);
+    }
+
     @Override
     protected int attachLayoutRes() {
         return R.layout.activity_home;
@@ -64,9 +66,9 @@ public class MainActivity extends BaseActivity
                 .mainModule(new MainModule(this))
                 .build()
                 .inject(this);
-        initToolBar(mToolBar, true, "网易新闻");
+        initToolBar(mToolBar, true, "新闻");
+        initDrawerLayout(mDrawerLayout, mNavView, mToolBar);
         _setCustomToolbar();
-        _initDrawerLayout();
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
         mPresenter.registerRxBus(DbUpdateEvent.class);
@@ -75,6 +77,12 @@ public class MainActivity extends BaseActivity
     @Override
     protected void updateViews() {
         mPresenter.getData();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mNavView.setCheckedItem(R.id.nav_news);
     }
 
     @Override
@@ -94,15 +102,6 @@ public class MainActivity extends BaseActivity
         mPresenter.unregisterRxBus();
     }
 
-    @Override
-    public void onBackPressed() {
-        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
     private void _setCustomToolbar() {
         View view = getLayoutInflater().inflate(R.layout.layout_custom_toolbar, mToolBar);
         ImageView ivChannel = (ImageView) view.findViewById(R.id.iv_channel);
@@ -112,34 +111,5 @@ public class MainActivity extends BaseActivity
                 ChannelActivity.launch(MainActivity.this);
             }
         });
-    }
-
-    private void _initDrawerLayout() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
-            localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
-            //将侧边栏顶部延伸至status bar
-            mDrawerLayout.setFitsSystemWindows(true);
-            //将主页面顶部延伸至status bar
-            mDrawerLayout.setClipToPadding(false);
-        }
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, mToolBar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mDrawerLayout.setDrawerListener(toggle);
-        toggle.syncState();
-        mNavView.setNavigationItemSelectedListener(this);
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.nav_gallery:
-                break;
-            case R.id.nav_manage:
-                break;
-        }
-        mDrawerLayout.closeDrawer(GravityCompat.START);
-        return true;
     }
 }

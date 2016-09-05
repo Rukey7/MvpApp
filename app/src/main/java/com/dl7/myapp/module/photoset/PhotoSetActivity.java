@@ -50,9 +50,9 @@ public class PhotoSetActivity extends BaseActivity implements IPhotoSetView {
     private PhotoPagerAdapter mAdapter;
     private List<PhotosEntity> mPhotosEntities;
 
-    public static void launch(Context context, String newsId) {
+    public static void launch(Context context, String photoId) {
         Intent intent = new Intent(context, PhotoSetActivity.class);
-        intent.putExtra(PHOTO_SET_KEY, newsId);
+        intent.putExtra(PHOTO_SET_KEY, photoId);
         context.startActivity(intent);
     }
 

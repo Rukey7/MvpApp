@@ -29,6 +29,7 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
+
     /**
      * 绑定布局文件
      *
@@ -54,6 +55,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         _initSystemBarTint(isSystemBarTranslucent());
         ButterKnife.bind(this);
         initViews();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         updateViews();
     }
 
@@ -175,7 +181,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void finish() {
         super.finish();
-        if (!((Object) this).getClass().getName().contains("MainActivity")) {
+        if (((Object) this).getClass().getName().contains("PhotosActivity")) {
+            overridePendingTransition(0, 0);
+        } else if (!((Object) this).getClass().getName().contains("MainActivity")) {
             // 设置Activity退出动画为从左往右退出
             overridePendingTransition(R.anim.hold_long, R.anim.move_right_out_activity);
         }

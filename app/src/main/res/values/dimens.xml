@@ -25,7 +25,10 @@
 
     <dimen name="app_bar_height">180dp</dimen>
 
-    <!-- Photo set -->
+    <!-- Photo -->
     <dimen name="photo_set_desc_height">400dp</dimen>
     <dimen name="photo_set_desc_fix_height">150dp</dimen>
+    <dimen name="photo_large_height">170dp</dimen>
+    <dimen name="photo_small_height">90dp</dimen>
+
 </resources>
