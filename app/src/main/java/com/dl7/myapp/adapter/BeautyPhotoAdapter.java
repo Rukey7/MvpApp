@@ -19,9 +19,14 @@ import java.util.List;
  */
 public class BeautyPhotoAdapter extends BaseQuickAdapter<BeautyPhotoBean> {
 
+    // 图片的宽度
+    private int mPhotoWidth;
 
     public BeautyPhotoAdapter(Context context) {
         super(context);
+        int widthPixels = context.getResources().getDisplayMetrics().widthPixels;
+        int marginPixels = context.getResources().getDimensionPixelOffset(R.dimen.photo_margin_width);
+        mPhotoWidth = widthPixels - marginPixels;
     }
 
     public BeautyPhotoAdapter(Context context, List<BeautyPhotoBean> data) {
@@ -36,12 +41,10 @@ public class BeautyPhotoAdapter extends BaseQuickAdapter<BeautyPhotoBean> {
     @Override
     protected void convert(BaseViewHolder holder, final BeautyPhotoBean item) {
         ImageView ivPhoto = holder.getView(R.id.iv_photo);
-        int[] photoSize = _clipPhotoSize(item.getPixel());
-        Logger.i(holder.itemView.getWidth()+"");
-        if (photoSize != null) {
+        int photoHeight = _calcPhotoHeight(item.getPixel());
+        if (photoHeight != -1) {
             ImageLoader.loadFitOverride(mContext, item.getImgsrc(), ivPhoto, R.mipmap.photo_default,
-                    photoSize[0], photoSize[1]);
-//            ImageLoader.loadCenterCrop(mContext, item.getImgsrc(), ivPhoto, R.mipmap.icon_default);
+                    mPhotoWidth, photoHeight);
         } else {
             ImageLoader.loadFit(mContext, item.getImgsrc(), ivPhoto, R.mipmap.photo_default);
         }
@@ -53,19 +56,25 @@ public class BeautyPhotoAdapter extends BaseQuickAdapter<BeautyPhotoBean> {
         });
     }
 
-    private int[] _clipPhotoSize(String pixel) {
-        int[] size = new int[2];
+    /**
+     * 计算图片要显示的高度
+     * @param pixel
+     * @return
+     */
+    private int _calcPhotoHeight(String pixel) {
+        int height = -1;
         int index = pixel.indexOf("*");
         if (index != -1) {
             try {
-                size[0] = Integer.parseInt(pixel.substring(0, index));
-                size[1] = Integer.parseInt(pixel.substring(index + 1));
+                int widthPixel = Integer.parseInt(pixel.substring(0, index));
+                int heightPixel = Integer.parseInt(pixel.substring(index + 1));
+                height = (int) (heightPixel * (mPhotoWidth * 1.0f / widthPixel));
             } catch (NumberFormatException e) {
                 Logger.e(e.toString());
-                return null;
+                return -1;
             }
         }
 
-        return size;
+        return height;
     }
 }

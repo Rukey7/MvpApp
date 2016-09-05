@@ -151,7 +151,7 @@ public class RetrofitService {
             }
 
             if (contentLength != 0) {
-//                Logger.json(buffer.clone().readString(charset));
+                Logger.json(buffer.clone().readString(charset));
             }
 
             return response;

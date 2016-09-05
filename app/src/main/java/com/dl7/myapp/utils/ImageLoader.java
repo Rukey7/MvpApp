@@ -33,16 +33,9 @@ public final class ImageLoader {
     public static void loadFitOverride(Context context, String url, ImageView view, int defaultResId,
                                        int width, int height) {
         if (!TextUtils.isEmpty(url)) {
-            int scaleWidth = view.getMeasuredWidth();
-            if (scaleWidth < 0) {
-                // 重新自适应大小
-                int scaleHeight = (int) (height * (scaleWidth * 1.0f / width));
-                Glide.with(context).load(url).fitCenter().override(scaleWidth, scaleHeight)
-                        .placeholder(defaultResId).crossFade().into(view);
-            } else {
-                Glide.with(context).load(url).fitCenter().override(width * 2, height * 2)
-                        .placeholder(defaultResId).crossFade().into(view);
-            }
+//            view.setScaleType(ImageView.ScaleType.FIT_XY);
+            Glide.with(context).load(url).fitCenter().override(width, height)
+                    .placeholder(defaultResId).crossFade().into(view);
         }
     }
 }
