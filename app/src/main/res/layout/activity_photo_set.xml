@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<com.dl7.drag.DragSlopLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
-    android:orientation="vertical"
+    app:fix_height="100dp"
+    app:mode="drag"
     tools:context="com.dl7.myapp.module.photoset.PhotoSetActivity">
 
     <android.support.v4.view.ViewPager
@@ -14,63 +15,68 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <include layout="@layout/layout_toolbar_transparent"/>
-
-    <com.dl7.myapp.views.ScrollOverLayout
-        android:id="@+id/scroll_layout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/photo_set_desc_height"
-        android:layout_gravity="bottom"
+        android:layout_height="wrap_content"
         android:background="@color/photo_set_bg"
-        app:fix_height="@dimen/photo_set_desc_fix_height">
+        android:orientation="vertical">
 
         <LinearLayout
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_margin="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                
-                <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"/>
 
-                <TextView
-                    android:id="@+id/tv_index"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_index"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"/>
 
-            <com.dl7.myapp.views.ScrollContentView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="/"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"/>
 
-                <TextView
-                    android:id="@+id/tv_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:textColor="@android:color/white"
-                    android:textSize="12sp"/>
-            </com.dl7.myapp.views.ScrollContentView>
+            <TextView
+                android:id="@+id/tv_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"/>
         </LinearLayout>
-    </com.dl7.myapp.views.ScrollOverLayout>
 
-    <com.dl7.myapp.views.EmptyLayout
-        android:id="@+id/empty_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-</FrameLayout>
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"/>
+        </ScrollView>
+    </LinearLayout>
+
+    <include layout="@layout/layout_toolbar_transparent"/>
+</com.dl7.drag.DragSlopLayout>

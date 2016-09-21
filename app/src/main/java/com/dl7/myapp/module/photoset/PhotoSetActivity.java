@@ -15,7 +15,7 @@ import com.dl7.myapp.injector.modules.PhotoSetModule;
 import com.dl7.myapp.module.base.BaseActivity;
 import com.dl7.myapp.module.base.IBasePresenter;
 import com.dl7.myapp.views.EmptyLayout;
-import com.dl7.myapp.views.ScrollOverLayout;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,20 +28,20 @@ public class PhotoSetActivity extends BaseActivity implements IPhotoSetView {
 
     private static final String PHOTO_SET_KEY = "PhotoSetKey";
 
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
     @BindView(R.id.vp_photo)
     ViewPager mVpPhoto;
     @BindView(R.id.tv_title)
     TextView mTvTitle;
-    @BindView(R.id.tv_content)
-    TextView mTvContent;
-    @BindView(R.id.scroll_layout)
-    ScrollOverLayout mScrollLayout;
     @BindView(R.id.tv_index)
     TextView mTvIndex;
-    @BindView(R.id.empty_layout)
-    EmptyLayout mEmptyLayout;
+    @BindView(R.id.tv_count)
+    TextView mTvCount;
+    @BindView(R.id.tv_content)
+    TextView mTvContent;
+//    @BindView(R.id.empty_layout)
+//    EmptyLayout mEmptyLayout;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
 
     @Inject
     IBasePresenter mPresenter;
@@ -78,18 +78,18 @@ public class PhotoSetActivity extends BaseActivity implements IPhotoSetView {
 
     @Override
     public void showLoading() {
-        mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_LOADING);
+//        mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_LOADING);
     }
 
     @Override
     public void hideLoading() {
-        mEmptyLayout.hide();
+//        mEmptyLayout.hide();
     }
 
     @Override
     public void showNetError(final EmptyLayout.OnRetryListener onRetryListener) {
-        mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_NO_NET);
-        mEmptyLayout.setRetryListener(onRetryListener);
+//        mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_NO_NET);
+//        mEmptyLayout.setRetryListener(onRetryListener);
     }
 
     @Override
@@ -100,28 +100,21 @@ public class PhotoSetActivity extends BaseActivity implements IPhotoSetView {
             imgUrls.add(entity.getImgurl());
         }
         mAdapter = new PhotoPagerAdapter(this, imgUrls);
-        mAdapter.setListener(new PhotoPagerAdapter.OnPhotoClickListener() {
-            @Override
-            public void onPhotoClick() {
-                if (mScrollLayout.getScrollStatus() == ScrollOverLayout.STATUS_EXIT) {
-                    mScrollLayout.setScrollStatus(ScrollOverLayout.STATUS_COLLAPSED);
-                } else {
-                    mScrollLayout.setScrollStatus(ScrollOverLayout.STATUS_EXIT);
-                }
-            }
-        });
         mVpPhoto.setAdapter(mAdapter);
         mVpPhoto.setOffscreenPageLimit(imgUrls.size());
+
+        mTvCount.setText("" + mPhotosEntities.size());
         mTvTitle.setText(photoSetBean.getSetname());
+        mTvIndex.setText("" + 1);
         mTvContent.setText(mPhotosEntities.get(0).getNote());
-        mTvIndex.setText("1/" + mPhotosEntities.size());
+        Logger.e(mPhotosEntities.get(0).getNote());
+
         mVpPhoto.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 mTvContent.setText(mPhotosEntities.get(position).getNote());
-                mTvIndex.setText((position + 1) + "/" + mPhotosEntities.size());
+                mTvIndex.setText((position + 1) + "");
             }
         });
     }
-
 }
