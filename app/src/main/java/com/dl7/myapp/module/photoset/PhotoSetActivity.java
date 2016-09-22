@@ -15,7 +15,6 @@ import com.dl7.myapp.injector.modules.PhotoSetModule;
 import com.dl7.myapp.module.base.BaseActivity;
 import com.dl7.myapp.module.base.IBasePresenter;
 import com.dl7.myapp.views.EmptyLayout;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,17 +102,16 @@ public class PhotoSetActivity extends BaseActivity implements IPhotoSetView {
         mVpPhoto.setAdapter(mAdapter);
         mVpPhoto.setOffscreenPageLimit(imgUrls.size());
 
-        mTvCount.setText("" + mPhotosEntities.size());
+        mTvCount.setText(mPhotosEntities.size()+"");
         mTvTitle.setText(photoSetBean.getSetname());
-        mTvIndex.setText("" + 1);
+        mTvIndex.setText(1+"/");
         mTvContent.setText(mPhotosEntities.get(0).getNote());
-        Logger.e(mPhotosEntities.get(0).getNote());
 
         mVpPhoto.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 mTvContent.setText(mPhotosEntities.get(position).getNote());
-                mTvIndex.setText((position + 1) + "");
+                mTvIndex.setText((position + 1)+"/");
             }
         });
     }

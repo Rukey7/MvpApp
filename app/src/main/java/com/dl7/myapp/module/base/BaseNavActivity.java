@@ -1,5 +1,6 @@
 package com.dl7.myapp.module.base;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -7,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 
 import com.dl7.myapp.R;
@@ -20,13 +22,15 @@ import com.dl7.myapp.module.photos.PhotosActivity;
 public abstract class BaseNavActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout mAttachDrawerLayout;
+    private Class mClass;
 
     /**
      * 初始化 DrawerLayout
      * 子类要调用这个才能正确初始化抽屉菜单
-     * @param drawerLayout  DrawerLayout
-     * @param navView   NavigationView
-     * @param toolbar   Toolbar
+     *
+     * @param drawerLayout DrawerLayout
+     * @param navView      NavigationView
+     * @param toolbar      Toolbar
      */
     protected void initDrawerLayout(DrawerLayout drawerLayout, NavigationView navView, Toolbar toolbar) {
         mAttachDrawerLayout = drawerLayout;
@@ -44,22 +48,37 @@ public abstract class BaseNavActivity extends BaseActivity implements Navigation
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
         navView.setNavigationItemSelectedListener(this);
+        mAttachDrawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                if (mClass != null) {
+                    Intent intent = new Intent(BaseNavActivity.this, mClass);
+                    // 此标志用于启动一个Activity的时候，若栈中存在此Activity实例，则把它调到栈顶。不创建多一个
+                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    BaseNavActivity.this.startActivity(intent);
+                    overridePendingTransition(R.anim.fade_in_activity, R.anim.fade_out_activity);
+                    mClass = null;
+                }
+            }
+        });
     }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        mAttachDrawerLayout.closeDrawer(GravityCompat.START);
+        if (item.isChecked()) {
+            return true;
+        }
+
         switch (item.getItemId()) {
             case R.id.nav_photos:
-                PhotosActivity.launch(this);
-                overridePendingTransition(0, 0);
+                mClass = PhotosActivity.class;
                 break;
             case R.id.nav_news:
-                MainActivity.launch(this);
-                overridePendingTransition(0, 0);
+                mClass = MainActivity.class;
                 break;
         }
-        mAttachDrawerLayout.closeDrawer(GravityCompat.START);
-        return true;
+        return false;
     }
 
     @Override
@@ -69,5 +88,12 @@ public abstract class BaseNavActivity extends BaseActivity implements Navigation
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        overridePendingTransition(0, 0);
     }
 }

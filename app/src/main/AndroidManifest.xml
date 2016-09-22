@@ -14,24 +14,36 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppBaseTheme">
-        <activity android:name=".module.home.MainActivity"
-            android:launchMode="singleTask">
+        <activity
+            android:name=".module.home.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".module.detail.NewsDetailActivity">
+        <activity android:name=".module.detail.NewsDetailActivity"
+                  android:configChanges="keyboardHidden|orientation|screenSize"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".module.special.SpecialActivity">
+        <activity android:name=".module.special.SpecialActivity"
+                  android:configChanges="keyboardHidden|orientation|screenSize"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".module.photoset.PhotoSetActivity">
+        <activity android:name=".module.photoset.PhotoSetActivity"
+                  android:configChanges="keyboardHidden|orientation|screenSize"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".module.channel.ChannelActivity">
+        <activity android:name=".module.channel.ChannelActivity"
+                  android:configChanges="keyboardHidden|orientation|screenSize"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".module.photos.PhotosActivity"
-                  android:launchMode="singleTask">
+        <activity
+            android:name=".module.photos.PhotosActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

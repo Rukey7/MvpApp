@@ -1,6 +1,5 @@
 package com.dl7.myapp.module.base;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,24 +13,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.dl7.myapp.AndroidApplication;
 import com.dl7.myapp.R;
 import com.dl7.myapp.injector.components.ApplicationComponent;
 import com.dl7.myapp.injector.modules.ActivityModule;
-import com.dl7.myapp.utils.ActivityCollector;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import butterknife.ButterKnife;
 
 /**
- * Created by long on 2016/8/19.
- * 基类Activity
+ * Created by long on 2016/9/22.
+ * 基类
  */
-public abstract class BaseActivity extends AppCompatActivity {
-
-    private long mExitTime = 0;
+public abstract class BaseCompatActivity extends AppCompatActivity {
 
     /**
      * 绑定布局文件
@@ -58,19 +53,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         _initSystemBarTint(isSystemBarTranslucent());
         ButterKnife.bind(this);
         initViews();
-        updateViews();
-        ActivityCollector.addActivity(this);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ActivityCollector.removeActivity(this);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        updateViews();
     }
 
     /**
@@ -167,38 +155,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         initToolBar(toolbar, homeAsUpEnabled, getString(resTitle));
     }
 
-    /**************************************************************************/
-
-    @Override
-    public void startActivity(Intent intent) {
-        super.startActivity(intent);
-        if (intent != null && intent.getComponent() != null
-                && !intent.getComponent().getClassName().contains("MainActivity")) {
-            // 设置Activity进入动画为从右往左覆盖
-            overridePendingTransition(R.anim.move_right_in_activity, R.anim.hold_long);
-        }
-    }
-
-    @Override
-    public void startActivityForResult(Intent intent, int requestCode) {
-        super.startActivityForResult(intent, requestCode);
-        if (intent != null && intent.getComponent() != null) {
-            // 设置Activity进入动画为从右往左覆盖
-            overridePendingTransition(R.anim.move_right_in_activity, R.anim.hold_long);
-        }
-    }
-
-    @Override
-    public void finish() {
-        super.finish();
-        if (((Object) this).getClass().getName().contains("PhotosActivity")) {
-            overridePendingTransition(0, 0);
-        } else if (!((Object) this).getClass().getName().contains("MainActivity")) {
-            // 设置Activity退出动画为从左往右退出
-            overridePendingTransition(R.anim.hold_long, R.anim.move_right_out_activity);
-        }
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -206,26 +162,5 @@ public abstract class BaseActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (getClass().getName().contains("MainActivity")) {
-            _exit();
-            return;
-        }
-        super.onBackPressed();
-    }
-
-    /**
-     * 退出
-     */
-    private void _exit() {
-        if (System.currentTimeMillis() - mExitTime > 2000) {
-            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
-            mExitTime = System.currentTimeMillis();
-        } else {
-            ActivityCollector.finishAll();
-        }
     }
 }

@@ -43,7 +43,7 @@ public class PhotoPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         PhotoView photo = new PhotoView(mContext);
-        ImageLoader.loadCenterCrop(mContext, mImgList.get(position), photo, R.mipmap.icon_default);
+        ImageLoader.loadFitCenter(mContext, mImgList.get(position), photo, R.mipmap.icon_default);
         container.addView(photo);
         photo.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
             @Override

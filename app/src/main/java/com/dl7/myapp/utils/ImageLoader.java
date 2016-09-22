@@ -26,8 +26,11 @@ public final class ImageLoader {
     }
 
     public static void loadCenterCrop(Context context, String url, ImageView view, int defaultResId) {
-//        Picasso.with(context).load(url).centerInside().placeholder(defaultResId).into(view);
         Glide.with(context).load(url).centerCrop().crossFade().placeholder(defaultResId).into(view);
+    }
+
+    public static void loadFitCenter(Context context, String url, ImageView view, int defaultResId) {
+        Glide.with(context).load(url).fitCenter().crossFade().placeholder(defaultResId).into(view);
     }
 
     public static void loadFitOverride(Context context, String url, ImageView view, int defaultResId,
