@@ -30,5 +30,5 @@
     <dimen name="photo_set_desc_fix_height">150dp</dimen>
     <dimen name="photo_large_height">170dp</dimen>
     <dimen name="photo_small_height">90dp</dimen>
-    <dimen name="photo_margin_width">20dp</dimen>
+    <dimen name="photo_margin_width">10dp</dimen>
 </resources>

@@ -7,6 +7,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
 import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
@@ -95,6 +96,25 @@ public class RecyclerViewHelper {
 
     public static void initRecyclerViewG(Context context, RecyclerView view, RecyclerView.Adapter adapter, int column) {
         initRecyclerViewG(context, view, false, adapter, column);
+    }
+
+    /**
+     * 配置瀑布流列表RecyclerView
+     * @param view
+     */
+    public static void initRecyclerViewSV(Context context, RecyclerView view, boolean isDivided,
+                                         RecyclerView.Adapter adapter, int column) {
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(column, StaggeredGridLayoutManager.VERTICAL);
+        view.setLayoutManager(layoutManager);
+        view.setItemAnimator(new DefaultItemAnimator());
+        if (isDivided) {
+            view.addItemDecoration(new DividerGridItemDecoration(context));
+        }
+        view.setAdapter(adapter);
+    }
+
+    public static void initRecyclerViewSV(Context context, RecyclerView view, RecyclerView.Adapter adapter, int column) {
+        initRecyclerViewSV(context, view, false, adapter, column);
     }
 
     /**

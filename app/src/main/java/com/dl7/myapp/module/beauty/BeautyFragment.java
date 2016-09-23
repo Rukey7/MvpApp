@@ -53,7 +53,7 @@ public class BeautyFragment extends BaseFragment<IBasePresenter> implements IPho
     @Override
     protected void initViews() {
         SlideInBottomAnimationAdapter slideAdapter = new SlideInBottomAnimationAdapter(mAdapter);
-        RecyclerViewHelper.initRecyclerViewV(mContext, mRvPhotoList, slideAdapter);
+        RecyclerViewHelper.initRecyclerViewSV(mContext, mRvPhotoList, slideAdapter, 2);
         mAdapter.setRequestDataListener(new OnRequestDataListener() {
             @Override
             public void onLoadMore() {
