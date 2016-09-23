@@ -27,6 +27,16 @@ public class NewsItemBean {
     private String skipType;
     private String specialID;
 
+    public String getPhotosetID() {
+        return photosetID;
+    }
+
+    public void setPhotosetID(String photosetID) {
+        this.photosetID = photosetID;
+    }
+
+    private String photosetID;
+
     public String getSkipType() {
         return skipType;
     }

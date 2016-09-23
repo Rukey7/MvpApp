@@ -14,4 +14,7 @@
     <color name="collapsed_title">#ffffff</color>
 
     <color name="photo_set_bg">#44000000</color>
+
+    <color name="item_special_bg">#FF4081</color>
+    <color name="item_photo_set_bg">#5677fc</color>
 </resources>

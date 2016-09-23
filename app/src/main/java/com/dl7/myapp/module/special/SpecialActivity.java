@@ -3,7 +3,6 @@ package com.dl7.myapp.module.special;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -48,8 +47,6 @@ public class SpecialActivity extends BaseActivity<IBasePresenter> implements ISp
     RecyclerView mRvNewsList;
     @BindView(R.id.empty_layout)
     EmptyLayout mEmptyLayout;
-    @BindView(R.id.fab_favourite)
-    FloatingActionButton mFabFavourite;
 
     @Inject
     BaseQuickAdapter mSpecialAdapter;

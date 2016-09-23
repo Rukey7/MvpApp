@@ -18,6 +18,7 @@ import java.util.List;
  * Created by long on 2016/9/5.
  * 美图 Adapter
  */
+@Deprecated
 public class BeautyPhotoAdapter extends BaseQuickAdapter<BeautyPhotoBean> {
 
     // 图片的宽度

@@ -58,18 +58,4 @@
         android:layout_marginTop="@dimen/tab_bar_margin_top"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
-    <!--
-    FloatingActionButton:需要设置app:layout_anchor和app:layout_anchorGravity来实现联动;
-    app:layout_anchor="@id/app_bar":用来设置与id所关联的控件进行协调，即AppBarLayout;
-    app:layout_anchorGravity="bottom|right":用来设置与关联控件的位置关系;
-    -->
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_favourite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|right"
-        android:layout_margin="16dp"
-        android:src="@mipmap/ic_favorite_white_24dp"/>
 </android.support.design.widget.CoordinatorLayout>

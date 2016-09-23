@@ -78,7 +78,11 @@ public class SpecialPresenter implements IBasePresenter {
     public void getMoreData() {
     }
 
-
+    /**
+     * 转换数据，接口数据有点乱，这里做一些处理
+     * @param specialBean
+     * @return
+     */
     private Observable<SpecialItem> _convertSpecialBeanToItem(SpecialBean specialBean) {
         // 这边 +1 是接口数据还有个 topicsplus 的字段可能是穿插在 topics 字段列表中间。这里没有处理 topicsplus
         final SpecialItem[] specialItems = new SpecialItem[specialBean.getTopics().size() + 1];
