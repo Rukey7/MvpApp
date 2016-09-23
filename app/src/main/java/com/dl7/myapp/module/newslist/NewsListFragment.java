@@ -32,7 +32,7 @@ import jp.wasabeef.recyclerview.adapters.SlideInRightAnimationAdapter;
  * Created by long on 2016/8/23.
  * 新闻列表
  */
-public class NewsListFragment extends BaseFragment implements INewsListView {
+public class NewsListFragment extends BaseFragment<IBasePresenter> implements INewsListView {
 
     private static final String NEWS_TYPE_KEY = "NewsTypeKey";
 
@@ -43,8 +43,6 @@ public class NewsListFragment extends BaseFragment implements INewsListView {
 
     @Inject
     BaseQuickAdapter mAdapter;
-    @Inject
-    IBasePresenter mPresenter;
     private SliderLayout mAdSlider;
 
     private String mNewsId;
@@ -88,12 +86,16 @@ public class NewsListFragment extends BaseFragment implements INewsListView {
     }
 
     @Override
-    protected void initViews() {
+    protected void initInjector() {
         DaggerNewsListComponent.builder()
                 .applicationComponent(getAppComponent())
                 .newsListModule(new NewsListModule(this, mNewsId))
                 .build()
                 .inject(this);
+    }
+
+    @Override
+    protected void initViews() {
         SlideInRightAnimationAdapter animAdapter = new SlideInRightAnimationAdapter(mAdapter);
         RecyclerViewHelper.initRecyclerViewV(mContext, mRvNewsList, true, new AlphaInAnimationAdapter(animAdapter));
         mAdapter.setRequestDataListener(new OnRequestDataListener() {
@@ -138,7 +140,7 @@ public class NewsListFragment extends BaseFragment implements INewsListView {
 
     @Override
     public void loadNoData() {
-        mAdapter.noMoreData();
+        mAdapter.loadAbnormal();
     }
 
     @Override

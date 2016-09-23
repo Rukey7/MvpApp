@@ -29,7 +29,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseNavActivity implements IMainView {
+public class MainActivity extends BaseNavActivity<IRxBusPresenter> implements IMainView {
 
     @BindView(R.id.tool_bar)
     Toolbar mToolBar;
@@ -44,8 +44,6 @@ public class MainActivity extends BaseNavActivity implements IMainView {
 
     @Inject
     ViewPagerAdapter mPagerAdapter;
-    @Inject
-    IRxBusPresenter mPresenter;
 
 
     public static void launch(Context context) {
@@ -59,12 +57,16 @@ public class MainActivity extends BaseNavActivity implements IMainView {
     }
 
     @Override
-    protected void initViews() {
+    protected void initInjector() {
         DaggerMainComponent.builder()
                 .applicationComponent(getAppComponent())
                 .mainModule(new MainModule(this))
                 .build()
                 .inject(this);
+    }
+
+    @Override
+    protected void initViews() {
         initToolBar(mToolBar, true, "新闻");
         initDrawerLayout(mDrawerLayout, mNavView, mToolBar);
         _setCustomToolbar();

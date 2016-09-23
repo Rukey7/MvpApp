@@ -14,6 +14,7 @@ import com.dl7.myapp.adapter.ViewPagerAdapter;
 import com.dl7.myapp.injector.components.DaggerPhotosComponent;
 import com.dl7.myapp.injector.modules.PhotosModule;
 import com.dl7.myapp.module.base.BaseNavActivity;
+import com.dl7.myapp.module.base.IRxBusPresenter;
 import com.dl7.myapp.module.beauty.BeautyFragment;
 import com.dl7.myapp.module.photolist.PhotoListFragment;
 
@@ -24,7 +25,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
-public class PhotosActivity extends BaseNavActivity {
+public class PhotosActivity extends BaseNavActivity<IRxBusPresenter> implements IPhotosView {
 
     @BindView(R.id.tool_bar)
     Toolbar mToolBar;
@@ -52,12 +53,16 @@ public class PhotosActivity extends BaseNavActivity {
     }
 
     @Override
-    protected void initViews() {
+    protected void initInjector() {
         DaggerPhotosComponent.builder()
                 .applicationComponent(getAppComponent())
                 .photosModule(new PhotosModule(this))
                 .build()
                 .inject(this);
+    }
+
+    @Override
+    protected void initViews() {
         initToolBar(mToolBar, true, "图片");
         initDrawerLayout(mDrawerLayout, mNavView, mToolBar);
     }

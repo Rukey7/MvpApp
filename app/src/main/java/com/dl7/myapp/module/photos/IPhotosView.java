@@ -6,5 +6,4 @@ package com.dl7.myapp.module.photos;
  */
 public interface IPhotosView {
 
-
 }

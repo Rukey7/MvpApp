@@ -27,7 +27,7 @@ import butterknife.BindView;
 import jp.wasabeef.recyclerview.animators.FlipInBottomXAnimator;
 import jp.wasabeef.recyclerview.animators.ScaleInAnimator;
 
-public class ChannelActivity extends BaseActivity implements IChannelView {
+public class ChannelActivity extends BaseActivity<ILocalPresenter> implements IChannelView {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -40,8 +40,8 @@ public class ChannelActivity extends BaseActivity implements IChannelView {
     BaseQuickAdapter mCheckedAdapter;
     @Inject
     BaseQuickAdapter mUncheckedAdapter;
-    @Inject
-    ILocalPresenter mPresenter;
+//    @Inject
+//    ILocalPresenter mPresenter;
 
 
     public static void launch(Context context) {
@@ -55,12 +55,16 @@ public class ChannelActivity extends BaseActivity implements IChannelView {
     }
 
     @Override
-    protected void initViews() {
+    protected void initInjector() {
         DaggerManageComponent.builder()
                 .applicationComponent(getAppComponent())
                 .channelModule(new ChannelModule(this))
                 .build()
                 .inject(this);
+    }
+
+    @Override
+    protected void initViews() {
         initToolBar(mToolbar, true, "栏目管理");
         RecyclerViewHelper.initRecyclerViewG(this, mRvCheckedList, mCheckedAdapter, 4);
         RecyclerViewHelper.initRecyclerViewG(this, mRvUncheckedList, mUncheckedAdapter, 4);

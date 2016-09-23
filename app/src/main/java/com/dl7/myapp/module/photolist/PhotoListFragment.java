@@ -24,7 +24,7 @@ import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
  * Created by long on 2016/9/5.
  * 图片列表
  */
-public class PhotoListFragment extends BaseFragment implements IPhotoListView<PhotoBean> {
+public class PhotoListFragment extends BaseFragment<IBasePresenter> implements IPhotoListView<PhotoBean> {
 
     @BindView(R.id.rv_photo_list)
     RecyclerView mRvPhotoList;
@@ -32,10 +32,7 @@ public class PhotoListFragment extends BaseFragment implements IPhotoListView<Ph
     EmptyLayout mEmptyLayout;
 
     @Inject
-    IBasePresenter mPresenter;
-    @Inject
     BaseQuickAdapter mAdapter;
-
 
     @Override
     protected int attachLayoutRes() {
@@ -43,12 +40,16 @@ public class PhotoListFragment extends BaseFragment implements IPhotoListView<Ph
     }
 
     @Override
-    protected void initViews() {
+    protected void initInjector() {
         DaggerPhotoListComponent.builder()
                 .applicationComponent(getAppComponent())
                 .photoListModule(new PhotoListModule(this))
                 .build()
                 .inject(this);
+    }
+
+    @Override
+    protected void initViews() {
         RecyclerViewHelper.initRecyclerViewV(mContext, mRvPhotoList, new SlideInBottomAnimationAdapter(mAdapter));
         mAdapter.setRequestDataListener(new OnRequestDataListener() {
             @Override

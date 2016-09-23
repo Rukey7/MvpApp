@@ -25,15 +25,13 @@ import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
  * Created by long on 2016/9/5.
  * 美女图片
  */
-public class BeautyFragment extends BaseFragment implements IPhotoListView<BeautyPhotoBean> {
+public class BeautyFragment extends BaseFragment<IBasePresenter> implements IPhotoListView<BeautyPhotoBean> {
 
     @BindView(R.id.rv_photo_list)
     RecyclerView mRvPhotoList;
     @BindView(R.id.empty_layout)
     EmptyLayout mEmptyLayout;
 
-    @Inject
-    IBasePresenter mPresenter;
     @Inject
     BaseQuickAdapter mAdapter;
 
@@ -44,12 +42,16 @@ public class BeautyFragment extends BaseFragment implements IPhotoListView<Beaut
     }
 
     @Override
-    protected void initViews() {
+    protected void initInjector() {
         DaggerBeautyComponent.builder()
                 .applicationComponent(getAppComponent())
                 .beautyModule(new BeautyModule(this))
                 .build()
                 .inject(this);
+    }
+
+    @Override
+    protected void initViews() {
         SlideInBottomAnimationAdapter slideAdapter = new SlideInBottomAnimationAdapter(mAdapter);
         RecyclerViewHelper.initRecyclerViewV(mContext, mRvPhotoList, slideAdapter);
         mAdapter.setRequestDataListener(new OnRequestDataListener() {

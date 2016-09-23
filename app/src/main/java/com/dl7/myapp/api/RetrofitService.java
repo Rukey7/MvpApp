@@ -45,6 +45,8 @@ import rx.schedulers.Schedulers;
  */
 public class RetrofitService {
 
+    private static final String HEAD_LINE_NEWS = "T1348647909107";
+
     //设缓存有效期为1天
     static final long CACHE_STALE_SEC = 60 * 60 * 24 * 1;
     //查询缓存的Cache-Control设置，为if-only-cache时只查询缓存而不会请求服务器，max-stale可以配合设置缓存失效时间
@@ -168,7 +170,13 @@ public class RetrofitService {
         synchronized (key) {
             sNewsPage.put(newsId.hashCode(), 0);
         }
-        return mService.getNewsList(newsId, 0)
+        String type;
+        if (newsId.equals(HEAD_LINE_NEWS)) {
+            type = "headline";
+        } else {
+            type = "list";
+        }
+        return mService.getNewsList(type, newsId, 0)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(_flatMapNews(newsId));
@@ -189,7 +197,13 @@ public class RetrofitService {
             }
             sNewsPage.put(newsId.hashCode(), page);
         }
-        return mService.getNewsList(newsId, page)
+        String type;
+        if (newsId.equals(HEAD_LINE_NEWS)) {
+            type = "headline";
+        } else {
+            type = "list";
+        }
+        return mService.getNewsList(type, newsId, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(_flatMapNews(newsId));

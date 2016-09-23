@@ -64,6 +64,8 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
     // load more
     private boolean mIsLoadMoreEnable;
     private boolean mIsLoadingNow;
+    private boolean mIsNoMoreData;
+    private String mLoadingStr;
     private View mLoadingView;
     private TextView mLoadingDesc;
     private SpinKitView mLoadingIcon;
@@ -281,7 +283,8 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
 
     public void setLoadDesc(String desc) {
         _initLoadingView();
-        mLoadingDesc.setText(desc);
+        mLoadingStr = desc;
+        mLoadingDesc.setText(mLoadingStr);
     }
 
     public void setLoadColor(int color) {
@@ -289,14 +292,30 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
         mLoadingIcon.getIndeterminateDrawable().setColor(color);
     }
 
+    /**
+     * 加载完成
+     */
     public void loadComplete() {
         mIsLoadingNow = false;
     }
 
+    /**
+     * 没有更多数据，后面不再加载数据
+     */
     public void noMoreData() {
         mIsLoadingNow = false;
+        mIsNoMoreData = true;
         mLoadingIcon.setVisibility(View.GONE);
         mLoadingDesc.setText(R.string.no_more_data);
+    }
+
+    /**
+     * 加载数据异常，重新进入可再加载数据
+     */
+    public void loadAbnormal() {
+        mIsLoadingNow = false;
+        mLoadingIcon.setVisibility(View.GONE);
+        mLoadingDesc.setText(R.string.load_abnormal);
     }
 
     private void _initLoadingView() {
@@ -306,11 +325,16 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
                     ViewGroup.LayoutParams.WRAP_CONTENT));
             mLoadingDesc = (TextView) mLoadingView.findViewById(R.id.tv_loading_desc);
             mLoadingIcon = (SpinKitView) mLoadingView.findViewById(R.id.iv_loading_icon);
+            mLoadingStr = mContext.getResources().getString(R.string.loading_desc);
         }
     }
 
     private void _loadMore() {
-        if (!mIsLoadingNow && onRequestDataListener != null && mLoadingIcon.getVisibility() == View.VISIBLE) {
+        if (!mIsLoadingNow && onRequestDataListener != null && !mIsNoMoreData) {
+            if (mLoadingIcon.getVisibility() == View.GONE) {
+                mLoadingIcon.setVisibility(View.VISIBLE);
+                mLoadingDesc.setText(mLoadingStr);
+            }
             mIsLoadingNow = true;
             onRequestDataListener.onLoadMore();
         }

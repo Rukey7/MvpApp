@@ -30,7 +30,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class NewsDetailActivity extends BaseActivity implements INewsDetailView {
+public class NewsDetailActivity extends BaseActivity<IBasePresenter> implements INewsDetailView {
 
     private static final String APP_KEY = "AppKey";
 
@@ -52,8 +52,6 @@ public class NewsDetailActivity extends BaseActivity implements INewsDetailView 
     TextView mTvContent;
 
     @Inject
-    IBasePresenter mPresenter;
-    @Inject
     BaseQuickAdapter mRelatedAdapter;
 
     private String mNewsId;
@@ -71,12 +69,16 @@ public class NewsDetailActivity extends BaseActivity implements INewsDetailView 
     }
 
     @Override
-    protected void initViews() {
+    protected void initInjector() {
         mNewsId = getIntent().getStringExtra(APP_KEY);
         DaggerNewsDetailComponent.builder()
                 .newsDetailModule(new NewsDetailModule(this, mNewsId))
                 .build()
                 .inject(this);
+    }
+
+    @Override
+    protected void initViews() {
         initToolBar(mToolBar, true, "新闻详情");
     }
 

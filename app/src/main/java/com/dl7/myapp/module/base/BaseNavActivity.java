@@ -19,7 +19,8 @@ import com.dl7.myapp.module.photos.PhotosActivity;
  * Created by long on 2016/9/5.
  * 带导航的基类 Activity
  */
-public abstract class BaseNavActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+public abstract class BaseNavActivity<T extends IBasePresenter> extends BaseActivity<T>
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout mAttachDrawerLayout;
     private Class mClass;

@@ -100,6 +100,7 @@ public class NewsListPresenter implements IBasePresenter {
 
                     @Override
                     public void onError(Throwable e) {
+                        Logger.e(e.toString());
                         mView.loadNoData();
                     }
 

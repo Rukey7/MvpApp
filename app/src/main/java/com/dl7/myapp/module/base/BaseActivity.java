@@ -23,13 +23,22 @@ import com.dl7.myapp.injector.modules.ActivityModule;
 import com.dl7.myapp.utils.ActivityCollector;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+import javax.inject.Inject;
+
 import butterknife.ButterKnife;
 
 /**
  * Created by long on 2016/8/19.
  * 基类Activity
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatActivity {
+
+    /*
+     * 把 Presenter 提取到基类需要配合基类的 initInjector() 进行注入，如果继承这个基类则必定要提供一个 Presenter 注入方法，
+     * 该APP所有 Presenter 都是在 Module 提供注入实现，也可以选择提供另外不带 Presenter 的基类
+     */
+    @Inject
+    protected T mPresenter;
 
     private long mExitTime = 0;
 
@@ -39,6 +48,11 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @return 布局文件ID
      */
     protected abstract int attachLayoutRes();
+
+    /**
+     * Dagger 注入
+     */
+    protected abstract void initInjector();
 
     /**
      * 初始化视图控件
@@ -57,6 +71,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(attachLayoutRes());
         _initSystemBarTint(isSystemBarTranslucent());
         ButterKnife.bind(this);
+        initInjector();
         initViews();
         updateViews();
         ActivityCollector.addActivity(this);

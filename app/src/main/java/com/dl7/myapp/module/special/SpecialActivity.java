@@ -33,7 +33,7 @@ import butterknife.BindView;
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
-public class SpecialActivity extends BaseActivity implements ISpecialView {
+public class SpecialActivity extends BaseActivity<IBasePresenter> implements ISpecialView {
 
     private static final String SPECIAL_KEY = "SpecialKey";
 
@@ -50,8 +50,6 @@ public class SpecialActivity extends BaseActivity implements ISpecialView {
     @BindView(R.id.fab_favourite)
     FloatingActionButton mFabFavourite;
 
-    @Inject
-    IBasePresenter mPresenter;
     @Inject
     BaseQuickAdapter mSpecialAdapter;
 
@@ -75,12 +73,16 @@ public class SpecialActivity extends BaseActivity implements ISpecialView {
     }
 
     @Override
-    protected void initViews() {
+    protected void initInjector() {
         mSpecialId = getIntent().getStringExtra(SPECIAL_KEY);
         DaggerSpecialComponent.builder()
                 .specialModule(new SpecialModule(this, mSpecialId))
                 .build()
                 .inject(this);
+    }
+
+    @Override
+    protected void initViews() {
         initToolBar(mToolBar, true, "");
         mCollapsingToolBar.setExpandedTitleColor(ContextCompat.getColor(this, R.color.expanded_title));
         mCollapsingToolBar.setCollapsedTitleTextColor(ContextCompat.getColor(this, R.color.collapsed_title));

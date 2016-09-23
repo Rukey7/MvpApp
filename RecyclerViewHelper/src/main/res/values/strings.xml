@@ -3,4 +3,5 @@
 
     <string name="loading_desc">Loading...</string>
     <string name="no_more_data">- end -</string>
+    <string name="load_abnormal">- abnormal -</string>
 </resources>

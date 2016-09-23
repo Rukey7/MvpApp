@@ -12,13 +12,18 @@ import android.view.ViewGroup;
 import com.dl7.myapp.AndroidApplication;
 import com.dl7.myapp.injector.components.ApplicationComponent;
 
+import javax.inject.Inject;
+
 import butterknife.ButterKnife;
 
 /**
  * Created by long on 2016/5/31.
  * 碎片基类
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment<T extends IBasePresenter> extends Fragment {
+
+    @Inject
+    protected T mPresenter;
 
     protected Context mContext;
     //缓存Fragment view
@@ -38,6 +43,7 @@ public abstract class BaseFragment extends Fragment {
         if (mRootView == null) {
             mRootView = inflater.inflate(attachLayoutRes(), null);
             ButterKnife.bind(this, mRootView);
+            initInjector();
             initViews();
         }
         ViewGroup parent = (ViewGroup) mRootView.getParent();
@@ -91,6 +97,11 @@ public abstract class BaseFragment extends Fragment {
      * @return  布局文件ID
      */
     protected abstract int attachLayoutRes();
+
+    /**
+     * Dagger 注入
+     */
+    protected abstract void initInjector();
 
     /**
      * 初始化视图控件

@@ -19,11 +19,9 @@ import com.dl7.myapp.views.EmptyLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 
-public class PhotoSetActivity extends BaseActivity implements IPhotoSetView {
+public class PhotoSetActivity extends BaseActivity<IBasePresenter> implements IPhotoSetView {
 
     private static final String PHOTO_SET_KEY = "PhotoSetKey";
 
@@ -42,9 +40,6 @@ public class PhotoSetActivity extends BaseActivity implements IPhotoSetView {
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
-    @Inject
-    IBasePresenter mPresenter;
-
     private String mPhotoSetId;
     private PhotoPagerAdapter mAdapter;
     private List<PhotosEntity> mPhotosEntities;
@@ -61,12 +56,16 @@ public class PhotoSetActivity extends BaseActivity implements IPhotoSetView {
     }
 
     @Override
-    protected void initViews() {
+    protected void initInjector() {
         mPhotoSetId = getIntent().getStringExtra(PHOTO_SET_KEY);
         DaggerPhotoSetComponent.builder()
                 .photoSetModule(new PhotoSetModule(this, mPhotoSetId))
                 .build()
                 .inject(this);
+    }
+
+    @Override
+    protected void initViews() {
         initToolBar(mToolbar, true, "");
     }
 
