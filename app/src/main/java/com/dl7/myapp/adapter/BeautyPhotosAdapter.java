@@ -49,13 +49,13 @@ public class BeautyPhotosAdapter extends BaseQuickAdapter<BeautyPhotoBean> {
         params.width = mPhotoWidth;
         params.height = photoHeight;
         ivPhoto.setLayoutParams(params);
-        if (photoHeight != -1) {
-//            ImageLoader.loadCenterCrop(mContext, item.getImgsrc(), ivPhoto, R.mipmap.photo_default);
-            ImageLoader.loadFitOverride(mContext, item.getImgsrc(), ivPhoto, DefIconFactory.provideIcon(),
-                    mPhotoWidth, photoHeight);
-        } else {
-            ImageLoader.loadCenterCrop(mContext, item.getImgsrc(), ivPhoto, DefIconFactory.provideIcon());
-        }
+        ImageLoader.loadFitCenter(mContext, item.getImgsrc(), ivPhoto, DefIconFactory.provideIcon());
+//        if (photoHeight != -1) {
+//            ImageLoader.loadFitOverride(mContext, item.getImgsrc(), ivPhoto, DefIconFactory.provideIcon(),
+//                    mPhotoWidth, photoHeight);
+//        } else {
+//            ImageLoader.loadCenterCrop(mContext, item.getImgsrc(), ivPhoto, DefIconFactory.provideIcon());
+//        }
         holder.setText(R.id.tv_title, item.getTitle());
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override

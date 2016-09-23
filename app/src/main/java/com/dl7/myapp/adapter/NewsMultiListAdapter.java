@@ -13,6 +13,7 @@ import com.dl7.myapp.entity.NewsMultiItem;
 import com.dl7.myapp.module.detail.NewsDetailActivity;
 import com.dl7.myapp.module.photoset.PhotoSetActivity;
 import com.dl7.myapp.module.special.SpecialActivity;
+import com.dl7.myapp.utils.DefIconFactory;
 import com.dl7.myapp.utils.ImageLoader;
 import com.dl7.myapp.utils.StringUtils;
 import com.flyco.labelview.LabelView;
@@ -58,7 +59,7 @@ public class NewsMultiListAdapter extends BaseMultiItemQuickAdapter<NewsMultiIte
      */
     private void _handleNewsNormal(BaseViewHolder holder, final NewsBean item) {
         ImageView newsIcon = holder.getView(R.id.iv_icon);
-        ImageLoader.loadFit(mContext, item.getImgsrc(), newsIcon, R.mipmap.icon_default);
+        ImageLoader.loadFit(mContext, item.getImgsrc(), newsIcon, DefIconFactory.provideIcon());
         holder.setText(R.id.tv_title, item.getTitle())
                 .setText(R.id.tv_source, StringUtils.clipNewsSource(item.getSource()))
                 .setText(R.id.tv_time, item.getPtime());
@@ -93,10 +94,10 @@ public class NewsMultiListAdapter extends BaseMultiItemQuickAdapter<NewsMultiIte
         newsPhoto[0] = holder.getView(R.id.iv_icon_1);
         newsPhoto[1] = holder.getView(R.id.iv_icon_2);
         newsPhoto[2] = holder.getView(R.id.iv_icon_3);
-        ImageLoader.loadFit(mContext, item.getImgsrc(), newsPhoto[0], R.mipmap.icon_default);
+        ImageLoader.loadFit(mContext, item.getImgsrc(), newsPhoto[0], DefIconFactory.provideIcon());
         for (int i = 0; i < Math.min(2, item.getImgextra().size()); i++) {
             ImageLoader.loadFit(mContext, item.getImgextra().get(i).getImgsrc(),
-                    newsPhoto[i+1], R.mipmap.icon_default);
+                    newsPhoto[i+1], DefIconFactory.provideIcon());
         }
         holder.setText(R.id.tv_title, item.getTitle())
                 .setText(R.id.tv_source, StringUtils.clipNewsSource(item.getSource()))

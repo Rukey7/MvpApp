@@ -6,7 +6,7 @@
     <ImageView
         android:id="@+id/iv_icon"
         android:layout_margin="10dp"
-        android:src="@mipmap/icon_default"
+        android:src="@mipmap/icon_default_1"
         android:scaleType="fitXY"
         android:layout_width="@dimen/news_icon_width"
         android:layout_height="@dimen/news_icon_height"/>

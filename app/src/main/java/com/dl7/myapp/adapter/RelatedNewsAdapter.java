@@ -9,6 +9,7 @@ import com.dl7.helperlibrary.adapter.BaseViewHolder;
 import com.dl7.myapp.R;
 import com.dl7.myapp.api.bean.NewsItemBean;
 import com.dl7.myapp.module.detail.NewsDetailActivity;
+import com.dl7.myapp.utils.DefIconFactory;
 import com.dl7.myapp.utils.ImageLoader;
 import com.dl7.myapp.utils.StringUtils;
 
@@ -36,7 +37,7 @@ public class RelatedNewsAdapter extends BaseQuickAdapter<NewsItemBean> {
     @Override
     protected void convert(BaseViewHolder holder, final NewsItemBean item) {
         ImageView newsIcon = holder.getView(R.id.iv_icon);
-        ImageLoader.loadFit(mContext, item.getImgsrc(), newsIcon, R.mipmap.icon_default);
+        ImageLoader.loadFit(mContext, item.getImgsrc(), newsIcon, DefIconFactory.provideIcon());
         holder.setText(R.id.tv_title, item.getTitle())
                 .setText(R.id.tv_source, StringUtils.clipNewsSource(item.getSource()))
                 .setText(R.id.tv_time, item.getPtime());

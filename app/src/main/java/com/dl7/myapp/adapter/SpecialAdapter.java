@@ -11,6 +11,7 @@ import com.dl7.myapp.api.NewsUtils;
 import com.dl7.myapp.entity.SpecialItem;
 import com.dl7.myapp.module.detail.NewsDetailActivity;
 import com.dl7.myapp.module.special.SpecialActivity;
+import com.dl7.myapp.utils.DefIconFactory;
 import com.dl7.myapp.utils.ImageLoader;
 import com.dl7.myapp.utils.StringUtils;
 
@@ -49,7 +50,7 @@ public class SpecialAdapter extends BaseSectionQuickAdapter<SpecialItem> {
     @Override
     protected void convert(BaseViewHolder holder, final SpecialItem item) {
         ImageView newsIcon = holder.getView(R.id.iv_icon);
-        ImageLoader.loadFit(mContext, item.t.getImgsrc(), newsIcon, R.mipmap.icon_default);
+        ImageLoader.loadFit(mContext, item.t.getImgsrc(), newsIcon, DefIconFactory.provideIcon());
         holder.setText(R.id.tv_title, item.t.getTitle())
                 .setText(R.id.tv_source, StringUtils.clipNewsSource(item.t.getSource()))
                 .setText(R.id.tv_time, item.t.getPtime());

@@ -8,6 +8,7 @@ import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
 import com.dl7.helperlibrary.adapter.BaseViewHolder;
 import com.dl7.myapp.R;
 import com.dl7.myapp.api.bean.BeautyPhotoBean;
+import com.dl7.myapp.utils.DefIconFactory;
 import com.dl7.myapp.utils.ImageLoader;
 import com.orhanobut.logger.Logger;
 
@@ -43,10 +44,10 @@ public class BeautyPhotoAdapter extends BaseQuickAdapter<BeautyPhotoBean> {
         ImageView ivPhoto = holder.getView(R.id.iv_photo);
         int photoHeight = _calcPhotoHeight(item.getPixel());
         if (photoHeight != -1) {
-            ImageLoader.loadFitOverride(mContext, item.getImgsrc(), ivPhoto, R.mipmap.photo_default,
+            ImageLoader.loadFitOverride(mContext, item.getImgsrc(), ivPhoto, DefIconFactory.provideIcon(),
                     mPhotoWidth, photoHeight);
         } else {
-            ImageLoader.loadFit(mContext, item.getImgsrc(), ivPhoto, R.mipmap.photo_default);
+            ImageLoader.loadFit(mContext, item.getImgsrc(), ivPhoto, DefIconFactory.provideIcon());
         }
         holder.setText(R.id.tv_title, item.getTitle());
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {

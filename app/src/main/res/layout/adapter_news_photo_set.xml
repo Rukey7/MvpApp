@@ -37,7 +37,7 @@
             android:layout_height="@dimen/news_icon_height"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:src="@mipmap/icon_default"/>
+            android:src="@mipmap/icon_default_1"/>
 
         <ImageView
             android:id="@+id/iv_icon_2"
@@ -46,7 +46,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:src="@mipmap/icon_default"/>
+            android:src="@mipmap/icon_default_2"/>
 
         <ImageView
             android:id="@+id/iv_icon_3"
@@ -54,7 +54,7 @@
             android:layout_height="@dimen/news_icon_height"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:src="@mipmap/icon_default"/>
+            android:src="@mipmap/icon_default_3"/>
     </LinearLayout>
 
     <FrameLayout

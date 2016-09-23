@@ -5,7 +5,7 @@ import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.dl7.myapp.R;
+import com.dl7.myapp.utils.DefIconFactory;
 import com.dl7.myapp.utils.ImageLoader;
 
 import java.util.List;
@@ -43,7 +43,7 @@ public class PhotoPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         PhotoView photo = new PhotoView(mContext);
-        ImageLoader.loadFitCenter(mContext, mImgList.get(position), photo, R.mipmap.icon_default);
+        ImageLoader.loadFitCenter(mContext, mImgList.get(position), photo, DefIconFactory.provideIcon());
         container.addView(photo);
         photo.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
             @Override

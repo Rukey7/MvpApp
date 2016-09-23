@@ -22,6 +22,7 @@ import com.dl7.myapp.injector.components.DaggerSpecialComponent;
 import com.dl7.myapp.injector.modules.SpecialModule;
 import com.dl7.myapp.module.base.BaseActivity;
 import com.dl7.myapp.module.base.IBasePresenter;
+import com.dl7.myapp.utils.DefIconFactory;
 import com.dl7.myapp.utils.ImageLoader;
 import com.dl7.myapp.views.EmptyLayout;
 
@@ -60,11 +61,6 @@ public class SpecialActivity extends BaseActivity<IBasePresenter> implements ISp
         Intent intent = new Intent(context, SpecialActivity.class);
         intent.putExtra(SPECIAL_KEY, newsId);
         context.startActivity(intent);
-    }
-
-    @Override
-    protected boolean isSystemBarTranslucent() {
-        return false;
     }
 
     @Override
@@ -121,7 +117,7 @@ public class SpecialActivity extends BaseActivity<IBasePresenter> implements ISp
         // 设置标题
         mCollapsingToolBar.setTitle(specialBean.getSname());
         // 加载图片
-        ImageLoader.loadFit(this, specialBean.getBanner(), mIvBanner, R.mipmap.icon_default);
+        ImageLoader.loadFit(this, specialBean.getBanner(), mIvBanner, DefIconFactory.provideIcon());
         // 添加导语
         if (!TextUtils.isEmpty(specialBean.getDigest())) {
             View headView = LayoutInflater.from(this).inflate(R.layout.head_special, null);

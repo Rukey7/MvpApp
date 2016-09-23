@@ -9,6 +9,7 @@ import com.dl7.helperlibrary.adapter.BaseViewHolder;
 import com.dl7.myapp.R;
 import com.dl7.myapp.api.bean.PhotoBean;
 import com.dl7.myapp.module.photoset.PhotoSetActivity;
+import com.dl7.myapp.utils.DefIconFactory;
 import com.dl7.myapp.utils.ImageLoader;
 
 import java.util.List;
@@ -40,9 +41,9 @@ public class PhotoListAdapter extends BaseQuickAdapter<PhotoBean> {
         ImageView ivPhoto1 = holder.getView(R.id.iv_photo_1);
         ImageView ivPhoto2 = holder.getView(R.id.iv_photo_2);
         ImageView ivPhoto3 = holder.getView(R.id.iv_photo_3);
-        ImageLoader.loadFit(mContext, item.getPics().get(0), ivPhoto1, R.mipmap.icon_default);
-        ImageLoader.loadFit(mContext, item.getPics().get(1), ivPhoto2, R.mipmap.icon_default);
-        ImageLoader.loadFit(mContext, item.getPics().get(2), ivPhoto3, R.mipmap.icon_default);
+        ImageLoader.loadFit(mContext, item.getPics().get(0), ivPhoto1, DefIconFactory.provideIcon());
+        ImageLoader.loadFit(mContext, item.getPics().get(1), ivPhoto2, DefIconFactory.provideIcon());
+        ImageLoader.loadFit(mContext, item.getPics().get(2), ivPhoto3, DefIconFactory.provideIcon());
         holder.setText(R.id.tv_title, item.getSetname());
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override

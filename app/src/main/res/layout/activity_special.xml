@@ -50,7 +50,6 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_news_list"
         android:layout_width="match_parent"
-        android:paddingBottom="@dimen/toolbar_margin_top"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_height="match_parent"/>
 
