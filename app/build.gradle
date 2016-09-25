@@ -70,8 +70,8 @@ dependencies {
     compile 'com.github.chrisbanes.photoview:library:1.2.4'
     // systembartint
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
-    //    // dragsloplayout
-    //    compile 'com.dl7.drag:dragsloplayout:1.0.1'
-//    compile project(':dragsloplayout')
+    // dragsloplayout
     compile 'com.dl7.drag:dragsloplayout:1.0.1'
+    // androidtagview
+    compile 'co.lujun:androidtagview:1.0.3'
 }

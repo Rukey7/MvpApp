@@ -2,13 +2,12 @@ package com.dl7.myapp.module.special;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,6 +22,7 @@ import com.dl7.myapp.module.base.BaseActivity;
 import com.dl7.myapp.module.base.IBasePresenter;
 import com.dl7.myapp.utils.DefIconFactory;
 import com.dl7.myapp.utils.ImageLoader;
+import com.dl7.myapp.utils.ToastUtils;
 import com.dl7.myapp.views.EmptyLayout;
 
 import java.util.List;
@@ -30,19 +30,22 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import co.lujun.androidtagview.TagContainerLayout;
+import co.lujun.androidtagview.TagView;
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 public class SpecialActivity extends BaseActivity<IBasePresenter> implements ISpecialView {
 
     private static final String SPECIAL_KEY = "SpecialKey";
 
-    @BindView(R.id.iv_banner)
-    ImageView mIvBanner;
-    @BindView(R.id.collapsing_tool_bar)
-    CollapsingToolbarLayout mCollapsingToolBar;
-    @BindView(R.id.tool_bar)
-    Toolbar mToolBar;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
     @BindView(R.id.rv_news_list)
     RecyclerView mRvNewsList;
     @BindView(R.id.empty_layout)
@@ -51,8 +54,9 @@ public class SpecialActivity extends BaseActivity<IBasePresenter> implements ISp
     @Inject
     BaseQuickAdapter mSpecialAdapter;
 
+    TagContainerLayout mTagLayout;
     private String mSpecialId;
-
+    private final int[] mSkipId = new int[20];
 
     public static void launch(Context context, String newsId) {
         Intent intent = new Intent(context, SpecialActivity.class);
@@ -76,9 +80,7 @@ public class SpecialActivity extends BaseActivity<IBasePresenter> implements ISp
 
     @Override
     protected void initViews() {
-        initToolBar(mToolBar, true, "");
-        mCollapsingToolBar.setExpandedTitleColor(ContextCompat.getColor(this, R.color.expanded_title));
-        mCollapsingToolBar.setCollapsedTitleTextColor(ContextCompat.getColor(this, R.color.collapsed_title));
+        initToolBar(mToolbar, true, "");
         ScaleInAnimationAdapter animAdapter = new ScaleInAnimationAdapter(mSpecialAdapter);
         RecyclerViewHelper.initRecyclerViewV(this, mRvNewsList, true, new AlphaInAnimationAdapter(animAdapter));
     }
@@ -107,21 +109,71 @@ public class SpecialActivity extends BaseActivity<IBasePresenter> implements ISp
     @Override
     public void loadData(List<SpecialItem> specialItems) {
         mSpecialAdapter.updateItems(specialItems);
+        Observable.from(specialItems)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(new Func1<SpecialItem, Boolean>() {
+                    int i = 0;
+                    int index = 0;
+                    @Override
+                    public Boolean call(SpecialItem specialItem) {
+                        if (specialItem.isHeader) {
+                            mSkipId[i++] = index;
+                        }
+                        index++;
+                        return specialItem.isHeader;
+                    }
+                })
+                .map(new Func1<SpecialItem, String>() {
+                    @Override
+                    public String call(SpecialItem specialItem) {
+                        return _clipHeadStr(specialItem.header);
+                    }
+                })
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                        mTagLayout.addTag(s);
+                    }
+                });
+        mTagLayout.setOnTagClickListener(new TagView.OnTagClickListener() {
+            @Override
+            public void onTagClick(int position, String text) {
+                ToastUtils.showToast(text + " " + mSkipId[position]);
+                mRvNewsList.scrollToPosition(mSkipId[position]);
+            }
+
+            @Override
+            public void onTagLongClick(int position, String text) {
+
+            }
+        });
     }
 
     @Override
     public void loadBanner(SpecialBean specialBean) {
-        // 设置标题
-        mCollapsingToolBar.setTitle(specialBean.getSname());
+        View headView = LayoutInflater.from(this).inflate(R.layout.head_special, null);
+        ImageView mIvBanner = (ImageView) headView.findViewById(R.id.iv_banner);
         // 加载图片
-        ImageLoader.loadFit(this, specialBean.getBanner(), mIvBanner, DefIconFactory.provideIcon());
+        ImageLoader.loadFitCenter(this, specialBean.getBanner(), mIvBanner, DefIconFactory.provideIcon());
         // 添加导语
         if (!TextUtils.isEmpty(specialBean.getDigest())) {
-            View headView = LayoutInflater.from(this).inflate(R.layout.head_special, null);
+            ViewStub stub = (ViewStub) headView.findViewById(R.id.vs_digest);
+            assert stub != null;
+            stub.inflate();
             TextView tvDigest = (TextView) headView.findViewById(R.id.tv_digest);
             tvDigest.setText(specialBean.getDigest());
-            mSpecialAdapter.addHeaderView(headView);
         }
+        mTagLayout = (TagContainerLayout) headView.findViewById(R.id.tag_layout);
+        mSpecialAdapter.addHeaderView(headView);
     }
 
+    private String _clipHeadStr(String headStr) {
+        String head = null;
+        int index = headStr.indexOf(" ");
+        if (index != -1) {
+            head = headStr.substring(index, headStr.length());
+        }
+        return head;
+    }
 }

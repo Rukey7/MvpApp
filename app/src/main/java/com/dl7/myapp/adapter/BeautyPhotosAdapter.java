@@ -45,6 +45,7 @@ public class BeautyPhotosAdapter extends BaseQuickAdapter<BeautyPhotoBean> {
     protected void convert(BaseViewHolder holder, final BeautyPhotoBean item) {
         final ImageView ivPhoto = holder.getView(R.id.iv_photo);
         int photoHeight = _calcPhotoHeight(item.getPixel());
+        // 接口返回的数据有像素分辨率，根据这个来缩放图片大小
         final ViewGroup.LayoutParams params = ivPhoto.getLayoutParams();
         params.width = mPhotoWidth;
         params.height = photoHeight;

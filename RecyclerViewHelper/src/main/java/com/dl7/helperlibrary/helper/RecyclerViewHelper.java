@@ -98,6 +98,7 @@ public class RecyclerViewHelper {
         initRecyclerViewG(context, view, false, adapter, column);
     }
 
+
     /**
      * 配置瀑布流列表RecyclerView
      * @param view
@@ -108,7 +109,7 @@ public class RecyclerViewHelper {
         view.setLayoutManager(layoutManager);
         view.setItemAnimator(new DefaultItemAnimator());
         if (isDivided) {
-            view.addItemDecoration(new DividerGridItemDecoration(context));
+            view.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL_LIST));
         }
         view.setAdapter(adapter);
     }
