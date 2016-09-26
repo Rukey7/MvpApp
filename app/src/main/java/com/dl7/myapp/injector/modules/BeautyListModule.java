@@ -4,8 +4,8 @@ import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
 import com.dl7.myapp.adapter.BeautyPhotosAdapter;
 import com.dl7.myapp.injector.PerFragment;
 import com.dl7.myapp.module.base.IBasePresenter;
-import com.dl7.myapp.module.beauty.BeautyFragment;
-import com.dl7.myapp.module.beauty.BeautyPresenter;
+import com.dl7.myapp.module.beautylist.BeautyListFragment;
+import com.dl7.myapp.module.beautylist.BeautyListPresenter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -15,18 +15,18 @@ import dagger.Provides;
  * 美图 Module
  */
 @Module
-public class BeautyModule {
+public class BeautyListModule {
 
-    private final BeautyFragment mView;
+    private final BeautyListFragment mView;
 
-    public BeautyModule(BeautyFragment view) {
+    public BeautyListModule(BeautyListFragment view) {
         this.mView = view;
     }
 
     @PerFragment
     @Provides
     public IBasePresenter providePresenter() {
-        return new BeautyPresenter(mView);
+        return new BeautyListPresenter(mView);
     }
 
     @PerFragment

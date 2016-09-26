@@ -13,6 +13,7 @@ import com.dl7.myapp.utils.DefIconFactory;
 import com.dl7.myapp.utils.ImageLoader;
 import com.orhanobut.logger.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +24,7 @@ public class BeautyPhotosAdapter extends BaseQuickAdapter<BeautyPhotoBean> {
 
     // 图片的宽度
     private int mPhotoWidth;
+    private List<String> mImgUrls = new ArrayList<>();
 
 
     public BeautyPhotosAdapter(Context context) {
@@ -61,6 +63,7 @@ public class BeautyPhotosAdapter extends BaseQuickAdapter<BeautyPhotoBean> {
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
             }
         });
     }
@@ -86,4 +89,5 @@ public class BeautyPhotosAdapter extends BaseQuickAdapter<BeautyPhotoBean> {
 
         return height;
     }
+
 }

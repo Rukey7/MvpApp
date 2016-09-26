@@ -24,26 +24,32 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".module.detail.NewsDetailActivity"
-                  android:configChanges="keyboardHidden|orientation|screenSize"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".module.detail.NewsDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".module.special.SpecialActivity"
-                  android:configChanges="keyboardHidden|orientation|screenSize"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".module.special.SpecialActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".module.photoset.PhotoSetActivity"
-                  android:configChanges="keyboardHidden|orientation|screenSize"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".module.photoset.PhotoSetActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".module.channel.ChannelActivity"
-                  android:configChanges="keyboardHidden|orientation|screenSize"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".module.channel.ChannelActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".module.photos.PhotosActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".module.bigphoto.BigPhotoActivity">
         </activity>
     </application>
 

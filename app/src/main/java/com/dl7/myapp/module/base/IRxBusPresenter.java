@@ -6,7 +6,15 @@ package com.dl7.myapp.module.base;
  */
 public interface IRxBusPresenter extends IBasePresenter {
 
+    /**
+     * 注册
+     * @param eventType
+     * @param <T>
+     */
     <T> void registerRxBus(Class<T> eventType);
 
+    /**
+     * 注销
+     */
     void unregisterRxBus();
 }

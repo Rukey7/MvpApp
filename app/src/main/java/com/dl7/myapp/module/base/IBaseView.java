@@ -4,7 +4,7 @@ import com.dl7.myapp.views.EmptyLayout;
 
 /**
  * Created by long on 2016/8/23.
- * 基础 BaseView
+ * 基础 BaseView 接口
  */
 public interface IBaseView {
 
@@ -23,4 +23,5 @@ public interface IBaseView {
      * @param onRetryListener 点击监听
      */
     void showNetError(EmptyLayout.OnRetryListener onRetryListener);
+
 }

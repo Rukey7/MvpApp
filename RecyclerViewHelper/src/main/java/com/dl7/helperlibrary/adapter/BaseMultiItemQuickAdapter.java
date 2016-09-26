@@ -1,6 +1,7 @@
 package com.dl7.helperlibrary.adapter;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
@@ -51,7 +52,7 @@ public abstract class BaseMultiItemQuickAdapter<T extends MultiItemEntity> exten
         return layouts.get(viewType);
     }
 
-    protected void addItemType(int type, int layoutResId) {
+    protected void addItemType(int type, @LayoutRes int layoutResId) {
         if (layouts == null) {
             layouts = new SparseArray<>();
         }

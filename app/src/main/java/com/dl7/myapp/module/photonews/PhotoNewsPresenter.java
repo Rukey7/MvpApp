@@ -1,8 +1,9 @@
-package com.dl7.myapp.module.photolist;
+package com.dl7.myapp.module.photonews;
 
 import com.dl7.myapp.api.RetrofitService;
 import com.dl7.myapp.api.bean.PhotoBean;
 import com.dl7.myapp.module.base.IBasePresenter;
+import com.dl7.myapp.module.base.ILoadDataView;
 import com.dl7.myapp.views.EmptyLayout;
 import com.orhanobut.logger.Logger;
 
@@ -13,15 +14,15 @@ import rx.functions.Action0;
 
 /**
  * Created by long on 2016/9/5.
- * 图片列表 Presenter
+ * 图片新闻列表 Presenter
  */
-public class PhotoListPresenter implements IBasePresenter {
+public class PhotoNewsPresenter implements IBasePresenter {
 
     private String mNextSetId;
-    private IPhotoListView mView;
+    private ILoadDataView mView;
 
 
-    public PhotoListPresenter(IPhotoListView view) {
+    public PhotoNewsPresenter(ILoadDataView view) {
         this.mView = view;
     }
 

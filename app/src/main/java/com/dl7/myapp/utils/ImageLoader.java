@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestListener;
 
 /**
  * Created by long on 2016/8/23.
@@ -20,16 +21,20 @@ public final class ImageLoader {
     public static void loadFit(Context context, String url, ImageView view, int defaultResId) {
         if (!TextUtils.isEmpty(url)) {
             view.setScaleType(ImageView.ScaleType.FIT_XY);
-            Glide.with(context).load(url).fitCenter().placeholder(defaultResId).crossFade().into(view);
+            Glide.with(context).load(url).fitCenter().placeholder(defaultResId).into(view);
         }
     }
 
     public static void loadCenterCrop(Context context, String url, ImageView view, int defaultResId) {
-        Glide.with(context).load(url).centerCrop().crossFade().placeholder(defaultResId).into(view);
+        Glide.with(context).load(url).centerCrop().placeholder(defaultResId).into(view);
     }
 
     public static void loadFitCenter(Context context, String url, ImageView view, int defaultResId) {
         Glide.with(context).load(url).asBitmap().fitCenter().placeholder(defaultResId).into(view);
+    }
+
+    public static void loadFitCenter(Context context, String url, ImageView view, RequestListener listener) {
+        Glide.with(context).load(url).fitCenter().listener(listener).into(view);
     }
 
     public static void loadFitOverride(Context context, String url, ImageView view, int defaultResId,
@@ -37,7 +42,7 @@ public final class ImageLoader {
         if (!TextUtils.isEmpty(url)) {
 //            view.setScaleType(ImageView.ScaleType.FIT_XY);
             Glide.with(context).load(url).fitCenter().override(width, height)
-                    .placeholder(defaultResId).crossFade().into(view);
+                    .placeholder(defaultResId).into(view);
         }
     }
 }

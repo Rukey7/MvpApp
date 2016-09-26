@@ -3,6 +3,7 @@ package com.dl7.helperlibrary.adapter;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.LayoutRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -96,6 +97,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
      *
      * @return
      */
+    @LayoutRes
     protected abstract int attachLayoutRes();
 
     /**

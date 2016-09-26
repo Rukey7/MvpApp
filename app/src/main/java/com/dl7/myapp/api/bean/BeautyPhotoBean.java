@@ -1,10 +1,13 @@
 package com.dl7.myapp.api.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by long on 2016/9/2.
  * 美女图片
  */
-public class BeautyPhotoBean {
+public class BeautyPhotoBean implements Parcelable {
 
     /**
      * adtype : 0
@@ -224,4 +227,69 @@ public class BeautyPhotoBean {
                 ", upTimes=" + upTimes +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.adtype);
+        dest.writeString(this.boardid);
+        dest.writeInt(this.clkNum);
+        dest.writeString(this.digest);
+        dest.writeString(this.docid);
+        dest.writeInt(this.downTimes);
+        dest.writeString(this.img);
+        dest.writeInt(this.imgType);
+        dest.writeString(this.imgsrc);
+        dest.writeInt(this.picCount);
+        dest.writeString(this.pixel);
+        dest.writeString(this.program);
+        dest.writeString(this.prompt);
+        dest.writeInt(this.recType);
+        dest.writeInt(this.replyCount);
+        dest.writeString(this.replyid);
+        dest.writeString(this.source);
+        dest.writeString(this.title);
+        dest.writeInt(this.upTimes);
+    }
+
+    public BeautyPhotoBean() {
+    }
+
+    protected BeautyPhotoBean(Parcel in) {
+        this.adtype = in.readInt();
+        this.boardid = in.readString();
+        this.clkNum = in.readInt();
+        this.digest = in.readString();
+        this.docid = in.readString();
+        this.downTimes = in.readInt();
+        this.img = in.readString();
+        this.imgType = in.readInt();
+        this.imgsrc = in.readString();
+        this.picCount = in.readInt();
+        this.pixel = in.readString();
+        this.program = in.readString();
+        this.prompt = in.readString();
+        this.recType = in.readInt();
+        this.replyCount = in.readInt();
+        this.replyid = in.readString();
+        this.source = in.readString();
+        this.title = in.readString();
+        this.upTimes = in.readInt();
+    }
+
+    public static final Parcelable.Creator<BeautyPhotoBean> CREATOR = new Parcelable.Creator<BeautyPhotoBean>() {
+        @Override
+        public BeautyPhotoBean createFromParcel(Parcel source) {
+            return new BeautyPhotoBean(source);
+        }
+
+        @Override
+        public BeautyPhotoBean[] newArray(int size) {
+            return new BeautyPhotoBean[size];
+        }
+    };
 }

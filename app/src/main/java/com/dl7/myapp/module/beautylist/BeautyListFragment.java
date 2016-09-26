@@ -1,4 +1,4 @@
-package com.dl7.myapp.module.photolist;
+package com.dl7.myapp.module.beautylist;
 
 import android.support.v7.widget.RecyclerView;
 
@@ -6,11 +6,12 @@ import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
 import com.dl7.helperlibrary.helper.RecyclerViewHelper;
 import com.dl7.helperlibrary.listener.OnRequestDataListener;
 import com.dl7.myapp.R;
-import com.dl7.myapp.api.bean.PhotoBean;
-import com.dl7.myapp.injector.components.DaggerPhotoListComponent;
-import com.dl7.myapp.injector.modules.PhotoListModule;
+import com.dl7.myapp.api.bean.BeautyPhotoBean;
+import com.dl7.myapp.injector.components.DaggerBeautyListComponent;
+import com.dl7.myapp.injector.modules.BeautyListModule;
 import com.dl7.myapp.module.base.BaseFragment;
 import com.dl7.myapp.module.base.IBasePresenter;
+import com.dl7.myapp.module.base.ILoadDataView;
 
 import java.util.List;
 
@@ -21,9 +22,9 @@ import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 
 /**
  * Created by long on 2016/9/5.
- * 图片列表
+ * 美女图片
  */
-public class PhotoListFragment extends BaseFragment<IBasePresenter> implements IPhotoListView<PhotoBean> {
+public class BeautyListFragment extends BaseFragment<IBasePresenter> implements ILoadDataView<List<BeautyPhotoBean>> {
 
     @BindView(R.id.rv_photo_list)
     RecyclerView mRvPhotoList;
@@ -31,23 +32,25 @@ public class PhotoListFragment extends BaseFragment<IBasePresenter> implements I
     @Inject
     BaseQuickAdapter mAdapter;
 
+
     @Override
     protected int attachLayoutRes() {
-        return R.layout.fragment_photo_list;
+        return R.layout.fragment_photo_news;
     }
 
     @Override
     protected void initInjector() {
-        DaggerPhotoListComponent.builder()
+        DaggerBeautyListComponent.builder()
                 .applicationComponent(getAppComponent())
-                .photoListModule(new PhotoListModule(this))
+                .beautyListModule(new BeautyListModule(this))
                 .build()
                 .inject(this);
     }
 
     @Override
     protected void initViews() {
-        RecyclerViewHelper.initRecyclerViewV(mContext, mRvPhotoList, new SlideInBottomAnimationAdapter(mAdapter));
+        SlideInBottomAnimationAdapter slideAdapter = new SlideInBottomAnimationAdapter(mAdapter);
+        RecyclerViewHelper.initRecyclerViewSV(mContext, mRvPhotoList, slideAdapter, 2);
         mAdapter.setRequestDataListener(new OnRequestDataListener() {
             @Override
             public void onLoadMore() {
@@ -62,12 +65,12 @@ public class PhotoListFragment extends BaseFragment<IBasePresenter> implements I
     }
 
     @Override
-    public void loadData(List<PhotoBean> photoList) {
+    public void loadData(List<BeautyPhotoBean> photoList) {
         mAdapter.updateItems(photoList);
     }
 
     @Override
-    public void loadMoreData(List<PhotoBean> photoList) {
+    public void loadMoreData(List<BeautyPhotoBean> photoList) {
         mAdapter.addItems(photoList);
     }
 

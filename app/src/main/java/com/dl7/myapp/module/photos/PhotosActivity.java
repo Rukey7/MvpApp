@@ -15,8 +15,8 @@ import com.dl7.myapp.injector.components.DaggerPhotosComponent;
 import com.dl7.myapp.injector.modules.PhotosModule;
 import com.dl7.myapp.module.base.BaseNavActivity;
 import com.dl7.myapp.module.base.IRxBusPresenter;
-import com.dl7.myapp.module.beauty.BeautyFragment;
-import com.dl7.myapp.module.photolist.PhotoListFragment;
+import com.dl7.myapp.module.beautylist.BeautyListFragment;
+import com.dl7.myapp.module.photonews.PhotoNewsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,8 +75,8 @@ public class PhotosActivity extends BaseNavActivity<IRxBusPresenter> implements 
         List<String> titles = new ArrayList<>();
         titles.add("生活");
         titles.add("美女");
-        fragments.add(new PhotoListFragment());
-        fragments.add(new BeautyFragment());
+        fragments.add(new PhotoNewsFragment());
+        fragments.add(new BeautyListFragment());
         mPagerAdapter.setDatas(fragments, titles);
     }
 

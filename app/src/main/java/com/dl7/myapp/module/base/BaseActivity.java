@@ -4,9 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
@@ -36,7 +35,7 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatActivity implements IBaseView {
 
     /**
-     * 把 EmptyLayout 放在基类统一处理，@Nullable 表明视图可以为 null，详细可看 ButterKnife
+     * 把 EmptyLayout 放在基类统一处理，@Nullable 表明 View 可以为 null，详细可看 ButterKnife
      */
     @Nullable
     @BindView(R.id.empty_layout)
@@ -55,6 +54,7 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
      *
      * @return 布局文件ID
      */
+    @LayoutRes
     protected abstract int attachLayoutRes();
 
     /**
@@ -119,18 +119,6 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
     }
 
     /**
-     * 添加 Fragment
-     *
-     * @param containerViewId 视图ID
-     * @param fragment        Fragment
-     */
-    protected void addFragment(int containerViewId, Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(containerViewId, fragment);
-        transaction.commit();
-    }
-
-    /**
      * 获取 ApplicationComponent
      *
      * @return ApplicationComponent
@@ -150,7 +138,7 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
 
 
     /**
-     * 设置状态是否透明
+     * 设置状态是否透明，默认不透明
      */
     protected boolean isSystemBarTranslucent() {
         return false;
@@ -174,7 +162,7 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
             }
             return;
         }
-        // 沉浸式状态栏
+        // 状态栏设置颜色
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
                 Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);

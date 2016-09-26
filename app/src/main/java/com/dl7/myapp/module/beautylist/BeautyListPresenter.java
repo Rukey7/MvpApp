@@ -1,9 +1,9 @@
-package com.dl7.myapp.module.beauty;
+package com.dl7.myapp.module.beautylist;
 
 import com.dl7.myapp.api.RetrofitService;
 import com.dl7.myapp.api.bean.BeautyPhotoBean;
 import com.dl7.myapp.module.base.IBasePresenter;
-import com.dl7.myapp.module.photolist.IPhotoListView;
+import com.dl7.myapp.module.base.ILoadDataView;
 import com.dl7.myapp.views.EmptyLayout;
 import com.orhanobut.logger.Logger;
 
@@ -16,12 +16,12 @@ import rx.functions.Action0;
  * Created by long on 2016/9/5.
  * 美图 Presenter
  */
-public class BeautyPresenter implements IBasePresenter {
+public class BeautyListPresenter implements IBasePresenter {
 
-    private IPhotoListView mView;
+    private ILoadDataView mView;
 
 
-    public BeautyPresenter(IPhotoListView view) {
+    public BeautyListPresenter(ILoadDataView view) {
         this.mView = view;
     }
 
