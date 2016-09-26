@@ -21,19 +21,27 @@ import com.dl7.myapp.R;
 import com.dl7.myapp.injector.components.ApplicationComponent;
 import com.dl7.myapp.injector.modules.ActivityModule;
 import com.dl7.myapp.utils.ActivityCollector;
+import com.dl7.myapp.views.EmptyLayout;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * Created by long on 2016/8/19.
  * 基类Activity
  */
-public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatActivity {
+public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatActivity implements IBaseView {
 
-    /*
+    /**
+     * 把 EmptyLayout 放在基类统一处理，@Nullable 表明视图可以为 null，详细可看 ButterKnife
+     */
+    @Nullable
+    @BindView(R.id.empty_layout)
+    EmptyLayout mEmptyLayout;
+    /**
      * 把 Presenter 提取到基类需要配合基类的 initInjector() 进行注入，如果继承这个基类则必定要提供一个 Presenter 注入方法，
      * 该APP所有 Presenter 都是在 Module 提供注入实现，也可以选择提供另外不带 Presenter 的基类
      */
@@ -86,6 +94,28 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
     @Override
     protected void onStart() {
         super.onStart();
+    }
+
+    @Override
+    public void showLoading() {
+        if (mEmptyLayout != null) {
+            mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_LOADING);
+        }
+    }
+
+    @Override
+    public void hideLoading() {
+        if (mEmptyLayout != null) {
+            mEmptyLayout.hide();
+        }
+    }
+
+    @Override
+    public void showNetError(final EmptyLayout.OnRetryListener onRetryListener) {
+        if (mEmptyLayout != null) {
+            mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_NO_NET);
+            mEmptyLayout.setRetryListener(onRetryListener);
+        }
     }
 
     /**

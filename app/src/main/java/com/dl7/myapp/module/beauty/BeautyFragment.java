@@ -12,7 +12,6 @@ import com.dl7.myapp.injector.modules.BeautyModule;
 import com.dl7.myapp.module.base.BaseFragment;
 import com.dl7.myapp.module.base.IBasePresenter;
 import com.dl7.myapp.module.photolist.IPhotoListView;
-import com.dl7.myapp.views.EmptyLayout;
 
 import java.util.List;
 
@@ -29,8 +28,6 @@ public class BeautyFragment extends BaseFragment<IBasePresenter> implements IPho
 
     @BindView(R.id.rv_photo_list)
     RecyclerView mRvPhotoList;
-    @BindView(R.id.empty_layout)
-    EmptyLayout mEmptyLayout;
 
     @Inject
     BaseQuickAdapter mAdapter;
@@ -65,22 +62,6 @@ public class BeautyFragment extends BaseFragment<IBasePresenter> implements IPho
     @Override
     protected void updateViews() {
         mPresenter.getData();
-    }
-
-    @Override
-    public void showLoading() {
-        mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_LOADING);
-    }
-
-    @Override
-    public void hideLoading() {
-        mEmptyLayout.hide();
-    }
-
-    @Override
-    public void showNetError(final EmptyLayout.OnRetryListener onRetryListener) {
-        mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_NO_NET);
-        mEmptyLayout.setRetryListener(onRetryListener);
     }
 
     @Override

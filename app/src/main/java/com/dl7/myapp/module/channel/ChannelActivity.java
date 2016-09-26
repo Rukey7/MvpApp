@@ -40,8 +40,6 @@ public class ChannelActivity extends BaseActivity<ILocalPresenter> implements IC
     BaseQuickAdapter mCheckedAdapter;
     @Inject
     BaseQuickAdapter mUncheckedAdapter;
-//    @Inject
-//    ILocalPresenter mPresenter;
 
 
     public static void launch(Context context) {

@@ -11,7 +11,6 @@ import com.dl7.myapp.injector.components.DaggerPhotoListComponent;
 import com.dl7.myapp.injector.modules.PhotoListModule;
 import com.dl7.myapp.module.base.BaseFragment;
 import com.dl7.myapp.module.base.IBasePresenter;
-import com.dl7.myapp.views.EmptyLayout;
 
 import java.util.List;
 
@@ -28,8 +27,6 @@ public class PhotoListFragment extends BaseFragment<IBasePresenter> implements I
 
     @BindView(R.id.rv_photo_list)
     RecyclerView mRvPhotoList;
-    @BindView(R.id.empty_layout)
-    EmptyLayout mEmptyLayout;
 
     @Inject
     BaseQuickAdapter mAdapter;
@@ -62,22 +59,6 @@ public class PhotoListFragment extends BaseFragment<IBasePresenter> implements I
     @Override
     protected void updateViews() {
         mPresenter.getData();
-    }
-
-    @Override
-    public void showLoading() {
-        mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_LOADING);
-    }
-
-    @Override
-    public void hideLoading() {
-        mEmptyLayout.hide();
-    }
-
-    @Override
-    public void showNetError(final EmptyLayout.OnRetryListener onRetryListener) {
-        mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_NO_NET);
-        mEmptyLayout.setRetryListener(onRetryListener);
     }
 
     @Override

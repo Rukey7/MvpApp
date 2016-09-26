@@ -19,7 +19,6 @@ import com.dl7.myapp.injector.modules.NewsDetailModule;
 import com.dl7.myapp.module.base.BaseActivity;
 import com.dl7.myapp.module.base.IBasePresenter;
 import com.dl7.myapp.utils.ListUtils;
-import com.dl7.myapp.views.EmptyLayout;
 import com.zzhoujay.richtext.RichText;
 import com.zzhoujay.richtext.callback.OnURLClickListener;
 
@@ -46,8 +45,6 @@ public class NewsDetailActivity extends BaseActivity<IBasePresenter> implements 
     TextView mTvTime;
     @BindView(R.id.sv_content)
     NestedScrollView mSvContent;
-    @BindView(R.id.empty_layout)
-    EmptyLayout mEmptyLayout;
     @BindView(R.id.tv_content)
     TextView mTvContent;
 
@@ -85,22 +82,6 @@ public class NewsDetailActivity extends BaseActivity<IBasePresenter> implements 
     @Override
     protected void updateViews() {
         mPresenter.getData();
-    }
-
-    @Override
-    public void showLoading() {
-        mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_LOADING);
-    }
-
-    @Override
-    public void hideLoading() {
-        mEmptyLayout.hide();
-    }
-
-    @Override
-    public void showNetError(final EmptyLayout.OnRetryListener onRetryListener) {
-        mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_NO_NET);
-        mEmptyLayout.setRetryListener(onRetryListener);
     }
 
     @Override

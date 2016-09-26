@@ -14,7 +14,6 @@ import com.dl7.myapp.injector.components.DaggerPhotoSetComponent;
 import com.dl7.myapp.injector.modules.PhotoSetModule;
 import com.dl7.myapp.module.base.BaseActivity;
 import com.dl7.myapp.module.base.IBasePresenter;
-import com.dl7.myapp.views.EmptyLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +34,6 @@ public class PhotoSetActivity extends BaseActivity<IBasePresenter> implements IP
     TextView mTvCount;
     @BindView(R.id.tv_content)
     TextView mTvContent;
-//    @BindView(R.id.empty_layout)
-//    EmptyLayout mEmptyLayout;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
@@ -48,6 +45,11 @@ public class PhotoSetActivity extends BaseActivity<IBasePresenter> implements IP
         Intent intent = new Intent(context, PhotoSetActivity.class);
         intent.putExtra(PHOTO_SET_KEY, photoId);
         context.startActivity(intent);
+    }
+
+    @Override
+    protected boolean isSystemBarTranslucent() {
+        return true;
     }
 
     @Override
@@ -72,22 +74,6 @@ public class PhotoSetActivity extends BaseActivity<IBasePresenter> implements IP
     @Override
     protected void updateViews() {
         mPresenter.getData();
-    }
-
-    @Override
-    public void showLoading() {
-//        mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_LOADING);
-    }
-
-    @Override
-    public void hideLoading() {
-//        mEmptyLayout.hide();
-    }
-
-    @Override
-    public void showNetError(final EmptyLayout.OnRetryListener onRetryListener) {
-//        mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_NO_NET);
-//        mEmptyLayout.setRetryListener(onRetryListener);
     }
 
     @Override

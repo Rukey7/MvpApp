@@ -10,18 +10,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dl7.myapp.AndroidApplication;
+import com.dl7.myapp.R;
 import com.dl7.myapp.injector.components.ApplicationComponent;
+import com.dl7.myapp.views.EmptyLayout;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * Created by long on 2016/5/31.
  * 碎片基类
  */
-public abstract class BaseFragment<T extends IBasePresenter> extends Fragment {
+public abstract class BaseFragment<T extends IBasePresenter> extends Fragment implements IBaseView {
 
+    @Nullable
+    @BindView(R.id.empty_layout)
+    EmptyLayout mEmptyLayout;
     @Inject
     protected T mPresenter;
 
@@ -69,6 +75,28 @@ public abstract class BaseFragment<T extends IBasePresenter> extends Fragment {
             updateViews();
         } else {
             super.setUserVisibleHint(isVisibleToUser);
+        }
+    }
+
+    @Override
+    public void showLoading() {
+        if (mEmptyLayout != null) {
+            mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_LOADING);
+        }
+    }
+
+    @Override
+    public void hideLoading() {
+        if (mEmptyLayout != null) {
+            mEmptyLayout.hide();
+        }
+    }
+
+    @Override
+    public void showNetError(final EmptyLayout.OnRetryListener onRetryListener) {
+        if (mEmptyLayout != null) {
+            mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_NO_NET);
+            mEmptyLayout.setRetryListener(onRetryListener);
         }
     }
 

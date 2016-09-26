@@ -2,6 +2,7 @@ package com.dl7.myapp.module.special;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -22,8 +23,6 @@ import com.dl7.myapp.module.base.BaseActivity;
 import com.dl7.myapp.module.base.IBasePresenter;
 import com.dl7.myapp.utils.DefIconFactory;
 import com.dl7.myapp.utils.ImageLoader;
-import com.dl7.myapp.utils.ToastUtils;
-import com.dl7.myapp.views.EmptyLayout;
 
 import java.util.List;
 
@@ -48,8 +47,6 @@ public class SpecialActivity extends BaseActivity<IBasePresenter> implements ISp
     Toolbar mToolbar;
     @BindView(R.id.rv_news_list)
     RecyclerView mRvNewsList;
-    @BindView(R.id.empty_layout)
-    EmptyLayout mEmptyLayout;
 
     @Inject
     BaseQuickAdapter mSpecialAdapter;
@@ -57,6 +54,7 @@ public class SpecialActivity extends BaseActivity<IBasePresenter> implements ISp
     TagContainerLayout mTagLayout;
     private String mSpecialId;
     private final int[] mSkipId = new int[20];
+    private LinearLayoutManager mLayoutManager;
 
     public static void launch(Context context, String newsId) {
         Intent intent = new Intent(context, SpecialActivity.class);
@@ -83,6 +81,7 @@ public class SpecialActivity extends BaseActivity<IBasePresenter> implements ISp
         initToolBar(mToolbar, true, "");
         ScaleInAnimationAdapter animAdapter = new ScaleInAnimationAdapter(mSpecialAdapter);
         RecyclerViewHelper.initRecyclerViewV(this, mRvNewsList, true, new AlphaInAnimationAdapter(animAdapter));
+        mLayoutManager = (LinearLayoutManager) mRvNewsList.getLayoutManager();
     }
 
     @Override
@@ -91,30 +90,40 @@ public class SpecialActivity extends BaseActivity<IBasePresenter> implements ISp
     }
 
     @Override
-    public void showLoading() {
-        mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_LOADING);
-    }
-
-    @Override
-    public void hideLoading() {
-        mEmptyLayout.hide();
-    }
-
-    @Override
-    public void showNetError(final EmptyLayout.OnRetryListener onRetryListener) {
-        mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_NO_NET);
-        mEmptyLayout.setRetryListener(onRetryListener);
-    }
-
-    @Override
     public void loadData(List<SpecialItem> specialItems) {
         mSpecialAdapter.updateItems(specialItems);
+        _handleTagLayout(specialItems);
+    }
+
+    @Override
+    public void loadBanner(SpecialBean specialBean) {
+        View headView = LayoutInflater.from(this).inflate(R.layout.head_special, null);
+        ImageView mIvBanner = (ImageView) headView.findViewById(R.id.iv_banner);
+        // 加载图片
+        ImageLoader.loadFitCenter(this, specialBean.getBanner(), mIvBanner, DefIconFactory.provideIcon());
+        // 添加导语
+        if (!TextUtils.isEmpty(specialBean.getDigest())) {
+            ViewStub stub = (ViewStub) headView.findViewById(R.id.vs_digest);
+            assert stub != null;
+            stub.inflate();
+            TextView tvDigest = (TextView) headView.findViewById(R.id.tv_digest);
+            tvDigest.setText(specialBean.getDigest());
+        }
+        mTagLayout = (TagContainerLayout) headView.findViewById(R.id.tag_layout);
+        mSpecialAdapter.addHeaderView(headView);
+    }
+
+    /**
+     * 处理导航标签
+     * @param specialItems
+     */
+    private void _handleTagLayout(List<SpecialItem> specialItems) {
         Observable.from(specialItems)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .filter(new Func1<SpecialItem, Boolean>() {
                     int i = 0;
-                    int index = 0;
+                    int index = 1;  // 存在一个 HeadView 所以从1算起
                     @Override
                     public Boolean call(SpecialItem specialItem) {
                         if (specialItem.isHeader) {
@@ -139,33 +148,13 @@ public class SpecialActivity extends BaseActivity<IBasePresenter> implements ISp
         mTagLayout.setOnTagClickListener(new TagView.OnTagClickListener() {
             @Override
             public void onTagClick(int position, String text) {
-                ToastUtils.showToast(text + " " + mSkipId[position]);
-                mRvNewsList.scrollToPosition(mSkipId[position]);
+                mLayoutManager.scrollToPositionWithOffset(mSkipId[position], 0);
             }
 
             @Override
             public void onTagLongClick(int position, String text) {
-
             }
         });
-    }
-
-    @Override
-    public void loadBanner(SpecialBean specialBean) {
-        View headView = LayoutInflater.from(this).inflate(R.layout.head_special, null);
-        ImageView mIvBanner = (ImageView) headView.findViewById(R.id.iv_banner);
-        // 加载图片
-        ImageLoader.loadFitCenter(this, specialBean.getBanner(), mIvBanner, DefIconFactory.provideIcon());
-        // 添加导语
-        if (!TextUtils.isEmpty(specialBean.getDigest())) {
-            ViewStub stub = (ViewStub) headView.findViewById(R.id.vs_digest);
-            assert stub != null;
-            stub.inflate();
-            TextView tvDigest = (TextView) headView.findViewById(R.id.tv_digest);
-            tvDigest.setText(specialBean.getDigest());
-        }
-        mTagLayout = (TagContainerLayout) headView.findViewById(R.id.tag_layout);
-        mSpecialAdapter.addHeaderView(headView);
     }
 
     private String _clipHeadStr(String headStr) {
