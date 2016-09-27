@@ -18,8 +18,6 @@ public class NewsTypeDao {
 
     // 所有栏目
     private static List<NewsTypeBean> sAllChannels;
-    // 未选中
-    private List<NewsTypeBean> mUncheckedList;
 
 
     private NewsTypeDao() {

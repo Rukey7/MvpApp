@@ -73,10 +73,10 @@ public class PhotosActivity extends BaseNavActivity<IRxBusPresenter> implements 
         mTabLayout.setupWithViewPager(mViewPager);
         List<Fragment> fragments = new ArrayList<>();
         List<String> titles = new ArrayList<>();
-        titles.add("生活");
         titles.add("美女");
-        fragments.add(new PhotoNewsFragment());
+        titles.add("生活");
         fragments.add(new BeautyListFragment());
+        fragments.add(new PhotoNewsFragment());
         mPagerAdapter.setDatas(fragments, titles);
     }
 

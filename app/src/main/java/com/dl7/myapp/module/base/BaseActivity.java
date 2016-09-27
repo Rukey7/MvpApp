@@ -39,7 +39,7 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
      */
     @Nullable
     @BindView(R.id.empty_layout)
-    EmptyLayout mEmptyLayout;
+    protected EmptyLayout mEmptyLayout;
     /**
      * 把 Presenter 提取到基类需要配合基类的 initInjector() 进行注入，如果继承这个基类则必定要提供一个 Presenter 注入方法，
      * 该APP所有 Presenter 都是在 Module 提供注入实现，也可以选择提供另外不带 Presenter 的基类

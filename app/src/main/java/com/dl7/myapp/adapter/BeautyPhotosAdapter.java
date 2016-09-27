@@ -9,6 +9,7 @@ import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
 import com.dl7.helperlibrary.adapter.BaseViewHolder;
 import com.dl7.myapp.R;
 import com.dl7.myapp.api.bean.BeautyPhotoBean;
+import com.dl7.myapp.module.bigphoto.BigPhotoActivity;
 import com.dl7.myapp.utils.DefIconFactory;
 import com.dl7.myapp.utils.ImageLoader;
 import com.orhanobut.logger.Logger;
@@ -44,7 +45,7 @@ public class BeautyPhotosAdapter extends BaseQuickAdapter<BeautyPhotoBean> {
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, final BeautyPhotoBean item) {
+    protected void convert(final BaseViewHolder holder, final BeautyPhotoBean item) {
         final ImageView ivPhoto = holder.getView(R.id.iv_photo);
         int photoHeight = _calcPhotoHeight(item.getPixel());
         // 接口返回的数据有像素分辨率，根据这个来缩放图片大小
@@ -63,7 +64,7 @@ public class BeautyPhotosAdapter extends BaseQuickAdapter<BeautyPhotoBean> {
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                BigPhotoActivity.launch(mContext, (ArrayList<BeautyPhotoBean>) getData(), holder.getAdapterPosition());
             }
         });
     }

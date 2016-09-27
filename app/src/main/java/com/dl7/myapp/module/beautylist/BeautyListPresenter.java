@@ -28,6 +28,7 @@ public class BeautyListPresenter implements IBasePresenter {
 
     @Override
     public void getData() {
+        // 因为网易这个原接口参数一大堆，我只传了部分参数，返回的数据会出现图片重复的情况，请不要在意这个问题- -
         RetrofitService.getBeautyPhoto()
                 .doOnSubscribe(new Action0() {
                     @Override

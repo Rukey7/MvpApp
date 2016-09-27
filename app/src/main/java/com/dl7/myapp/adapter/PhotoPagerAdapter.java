@@ -13,6 +13,7 @@ import com.dl7.helperlibrary.indicator.SpinKitView;
 import com.dl7.myapp.R;
 import com.dl7.myapp.utils.ImageLoader;
 
+import java.util.Collections;
 import java.util.List;
 
 import uk.co.senab.photoview.PhotoView;
@@ -24,16 +25,33 @@ import uk.co.senab.photoview.PhotoViewAttacher;
  */
 public class PhotoPagerAdapter extends PagerAdapter {
 
+    private final static int LOAD_MORE_LIMIT = 3;
     private List<String> mImgList;
     private Context mContext;
-    private OnPhotoClickListener mListener;
-
+    private OnTapListener mTapListener;
+    private OnLoadMoreListener mLoadMoreListener;
+    private boolean mIsLoadMore = false;
 
     public PhotoPagerAdapter(Context context, List<String> imgList) {
         this.mContext = context;
         this.mImgList = imgList;
     }
 
+    public PhotoPagerAdapter(Context context) {
+        this.mContext = context;
+        this.mImgList = Collections.EMPTY_LIST;
+    }
+
+    public void updateData(List<String> imgList) {
+        this.mImgList = imgList;
+        notifyDataSetChanged();
+    }
+
+    public void addData(List<String> imgList) {
+        mImgList.addAll(imgList);
+        notifyDataSetChanged();
+        mIsLoadMore = false;
+    }
 
     @Override
     public int getCount() {
@@ -50,6 +68,14 @@ public class PhotoPagerAdapter extends PagerAdapter {
         View view = LayoutInflater.from(mContext).inflate(R.layout.adapter_photo_pager, null, false);
         final PhotoView photo = (PhotoView) view.findViewById(R.id.iv_photo);
         final SpinKitView loadingView = (SpinKitView) view.findViewById(R.id.loading_view);
+
+        if ((position >= mImgList.size() - LOAD_MORE_LIMIT) && !mIsLoadMore) {
+            if (mLoadMoreListener != null) {
+                mIsLoadMore = true;
+                mLoadMoreListener.onLoadMore();
+            }
+        }
+
         RequestListener<String, GlideDrawable> requestListener = new RequestListener<String, GlideDrawable>() {
             @Override
             public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
@@ -64,12 +90,12 @@ public class PhotoPagerAdapter extends PagerAdapter {
                 return true;
             }
         };
-        ImageLoader.loadFitCenter(mContext, mImgList.get(position), photo, requestListener);
+        ImageLoader.loadFitCenter(mContext, mImgList.get(position % mImgList.size()), photo, requestListener);
         photo.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
             @Override
             public void onPhotoTap(View view, float x, float y) {
-                if (mListener != null) {
-                    mListener.onPhotoClick();
+                if (mTapListener != null) {
+                    mTapListener.onPhotoClick();
                 }
             }
         });
@@ -82,11 +108,19 @@ public class PhotoPagerAdapter extends PagerAdapter {
         container.removeView((View) object);
     }
 
-    public void setListener(OnPhotoClickListener listener) {
-        mListener = listener;
+    public void setTapListener(OnTapListener listener) {
+        mTapListener = listener;
     }
 
-    public interface OnPhotoClickListener {
+    public void setLoadMoreListener(OnLoadMoreListener loadMoreListener) {
+        mLoadMoreListener = loadMoreListener;
+    }
+
+    public interface OnTapListener {
         void onPhotoClick();
+    }
+
+    public interface OnLoadMoreListener {
+        void onLoadMore();
     }
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/item_interact"
+        android:checked="true"
+        android:checkable="true"
+        android:title="和ViewPager联动"/>
+
+    <group android:id="@+id/group_animate"
+           android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/slide_bottom"
+            android:checked="true"
+            android:title="底部滑入"/>
+
+        <item
+            android:id="@+id/slide_left"
+            android:title="左边滑入"/>
+
+        <item
+            android:id="@+id/slide_right"
+            android:title="右边滑入"/>
+
+        <item
+            android:id="@+id/slide_fade"
+            android:title="渐入"/>
+
+        <item
+            android:id="@+id/slide_flip_x"
+            android:title="X轴弹入"/>
+
+        <item
+            android:id="@+id/slide_flip_y"
+            android:title="Y轴弹入"/>
+
+        <item
+            android:id="@+id/slide_zoom"
+            android:title="缩放"/>
+
+        <item
+            android:id="@+id/slide_zoom_left"
+            android:title="左移缩放"/>
+
+        <item
+            android:id="@+id/slide_zoom_right"
+            android:title="右移缩放"/>
+    </group>
+</menu>

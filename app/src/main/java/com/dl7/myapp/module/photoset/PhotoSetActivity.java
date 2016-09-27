@@ -103,7 +103,7 @@ public class PhotoSetActivity extends BaseActivity<IBasePresenter> implements IP
                 mTvIndex.setText((position + 1) + "/");
             }
         });
-        mAdapter.setListener(new PhotoPagerAdapter.OnPhotoClickListener() {
+        mAdapter.setTapListener(new PhotoPagerAdapter.OnTapListener() {
             @Override
             public void onPhotoClick() {
                 mIsHideToolbar = !mIsHideToolbar;

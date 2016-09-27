@@ -27,7 +27,6 @@ public class MainPresenter implements IRxBusPresenter {
         mRxBus = rxBus;
     }
 
-
     @Override
     public void getData() {
         mDbDao.queryBuilder().rx().list()

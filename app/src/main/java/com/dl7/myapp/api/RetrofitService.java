@@ -271,6 +271,7 @@ public class RetrofitService {
 
     /**
      * 获取美女图片
+     * 注: 因为网易这个原接口参数一大堆，我只传了部分参数，返回的数据会出现图片重复的情况，请不要在意这个问题- -
      * @return
      */
     public static Observable<List<BeautyPhotoBean>> getBeautyPhoto() {
@@ -283,6 +284,7 @@ public class RetrofitService {
 
     /**
      * 获取更多美女图片
+     * 注: 因为网易这个原接口参数一大堆，我只传了部分参数，返回的数据会出现图片重复的情况，请不要在意这个问题- -
      * @return
      */
     public static Observable<List<BeautyPhotoBean>> getMoreBeautyPhoto() {

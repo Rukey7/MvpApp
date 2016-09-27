@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dl7.helperlibrary.indicator.SpinKitView;
+import com.dl7.helperlibrary.indicator.sprite.Sprite;
 import com.dl7.myapp.R;
 
 import java.lang.annotation.Retention;
@@ -115,6 +116,9 @@ public class EmptyLayout extends FrameLayout {
         mIvEmptyIcon.setImageDrawable(drawable);
     }
 
+    public void setLoadingIcon(Sprite d) {
+        mEmptyLoading.setIndeterminateDrawable(d);
+    }
 
     /**
      * 切换视图

@@ -63,9 +63,4 @@
     <style name="manage_sub_title">
         <item name="android:textSize">12sp</item>
     </style>
-
-    <declare-styleable name="ScrollOverLayout">
-        <attr name="layout_height" format="dimension"/>
-        <attr name="fix_height" format="dimension"/>
-    </declare-styleable>
 </resources>
