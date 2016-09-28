@@ -11,49 +11,29 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.dl7.helperlibrary.indicator.SpinKitView;
 import com.dl7.myapp.R;
-import com.dl7.myapp.local.table.BeautyPhotoBean;
 import com.dl7.myapp.utils.ImageLoader;
 
-import java.util.Collections;
 import java.util.List;
 
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
- * Created by long on 2016/8/29.
- * 图片浏览适配器
+ * Created by long on 2016/9/28.
+ * 图集 Adapter
  */
-public class PhotoPagerAdapter extends PagerAdapter {
+public class PhotoSetAdapter extends PagerAdapter {
 
-    // 限制 Adapter 在倒数第3个位置时启动加载更多回调
-    private final static int LOAD_MORE_LIMIT = 3;
-    private List<BeautyPhotoBean> mImgList;
+    private List<String> mImgList;
     private Context mContext;
     private OnTapListener mTapListener;
-    private OnLoadMoreListener mLoadMoreListener;
-    private boolean mIsLoadMore = false;
 
-    public PhotoPagerAdapter(Context context, List<BeautyPhotoBean> imgList) {
+
+    public PhotoSetAdapter(Context context, List<String> imgList) {
         this.mContext = context;
         this.mImgList = imgList;
     }
 
-    public PhotoPagerAdapter(Context context) {
-        this.mContext = context;
-        this.mImgList = Collections.EMPTY_LIST;
-    }
-
-    public void updateData(List<BeautyPhotoBean> imgList) {
-        this.mImgList = imgList;
-        notifyDataSetChanged();
-    }
-
-    public void addData(List<BeautyPhotoBean> imgList) {
-        mImgList.addAll(imgList);
-        notifyDataSetChanged();
-        mIsLoadMore = false;
-    }
 
     @Override
     public int getCount() {
@@ -70,14 +50,6 @@ public class PhotoPagerAdapter extends PagerAdapter {
         View view = LayoutInflater.from(mContext).inflate(R.layout.adapter_photo_pager, null, false);
         final PhotoView photo = (PhotoView) view.findViewById(R.id.iv_photo);
         final SpinKitView loadingView = (SpinKitView) view.findViewById(R.id.loading_view);
-
-        if ((position >= mImgList.size() - LOAD_MORE_LIMIT) && !mIsLoadMore) {
-            if (mLoadMoreListener != null) {
-                mIsLoadMore = true;
-                mLoadMoreListener.onLoadMore();
-            }
-        }
-
         RequestListener<String, GlideDrawable> requestListener = new RequestListener<String, GlideDrawable>() {
             @Override
             public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
@@ -92,7 +64,7 @@ public class PhotoPagerAdapter extends PagerAdapter {
                 return true;
             }
         };
-        ImageLoader.loadFitCenter(mContext, mImgList.get(position % mImgList.size()).getImgsrc(), photo, requestListener);
+        ImageLoader.loadFitCenter(mContext, mImgList.get(position % mImgList.size()), photo, requestListener);
         photo.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
             @Override
             public void onPhotoTap(View view, float x, float y) {
@@ -110,55 +82,11 @@ public class PhotoPagerAdapter extends PagerAdapter {
         container.removeView((View) object);
     }
 
-    /**
-     * 是否收藏
-     * @param position
-     * @return
-     */
-    public boolean isLoved(int position) {
-        return mImgList.get(position).isLove();
-    }
-
-    /**
-     * 是否点赞
-     * @param position
-     * @return
-     */
-    public boolean isPraise(int position) {
-        return mImgList.get(position).isPraise();
-    }
-
-    /**
-     * 是否下载
-     * @param position
-     * @return
-     */
-    public boolean isDownload(int position) {
-        return mImgList.get(position).isDownload();
-    }
-
-    /**
-     * 获取对应数据
-     * @param position
-     * @return
-     */
-    public BeautyPhotoBean getData(int position) {
-        return mImgList.get(position);
-    }
-
     public void setTapListener(OnTapListener listener) {
         mTapListener = listener;
     }
 
-    public void setLoadMoreListener(OnLoadMoreListener loadMoreListener) {
-        mLoadMoreListener = loadMoreListener;
-    }
-
     public interface OnTapListener {
         void onPhotoClick();
-    }
-
-    public interface OnLoadMoreListener {
-        void onLoadMore();
     }
 }

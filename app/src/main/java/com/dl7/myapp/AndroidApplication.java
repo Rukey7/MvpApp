@@ -61,6 +61,7 @@ public class AndroidApplication extends Application {
     private void _initDatabase() {
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, DB_NAME);
         Database database = helper.getWritableDb();
+//        helper.onUpgrade(database, 1, 2);
         mDaoSession = new DaoMaster(database).newSession();
         NewsTypeDao.updateLocalData(this, mDaoSession);
     }

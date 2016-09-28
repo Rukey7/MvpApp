@@ -3,7 +3,7 @@ package com.dl7.myapp.api;
 import android.util.SparseArray;
 
 import com.dl7.myapp.AndroidApplication;
-import com.dl7.myapp.api.bean.BeautyPhotoBean;
+import com.dl7.myapp.local.table.BeautyPhotoBean;
 import com.dl7.myapp.api.bean.NewsBean;
 import com.dl7.myapp.api.bean.NewsDetailBean;
 import com.dl7.myapp.api.bean.PhotoBean;

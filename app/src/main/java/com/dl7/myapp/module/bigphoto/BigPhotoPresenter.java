@@ -1,8 +1,8 @@
 package com.dl7.myapp.module.bigphoto;
 
 import com.dl7.myapp.api.RetrofitService;
-import com.dl7.myapp.api.bean.BeautyPhotoBean;
-import com.dl7.myapp.api.bean.BeautyPhotoBeanDao;
+import com.dl7.myapp.local.table.BeautyPhotoBean;
+import com.dl7.myapp.local.table.BeautyPhotoBeanDao;
 import com.dl7.myapp.module.base.ILoadDataView;
 import com.dl7.myapp.module.base.ILocalPresenter;
 import com.orhanobut.logger.Logger;
@@ -12,6 +12,7 @@ import java.util.List;
 import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Action0;
+import rx.functions.Action1;
 import rx.functions.Func1;
 
 /**
@@ -43,29 +44,34 @@ public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoBean> {
                         mView.showLoading();
                     }
                 })
-                .distinct()
-                .map(new Func1<BeautyPhotoBean, String>() {
+                // 判断数据库是否有数据，有则设置对应参数
+                .doOnNext(new Action1<BeautyPhotoBean>() {
+                    BeautyPhotoBean tmpBean;
                     @Override
-                    public String call(BeautyPhotoBean beautyPhotoBean) {
-                        return beautyPhotoBean.getImgsrc();
+                    public void call(BeautyPhotoBean bean) {
+                        if (mDbLovedData.contains(bean)) {
+                            tmpBean = mDbLovedData.get(mDbLovedData.indexOf(bean));
+                            Logger.w(tmpBean.toString());
+                            bean.setLove(tmpBean.isLove());
+                            bean.setPraise(tmpBean.isPraise());
+                            bean.setDownload(tmpBean.isDownload());
+                        }
                     }
                 })
                 .toList()
-                .subscribe(new Subscriber<List<String>>() {
+                .subscribe(new Subscriber<List<BeautyPhotoBean>>() {
                     @Override
                     public void onCompleted() {
-                        mView.hideLoading();
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         Logger.e(e.toString());
-                        mView.hideLoading();
                     }
 
                     @Override
-                    public void onNext(List<String> imgUrls) {
-                        mView.loadData(imgUrls);
+                    public void onNext(List<BeautyPhotoBean> photoList) {
+                        mView.loadData(photoList);
                     }
                 });
     }
@@ -79,26 +85,33 @@ public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoBean> {
                         return Observable.from(photoList);
                     }
                 })
-                .map(new Func1<BeautyPhotoBean, String>() {
+                // 判断数据库是否有数据，有则设置对应参数
+                .doOnNext(new Action1<BeautyPhotoBean>() {
+                    BeautyPhotoBean tmpBean;
                     @Override
-                    public String call(BeautyPhotoBean beautyPhotoBean) {
-                        return beautyPhotoBean.getImgsrc();
+                    public void call(BeautyPhotoBean bean) {
+                        if (mDbLovedData.contains(bean)) {
+                            tmpBean = mDbLovedData.get(mDbLovedData.indexOf(bean));
+                            Logger.w(tmpBean.toString());
+                            bean.setLove(tmpBean.isLove());
+                            bean.setPraise(tmpBean.isPraise());
+                            bean.setDownload(tmpBean.isDownload());
+                        }
                     }
                 })
-                .distinct()
                 .toList()
-                .subscribe(new Subscriber<List<String>>() {
+                .subscribe(new Subscriber<List<BeautyPhotoBean>>() {
                     @Override
                     public void onCompleted() {
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        mView.loadNoData();
+                        Logger.e(e.toString());
                     }
 
                     @Override
-                    public void onNext(List<String> photoList) {
+                    public void onNext(List<BeautyPhotoBean> photoList) {
                         mView.loadMoreData(photoList);
                     }
                 });
@@ -106,16 +119,22 @@ public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoBean> {
 
     @Override
     public void insert(BeautyPhotoBean data) {
-        data.setLove(true);
-        if (!mDbLovedData.contains(data)) {
-            mDbDao.save(data);
+        if (mDbLovedData.contains(data)) {
+            mDbDao.update(data);
+        } else {
+            mDbDao.insert(data);
+            mDbLovedData.add(data);
         }
     }
 
     @Override
     public void delete(BeautyPhotoBean data) {
-        mDbDao.delete(data);
-        data.setLove(false);
+        if (!data.isLove() && !data.isDownload() && !data.isPraise()) {
+            mDbDao.delete(data);
+            mDbLovedData.remove(data);
+        } else {
+            mDbDao.update(data);
+        }
     }
 
     @Override

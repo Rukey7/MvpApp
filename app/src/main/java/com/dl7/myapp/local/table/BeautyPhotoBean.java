@@ -1,9 +1,10 @@
-package com.dl7.myapp.api.bean;
+package com.dl7.myapp.local.table;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
 
 /**
@@ -34,7 +35,6 @@ public class BeautyPhotoBean implements Parcelable {
      * title : 长发美女  郭碧婷
      * upTimes : 4808
      */
-
 //    private int adtype;
 //    private String boardid;
 //    private int clkNum;
@@ -42,22 +42,44 @@ public class BeautyPhotoBean implements Parcelable {
 //    private String docid;
 //    private int downTimes;
 //    private int imgType;
-    private String imgsrc;
 //    private int picCount;
-    private String pixel;
-//    private String program;
+    //    private String program;
 //    private String prompt;
 //    private int recType;
 //    private int replyCount;
 //    private String replyid;
 //    private String source;
 //    private int upTimes;
+    //    private String img;
+    @Id
+    private String imgsrc;
+    private String pixel;
     private String title;
-//    private String img;
+    // 喜欢
     private boolean isLove;
+    // 点赞
+    private boolean isPraise;
+    // 下载
+    private boolean isDownload;
 
     public String getImgsrc() {
         return imgsrc;
+    }
+
+    public boolean isPraise() {
+        return isPraise;
+    }
+
+    public void setPraise(boolean praise) {
+        isPraise = praise;
+    }
+
+    public boolean isDownload() {
+        return isDownload;
+    }
+
+    public void setDownload(boolean download) {
+        isDownload = download;
     }
 
     public void setImgsrc(String imgsrc) {
@@ -99,6 +121,24 @@ public class BeautyPhotoBean implements Parcelable {
         dest.writeString(this.pixel);
         dest.writeString(this.title);
         dest.writeByte(this.isLove ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.isPraise ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.isDownload ? (byte) 1 : (byte) 0);
+    }
+
+    public boolean getIsDownload() {
+        return this.isDownload;
+    }
+
+    public void setIsDownload(boolean isDownload) {
+        this.isDownload = isDownload;
+    }
+
+    public boolean getIsPraise() {
+        return this.isPraise;
+    }
+
+    public void setIsPraise(boolean isPraise) {
+        this.isPraise = isPraise;
     }
 
     public boolean getIsLove() {
@@ -117,14 +157,19 @@ public class BeautyPhotoBean implements Parcelable {
         this.pixel = in.readString();
         this.title = in.readString();
         this.isLove = in.readByte() != 0;
+        this.isPraise = in.readByte() != 0;
+        this.isDownload = in.readByte() != 0;
     }
 
-    @Generated(hash = 1738910197)
-    public BeautyPhotoBean(String imgsrc, String pixel, String title, boolean isLove) {
+    @Generated(hash = 2074936425)
+    public BeautyPhotoBean(String imgsrc, String pixel, String title, boolean isLove,
+            boolean isPraise, boolean isDownload) {
         this.imgsrc = imgsrc;
         this.pixel = pixel;
         this.title = title;
         this.isLove = isLove;
+        this.isPraise = isPraise;
+        this.isDownload = isDownload;
     }
 
     public static final Creator<BeautyPhotoBean> CREATOR = new Creator<BeautyPhotoBean>() {
@@ -149,5 +194,17 @@ public class BeautyPhotoBean implements Parcelable {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "BeautyPhotoBean{" +
+                "imgsrc='" + imgsrc + '\'' +
+                ", pixel='" + pixel + '\'' +
+                ", title='" + title + '\'' +
+                ", isLove=" + isLove +
+                ", isPraise=" + isPraise +
+                ", isDownload=" + isDownload +
+                '}';
     }
 }

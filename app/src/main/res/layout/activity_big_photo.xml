@@ -53,9 +53,4 @@
     </LinearLayout>
 
     <include layout="@layout/layout_toolbar_transparent"/>
-
-    <com.dl7.myapp.views.EmptyLayout
-        android:id="@+id/empty_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 </com.dl7.drag.DragSlopLayout>

@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.dl7.drag.DragSlopLayout;
 import com.dl7.myapp.R;
-import com.dl7.myapp.adapter.PhotoPagerAdapter;
+import com.dl7.myapp.adapter.PhotoSetAdapter;
 import com.dl7.myapp.api.bean.PhotoSetBean;
 import com.dl7.myapp.api.bean.PhotoSetBean.PhotosEntity;
 import com.dl7.myapp.injector.components.DaggerPhotoSetComponent;
@@ -41,7 +41,7 @@ public class PhotoSetActivity extends BaseActivity<IBasePresenter> implements IP
     DragSlopLayout mDragLayout;
 
     private String mPhotoSetId;
-    private PhotoPagerAdapter mAdapter;
+    private PhotoSetAdapter mAdapter;
     private List<PhotosEntity> mPhotosEntities;
     private boolean mIsHideToolbar = false;
 
@@ -87,7 +87,7 @@ public class PhotoSetActivity extends BaseActivity<IBasePresenter> implements IP
         for (PhotosEntity entity : mPhotosEntities) {
             imgUrls.add(entity.getImgurl());
         }
-        mAdapter = new PhotoPagerAdapter(this, imgUrls);
+        mAdapter = new PhotoSetAdapter(this, imgUrls);
         mVpPhoto.setAdapter(mAdapter);
         mVpPhoto.setOffscreenPageLimit(imgUrls.size());
 
@@ -103,7 +103,7 @@ public class PhotoSetActivity extends BaseActivity<IBasePresenter> implements IP
                 mTvIndex.setText((position + 1) + "/");
             }
         });
-        mAdapter.setTapListener(new PhotoPagerAdapter.OnTapListener() {
+        mAdapter.setTapListener(new PhotoSetAdapter.OnTapListener() {
             @Override
             public void onPhotoClick() {
                 mIsHideToolbar = !mIsHideToolbar;

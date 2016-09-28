@@ -10,16 +10,16 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.dl7.drag.DragSlopLayout;
-import com.dl7.helperlibrary.indicator.style.Wave;
 import com.dl7.myapp.R;
 import com.dl7.myapp.adapter.PhotoPagerAdapter;
-import com.dl7.myapp.api.bean.BeautyPhotoBean;
 import com.dl7.myapp.injector.components.DaggerBigPhotoComponent;
 import com.dl7.myapp.injector.modules.BigPhotoModule;
+import com.dl7.myapp.local.table.BeautyPhotoBean;
 import com.dl7.myapp.module.base.BaseActivity;
 import com.dl7.myapp.module.base.ILoadDataView;
 import com.dl7.myapp.module.base.ILocalPresenter;
 import com.dl7.myapp.utils.AnimateHelper;
+import com.dl7.myapp.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements ILoadDataView<List<String>> {
+public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements ILoadDataView<List<BeautyPhotoBean>> {
 
     private static final String BIG_PHOTO_KEY = "BigPhotoKey";
     private static final String PHOTO_INDEX_KEY = "PhotoIndexKey";
@@ -52,9 +52,10 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
     @Inject
     PhotoPagerAdapter mAdapter;
     private List<BeautyPhotoBean> mPhotoList;
-    private int mIndex;
-    private boolean mIsHideToolbar = false;
-    private boolean mIsInteract = true;
+    private int mIndex; // 初始索引
+    private boolean mIsHideToolbar = false; // 是否隐藏 Toolbar
+    private boolean mIsInteract = false;    // 是否和 ViewPager 联动
+    private int mCurPosition;   // Adapter 当前位置
 
     public static void launch(Context context, ArrayList<BeautyPhotoBean> datas, int index) {
         Intent intent = new Intent(context, BigPhotoActivity.class);
@@ -87,10 +88,9 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
     @Override
     protected void initViews() {
         initToolBar(mToolbar, true, "");
-        mEmptyLayout.setLoadingIcon(new Wave());
         mAdapter = new PhotoPagerAdapter(this);
         mVpPhoto.setAdapter(mAdapter);
-        mDragLayout.interactWithViewPager(true);
+        mDragLayout.interactWithViewPager(mIsInteract);
         mAdapter.setTapListener(new PhotoPagerAdapter.OnTapListener() {
             @Override
             public void onPhotoClick() {
@@ -110,7 +110,16 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
                 mPresenter.getMoreData();
             }
         });
-
+        mVpPhoto.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                mCurPosition = position;
+                // 设置图标状态
+                mIvFavorite.setSelected(mAdapter.isLoved(position));
+                mIvDownload.setSelected(mAdapter.isDownload(position));
+                mIvPraise.setSelected(mAdapter.isPraise(position));
+            }
+        });
     }
 
     @Override
@@ -119,13 +128,13 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
     }
 
     @Override
-    public void loadData(List<String> data) {
+    public void loadData(List<BeautyPhotoBean> data) {
         mAdapter.updateData(data);
         mVpPhoto.setCurrentItem(mIndex);
     }
 
     @Override
-    public void loadMoreData(List<String> data) {
+    public void loadMoreData(List<BeautyPhotoBean> data) {
         mAdapter.addData(data);
         mAdapter.startUpdate(mVpPhoto);
     }
@@ -136,21 +145,30 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
 
     @OnClick({R.id.iv_favorite, R.id.iv_download, R.id.iv_praise, R.id.iv_share})
     public void onClick(View view) {
-        boolean isSelected = !view.isSelected();
+        final boolean isSelected = !view.isSelected();
         view.setSelected(isSelected);
         switch (view.getId()) {
             case R.id.iv_favorite:
-                AnimateHelper.doHeartBeat(view, 500);
-                if (isSelected) {
-                }
+                mAdapter.getData(mCurPosition).setLove(isSelected);
                 break;
             case R.id.iv_download:
+                mAdapter.getData(mCurPosition).setDownload(isSelected);
                 break;
             case R.id.iv_praise:
-                AnimateHelper.doHeartBeat(view, 500);
+                mAdapter.getData(mCurPosition).setPraise(isSelected);
                 break;
             case R.id.iv_share:
+                ToastUtils.showToast("分享:功能没加(╯-╰)");
                 break;
+        }
+        // 除分享外都做动画和数据库处理
+        if (view.getId() != R.id.iv_share) {
+            AnimateHelper.doHeartBeat(view, 500);
+            if (isSelected) {
+                mPresenter.insert(mAdapter.getData(mCurPosition));
+            } else {
+                mPresenter.delete(mAdapter.getData(mCurPosition));
+            }
         }
     }
 

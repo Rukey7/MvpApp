@@ -1,7 +1,7 @@
 package com.dl7.myapp.injector.modules;
 
 import com.dl7.myapp.adapter.PhotoPagerAdapter;
-import com.dl7.myapp.api.bean.BeautyPhotoBean;
+import com.dl7.myapp.local.table.BeautyPhotoBean;
 import com.dl7.myapp.injector.PerActivity;
 import com.dl7.myapp.local.table.DaoSession;
 import com.dl7.myapp.module.base.ILocalPresenter;

@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
 import com.dl7.helperlibrary.adapter.BaseViewHolder;
 import com.dl7.myapp.R;
-import com.dl7.myapp.api.bean.BeautyPhotoBean;
+import com.dl7.myapp.local.table.BeautyPhotoBean;
 import com.dl7.myapp.module.bigphoto.BigPhotoActivity;
 import com.dl7.myapp.utils.DefIconFactory;
 import com.dl7.myapp.utils.ImageLoader;

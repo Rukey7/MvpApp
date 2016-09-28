@@ -6,7 +6,7 @@ import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
 import com.dl7.helperlibrary.helper.RecyclerViewHelper;
 import com.dl7.helperlibrary.listener.OnRequestDataListener;
 import com.dl7.myapp.R;
-import com.dl7.myapp.api.bean.BeautyPhotoBean;
+import com.dl7.myapp.local.table.BeautyPhotoBean;
 import com.dl7.myapp.injector.components.DaggerBeautyListComponent;
 import com.dl7.myapp.injector.modules.BeautyListModule;
 import com.dl7.myapp.module.base.BaseFragment;
