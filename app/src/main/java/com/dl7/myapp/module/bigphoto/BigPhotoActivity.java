@@ -131,6 +131,11 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
     public void loadData(List<BeautyPhotoBean> data) {
         mAdapter.updateData(data);
         mVpPhoto.setCurrentItem(mIndex);
+        if (mIndex == 0) {
+            mIvFavorite.setSelected(mAdapter.isLoved(0));
+            mIvDownload.setSelected(mAdapter.isDownload(0));
+            mIvPraise.setSelected(mAdapter.isPraise(0));
+        }
     }
 
     @Override

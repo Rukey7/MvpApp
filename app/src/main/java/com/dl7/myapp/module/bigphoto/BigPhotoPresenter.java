@@ -51,7 +51,6 @@ public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoBean> {
                     public void call(BeautyPhotoBean bean) {
                         if (mDbLovedData.contains(bean)) {
                             tmpBean = mDbLovedData.get(mDbLovedData.indexOf(bean));
-                            Logger.w(tmpBean.toString());
                             bean.setLove(tmpBean.isLove());
                             bean.setPraise(tmpBean.isPraise());
                             bean.setDownload(tmpBean.isDownload());

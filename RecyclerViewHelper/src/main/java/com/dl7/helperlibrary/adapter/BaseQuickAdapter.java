@@ -382,8 +382,8 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
 
     public void setEmptyView(View emptyView) {
         mEmptyView = emptyView;
-        mEmptyView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT));
+//        mEmptyView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+//                ViewGroup.LayoutParams.MATCH_PARENT));
     }
 
     public int getEmptyViewCount() {
@@ -660,6 +660,30 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
     private void _setDragFixBackground(RecyclerView.ViewHolder holder, int position) {
         if (position < mDragFixCount) {
             holder.itemView.setBackgroundDrawable(mDragFixDrawable);
+        }
+    }
+
+    /**
+     * 设置拖拽控制标志位
+     * eg: ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT |
+     *  ItemTouchHelper.RIGHT | ItemTouchHelper.START | ItemTouchHelper.END
+     * @param dragFlags
+     */
+    public void setDragFlags(int dragFlags) {
+        if (mDragCallback != null) {
+            mDragCallback.setDragFlags(dragFlags);
+        }
+    }
+
+    /**
+     * 设置滑动控制标志位
+     * eg: ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT |
+     *  ItemTouchHelper.RIGHT | ItemTouchHelper.START | ItemTouchHelper.END
+     * @param swipeFlags
+     */
+    public void setSwipeFlags(int swipeFlags) {
+        if (mDragCallback != null) {
+            mDragCallback.setDragFlags(swipeFlags);
         }
     }
 

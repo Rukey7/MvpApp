@@ -27,6 +27,9 @@ import butterknife.BindView;
 import jp.wasabeef.recyclerview.animators.FlipInBottomXAnimator;
 import jp.wasabeef.recyclerview.animators.ScaleInAnimator;
 
+/**
+ * 新闻栏目管理界面
+ */
 public class ChannelActivity extends BaseActivity<ILocalPresenter> implements IChannelView {
 
     @BindView(R.id.toolbar)

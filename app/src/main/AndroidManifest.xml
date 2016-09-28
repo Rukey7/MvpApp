@@ -51,6 +51,8 @@
         </activity>
         <activity android:name=".module.bigphoto.BigPhotoActivity">
         </activity>
+        <activity android:name=".module.love.LoveActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -19,6 +19,7 @@ package com.dl7.helperlibrary.helper;
 import android.graphics.Canvas;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
 /**
@@ -87,7 +88,8 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
         // Set movement flags based on the layout manager
         int dragFlags;
         int swipeFlags;
-        if (recyclerView.getLayoutManager() instanceof GridLayoutManager) {
+        if (recyclerView.getLayoutManager() instanceof GridLayoutManager ||
+                recyclerView.getLayoutManager() instanceof StaggeredGridLayoutManager) {
             if (mDragFlags != 0) {
                 dragFlags = mDragFlags;
             } else {

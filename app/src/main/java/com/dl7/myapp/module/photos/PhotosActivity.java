@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.dl7.myapp.R;
 import com.dl7.myapp.adapter.ViewPagerAdapter;
@@ -16,6 +18,7 @@ import com.dl7.myapp.injector.modules.PhotosModule;
 import com.dl7.myapp.module.base.BaseNavActivity;
 import com.dl7.myapp.module.base.IRxBusPresenter;
 import com.dl7.myapp.module.beautylist.BeautyListFragment;
+import com.dl7.myapp.module.love.LoveActivity;
 import com.dl7.myapp.module.photonews.PhotoNewsFragment;
 
 import java.util.ArrayList;
@@ -25,6 +28,9 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
+/**
+ * 图片界面，包括美女和生活两块
+ */
 public class PhotosActivity extends BaseNavActivity<IRxBusPresenter> implements IPhotosView {
 
     @BindView(R.id.tool_bar)
@@ -84,5 +90,21 @@ public class PhotosActivity extends BaseNavActivity<IRxBusPresenter> implements 
     protected void onResume() {
         super.onResume();
         mNavView.setCheckedItem(R.id.nav_photos);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_love, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.item_love) {
+            LoveActivity.launch(this);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
