@@ -51,6 +51,7 @@ public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoBean> {
                 // 判断数据库是否有数据，有则设置对应参数
                 .doOnNext(new Action1<BeautyPhotoBean>() {
                     BeautyPhotoBean tmpBean;
+
                     @Override
                     public void call(BeautyPhotoBean bean) {
                         if (mDbLovedData.contains(bean)) {
@@ -91,11 +92,11 @@ public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoBean> {
                 // 判断数据库是否有数据，有则设置对应参数
                 .doOnNext(new Action1<BeautyPhotoBean>() {
                     BeautyPhotoBean tmpBean;
+
                     @Override
                     public void call(BeautyPhotoBean bean) {
                         if (mDbLovedData.contains(bean)) {
                             tmpBean = mDbLovedData.get(mDbLovedData.indexOf(bean));
-                            Logger.w(tmpBean.toString());
                             bean.setLove(tmpBean.isLove());
                             bean.setPraise(tmpBean.isPraise());
                             bean.setDownload(tmpBean.isDownload());

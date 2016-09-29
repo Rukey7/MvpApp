@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="match_parent"
-             android:layout_height="wrap_content"
+             android:layout_height="match_parent"
              android:layout_gravity="center">
 
     <FrameLayout
         android:id="@+id/fl_layout"
+        android:background="@color/colorPrimary"
         android:layout_gravity="right|center_horizontal"
         android:layout_marginRight="15dp"
-        android:padding="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="30dp"
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/iv_love"
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:background="@mipmap/btn_love"
+            android:layout_gravity="center"
             android:gravity="center"
             android:textColor="@android:color/white"
             android:textSize="10sp"/>

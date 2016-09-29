@@ -1,5 +1,6 @@
 package com.dl7.myapp.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import com.dl7.helperlibrary.adapter.BaseViewHolder;
 import com.dl7.myapp.R;
 import com.dl7.myapp.local.table.BeautyPhotoBean;
 import com.dl7.myapp.module.bigphoto.BigPhotoActivity;
+import com.dl7.myapp.module.love.LoveActivity;
 import com.dl7.myapp.utils.DefIconFactory;
 import com.dl7.myapp.utils.ImageLoader;
 import com.orhanobut.logger.Logger;
@@ -25,7 +27,6 @@ public class BeautyPhotosAdapter extends BaseQuickAdapter<BeautyPhotoBean> {
 
     // 图片的宽度
     private int mPhotoWidth;
-    private List<String> mImgUrls = new ArrayList<>();
 
 
     public BeautyPhotosAdapter(Context context) {
@@ -54,17 +55,15 @@ public class BeautyPhotosAdapter extends BaseQuickAdapter<BeautyPhotoBean> {
         params.height = photoHeight;
         ivPhoto.setLayoutParams(params);
         ImageLoader.loadFitCenter(mContext, item.getImgsrc(), ivPhoto, DefIconFactory.provideIcon());
-//        if (photoHeight != -1) {
-//            ImageLoader.loadFitOverride(mContext, item.getImgsrc(), ivPhoto, DefIconFactory.provideIcon(),
-//                    mPhotoWidth, photoHeight);
-//        } else {
-//            ImageLoader.loadCenterCrop(mContext, item.getImgsrc(), ivPhoto, DefIconFactory.provideIcon());
-//        }
         holder.setText(R.id.tv_title, item.getTitle());
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BigPhotoActivity.launch(mContext, (ArrayList<BeautyPhotoBean>) getData(), holder.getAdapterPosition());
+                if (mContext instanceof LoveActivity) {
+                    BigPhotoActivity.launchForResult((Activity) mContext, (ArrayList<BeautyPhotoBean>) getData(), holder.getAdapterPosition());
+                } else {
+                    BigPhotoActivity.launch(mContext, (ArrayList<BeautyPhotoBean>) getData(), holder.getAdapterPosition());
+                }
             }
         });
     }

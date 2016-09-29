@@ -1,5 +1,6 @@
 package com.dl7.myapp.module.bigphoto;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
@@ -33,6 +34,9 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
 
     private static final String BIG_PHOTO_KEY = "BigPhotoKey";
     private static final String PHOTO_INDEX_KEY = "PhotoIndexKey";
+    private static final String FROM_LOVE_ACTIVITY = "FromLoveActivity";
+    public static final int REQUEST_CODE = 10086;
+    public static final String RESULT_KEY = "ResultKey";
 
     @BindView(R.id.vp_photo)
     ViewPager mVpPhoto;
@@ -53,15 +57,27 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
     PhotoPagerAdapter mAdapter;
     private List<BeautyPhotoBean> mPhotoList;
     private int mIndex; // 初始索引
+    private boolean mIsFromLoveActivity;    // 是否从 LoveActivity 启动进来
     private boolean mIsHideToolbar = false; // 是否隐藏 Toolbar
     private boolean mIsInteract = false;    // 是否和 ViewPager 联动
     private int mCurPosition;   // Adapter 当前位置
+    private boolean[] mIsDelLove;   // 保存被删除的收藏项
 
     public static void launch(Context context, ArrayList<BeautyPhotoBean> datas, int index) {
         Intent intent = new Intent(context, BigPhotoActivity.class);
         intent.putParcelableArrayListExtra(BIG_PHOTO_KEY, datas);
         intent.putExtra(PHOTO_INDEX_KEY, index);
+        intent.putExtra(FROM_LOVE_ACTIVITY, false);
         context.startActivity(intent);
+    }
+
+    // 这个给 LoveActivity 使用，这样做体验会好点，其实用 RxBus 会更容易做
+    public static void launchForResult(Activity activity, ArrayList<BeautyPhotoBean> datas, int index) {
+        Intent intent = new Intent(activity, BigPhotoActivity.class);
+        intent.putParcelableArrayListExtra(BIG_PHOTO_KEY, datas);
+        intent.putExtra(PHOTO_INDEX_KEY, index);
+        intent.putExtra(FROM_LOVE_ACTIVITY, true);
+        activity.startActivityForResult(intent, REQUEST_CODE);
     }
 
     @Override
@@ -78,6 +94,7 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
     protected void initInjector() {
         mPhotoList = getIntent().getParcelableArrayListExtra(BIG_PHOTO_KEY);
         mIndex = getIntent().getIntExtra(PHOTO_INDEX_KEY, 0);
+        mIsFromLoveActivity = getIntent().getBooleanExtra(FROM_LOVE_ACTIVITY, false);
         DaggerBigPhotoComponent.builder()
                 .applicationComponent(getAppComponent())
                 .bigPhotoModule(new BigPhotoModule(this, mPhotoList))
@@ -104,12 +121,16 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
                 }
             }
         });
-        mAdapter.setLoadMoreListener(new PhotoPagerAdapter.OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                mPresenter.getMoreData();
-            }
-        });
+        if (!mIsFromLoveActivity) {
+            mAdapter.setLoadMoreListener(new PhotoPagerAdapter.OnLoadMoreListener() {
+                @Override
+                public void onLoadMore() {
+                    mPresenter.getMoreData();
+                }
+            });
+        } else {
+            mIsDelLove = new boolean[mPhotoList.size()];
+        }
         mVpPhoto.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
@@ -176,6 +197,10 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
                 mPresenter.delete(mAdapter.getData(mCurPosition));
             }
         }
+        if (mIsFromLoveActivity) {
+            // 不选中即去除收藏
+            mIsDelLove[mCurPosition] = !isSelected;
+        }
     }
 
     @Override
@@ -223,5 +248,15 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void finish() {
+        if (mIsFromLoveActivity) {
+            Intent intent = new Intent();
+            intent.putExtra(RESULT_KEY, mIsDelLove);
+            setResult(RESULT_OK, intent);
+        }
+        super.finish();
     }
 }

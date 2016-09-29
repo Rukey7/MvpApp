@@ -2,6 +2,7 @@ package com.dl7.myapp.module.love;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.dl7.myapp.injector.modules.LoveModule;
 import com.dl7.myapp.local.table.BeautyPhotoBean;
 import com.dl7.myapp.module.base.BaseActivity;
 import com.dl7.myapp.module.base.ILocalPresenter;
+import com.dl7.myapp.module.bigphoto.BigPhotoActivity;
 
 import java.util.List;
 
@@ -23,6 +25,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
+import jp.wasabeef.recyclerview.animators.FlipInLeftYAnimator;
 
 /**
  * 收藏界面
@@ -38,7 +41,6 @@ public class LoveActivity extends BaseActivity<ILocalPresenter> implements ILove
 
     @Inject
     BaseQuickAdapter mAdapter;
-
 
     public static void launch(Context context) {
         Intent intent = new Intent(context, LoveActivity.class);
@@ -65,6 +67,7 @@ public class LoveActivity extends BaseActivity<ILocalPresenter> implements ILove
         SlideInBottomAnimationAdapter slideAdapter = new SlideInBottomAnimationAdapter(mAdapter);
         RecyclerViewHelper.initRecyclerViewSV(this, mRvPhotoList, slideAdapter, 2);
         RecyclerViewHelper.startDragAndSwipe(mRvPhotoList, mAdapter);
+        mRvPhotoList.setItemAnimator(new FlipInLeftYAnimator());
         mAdapter.setRemoveDataListener(new OnRemoveDataListener() {
             @Override
             public void onRemove(int position) {
@@ -89,5 +92,28 @@ public class LoveActivity extends BaseActivity<ILocalPresenter> implements ILove
     @Override
     public void noData() {
         mDefaultBg.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == BigPhotoActivity.REQUEST_CODE && resultCode == RESULT_OK) {
+            final boolean[] delLove = data.getBooleanArrayExtra(BigPhotoActivity.RESULT_KEY);
+            // 延迟 500MS 做删除操作，不然退回来看不到动画效果
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    for (int i = delLove.length - 1; i >= 0; i--) {
+                        if (delLove[i]) {
+                            mAdapter.removeItem(i);
+                        }
+                    }
+                }
+            }, 500);
+        }
     }
 }

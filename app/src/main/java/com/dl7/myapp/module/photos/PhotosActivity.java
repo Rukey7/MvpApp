@@ -1,5 +1,6 @@
 package com.dl7.myapp.module.photos;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
@@ -21,6 +22,7 @@ import com.dl7.myapp.module.beautylist.BeautyListFragment;
 import com.dl7.myapp.module.love.LoveActivity;
 import com.dl7.myapp.module.photonews.PhotoNewsFragment;
 import com.dl7.myapp.rxbus.event.LoveEvent;
+import com.dl7.myapp.utils.AnimateHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +51,7 @@ public class PhotosActivity extends BaseNavActivity<IRxBusPresenter> implements 
     @Inject
     ViewPagerAdapter mPagerAdapter;
     private TextView mTvLovedCount;
+    private Animator mLovedAnimator;
 
 
     public static void launch(Context context) {
@@ -106,6 +109,22 @@ public class PhotosActivity extends BaseNavActivity<IRxBusPresenter> implements 
     protected void onResume() {
         super.onResume();
         mNavView.setCheckedItem(R.id.nav_photos);
+        if (mLovedAnimator == null) {
+            mTvLovedCount.post(new Runnable() {
+                @Override
+                public void run() {
+                    mLovedAnimator = AnimateHelper.doHappyJump(mTvLovedCount, mTvLovedCount.getHeight() * 2/3, 3000);
+                }
+            });
+        } else {
+            AnimateHelper.startAnimator(mLovedAnimator);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AnimateHelper.stopAnimator(mLovedAnimator);
     }
 
     @Override

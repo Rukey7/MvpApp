@@ -5,6 +5,4 @@ package com.dl7.myapp.rxbus.event;
  * 收藏事件
  */
 public class LoveEvent {
-
-    public int lovedCount;
 }
