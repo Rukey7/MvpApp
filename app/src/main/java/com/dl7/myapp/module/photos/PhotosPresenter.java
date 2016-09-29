@@ -24,7 +24,6 @@ public class PhotosPresenter implements IRxBusPresenter {
         mRxBus = rxBus;
     }
 
-
     @Override
     public void getData() {
         mView.updateCount((int) mDbDao.queryBuilder().where(BeautyPhotoBeanDao.Properties.IsLove.eq(true)).count());

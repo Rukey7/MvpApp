@@ -66,11 +66,11 @@ public class BeautyListPresenter implements IBasePresenter {
                 .subscribe(new Subscriber<List<BeautyPhotoBean>>() {
                     @Override
                     public void onCompleted() {
-
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        Logger.e(e.toString());
                         mView.loadNoData();
                     }
 

@@ -67,6 +67,7 @@ public class LovePresenter implements ILocalPresenter<BeautyPhotoBean> {
             mDbDao.update(data);
         }
         if (mDbDao.queryBuilder().where(BeautyPhotoBeanDao.Properties.IsLove.eq(true)).count() == 0) {
+            // 如果收藏为0则显示无收藏
             mView.noData();
         }
         mRxBus.post(new LoveEvent());

@@ -6,9 +6,9 @@ import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
 import com.dl7.helperlibrary.helper.RecyclerViewHelper;
 import com.dl7.helperlibrary.listener.OnRequestDataListener;
 import com.dl7.myapp.R;
-import com.dl7.myapp.local.table.BeautyPhotoBean;
 import com.dl7.myapp.injector.components.DaggerBeautyListComponent;
 import com.dl7.myapp.injector.modules.BeautyListModule;
+import com.dl7.myapp.local.table.BeautyPhotoBean;
 import com.dl7.myapp.module.base.BaseFragment;
 import com.dl7.myapp.module.base.IBasePresenter;
 import com.dl7.myapp.module.base.ILoadDataView;
@@ -71,11 +71,12 @@ public class BeautyListFragment extends BaseFragment<IBasePresenter> implements 
 
     @Override
     public void loadMoreData(List<BeautyPhotoBean> photoList) {
+        mAdapter.loadComplete();
         mAdapter.addItems(photoList);
     }
 
     @Override
     public void loadNoData() {
-        mAdapter.noMoreData();
+        mAdapter.loadAbnormal();
     }
 }

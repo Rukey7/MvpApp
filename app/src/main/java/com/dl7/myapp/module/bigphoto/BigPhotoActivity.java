@@ -30,6 +30,9 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+/**
+ * 大图界面，这里和比较多地方关联，所以逻辑会多一点
+ */
 public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements ILoadDataView<List<BeautyPhotoBean>> {
 
     private static final String BIG_PHOTO_KEY = "BigPhotoKey";

@@ -95,11 +95,6 @@ public class LoveActivity extends BaseActivity<ILocalPresenter> implements ILove
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == BigPhotoActivity.REQUEST_CODE && resultCode == RESULT_OK) {
             final boolean[] delLove = data.getBooleanArrayExtra(BigPhotoActivity.RESULT_KEY);
