@@ -57,7 +57,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     // slider
     compile 'com.daimajia.slider:library:1.1.5'
-    // picasso
+    // picasso, slider 库需要用到下面两个库
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.nineoldandroids:library:2.4.0'
     // recyclerview-animators
@@ -74,4 +74,6 @@ dependencies {
     compile 'com.dl7.drag:dragsloplayout:1.0.1'
     // androidtagview
     compile 'co.lujun:androidtagview:1.0.3'
+    // filepicker
+    compile 'com.github.angads25:filepicker:1.0.6'
 }

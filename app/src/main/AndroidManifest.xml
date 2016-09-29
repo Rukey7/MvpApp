@@ -53,6 +53,8 @@
         </activity>
         <activity android:name=".module.love.LoveActivity">
         </activity>
+        <activity android:name=".module.setting.SettingsActivity">
+        </activity>
     </application>
 
 </manifest>
