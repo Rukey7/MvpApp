@@ -6,4 +6,9 @@ package com.dl7.myapp.module.photos;
  */
 public interface IPhotosView {
 
+    /**
+     * 更新数据
+     * @param lovedCount 收藏数
+     */
+    void updateCount(int lovedCount);
 }

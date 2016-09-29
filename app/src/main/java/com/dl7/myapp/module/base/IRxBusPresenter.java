@@ -1,5 +1,7 @@
 package com.dl7.myapp.module.base;
 
+import rx.functions.Action1;
+
 /**
  * Created by long on 2016/9/2.
  * RxBus Presenter
@@ -11,7 +13,7 @@ public interface IRxBusPresenter extends IBasePresenter {
      * @param eventType
      * @param <T>
      */
-    <T> void registerRxBus(Class<T> eventType);
+    <T> void registerRxBus(Class<T> eventType, Action1<T> action);
 
     /**
      * 注销

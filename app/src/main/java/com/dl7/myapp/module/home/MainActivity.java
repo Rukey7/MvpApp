@@ -8,8 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.ImageView;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.dl7.myapp.R;
 import com.dl7.myapp.adapter.ViewPagerAdapter;
@@ -20,7 +20,7 @@ import com.dl7.myapp.module.base.BaseNavActivity;
 import com.dl7.myapp.module.base.IRxBusPresenter;
 import com.dl7.myapp.module.channel.ChannelActivity;
 import com.dl7.myapp.module.newslist.NewsListFragment;
-import com.dl7.myapp.rxbus.event.DbUpdateEvent;
+import com.dl7.myapp.rxbus.event.ChannelEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +28,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import rx.functions.Action1;
 
 public class MainActivity extends BaseNavActivity<IRxBusPresenter> implements IMainView {
 
@@ -69,10 +70,14 @@ public class MainActivity extends BaseNavActivity<IRxBusPresenter> implements IM
     protected void initViews() {
         initToolBar(mToolBar, true, "新闻");
         initDrawerLayout(mDrawerLayout, mNavView, mToolBar);
-        _setCustomToolbar();
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
-        mPresenter.registerRxBus(DbUpdateEvent.class);
+        mPresenter.registerRxBus(ChannelEvent.class, new Action1<ChannelEvent>() {
+            @Override
+            public void call(ChannelEvent channelEvent) {
+                mPresenter.getData();
+            }
+        });
     }
 
     @Override
@@ -103,14 +108,19 @@ public class MainActivity extends BaseNavActivity<IRxBusPresenter> implements IM
         mPresenter.unregisterRxBus();
     }
 
-    private void _setCustomToolbar() {
-        View view = getLayoutInflater().inflate(R.layout.layout_custom_toolbar, mToolBar);
-        ImageView ivChannel = (ImageView) view.findViewById(R.id.iv_channel);
-        ivChannel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ChannelActivity.launch(MainActivity.this);
-            }
-        });
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_channel, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.item_channel) {
+            ChannelActivity.launch(this);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

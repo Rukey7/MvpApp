@@ -1,8 +1,9 @@
 package com.dl7.myapp.module.photos;
 
-import com.dl7.myapp.local.table.NewsTypeBeanDao;
+import com.dl7.myapp.local.table.BeautyPhotoBeanDao;
 import com.dl7.myapp.module.base.IRxBusPresenter;
 import com.dl7.myapp.rxbus.RxBus;
+import com.orhanobut.logger.Logger;
 
 import rx.Subscription;
 import rx.functions.Action1;
@@ -14,10 +15,10 @@ import rx.functions.Action1;
 public class PhotosPresenter implements IRxBusPresenter {
 
     private final IPhotosView mView;
-    private final NewsTypeBeanDao mDbDao;
+    private final BeautyPhotoBeanDao mDbDao;
     private final RxBus mRxBus;
 
-    public PhotosPresenter(IPhotosView view, NewsTypeBeanDao dbDao, RxBus rxBus) {
+    public PhotosPresenter(IPhotosView view, BeautyPhotoBeanDao dbDao, RxBus rxBus) {
         mView = view;
         mDbDao = dbDao;
         mRxBus = rxBus;
@@ -26,6 +27,7 @@ public class PhotosPresenter implements IRxBusPresenter {
 
     @Override
     public void getData() {
+        mView.updateCount((int) mDbDao.queryBuilder().where(BeautyPhotoBeanDao.Properties.IsLove.eq(true)).count());
     }
 
     @Override
@@ -33,16 +35,11 @@ public class PhotosPresenter implements IRxBusPresenter {
     }
 
     @Override
-    public <T> void registerRxBus(Class<T> eventType) {
-        Subscription subscription = mRxBus.doSubscribe(eventType, new Action1<T>() {
-            @Override
-            public void call(T t) {
-                getData();
-            }
-        }, new Action1<Throwable>() {
+    public <T> void registerRxBus(Class<T> eventType, Action1<T> action) {
+        Subscription subscription = mRxBus.doSubscribe(eventType, action, new Action1<Throwable>() {
             @Override
             public void call(Throwable throwable) {
-
+                Logger.e(throwable.toString());
             }
         });
         mRxBus.addSubscription(this, subscription);

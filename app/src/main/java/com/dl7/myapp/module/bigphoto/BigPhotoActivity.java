@@ -132,6 +132,7 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
         mAdapter.updateData(data);
         mVpPhoto.setCurrentItem(mIndex);
         if (mIndex == 0) {
+            // 为 0 不会回调 addOnPageChangeListener
             mIvFavorite.setSelected(mAdapter.isLoved(0));
             mIvDownload.setSelected(mAdapter.isDownload(0));
             mIvPraise.setSelected(mAdapter.isPraise(0));

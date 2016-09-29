@@ -8,8 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.dl7.myapp.R;
 import com.dl7.myapp.adapter.ViewPagerAdapter;
@@ -20,6 +20,7 @@ import com.dl7.myapp.module.base.IRxBusPresenter;
 import com.dl7.myapp.module.beautylist.BeautyListFragment;
 import com.dl7.myapp.module.love.LoveActivity;
 import com.dl7.myapp.module.photonews.PhotoNewsFragment;
+import com.dl7.myapp.rxbus.event.LoveEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import rx.functions.Action1;
 
 /**
  * 图片界面，包括美女和生活两块
@@ -46,6 +48,7 @@ public class PhotosActivity extends BaseNavActivity<IRxBusPresenter> implements 
 
     @Inject
     ViewPagerAdapter mPagerAdapter;
+    private TextView mTvLovedCount;
 
 
     public static void launch(Context context) {
@@ -70,7 +73,14 @@ public class PhotosActivity extends BaseNavActivity<IRxBusPresenter> implements 
     @Override
     protected void initViews() {
         initToolBar(mToolBar, true, "图片");
+        _setCustomToolbar();
         initDrawerLayout(mDrawerLayout, mNavView, mToolBar);
+        mPresenter.registerRxBus(LoveEvent.class, new Action1<LoveEvent>() {
+            @Override
+            public void call(LoveEvent loveEvent) {
+                mPresenter.getData();
+            }
+        });
     }
 
     @Override
@@ -84,6 +94,12 @@ public class PhotosActivity extends BaseNavActivity<IRxBusPresenter> implements 
         fragments.add(new BeautyListFragment());
         fragments.add(new PhotoNewsFragment());
         mPagerAdapter.setDatas(fragments, titles);
+        mPresenter.getData();
+    }
+
+    @Override
+    public void updateCount(int lovedCount) {
+        mTvLovedCount.setText(lovedCount+"");
     }
 
     @Override
@@ -93,18 +109,21 @@ public class PhotosActivity extends BaseNavActivity<IRxBusPresenter> implements 
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_love, menu);
-        return true;
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.unregisterRxBus();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.item_love) {
-            LoveActivity.launch(this);
-            return true;
-        } else {
-            return false;
-        }
+    private void _setCustomToolbar() {
+        View view = getLayoutInflater().inflate(R.layout.layout_custom_toolbar, mToolBar);
+        View loveLayout = view.findViewById(R.id.fl_layout);
+        mTvLovedCount = (TextView) view.findViewById(R.id.iv_love);
+        loveLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoveActivity.launch(PhotosActivity.this);
+            }
+        });
     }
+
 }

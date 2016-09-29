@@ -5,6 +5,8 @@ import com.dl7.myapp.local.table.BeautyPhotoBean;
 import com.dl7.myapp.local.table.BeautyPhotoBeanDao;
 import com.dl7.myapp.module.base.ILoadDataView;
 import com.dl7.myapp.module.base.ILocalPresenter;
+import com.dl7.myapp.rxbus.RxBus;
+import com.dl7.myapp.rxbus.event.LoveEvent;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;
@@ -24,13 +26,15 @@ public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoBean> {
     private final ILoadDataView mView;
     private final BeautyPhotoBeanDao mDbDao;
     private final List<BeautyPhotoBean> mPhotoList;
+    private final RxBus mRxBus;
     private List<BeautyPhotoBean> mDbLovedData;
 
 
-    public BigPhotoPresenter(ILoadDataView view, BeautyPhotoBeanDao dbDao, List<BeautyPhotoBean> photoList) {
+    public BigPhotoPresenter(ILoadDataView view, BeautyPhotoBeanDao dbDao, List<BeautyPhotoBean> photoList, RxBus rxBus) {
         this.mView = view;
         this.mDbDao = dbDao;
         this.mPhotoList = photoList;
+        this.mRxBus = rxBus;
         mDbLovedData = mDbDao.queryBuilder().list();
     }
 
@@ -124,6 +128,7 @@ public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoBean> {
             mDbDao.insert(data);
             mDbLovedData.add(data);
         }
+        mRxBus.post(new LoveEvent());
     }
 
     @Override
@@ -134,6 +139,7 @@ public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoBean> {
         } else {
             mDbDao.update(data);
         }
+        mRxBus.post(new LoveEvent());
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.dl7.myapp.local.table.NewsTypeBean;
 import com.dl7.myapp.local.table.NewsTypeBeanDao;
 import com.dl7.myapp.module.base.IRxBusPresenter;
 import com.dl7.myapp.rxbus.RxBus;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -43,17 +44,28 @@ public class MainPresenter implements IRxBusPresenter {
     public void getMoreData() {
     }
 
+//    @Override
+//    public <T> void registerRxBus(Class<T> eventType) {
+//        Subscription subscription = mRxBus.doSubscribe(eventType, new Action1<T>() {
+//            @Override
+//            public void call(T t) {
+//                getData();
+//            }
+//        }, new Action1<Throwable>() {
+//            @Override
+//            public void call(Throwable throwable) {
+//
+//            }
+//        });
+//        mRxBus.addSubscription(this, subscription);
+//    }
+
     @Override
-    public <T> void registerRxBus(Class<T> eventType) {
-        Subscription subscription = mRxBus.doSubscribe(eventType, new Action1<T>() {
-            @Override
-            public void call(T t) {
-                getData();
-            }
-        }, new Action1<Throwable>() {
+    public <T> void registerRxBus(Class<T> eventType, Action1<T> action) {
+        Subscription subscription = mRxBus.doSubscribe(eventType, action, new Action1<Throwable>() {
             @Override
             public void call(Throwable throwable) {
-
+                Logger.e(throwable.toString());
             }
         });
         mRxBus.addSubscription(this, subscription);

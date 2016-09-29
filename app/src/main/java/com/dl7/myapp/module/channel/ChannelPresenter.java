@@ -5,7 +5,7 @@ import com.dl7.myapp.local.table.NewsTypeBean;
 import com.dl7.myapp.local.table.NewsTypeBeanDao;
 import com.dl7.myapp.module.base.ILocalPresenter;
 import com.dl7.myapp.rxbus.RxBus;
-import com.dl7.myapp.rxbus.event.DbUpdateEvent;
+import com.dl7.myapp.rxbus.event.ChannelEvent;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -82,7 +82,7 @@ public class ChannelPresenter implements ILocalPresenter<NewsTypeBean> {
                 .subscribe(new Subscriber<NewsTypeBean>() {
                     @Override
                     public void onCompleted() {
-                        mRxBus.post(new DbUpdateEvent());
+                        mRxBus.post(new ChannelEvent());
                     }
 
                     @Override
@@ -104,7 +104,7 @@ public class ChannelPresenter implements ILocalPresenter<NewsTypeBean> {
                 .subscribe(new Subscriber<Void>() {
                     @Override
                     public void onCompleted() {
-                        mRxBus.post(new DbUpdateEvent());
+                        mRxBus.post(new ChannelEvent());
                     }
 
                     @Override
@@ -133,7 +133,7 @@ public class ChannelPresenter implements ILocalPresenter<NewsTypeBean> {
                 .subscribe(new Subscriber<NewsTypeBean>() {
                     @Override
                     public void onCompleted() {
-                        mRxBus.post(new DbUpdateEvent());
+                        mRxBus.post(new ChannelEvent());
                     }
 
                     @Override

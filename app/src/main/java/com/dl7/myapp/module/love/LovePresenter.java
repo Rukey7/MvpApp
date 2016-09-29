@@ -3,6 +3,8 @@ package com.dl7.myapp.module.love;
 import com.dl7.myapp.local.table.BeautyPhotoBean;
 import com.dl7.myapp.local.table.BeautyPhotoBeanDao;
 import com.dl7.myapp.module.base.ILocalPresenter;
+import com.dl7.myapp.rxbus.RxBus;
+import com.dl7.myapp.rxbus.event.LoveEvent;
 
 import java.util.List;
 
@@ -18,10 +20,12 @@ public class LovePresenter implements ILocalPresenter<BeautyPhotoBean> {
 
     private final ILoveView mView;
     private final BeautyPhotoBeanDao mDbDao;
+    private final RxBus mRxBus;
 
-    public LovePresenter(ILoveView view, BeautyPhotoBeanDao dbDao) {
+    public LovePresenter(ILoveView view, BeautyPhotoBeanDao dbDao, RxBus rxBus) {
         mView = view;
         mDbDao = dbDao;
+        mRxBus = rxBus;
     }
 
     @Override
@@ -65,6 +69,7 @@ public class LovePresenter implements ILocalPresenter<BeautyPhotoBean> {
         if (mDbDao.queryBuilder().where(BeautyPhotoBeanDao.Properties.IsLove.eq(true)).count() == 0) {
             mView.noData();
         }
+        mRxBus.post(new LoveEvent());
     }
 
     @Override

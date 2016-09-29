@@ -7,6 +7,7 @@ import com.dl7.myapp.local.table.DaoSession;
 import com.dl7.myapp.module.base.ILocalPresenter;
 import com.dl7.myapp.module.love.LoveActivity;
 import com.dl7.myapp.module.love.LovePresenter;
+import com.dl7.myapp.rxbus.RxBus;
 
 import dagger.Module;
 import dagger.Provides;
@@ -26,8 +27,8 @@ public class LoveModule {
 
     @PerActivity
     @Provides
-    public ILocalPresenter providePresenter(DaoSession daoSession) {
-        return new LovePresenter(mView, daoSession.getBeautyPhotoBeanDao());
+    public ILocalPresenter providePresenter(DaoSession daoSession, RxBus rxBus) {
+        return new LovePresenter(mView, daoSession.getBeautyPhotoBeanDao(), rxBus);
     }
 
     @PerActivity
