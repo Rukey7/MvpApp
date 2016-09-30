@@ -63,7 +63,7 @@ public class NewsMultiListAdapter extends BaseMultiItemQuickAdapter<NewsMultiIte
         holder.setText(R.id.tv_title, item.getTitle())
                 .setText(R.id.tv_source, StringUtils.clipNewsSource(item.getSource()))
                 .setText(R.id.tv_time, item.getPtime());
-
+        // 设置标签
         if (NewsUtils.isNewsSpecial(item.getSkipType())) {
             LabelView labelView = holder.getView(R.id.label_view);
             labelView.setVisibility(View.VISIBLE);

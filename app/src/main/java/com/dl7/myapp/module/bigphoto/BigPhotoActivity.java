@@ -20,6 +20,7 @@ import com.dl7.myapp.module.base.BaseActivity;
 import com.dl7.myapp.module.base.ILoadDataView;
 import com.dl7.myapp.module.base.ILocalPresenter;
 import com.dl7.myapp.utils.AnimateHelper;
+import com.dl7.myapp.utils.ImageLoader;
 import com.dl7.myapp.utils.ToastUtils;
 
 import java.util.ArrayList;
@@ -74,7 +75,7 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
         context.startActivity(intent);
     }
 
-    // 这个给 LoveActivity 使用，这样做体验会好点，其实用 RxBus 会更容易做
+    // 这个给 LoveActivity 使用，配合 setResult() 返回取消的收藏，这样做体验会好点，其实用 RxBus 会更容易做
     public static void launchForResult(Activity activity, ArrayList<BeautyPhotoBean> datas, int index) {
         Intent intent = new Intent(activity, BigPhotoActivity.class);
         intent.putParcelableArrayListExtra(BIG_PHOTO_KEY, datas);
@@ -110,6 +111,7 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
         initToolBar(mToolbar, true, "");
         mAdapter = new PhotoPagerAdapter(this);
         mVpPhoto.setAdapter(mAdapter);
+        // 设置是否和 ViewPager 联动
         mDragLayout.interactWithViewPager(mIsInteract);
         mAdapter.setTapListener(new PhotoPagerAdapter.OnTapListener() {
             @Override
@@ -132,6 +134,7 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
                 }
             });
         } else {
+            // 收藏界面不需要加载更多
             mIsDelLove = new boolean[mPhotoList.size()];
         }
         mVpPhoto.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -156,7 +159,7 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
         mAdapter.updateData(data);
         mVpPhoto.setCurrentItem(mIndex);
         if (mIndex == 0) {
-            // 为 0 不会回调 addOnPageChangeListener
+            // 为 0 不会回调 addOnPageChangeListener，所以这里要处理下
             mIvFavorite.setSelected(mAdapter.isLoved(0));
             mIvDownload.setSelected(mAdapter.isDownload(0));
             mIvPraise.setSelected(mAdapter.isPraise(0));
@@ -183,6 +186,7 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
                 break;
             case R.id.iv_download:
                 mAdapter.getData(mCurPosition).setDownload(isSelected);
+                ImageLoader.downloadPhoto(this, mAdapter.getData(mCurPosition).getImgsrc());
                 break;
             case R.id.iv_praise:
                 mAdapter.getData(mCurPosition).setPraise(isSelected);
@@ -258,6 +262,7 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
         if (mIsFromLoveActivity) {
             Intent intent = new Intent();
             intent.putExtra(RESULT_KEY, mIsDelLove);
+            // 把数据传给 LoveActivity
             setResult(RESULT_OK, intent);
         }
         super.finish();

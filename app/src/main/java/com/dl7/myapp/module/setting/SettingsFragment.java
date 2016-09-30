@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
 import com.dl7.myapp.R;
-import com.github.angads25.filepicker.view.FilePickerPreference;
+import com.dl7.myapp.views.XFilePickerPreference;
 import com.orhanobut.logger.Logger;
 
 /**
@@ -13,10 +13,10 @@ import com.orhanobut.logger.Logger;
  */
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-    private static final String NO_IMAGE_KEY = "setting_no_image";
-    private static final String SAVE_PATH_KEY = "setting_save_path";
+    public static final String NO_IMAGE_KEY = "setting_no_image";
+    public static final String SAVE_PATH_KEY = "setting_save_path";
 
-    private FilePickerPreference mFilePickerPreference;
+    private XFilePickerPreference mFilePickerPreference;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,14 +27,14 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     }
 
     private void _initPreferences() {
-        mFilePickerPreference = (FilePickerPreference) findPreference(SAVE_PATH_KEY);
+        mFilePickerPreference = (XFilePickerPreference) findPreference(SAVE_PATH_KEY);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
-//        mFilePickerPreference.setSummary(sharedPreferences.getString(SAVE_PATH_KEY, ));
+        mFilePickerPreference.setSummary(sharedPreferences.getString(SAVE_PATH_KEY, "/sdcard"));
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
 
@@ -49,7 +49,9 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         if (key.equals(NO_IMAGE_KEY)) {
             Logger.w(sharedPreferences.getBoolean(NO_IMAGE_KEY, false)+"");
         } else if (key.equals(SAVE_PATH_KEY)) {
-            Logger.e(sharedPreferences.getString(SAVE_PATH_KEY, "error"));
+            String path = sharedPreferences.getString(SAVE_PATH_KEY, "/sdcard");
+            mFilePickerPreference.setSummary(path);
         }
     }
+
 }

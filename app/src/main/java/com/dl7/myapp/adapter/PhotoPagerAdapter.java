@@ -34,6 +34,7 @@ public class PhotoPagerAdapter extends PagerAdapter {
     private OnLoadMoreListener mLoadMoreListener;
     private boolean mIsLoadMore = false;
 
+
     public PhotoPagerAdapter(Context context, List<BeautyPhotoBean> imgList) {
         this.mContext = context;
         this.mImgList = imgList;
