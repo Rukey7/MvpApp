@@ -37,7 +37,8 @@
         <activity
             android:name=".module.photoset.PhotoSetActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppBaseTheme.PhotoTheme">
         </activity>
         <activity
             android:name=".module.channel.ChannelActivity"
@@ -49,11 +50,21 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".module.bigphoto.BigPhotoActivity">
+        <activity
+            android:name=".module.bigphoto.BigPhotoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppBaseTheme.PhotoTheme">
         </activity>
-        <activity android:name=".module.love.LoveActivity">
+        <activity
+            android:name=".module.love.LoveActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".module.setting.SettingsActivity">
+        <activity
+            android:name=".module.setting.SettingsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

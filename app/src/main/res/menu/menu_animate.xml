@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/item_interact"
-        android:checked="true"
+        android:checked="false"
         android:checkable="true"
         android:title="和ViewPager联动"/>
 
@@ -12,7 +12,6 @@
 
         <item
             android:id="@+id/slide_bottom"
-            android:checked="true"
             android:title="底部滑入"/>
 
         <item
@@ -33,6 +32,7 @@
 
         <item
             android:id="@+id/slide_flip_y"
+            android:checked="true"
             android:title="Y轴弹入"/>
 
         <item

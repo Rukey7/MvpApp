@@ -3,11 +3,13 @@ package com.dl7.myapp.module.bigphoto;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.dl7.drag.DragSlopLayout;
@@ -21,6 +23,7 @@ import com.dl7.myapp.module.base.ILoadDataView;
 import com.dl7.myapp.module.base.ILocalPresenter;
 import com.dl7.myapp.utils.AnimateHelper;
 import com.dl7.myapp.utils.DownloadUtils;
+import com.dl7.myapp.utils.NavUtils;
 import com.dl7.myapp.utils.ToastUtils;
 
 import java.util.ArrayList;
@@ -56,6 +59,8 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
     Toolbar mToolbar;
     @BindView(R.id.drag_layout)
     DragSlopLayout mDragLayout;
+    @BindView(R.id.ll_layout)
+    FrameLayout mLlLayout;
 
     @Inject
     PhotoPagerAdapter mAdapter;
@@ -109,10 +114,14 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
     @Override
     protected void initViews() {
         initToolBar(mToolbar, true, "");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            mLlLayout.setPadding(0, 0, 0, NavUtils.getNavigationBarHeight(this));
+        }
         mAdapter = new PhotoPagerAdapter(this);
         mVpPhoto.setAdapter(mAdapter);
         // 设置是否和 ViewPager 联动
         mDragLayout.interactWithViewPager(mIsInteract);
+        mDragLayout.setAnimatorMode(DragSlopLayout.FLIP_Y);
         mAdapter.setTapListener(new PhotoPagerAdapter.OnTapListener() {
             @Override
             public void onPhotoClick() {

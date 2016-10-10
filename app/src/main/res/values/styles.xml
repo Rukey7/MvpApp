@@ -27,6 +27,9 @@
         <item name="android:windowBackground">@android:color/white</item>
     </style>
 
+    <!--<style name="AppBaseTheme.LauncherAppTheme">-->
+    <!--</style>-->
+
     <style name="news_title">
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Headline</item>
     </style>
