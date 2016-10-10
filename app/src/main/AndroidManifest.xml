@@ -36,9 +36,9 @@
         </activity>
         <activity
             android:name=".module.photoset.PhotoSetActivity"
+            android:theme="@style/AppBaseTheme.PhotoSetTheme"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppBaseTheme.PhotoTheme">
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".module.channel.ChannelActivity"
@@ -54,7 +54,7 @@
             android:name=".module.bigphoto.BigPhotoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/AppBaseTheme.PhotoTheme">
+            android:theme="@style/AppBaseTheme.BigPhotoTheme">
         </activity>
         <activity
             android:name=".module.love.LoveActivity"

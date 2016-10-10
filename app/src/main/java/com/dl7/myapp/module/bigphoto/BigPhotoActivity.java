@@ -9,8 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.dl7.drag.DragSlopLayout;
 import com.dl7.myapp.R;
@@ -60,7 +60,7 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
     @BindView(R.id.drag_layout)
     DragSlopLayout mDragLayout;
     @BindView(R.id.ll_layout)
-    FrameLayout mLlLayout;
+    LinearLayout mLlLayout;
 
     @Inject
     PhotoPagerAdapter mAdapter;
@@ -115,11 +115,12 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
     protected void initViews() {
         initToolBar(mToolbar, true, "");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            // 空出底部导航的高度，因为 NavigationBar 是透明的
             mLlLayout.setPadding(0, 0, 0, NavUtils.getNavigationBarHeight(this));
         }
         mAdapter = new PhotoPagerAdapter(this);
         mVpPhoto.setAdapter(mAdapter);
-        // 设置是否和 ViewPager 联动
+        // 设置是否 ViewPager 联动和动画
         mDragLayout.interactWithViewPager(mIsInteract);
         mDragLayout.setAnimatorMode(DragSlopLayout.FLIP_Y);
         mAdapter.setTapListener(new PhotoPagerAdapter.OnTapListener() {

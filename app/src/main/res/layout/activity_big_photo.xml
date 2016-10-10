@@ -15,51 +15,46 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/ll_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="5dp">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:background="@android:color/transparent"
-            android:gravity="center"
+        <ImageView
+            android:id="@+id/iv_favorite"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
             android:padding="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:src="@drawable/sel_btn_love"/>
 
-            <ImageView
-                android:id="@+id/iv_favorite"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="30dp"
-                android:padding="5dp"
-                android:src="@drawable/sel_btn_love"/>
+        <ImageView
+            android:id="@+id/iv_download"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/sel_btn_download"/>
 
-            <ImageView
-                android:id="@+id/iv_download"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:src="@drawable/sel_btn_download"/>
+        <ImageView
+            android:id="@+id/iv_praise"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:src="@drawable/sel_btn_praise"/>
 
-            <ImageView
-                android:id="@+id/iv_praise"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="30dp"
-                android:padding="5dp"
-                android:src="@drawable/sel_btn_praise"/>
-
-            <ImageView
-                android:id="@+id/iv_share"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="30dp"
-                android:padding="5dp"
-                android:src="@mipmap/btn_share"/>
-        </LinearLayout>
-    </FrameLayout>
+        <ImageView
+            android:id="@+id/iv_share"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:src="@mipmap/btn_share"/>
+    </LinearLayout>
 
     <include layout="@layout/layout_toolbar_transparent"/>
 </com.dl7.drag.DragSlopLayout>

@@ -1,6 +1,8 @@
 package com.dl7.myapp.utils;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.util.SparseBooleanArray;
 
 import com.bumptech.glide.Glide;
@@ -70,14 +72,24 @@ public final class DownloadUtils {
      */
     public static void downloadPhoto(final Context context, final String url, final String id, final OnCompletedListener listener) {
         if (sDlPhotos.get(url.hashCode(), false)) {
-            ToastUtils.showToast("下载已完成");
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage("是否删除?").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    FileUtils.deleteFile(PreferencesUtils.getString(context, SettingsFragment.SAVE_PATH_KEY, SettingsFragment.DEFAULT_SAVE_PATH) +
+                            File.separator + id + ".jpg");
+                    listener.onDeleted(url);
+                }
+            }).setNegativeButton("取消", null);
+            builder.create().show();
             return;
         }
         if (sDoDlPhotos.get(url.hashCode(), false)) {
-            ToastUtils.showToast("正在下载中...");
+            ToastUtils.showToast("正在下载...");
             return;
         }
         sDoDlPhotos.put(url.hashCode(), true);
+        ToastUtils.showToast("正在下载...");
         Observable.just(url)
                 // 通过URL下载图片，图片默认保存在 Glide 缓存里面
                 .map(new Func1<String, Boolean>() {
@@ -104,7 +116,7 @@ public final class DownloadUtils {
                     @Override
                     public void call(Boolean isCompleted) {
                         if (isCompleted) {
-                            Logger.w("onCompleted");
+                            ToastUtils.showToast("下载完成");
                             sDlPhotos.put(url.hashCode(), true);
                             if (listener != null) {
                                 listener.onCompleted(url);

@@ -117,5 +117,4 @@ public class PhotoSetActivity extends BaseActivity<IBasePresenter> implements IP
             }
         });
     }
-
 }
