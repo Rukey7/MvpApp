@@ -39,7 +39,6 @@ public class BeautyPhotoBean implements Parcelable {
 //    private String boardid;
 //    private int clkNum;
 //    private String digest;
-//    private String docid;
 //    private int downTimes;
 //    private int imgType;
 //    private int picCount;
@@ -54,6 +53,7 @@ public class BeautyPhotoBean implements Parcelable {
     @Id
     private String imgsrc;
     private String pixel;
+    private String docid;
     private String title;
     // 喜欢
     private boolean isLove;
@@ -66,22 +66,6 @@ public class BeautyPhotoBean implements Parcelable {
         return imgsrc;
     }
 
-    public boolean isPraise() {
-        return isPraise;
-    }
-
-    public void setPraise(boolean praise) {
-        isPraise = praise;
-    }
-
-    public boolean isDownload() {
-        return isDownload;
-    }
-
-    public void setDownload(boolean download) {
-        isDownload = download;
-    }
-
     public void setImgsrc(String imgsrc) {
         this.imgsrc = imgsrc;
     }
@@ -92,6 +76,14 @@ public class BeautyPhotoBean implements Parcelable {
 
     public void setPixel(String pixel) {
         this.pixel = pixel;
+    }
+
+    public String getDocid() {
+        return docid;
+    }
+
+    public void setDocid(String docid) {
+        this.docid = docid;
     }
 
     public String getTitle() {
@@ -110,6 +102,22 @@ public class BeautyPhotoBean implements Parcelable {
         isLove = love;
     }
 
+    public boolean isPraise() {
+        return isPraise;
+    }
+
+    public void setPraise(boolean praise) {
+        isPraise = praise;
+    }
+
+    public boolean isDownload() {
+        return isDownload;
+    }
+
+    public void setDownload(boolean download) {
+        isDownload = download;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -119,6 +127,7 @@ public class BeautyPhotoBean implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.imgsrc);
         dest.writeString(this.pixel);
+        dest.writeString(this.docid);
         dest.writeString(this.title);
         dest.writeByte(this.isLove ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isPraise ? (byte) 1 : (byte) 0);
@@ -155,17 +164,19 @@ public class BeautyPhotoBean implements Parcelable {
     protected BeautyPhotoBean(Parcel in) {
         this.imgsrc = in.readString();
         this.pixel = in.readString();
+        this.docid = in.readString();
         this.title = in.readString();
         this.isLove = in.readByte() != 0;
         this.isPraise = in.readByte() != 0;
         this.isDownload = in.readByte() != 0;
     }
 
-    @Generated(hash = 2074936425)
-    public BeautyPhotoBean(String imgsrc, String pixel, String title, boolean isLove,
-            boolean isPraise, boolean isDownload) {
+    @Generated(hash = 576484771)
+    public BeautyPhotoBean(String imgsrc, String pixel, String docid, String title,
+            boolean isLove, boolean isPraise, boolean isDownload) {
         this.imgsrc = imgsrc;
         this.pixel = pixel;
+        this.docid = docid;
         this.title = title;
         this.isLove = isLove;
         this.isPraise = isPraise;
@@ -197,14 +208,7 @@ public class BeautyPhotoBean implements Parcelable {
     }
 
     @Override
-    public String toString() {
-        return "BeautyPhotoBean{" +
-                "imgsrc='" + imgsrc + '\'' +
-                ", pixel='" + pixel + '\'' +
-                ", title='" + title + '\'' +
-                ", isLove=" + isLove +
-                ", isPraise=" + isPraise +
-                ", isDownload=" + isDownload +
-                '}';
+    public int hashCode() {
+        return imgsrc.hashCode();
     }
 }

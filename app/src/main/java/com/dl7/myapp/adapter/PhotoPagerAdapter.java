@@ -147,6 +147,15 @@ public class PhotoPagerAdapter extends PagerAdapter {
         return mImgList.get(position);
     }
 
+    public BeautyPhotoBean getData(String url) {
+        for (BeautyPhotoBean bean : mImgList) {
+            if (bean.getImgsrc().equals(url)) {
+                return bean;
+            }
+        }
+        return null;
+    }
+
     public void setTapListener(OnTapListener listener) {
         mTapListener = listener;
     }

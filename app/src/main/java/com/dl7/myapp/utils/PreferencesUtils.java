@@ -1,22 +1,10 @@
 package com.dl7.myapp.utils;
 
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 /**
  * PreferencesUtils, easy to get or put data
- * <ul>
- * <strong>Preference Name</strong>
- * <li>you can change preference name by {@link #PREFERENCE_NAME}</li>
- * </ul>
- * <ul>
- * <strong>Put Value</strong>
- * <li>put string {@link #putString(Context, String, String)}</li>
- * <li>put int {@link #putInt(Context, String, int)}</li>
- * <li>put long {@link #putLong(Context, String, long)}</li>
- * <li>put float {@link #putFloat(Context, String, float)}</li>
- * <li>put boolean {@link #putBoolean(Context, String, boolean)}</li>
- * </ul>
  * <ul>
  * <strong>Get Value</strong>
  * <li>get string {@link #getString(Context, String)}, {@link #getString(Context, String, String)}</li>
@@ -30,26 +18,11 @@ import android.content.SharedPreferences;
  */
 public class PreferencesUtils {
 
-    public static String PREFERENCE_NAME = "AndroidCommon";
 
     private PreferencesUtils() {
         throw new AssertionError();
     }
 
-    /**
-     * put string preferences
-     * 
-     * @param context
-     * @param key The name of the preference to modify
-     * @param value The new value for the preference
-     * @return True if the new values were successfully written to persistent storage.
-     */
-    public static boolean putString(Context context, String key, String value) {
-        SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString(key, value);
-        return editor.commit();
-    }
 
     /**
      * get string preferences
@@ -74,23 +47,7 @@ public class PreferencesUtils {
      *         this name that is not a string
      */
     public static String getString(Context context, String key, String defaultValue) {
-        SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-        return settings.getString(key, defaultValue);
-    }
-
-    /**
-     * put int preferences
-     * 
-     * @param context
-     * @param key The name of the preference to modify
-     * @param value The new value for the preference
-     * @return True if the new values were successfully written to persistent storage.
-     */
-    public static boolean putInt(Context context, String key, int value) {
-        SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putInt(key, value);
-        return editor.commit();
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(key, defaultValue);
     }
 
     /**
@@ -116,23 +73,7 @@ public class PreferencesUtils {
      *         this name that is not a int
      */
     public static int getInt(Context context, String key, int defaultValue) {
-        SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-        return settings.getInt(key, defaultValue);
-    }
-
-    /**
-     * put long preferences
-     * 
-     * @param context
-     * @param key The name of the preference to modify
-     * @param value The new value for the preference
-     * @return True if the new values were successfully written to persistent storage.
-     */
-    public static boolean putLong(Context context, String key, long value) {
-        SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putLong(key, value);
-        return editor.commit();
+        return PreferenceManager.getDefaultSharedPreferences(context).getInt(key, defaultValue);
     }
 
     /**
@@ -158,23 +99,7 @@ public class PreferencesUtils {
      *         this name that is not a long
      */
     public static long getLong(Context context, String key, long defaultValue) {
-        SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-        return settings.getLong(key, defaultValue);
-    }
-
-    /**
-     * put float preferences
-     * 
-     * @param context
-     * @param key The name of the preference to modify
-     * @param value The new value for the preference
-     * @return True if the new values were successfully written to persistent storage.
-     */
-    public static boolean putFloat(Context context, String key, float value) {
-        SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putFloat(key, value);
-        return editor.commit();
+        return PreferenceManager.getDefaultSharedPreferences(context).getLong(key, defaultValue);
     }
 
     /**
@@ -200,23 +125,7 @@ public class PreferencesUtils {
      *         this name that is not a float
      */
     public static float getFloat(Context context, String key, float defaultValue) {
-        SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-        return settings.getFloat(key, defaultValue);
-    }
-
-    /**
-     * put boolean preferences
-     * 
-     * @param context
-     * @param key The name of the preference to modify
-     * @param value The new value for the preference
-     * @return True if the new values were successfully written to persistent storage.
-     */
-    public static boolean putBoolean(Context context, String key, boolean value) {
-        SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean(key, value);
-        return editor.commit();
+        return PreferenceManager.getDefaultSharedPreferences(context).getFloat(key, defaultValue);
     }
 
     /**
@@ -242,7 +151,6 @@ public class PreferencesUtils {
      *         this name that is not a boolean
      */
     public static boolean getBoolean(Context context, String key, boolean defaultValue) {
-        SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-        return settings.getBoolean(key, defaultValue);
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(key, defaultValue);
     }
 }

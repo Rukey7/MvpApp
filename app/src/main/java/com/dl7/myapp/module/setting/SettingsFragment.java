@@ -16,6 +16,8 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public static final String NO_IMAGE_KEY = "setting_no_image";
     public static final String SAVE_PATH_KEY = "setting_save_path";
 
+    public static final String DEFAULT_SAVE_PATH = "/storage/emulated/0/NewsApp";
+
     private XFilePickerPreference mFilePickerPreference;
 
     @Override
@@ -34,7 +36,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public void onResume() {
         super.onResume();
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
-        mFilePickerPreference.setSummary(sharedPreferences.getString(SAVE_PATH_KEY, "/sdcard"));
+        mFilePickerPreference.setSummary(sharedPreferences.getString(SAVE_PATH_KEY, DEFAULT_SAVE_PATH));
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
 

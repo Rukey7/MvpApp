@@ -20,7 +20,7 @@ import com.dl7.myapp.module.base.BaseActivity;
 import com.dl7.myapp.module.base.ILoadDataView;
 import com.dl7.myapp.module.base.ILocalPresenter;
 import com.dl7.myapp.utils.AnimateHelper;
-import com.dl7.myapp.utils.ImageLoader;
+import com.dl7.myapp.utils.DownloadUtils;
 import com.dl7.myapp.utils.ToastUtils;
 
 import java.util.ArrayList;
@@ -177,16 +177,30 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
     }
 
     @OnClick({R.id.iv_favorite, R.id.iv_download, R.id.iv_praise, R.id.iv_share})
-    public void onClick(View view) {
+    public void onClick(final View view) {
         final boolean isSelected = !view.isSelected();
-        view.setSelected(isSelected);
         switch (view.getId()) {
             case R.id.iv_favorite:
                 mAdapter.getData(mCurPosition).setLove(isSelected);
                 break;
             case R.id.iv_download:
-                mAdapter.getData(mCurPosition).setDownload(isSelected);
-                ImageLoader.downloadPhoto(this, mAdapter.getData(mCurPosition).getImgsrc());
+//                mAdapter.getData(mCurPosition).setDownload(isSelected);
+                DownloadUtils.downloadPhoto(this, mAdapter.getData(mCurPosition).getImgsrc(),
+                        mAdapter.getData(mCurPosition).getDocid(), new DownloadUtils.OnCompletedListener() {
+                            @Override
+                            public void onCompleted(String url) {
+                                mAdapter.getData(url).setDownload(true);
+                                view.setSelected(true);
+                                mPresenter.insert(mAdapter.getData(url));
+                            }
+
+                            @Override
+                            public void onDeleted(String url) {
+                                mAdapter.getData(url).setDownload(false);
+                                view.setSelected(false);
+                                mPresenter.delete(mAdapter.getData(url));
+                            }
+                        });
                 break;
             case R.id.iv_praise:
                 mAdapter.getData(mCurPosition).setPraise(isSelected);
@@ -196,7 +210,8 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
                 break;
         }
         // 除分享外都做动画和数据库处理
-        if (view.getId() != R.id.iv_share) {
+        if (view.getId() != R.id.iv_share && view.getId() != R.id.iv_download) {
+            view.setSelected(isSelected);
             AnimateHelper.doHeartBeat(view, 500);
             if (isSelected) {
                 mPresenter.insert(mAdapter.getData(mCurPosition));
@@ -204,7 +219,7 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
                 mPresenter.delete(mAdapter.getData(mCurPosition));
             }
         }
-        if (mIsFromLoveActivity) {
+        if (mIsFromLoveActivity && view.getId() == R.id.iv_favorite) {
             // 不选中即去除收藏
             mIsDelLove[mCurPosition] = !isSelected;
         }

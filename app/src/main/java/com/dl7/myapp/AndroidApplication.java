@@ -10,6 +10,7 @@ import com.dl7.myapp.injector.modules.ApplicationModule;
 import com.dl7.myapp.local.dao.NewsTypeDao;
 import com.dl7.myapp.local.table.DaoMaster;
 import com.dl7.myapp.local.table.DaoSession;
+import com.dl7.myapp.utils.DownloadUtils;
 import com.dl7.myapp.utils.ToastUtils;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
@@ -64,6 +65,7 @@ public class AndroidApplication extends Application {
 //        helper.onUpgrade(database, 1, 2);
         mDaoSession = new DaoMaster(database).newSession();
         NewsTypeDao.updateLocalData(this, mDaoSession);
+        DownloadUtils.init(mDaoSession.getBeautyPhotoBeanDao());
     }
 
     /**
