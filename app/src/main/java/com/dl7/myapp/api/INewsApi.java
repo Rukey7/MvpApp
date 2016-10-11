@@ -1,11 +1,12 @@
 package com.dl7.myapp.api;
 
-import com.dl7.myapp.local.table.BeautyPhotoBean;
 import com.dl7.myapp.api.bean.NewsBean;
 import com.dl7.myapp.api.bean.NewsDetailBean;
 import com.dl7.myapp.api.bean.PhotoBean;
 import com.dl7.myapp.api.bean.PhotoSetBean;
 import com.dl7.myapp.api.bean.SpecialBean;
+import com.dl7.myapp.api.bean.VideoBean;
+import com.dl7.myapp.local.table.BeautyPhotoBean;
 
 import java.util.List;
 import java.util.Map;
@@ -103,5 +104,16 @@ public interface INewsApi {
     @GET("recommend/getChanListNews?channel=T1456112189138&size=20")
     Observable<Map<String, List<BeautyPhotoBean>>> getBeautyPhoto(@Query("offset") int offset);
 
-
+    /**
+     * 获取视频列表
+     * eg: http://c.3g.163.com/nc/video/list/V9LG4B3A0/n/10-10.html
+     *
+     * @param id  video ID
+     * @param startPage 起始页码
+     * @return
+     */
+    @Headers(CACHE_CONTROL_NETWORK)
+    @GET("nc/video/list/{id}/n/{startPage}-20.html")
+    Observable<Map<String, List<VideoBean>>> getVideoList(@Path("id") String id,
+                                                          @Path("startPage") int startPage);
 }

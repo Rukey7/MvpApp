@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/iv_love"
+            android:id="@+id/iv_count"
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:background="@mipmap/btn_love"

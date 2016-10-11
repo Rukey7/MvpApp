@@ -8,6 +8,7 @@ import com.dl7.myapp.api.bean.NewsDetailBean;
 import com.dl7.myapp.api.bean.PhotoBean;
 import com.dl7.myapp.api.bean.PhotoSetBean;
 import com.dl7.myapp.api.bean.SpecialBean;
+import com.dl7.myapp.api.bean.VideoBean;
 import com.dl7.myapp.api.bean.WelfarePhotoBean;
 import com.dl7.myapp.api.bean.WelfarePhotoList;
 import com.dl7.myapp.local.table.BeautyPhotoBean;
@@ -166,6 +167,7 @@ public class RetrofitService {
             }
 
             if (contentLength != 0) {
+                Logger.i(buffer.clone().readString(charset));
                 Logger.json(buffer.clone().readString(charset));
             }
 
@@ -333,6 +335,43 @@ public class RetrofitService {
     }
 
     /**
+     * 获取视频列表
+     * @return
+     */
+    public static Observable<List<VideoBean>> getVideoList(String videoId) {
+        synchronized (key) {
+            sNewsPage.put(videoId.hashCode(), 0);
+        }
+        return sNewsService.getVideoList(videoId, 0)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(_flatMapVideo(videoId));
+    }
+
+    /**
+     * 获取下一页视频列表
+     * @return
+     */
+    public static Observable<List<VideoBean>> getVideoListNext(String videoId) {
+        int page;
+        synchronized (key) {
+            Integer prePage = sNewsPage.get(videoId.hashCode());
+            if (prePage == null) {
+                page = 0;
+            } else {
+                page = prePage + INCREASE_PAGE;
+            }
+            sNewsPage.put(videoId.hashCode(), page);
+        }
+        return sNewsService.getVideoList(videoId, page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(_flatMapVideo(videoId));
+    }
+
+    /******************************************* 转换器 **********************************************/
+
+    /**
      * 类型转换
      * @param typeStr 新闻类型
      * @return
@@ -342,6 +381,20 @@ public class RetrofitService {
             @Override
             public Observable<NewsBean> call(Map<String, List<NewsBean>> newsListMap) {
                 return Observable.from(newsListMap.get(typeStr));
+            }
+        };
+    }
+
+    /**
+     * 类型转换
+     * @param typeStr 视频类型
+     * @return
+     */
+    private static Func1<Map<String, List<VideoBean>>, Observable<List<VideoBean>>> _flatMapVideo(final String typeStr) {
+        return new Func1<Map<String, List<VideoBean>>, Observable<List<VideoBean>>>() {
+            @Override
+            public Observable<List<VideoBean>> call(Map<String, List<VideoBean>> newsListMap) {
+                return Observable.just(newsListMap.get(typeStr));
             }
         };
     }

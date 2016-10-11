@@ -1,4 +1,4 @@
-package com.dl7.myapp.module.photos;
+package com.dl7.myapp.module.videos;
 
 import android.animation.Animator;
 import android.content.Context;
@@ -14,16 +14,12 @@ import android.widget.TextView;
 
 import com.dl7.myapp.R;
 import com.dl7.myapp.adapter.ViewPagerAdapter;
-import com.dl7.myapp.injector.components.DaggerPhotosComponent;
-import com.dl7.myapp.injector.modules.PhotosModule;
+import com.dl7.myapp.injector.components.DaggerVideosComponent;
+import com.dl7.myapp.injector.modules.VideosModule;
 import com.dl7.myapp.module.base.BaseNavActivity;
 import com.dl7.myapp.module.base.IRxBusPresenter;
-import com.dl7.myapp.module.beautylist.BeautyListFragment;
-import com.dl7.myapp.module.love.LoveActivity;
-import com.dl7.myapp.module.photonews.PhotoNewsFragment;
-import com.dl7.myapp.module.welfarephoto.WelfarePhotoFragment;
-import com.dl7.myapp.rxbus.event.LoveEvent;
-import com.dl7.myapp.utils.AnimateHelper;
+import com.dl7.myapp.module.photos.IPhotosView;
+import com.dl7.myapp.module.videolist.VideoListFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,12 +27,15 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import rx.functions.Action1;
 
-/**
- * 图片界面，包括美女和生活两块
- */
-public class PhotosActivity extends BaseNavActivity<IRxBusPresenter> implements IPhotosView {
+public class VideosActivity extends BaseNavActivity<IRxBusPresenter> implements IPhotosView {
+
+    private final String[] VIDEO_ID = new String[]{
+            "V9LG4B3A0", "V9LG4E6VR", "V9LG4CHOR", "00850FRB"
+    };
+    private final String[] VIDEO_TITLE = new String[]{
+            "热点", "搞笑", "娱乐", "精品"
+    };
 
     @BindView(R.id.tool_bar)
     Toolbar mToolBar;
@@ -51,40 +50,40 @@ public class PhotosActivity extends BaseNavActivity<IRxBusPresenter> implements 
 
     @Inject
     ViewPagerAdapter mPagerAdapter;
-    private TextView mTvLovedCount;
+    private TextView mTvDlCount;
     private Animator mLovedAnimator;
 
 
     public static void launch(Context context) {
-        Intent intent = new Intent(context, PhotosActivity.class);
+        Intent intent = new Intent(context, VideosActivity.class);
         context.startActivity(intent);
     }
 
     @Override
     protected int attachLayoutRes() {
-        return R.layout.activity_photos;
+        return R.layout.activity_videos;
     }
 
     @Override
     protected void initInjector() {
-        DaggerPhotosComponent.builder()
+        DaggerVideosComponent.builder()
                 .applicationComponent(getAppComponent())
-                .photosModule(new PhotosModule(this))
+                .videosModule(new VideosModule(this))
                 .build()
                 .inject(this);
     }
 
     @Override
     protected void initViews() {
-        initToolBar(mToolBar, true, "图片");
+        initToolBar(mToolBar, true, "视频");
         _setCustomToolbar();
         initDrawerLayout(mDrawerLayout, mNavView, mToolBar);
-        mPresenter.registerRxBus(LoveEvent.class, new Action1<LoveEvent>() {
-            @Override
-            public void call(LoveEvent loveEvent) {
-                mPresenter.getData();
-            }
-        });
+//        mPresenter.registerRxBus(LoveEvent.class, new Action1<LoveEvent>() {
+//            @Override
+//            public void call(LoveEvent loveEvent) {
+//                mPresenter.getData();
+//            }
+//        });
     }
 
     @Override
@@ -93,41 +92,39 @@ public class PhotosActivity extends BaseNavActivity<IRxBusPresenter> implements 
         mTabLayout.setupWithViewPager(mViewPager);
         List<Fragment> fragments = new ArrayList<>();
         List<String> titles = new ArrayList<>();
-        titles.add("美女");
-        titles.add("福利");
-        titles.add("生活");
-        fragments.add(new BeautyListFragment());
-        fragments.add(new WelfarePhotoFragment());
-        fragments.add(new PhotoNewsFragment());
+        for (int i = 0; i < VIDEO_ID.length; i++) {
+            titles.add(VIDEO_TITLE[i]);
+            fragments.add(VideoListFragment.newInstance(VIDEO_ID[i]));
+        }
         mPagerAdapter.setDatas(fragments, titles);
         mPresenter.getData();
     }
 
     @Override
     public void updateCount(int lovedCount) {
-        mTvLovedCount.setText(lovedCount+"");
+        mTvDlCount.setText(lovedCount + "");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mNavView.setCheckedItem(R.id.nav_photos);
-        if (mLovedAnimator == null) {
-            mTvLovedCount.post(new Runnable() {
-                @Override
-                public void run() {
-                    mLovedAnimator = AnimateHelper.doHappyJump(mTvLovedCount, mTvLovedCount.getHeight() * 2/3, 3000);
-                }
-            });
-        } else {
-            AnimateHelper.startAnimator(mLovedAnimator);
-        }
+        mNavView.setCheckedItem(R.id.nav_videos);
+//        if (mLovedAnimator == null) {
+//            mTvDlCount.post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    mLovedAnimator = AnimateHelper.doHappyJump(mTvDlCount, mTvDlCount.getHeight() * 2/3, 3000);
+//                }
+//            });
+//        } else {
+//            AnimateHelper.startAnimator(mLovedAnimator);
+//        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        AnimateHelper.stopAnimator(mLovedAnimator);
+//        AnimateHelper.stopAnimator(mLovedAnimator);
     }
 
     @Override
@@ -138,12 +135,12 @@ public class PhotosActivity extends BaseNavActivity<IRxBusPresenter> implements 
 
     private void _setCustomToolbar() {
         View view = getLayoutInflater().inflate(R.layout.layout_custom_toolbar, mToolBar);
-        View loveLayout = view.findViewById(R.id.fl_layout);
-        mTvLovedCount = (TextView) view.findViewById(R.id.iv_count);
-        loveLayout.setOnClickListener(new View.OnClickListener() {
+        View countLayout = view.findViewById(R.id.fl_layout);
+        mTvDlCount = (TextView) view.findViewById(R.id.iv_count);
+        mTvDlCount.setBackgroundResource(R.mipmap.btn_star);
+        countLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoveActivity.launch(PhotosActivity.this);
             }
         });
     }

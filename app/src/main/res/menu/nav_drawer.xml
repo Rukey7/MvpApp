@@ -6,10 +6,16 @@
             android:id="@+id/nav_news"
             android:icon="@mipmap/ic_insert_drive_file_white_18dp"
             android:title="新闻"/>
+
         <item
             android:id="@+id/nav_photos"
             android:icon="@android:drawable/ic_menu_gallery"
             android:title="图片"/>
+
+        <item
+            android:id="@+id/nav_videos"
+            android:icon="@android:drawable/ic_media_play"
+            android:title="视频"/>
     </group>
 
     <group android:checkableBehavior="none">

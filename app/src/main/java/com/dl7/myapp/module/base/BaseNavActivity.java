@@ -15,6 +15,7 @@ import com.dl7.myapp.R;
 import com.dl7.myapp.module.home.MainActivity;
 import com.dl7.myapp.module.photos.PhotosActivity;
 import com.dl7.myapp.module.setting.SettingsActivity;
+import com.dl7.myapp.module.videos.VideosActivity;
 
 /**
  * Created by long on 2016/9/5.
@@ -65,6 +66,10 @@ public abstract class BaseNavActivity<T extends IBasePresenter> extends BaseActi
                 break;
             case R.id.nav_news:
                 intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                break;
+            case R.id.nav_videos:
+                intent = new Intent(this, VideosActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 break;
             case R.id.nav_setting:
