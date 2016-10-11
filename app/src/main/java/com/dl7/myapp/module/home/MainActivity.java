@@ -18,8 +18,8 @@ import com.dl7.myapp.injector.modules.MainModule;
 import com.dl7.myapp.local.table.NewsTypeBean;
 import com.dl7.myapp.module.base.BaseNavActivity;
 import com.dl7.myapp.module.base.IRxBusPresenter;
+import com.dl7.myapp.module.channel.ChannelActivity;
 import com.dl7.myapp.module.newslist.NewsListFragment;
-import com.dl7.myapp.module.setting.SettingsActivity;
 import com.dl7.myapp.rxbus.event.ChannelEvent;
 
 import java.util.ArrayList;
@@ -117,8 +117,8 @@ public class MainActivity extends BaseNavActivity<IRxBusPresenter> implements IM
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.item_channel) {
-//            ChannelActivity.launch(this);
-            startActivity(new Intent(this, SettingsActivity.class));
+            ChannelActivity.launch(this);
+//            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         } else {
             return false;

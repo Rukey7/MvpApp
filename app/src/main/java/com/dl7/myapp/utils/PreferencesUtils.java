@@ -3,6 +3,8 @@ package com.dl7.myapp.utils;
 import android.content.Context;
 import android.preference.PreferenceManager;
 
+import com.dl7.myapp.module.setting.SettingsFragment;
+
 /**
  * PreferencesUtils, easy to get or put data
  * <ul>
@@ -23,6 +25,23 @@ public class PreferencesUtils {
         throw new AssertionError();
     }
 
+    /**
+     * 获取保存路径
+     * @param context
+     * @return
+     */
+    public static String getSavePath(Context context) {
+        return getString(context, SettingsFragment.SAVE_PATH_KEY, SettingsFragment.DEFAULT_SAVE_PATH);
+    }
+
+    /**
+     * 是否非Wifi下不加载图片
+     * @param context
+     * @return
+     */
+    public static boolean isShowImageAlways(Context context) {
+        return getBoolean(context, SettingsFragment.NO_IMAGE_KEY, false);
+    }
 
     /**
      * get string preferences

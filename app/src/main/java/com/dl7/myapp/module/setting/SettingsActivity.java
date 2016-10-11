@@ -1,5 +1,7 @@
 package com.dl7.myapp.module.setting;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 
 import com.dl7.myapp.R;
@@ -11,6 +13,12 @@ public class SettingsActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+
+
+    public static void launch(Context context) {
+        Intent intent = new Intent(context, SettingsActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected int attachLayoutRes() {

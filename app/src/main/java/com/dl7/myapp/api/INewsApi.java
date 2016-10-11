@@ -22,7 +22,7 @@ import static com.dl7.myapp.api.RetrofitService.CACHE_CONTROL_NETWORK;
  * Created by long on 2016/8/22.
  * API 接口
  */
-public interface IApiService {
+public interface INewsApi {
 
     /**
      * 获取新闻列表

@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import com.dl7.myapp.R;
 import com.dl7.myapp.module.home.MainActivity;
 import com.dl7.myapp.module.photos.PhotosActivity;
+import com.dl7.myapp.module.setting.SettingsActivity;
 
 /**
  * Created by long on 2016/9/5.
@@ -57,7 +58,7 @@ public abstract class BaseNavActivity<T extends IBasePresenter> extends BaseActi
                     // 此标志用于启动一个Activity的时候，若栈中存在此Activity实例，则把它调到栈顶。不创建多一个
                     intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     BaseNavActivity.this.startActivity(intent);
-                    overridePendingTransition(R.anim.fade_in_activity, R.anim.fade_out_activity);
+                    overridePendingTransition(R.anim.fade_in_activity, R.anim.scale_out_activity);
                     mClass = null;
                 }
             }
@@ -77,6 +78,10 @@ public abstract class BaseNavActivity<T extends IBasePresenter> extends BaseActi
                 break;
             case R.id.nav_news:
                 mClass = MainActivity.class;
+                break;
+            case R.id.nav_setting:
+                mClass = SettingsActivity.class;
+//                SettingsActivity.launch(this);
                 break;
         }
         return false;

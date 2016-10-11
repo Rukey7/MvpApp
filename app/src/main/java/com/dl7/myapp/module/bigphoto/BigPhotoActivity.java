@@ -194,8 +194,7 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
                 mAdapter.getData(mCurPosition).setLove(isSelected);
                 break;
             case R.id.iv_download:
-//                mAdapter.getData(mCurPosition).setDownload(isSelected);
-                DownloadUtils.downloadPhoto(this, mAdapter.getData(mCurPosition).getImgsrc(),
+                DownloadUtils.downloadOrDeletePhoto(this, mAdapter.getData(mCurPosition).getImgsrc(),
                         mAdapter.getData(mCurPosition).getDocid(), new DownloadUtils.OnCompletedListener() {
                             @Override
                             public void onCompleted(String url) {

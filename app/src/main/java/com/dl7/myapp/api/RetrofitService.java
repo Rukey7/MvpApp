@@ -3,12 +3,14 @@ package com.dl7.myapp.api;
 import android.util.SparseArray;
 
 import com.dl7.myapp.AndroidApplication;
-import com.dl7.myapp.local.table.BeautyPhotoBean;
 import com.dl7.myapp.api.bean.NewsBean;
 import com.dl7.myapp.api.bean.NewsDetailBean;
 import com.dl7.myapp.api.bean.PhotoBean;
 import com.dl7.myapp.api.bean.PhotoSetBean;
 import com.dl7.myapp.api.bean.SpecialBean;
+import com.dl7.myapp.api.bean.WelfarePhotoBean;
+import com.dl7.myapp.api.bean.WelfarePhotoList;
+import com.dl7.myapp.local.table.BeautyPhotoBean;
 import com.dl7.myapp.utils.NetUtil;
 import com.dl7.myapp.utils.StringUtils;
 import com.orhanobut.logger.Logger;
@@ -55,14 +57,17 @@ public class RetrofitService {
     //(假如请求了服务器并在a时刻返回响应结果，则在max-age规定的秒数内，浏览器将不会发送对应的请求到服务器，数据由缓存直接返回)
     static final String CACHE_CONTROL_NETWORK = "Cache-Control: public, max-age=3600";
 
-    static final String HOST = "http://c.3g.163.com/";
+    private static final String NEWS_HOST = "http://c.3g.163.com/";
+    private static final String WELFARE_HOST = "http://gank.io/";
 
-    private static IApiService mService;
+    private static INewsApi sNewsService;
+    private static IWelfareApi sWelfareService;
     // 同步锁，处理页码 sNewsPage
     private static Object key = new Object();
     // 保存新闻列表的当前页码
     private static SparseArray<Integer> sNewsPage;
     private static int sBeautyPage = 0;
+    private static int sWelfarePage = 0;
     // 递增页码
     private static final int INCREASE_PAGE = 20;
 
@@ -88,9 +93,17 @@ public class RetrofitService {
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl(HOST)
+                .baseUrl(NEWS_HOST)
                 .build();
-        mService = retrofit.create(IApiService.class);
+        sNewsService = retrofit.create(INewsApi.class);
+
+        retrofit = new Retrofit.Builder()
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .baseUrl(WELFARE_HOST)
+                .build();
+        sWelfareService = retrofit.create(IWelfareApi.class);
         sNewsPage = new SparseArray<>();
     }
 
@@ -176,7 +189,7 @@ public class RetrofitService {
         } else {
             type = "list";
         }
-        return mService.getNewsList(type, newsId, 0)
+        return sNewsService.getNewsList(type, newsId, 0)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(_flatMapNews(newsId));
@@ -203,7 +216,7 @@ public class RetrofitService {
         } else {
             type = "list";
         }
-        return mService.getNewsList(type, newsId, page)
+        return sNewsService.getNewsList(type, newsId, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(_flatMapNews(newsId));
@@ -215,7 +228,7 @@ public class RetrofitService {
      * @return
      */
     public static Observable<SpecialBean> getSpecial(String specialId) {
-        return mService.getSpecial(specialId)
+        return sNewsService.getSpecial(specialId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(_flatMapSpecial(specialId));
@@ -227,7 +240,7 @@ public class RetrofitService {
      * @return
      */
     public static Observable<NewsDetailBean> getNewsDetail(final String newsId) {
-        return mService.getNewsDetail(newsId)
+        return sNewsService.getNewsDetail(newsId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(new Func1<Map<String, NewsDetailBean>, Observable<NewsDetailBean>>() {
@@ -244,7 +257,7 @@ public class RetrofitService {
      * @return
      */
     public static Observable<PhotoSetBean> getPhotoSet(String photoId) {
-        return mService.getPhotoSet(StringUtils.clipPhotoSetId(photoId))
+        return sNewsService.getPhotoSet(StringUtils.clipPhotoSetId(photoId))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -254,7 +267,7 @@ public class RetrofitService {
      * @return
      */
     public static Observable<List<PhotoBean>> getPhotoList() {
-        return mService.getPhotoList()
+        return sNewsService.getPhotoList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -264,7 +277,7 @@ public class RetrofitService {
      * @return
      */
     public static Observable<List<PhotoBean>> getPhotoMoreList(String setId) {
-        return mService.getPhotoMoreList(setId)
+        return sNewsService.getPhotoMoreList(setId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -276,7 +289,7 @@ public class RetrofitService {
      */
     public static Observable<List<BeautyPhotoBean>> getBeautyPhoto() {
         sBeautyPage = 0;
-        return mService.getBeautyPhoto(sBeautyPage)
+        return sNewsService.getBeautyPhoto(sBeautyPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(_flatMapPhotos());
@@ -289,10 +302,34 @@ public class RetrofitService {
      */
     public static Observable<List<BeautyPhotoBean>> getMoreBeautyPhoto() {
         sBeautyPage += INCREASE_PAGE;
-        return mService.getBeautyPhoto(sBeautyPage)
+        return sNewsService.getBeautyPhoto(sBeautyPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(_flatMapPhotos());
+    }
+
+    /**
+     * 获取福利图片
+     * @return
+     */
+    public static Observable<WelfarePhotoBean> getWelfarePhoto() {
+        sWelfarePage = 1;
+        return sWelfareService.getWelfarePhoto(sWelfarePage)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(_flatMapWelfarePhotos());
+    }
+
+    /**
+     * 获取福利图片
+     * @return
+     */
+    public static Observable<WelfarePhotoBean> getMoreWelfarePhoto() {
+        sWelfarePage += 1;
+        return sWelfareService.getWelfarePhoto(sWelfarePage)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(_flatMapWelfarePhotos());
     }
 
     /**
@@ -336,4 +373,19 @@ public class RetrofitService {
         };
     }
 
+    /**
+     * 类型转换
+     * @return
+     */
+    private static Func1<WelfarePhotoList, Observable<WelfarePhotoBean>> _flatMapWelfarePhotos() {
+        return new Func1<WelfarePhotoList, Observable<WelfarePhotoBean>>() {
+            @Override
+            public Observable<WelfarePhotoBean> call(WelfarePhotoList welfarePhotoList) {
+                if (welfarePhotoList.getResults().size() == 0) {
+                    return Observable.empty();
+                }
+                return Observable.from(welfarePhotoList.getResults());
+            }
+        };
+    }
 }

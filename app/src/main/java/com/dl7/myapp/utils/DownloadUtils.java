@@ -9,7 +9,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
 import com.dl7.myapp.local.table.BeautyPhotoBean;
 import com.dl7.myapp.local.table.BeautyPhotoBeanDao;
-import com.dl7.myapp.module.setting.SettingsFragment;
 import com.orhanobut.logger.Logger;
 
 import java.io.File;
@@ -70,15 +69,15 @@ public final class DownloadUtils {
      * @param context
      * @param url
      */
-    public static void downloadPhoto(final Context context, final String url, final String id, final OnCompletedListener listener) {
+    public static void downloadOrDeletePhoto(final Context context, final String url, final String id, final OnCompletedListener listener) {
         if (sDlPhotos.get(url.hashCode(), false)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setMessage("是否删除?").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    FileUtils.deleteFile(PreferencesUtils.getString(context, SettingsFragment.SAVE_PATH_KEY, SettingsFragment.DEFAULT_SAVE_PATH) +
-                            File.separator + id + ".jpg");
+                    FileUtils.deleteFile(PreferencesUtils.getSavePath(context) + File.separator + id + ".jpg");
                     listener.onDeleted(url);
+                    delDownloadPhoto(url);
                 }
             }).setNegativeButton("取消", null);
             builder.create().show();
@@ -105,9 +104,7 @@ public final class DownloadUtils {
                             e.printStackTrace();
                         }
                         // 复制图片文件到指定路径，并改为 .jpg 后缀名
-                        return FileUtils.copyFile(file.getPath(),
-                                PreferencesUtils.getString(context, SettingsFragment.SAVE_PATH_KEY, SettingsFragment.DEFAULT_SAVE_PATH) +
-                                        File.separator + id + ".jpg");
+                        return FileUtils.copyFile(file.getPath(), PreferencesUtils.getSavePath(context) + File.separator + id + ".jpg");
                     }
                 })
                 .subscribeOn(Schedulers.io())

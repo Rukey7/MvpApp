@@ -28,6 +28,7 @@ import com.dl7.helperlibrary.listener.OnRecyclerViewItemLongClickListener;
 import com.dl7.helperlibrary.listener.OnRemoveDataListener;
 import com.dl7.helperlibrary.listener.OnRequestDataListener;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -84,7 +85,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
             throw new IllegalAccessError("Layout resource ID must be valid!");
         }
         if (data == null) {
-            mData = Collections.emptyList();
+            mData = new ArrayList<>();
         } else {
             this.mData = data;
         }

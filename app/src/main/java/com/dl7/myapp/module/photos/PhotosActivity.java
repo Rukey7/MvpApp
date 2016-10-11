@@ -21,6 +21,7 @@ import com.dl7.myapp.module.base.IRxBusPresenter;
 import com.dl7.myapp.module.beautylist.BeautyListFragment;
 import com.dl7.myapp.module.love.LoveActivity;
 import com.dl7.myapp.module.photonews.PhotoNewsFragment;
+import com.dl7.myapp.module.welfarephoto.WelfarePhotoFragment;
 import com.dl7.myapp.rxbus.event.LoveEvent;
 import com.dl7.myapp.utils.AnimateHelper;
 
@@ -93,8 +94,10 @@ public class PhotosActivity extends BaseNavActivity<IRxBusPresenter> implements 
         List<Fragment> fragments = new ArrayList<>();
         List<String> titles = new ArrayList<>();
         titles.add("美女");
+        titles.add("福利");
         titles.add("生活");
         fragments.add(new BeautyListFragment());
+        fragments.add(new WelfarePhotoFragment());
         fragments.add(new PhotoNewsFragment());
         mPagerAdapter.setDatas(fragments, titles);
         mPresenter.getData();
