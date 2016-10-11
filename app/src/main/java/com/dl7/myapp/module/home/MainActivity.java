@@ -118,7 +118,6 @@ public class MainActivity extends BaseNavActivity<IRxBusPresenter> implements IM
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.item_channel) {
             ChannelActivity.launch(this);
-//            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         } else {
             return false;

@@ -2,13 +2,13 @@ package com.dl7.myapp.module.base;
 
 import android.content.Intent;
 import android.os.Build;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.WindowManager;
 
 import com.dl7.myapp.R;
@@ -24,7 +24,6 @@ public abstract class BaseNavActivity<T extends IBasePresenter> extends BaseActi
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout mAttachDrawerLayout;
-    private Class mClass;
 
     /**
      * 初始化 DrawerLayout
@@ -50,40 +49,41 @@ public abstract class BaseNavActivity<T extends IBasePresenter> extends BaseActi
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
         navView.setNavigationItemSelectedListener(this);
-        mAttachDrawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                if (mClass != null) {
-                    Intent intent = new Intent(BaseNavActivity.this, mClass);
-                    // 此标志用于启动一个Activity的时候，若栈中存在此Activity实例，则把它调到栈顶。不创建多一个
-                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                    BaseNavActivity.this.startActivity(intent);
-                    overridePendingTransition(R.anim.fade_in_activity, R.anim.scale_out_activity);
-                    mClass = null;
-                }
-            }
-        });
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(final MenuItem item) {
         mAttachDrawerLayout.closeDrawer(GravityCompat.START);
         if (item.isChecked()) {
             return true;
         }
-
+        final Intent intent;
         switch (item.getItemId()) {
             case R.id.nav_photos:
-                mClass = PhotosActivity.class;
+                intent = new Intent(this, PhotosActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 break;
             case R.id.nav_news:
-                mClass = MainActivity.class;
+                intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 break;
             case R.id.nav_setting:
-                mClass = SettingsActivity.class;
-//                SettingsActivity.launch(this);
+                intent = new Intent(this, SettingsActivity.class);
                 break;
+            default:
+                return false;
         }
+        // 延迟是为了让抽屉菜单先收回去
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(intent);
+                if (item.getItemId() != R.id.nav_setting) {
+                    // 这个要放 startActivity 后面
+                    overridePendingTransition(R.anim.fade_in_activity, R.anim.scale_out_activity);
+                }
+            }
+        }, 250);
         return false;
     }
 

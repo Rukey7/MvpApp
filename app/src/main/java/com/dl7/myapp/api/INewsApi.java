@@ -102,4 +102,6 @@ public interface INewsApi {
     @Headers(CACHE_CONTROL_NETWORK)
     @GET("recommend/getChanListNews?channel=T1456112189138&size=20")
     Observable<Map<String, List<BeautyPhotoBean>>> getBeautyPhoto(@Query("offset") int offset);
+
+
 }

@@ -25,4 +25,6 @@ public interface IWelfareApi {
     @Headers(CACHE_CONTROL_NETWORK)
     @GET("/api/data/福利/10/{page}")
     Observable<WelfarePhotoList> getWelfarePhoto(@Path("page") int page);
+
+
 }

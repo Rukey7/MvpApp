@@ -16,6 +16,7 @@
             android:title="设置图片保存路径"
             android:defaultValue="NewsApp"
             android:summary="/sdcard:/NewsApp:"
+            app:selection_type="dir_select"
             app:extensions="txt:pdf:"/>
     </PreferenceCategory>
 
