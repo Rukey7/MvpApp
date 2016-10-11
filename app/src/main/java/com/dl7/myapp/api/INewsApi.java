@@ -17,6 +17,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
+import static com.dl7.myapp.api.RetrofitService.AVOID_HTTP403_FORBIDDEN;
 import static com.dl7.myapp.api.RetrofitService.CACHE_CONTROL_NETWORK;
 
 /**
@@ -112,8 +113,8 @@ public interface INewsApi {
      * @param startPage 起始页码
      * @return
      */
-    @Headers(CACHE_CONTROL_NETWORK)
-    @GET("nc/video/list/{id}/n/{startPage}-20.html")
+    @Headers(AVOID_HTTP403_FORBIDDEN)
+    @GET("nc/video/list/{id}/n/{startPage}-10.html")
     Observable<Map<String, List<VideoBean>>> getVideoList(@Path("id") String id,
                                                           @Path("startPage") int startPage);
 }
