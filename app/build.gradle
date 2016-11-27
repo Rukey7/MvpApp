@@ -76,4 +76,6 @@ dependencies {
     compile 'co.lujun:androidtagview:1.0.3'
     // filepicker
     compile 'com.github.angads25:filepicker:1.0.6'
+    //
+    compile 'com.github.Rukey7:IjkPlayerView:v1.0.0'
 }

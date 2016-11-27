@@ -40,6 +40,7 @@ public class VideoListAdapter extends BaseQuickAdapter<VideoBean> {
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
             }
         });
     }
