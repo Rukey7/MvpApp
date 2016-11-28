@@ -15,7 +15,7 @@
     </style>
 
     <!-- 这个用来处理图集界面 -->
-    <style name="AppBaseTheme.PhotoSetTheme">
+    <style name="AppBaseTheme.TranslucentStatus">
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 </resources>

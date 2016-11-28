@@ -1,6 +1,5 @@
 package com.dl7.myapp.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 
@@ -21,7 +20,7 @@ public final class NavUtils {
      * @param activity
      * @return
      */
-    public static int getNavigationBarHeight(Activity activity) {
+    public static int getNavigationBarHeight(Context activity) {
 //        if (!checkDeviceHasNavigationBar(activity)) {
 //            return 0;
 //        }

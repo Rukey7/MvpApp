@@ -1,10 +1,13 @@
 package com.dl7.myapp.api.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by long on 2016/10/11.
  * 视频实体
  */
-public class VideoBean {
+public class VideoBean implements Parcelable {
 
     /**
      * mp4Hd_url : http://flv2.bn.netease.com/videolib3/1501/28/wlncJ2098/HD/wlncJ2098-mobile.mp4
@@ -149,4 +152,60 @@ public class VideoBean {
     public void setM3u8_url(String m3u8_url) {
         this.m3u8_url = m3u8_url;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.mp4Hd_url);
+        dest.writeString(this.cover);
+        dest.writeString(this.title);
+        dest.writeString(this.replyBoard);
+        dest.writeInt(this.playCount);
+        dest.writeString(this.sectiontitle);
+        dest.writeString(this.replyid);
+        dest.writeString(this.mp4_url);
+        dest.writeInt(this.length);
+        dest.writeString(this.m3u8Hd_url);
+        dest.writeString(this.latest);
+        dest.writeString(this.vid);
+        dest.writeString(this.ptime);
+        dest.writeString(this.m3u8_url);
+    }
+
+    public VideoBean() {
+    }
+
+    protected VideoBean(Parcel in) {
+        this.mp4Hd_url = in.readString();
+        this.cover = in.readString();
+        this.title = in.readString();
+        this.replyBoard = in.readString();
+        this.playCount = in.readInt();
+        this.sectiontitle = in.readString();
+        this.replyid = in.readString();
+        this.mp4_url = in.readString();
+        this.length = in.readInt();
+        this.m3u8Hd_url = in.readString();
+        this.latest = in.readString();
+        this.vid = in.readString();
+        this.ptime = in.readString();
+        this.m3u8_url = in.readString();
+    }
+
+    public static final Parcelable.Creator<VideoBean> CREATOR = new Parcelable.Creator<VideoBean>() {
+        @Override
+        public VideoBean createFromParcel(Parcel source) {
+            return new VideoBean(source);
+        }
+
+        @Override
+        public VideoBean[] newArray(int size) {
+            return new VideoBean[size];
+        }
+    };
 }

@@ -4,8 +4,8 @@ import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
 import com.dl7.myapp.adapter.VideoListAdapter;
 import com.dl7.myapp.injector.PerFragment;
 import com.dl7.myapp.module.base.IBasePresenter;
-import com.dl7.myapp.module.videolist.VideoListFragment;
-import com.dl7.myapp.module.videolist.VideoListPresenter;
+import com.dl7.myapp.module.video.videolist.VideoListFragment;
+import com.dl7.myapp.module.video.videolist.VideoListPresenter;
 
 import dagger.Module;
 import dagger.Provides;

@@ -4,8 +4,8 @@ import com.dl7.myapp.adapter.ViewPagerAdapter;
 import com.dl7.myapp.injector.PerActivity;
 import com.dl7.myapp.local.table.DaoSession;
 import com.dl7.myapp.module.base.IRxBusPresenter;
-import com.dl7.myapp.module.videos.VideosActivity;
-import com.dl7.myapp.module.videos.VideosPresenter;
+import com.dl7.myapp.module.video.videos.VideosActivity;
+import com.dl7.myapp.module.video.videos.VideosPresenter;
 import com.dl7.myapp.rxbus.RxBus;
 
 import dagger.Module;

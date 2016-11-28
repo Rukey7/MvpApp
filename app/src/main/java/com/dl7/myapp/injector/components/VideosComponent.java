@@ -2,7 +2,7 @@ package com.dl7.myapp.injector.components;
 
 import com.dl7.myapp.injector.PerActivity;
 import com.dl7.myapp.injector.modules.VideosModule;
-import com.dl7.myapp.module.videos.VideosActivity;
+import com.dl7.myapp.module.video.videos.VideosActivity;
 
 import dagger.Component;
 

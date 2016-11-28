@@ -1,4 +1,4 @@
-package com.dl7.myapp.module.videos;
+package com.dl7.myapp.module.video.videos;
 
 import com.dl7.myapp.local.table.BeautyPhotoBeanDao;
 import com.dl7.myapp.module.base.IRxBusPresenter;

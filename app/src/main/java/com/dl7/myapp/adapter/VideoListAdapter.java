@@ -8,6 +8,7 @@ import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
 import com.dl7.helperlibrary.adapter.BaseViewHolder;
 import com.dl7.myapp.R;
 import com.dl7.myapp.api.bean.VideoBean;
+import com.dl7.myapp.module.video.player.VideoPlayerActivity;
 import com.dl7.myapp.utils.DefIconFactory;
 import com.dl7.myapp.utils.ImageLoader;
 
@@ -40,7 +41,7 @@ public class VideoListAdapter extends BaseQuickAdapter<VideoBean> {
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                VideoPlayerActivity.launch(mContext, item);
             }
         });
     }

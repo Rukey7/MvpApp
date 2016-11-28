@@ -1,4 +1,4 @@
-package com.dl7.myapp.module.videolist;
+package com.dl7.myapp.module.video.videolist;
 
 import com.dl7.myapp.api.RetrofitService;
 import com.dl7.myapp.api.bean.VideoBean;

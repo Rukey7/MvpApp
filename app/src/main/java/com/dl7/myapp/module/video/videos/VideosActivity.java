@@ -1,4 +1,4 @@
-package com.dl7.myapp.module.videos;
+package com.dl7.myapp.module.video.videos;
 
 import android.animation.Animator;
 import android.content.Context;
@@ -19,7 +19,7 @@ import com.dl7.myapp.injector.modules.VideosModule;
 import com.dl7.myapp.module.base.BaseNavActivity;
 import com.dl7.myapp.module.base.IRxBusPresenter;
 import com.dl7.myapp.module.photos.IPhotosView;
-import com.dl7.myapp.module.videolist.VideoListFragment;
+import com.dl7.myapp.module.video.videolist.VideoListFragment;
 
 import java.util.ArrayList;
 import java.util.List;

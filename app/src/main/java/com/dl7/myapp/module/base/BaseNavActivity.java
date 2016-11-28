@@ -15,7 +15,7 @@ import com.dl7.myapp.R;
 import com.dl7.myapp.module.home.MainActivity;
 import com.dl7.myapp.module.photos.PhotosActivity;
 import com.dl7.myapp.module.setting.SettingsActivity;
-import com.dl7.myapp.module.videos.VideosActivity;
+import com.dl7.myapp.module.video.videos.VideosActivity;
 
 /**
  * Created by long on 2016/9/5.

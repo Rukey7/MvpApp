@@ -38,7 +38,7 @@
             android:name=".module.photoset.PhotoSetActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/AppBaseTheme.PhotoSetTheme">
+            android:theme="@style/AppBaseTheme.TranslucentStatus">
         </activity>
         <activity
             android:name=".module.channel.ChannelActivity"
@@ -66,8 +66,14 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".module.videos.VideosActivity">
+        <activity android:name=".module.video.videos.VideosActivity"
+                  android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".module.video.player.VideoPlayerActivity"
+                  android:theme="@style/AppBaseTheme.TranslucentStatus"
+                  android:configChanges="orientation|keyboardHidden|screenSize">
+        </activity>
+
     </application>
 
 </manifest>

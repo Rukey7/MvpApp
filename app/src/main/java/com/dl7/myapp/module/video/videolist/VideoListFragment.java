@@ -1,4 +1,4 @@
-package com.dl7.myapp.module.videolist;
+package com.dl7.myapp.module.video.videolist;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

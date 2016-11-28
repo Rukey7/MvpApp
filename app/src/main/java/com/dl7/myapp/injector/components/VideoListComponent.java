@@ -2,7 +2,7 @@ package com.dl7.myapp.injector.components;
 
 import com.dl7.myapp.injector.PerFragment;
 import com.dl7.myapp.injector.modules.VideoListModule;
-import com.dl7.myapp.module.videolist.VideoListFragment;
+import com.dl7.myapp.module.video.videolist.VideoListFragment;
 
 import dagger.Component;
 

@@ -82,6 +82,7 @@ public final class ImageLoader {
         }
     }
 
+    
     public static String calePhotoSize(Context context, String url) throws ExecutionException, InterruptedException {
         File file = Glide.with(context).load(url)
                 .downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).get();
