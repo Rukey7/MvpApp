@@ -14,11 +14,30 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"/>
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:text="Something"
-        android:gravity="center"
-        android:background="#dddddd"
-        android:layout_height="0dp"/>
+        android:layout_height="wrap_content"
+        android:gravity="right|center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sel_btn_press_bg"
+            android:src="@mipmap/video_share"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/sel_btn_press_bg"
+            android:src="@drawable/sel_btn_video_collect"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/sel_btn_press_bg"
+            android:src="@drawable/sel_btn_video_download"/>
+    </LinearLayout>
 </LinearLayout>

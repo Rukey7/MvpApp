@@ -17,4 +17,5 @@
 
     <color name="item_special_bg">#FF4081</color>
     <color name="item_photo_set_bg">#5677fc</color>
+    <color name="btn_press_bg">#ffbababa</color>
 </resources>
