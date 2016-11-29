@@ -9,10 +9,10 @@ import android.view.ViewGroup;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.dl7.helperlibrary.indicator.SpinKitView;
 import com.dl7.myapp.R;
 import com.dl7.myapp.local.table.BeautyPhotoBean;
 import com.dl7.myapp.utils.ImageLoader;
+import com.github.ybq.android.spinkit.SpinKitView;
 
 import java.util.Collections;
 import java.util.List;

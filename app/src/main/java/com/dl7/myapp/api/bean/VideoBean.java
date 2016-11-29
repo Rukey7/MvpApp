@@ -41,6 +41,26 @@ public class VideoBean implements Parcelable {
     private String ptime;
     private String m3u8_url;
 
+    @Override
+    public String toString() {
+        return "VideoBean{" +
+                "mp4Hd_url='" + mp4Hd_url + '\'' +
+                ", cover='" + cover + '\'' +
+                ", title='" + title + '\'' +
+                ", replyBoard='" + replyBoard + '\'' +
+                ", playCount=" + playCount +
+                ", sectiontitle='" + sectiontitle + '\'' +
+                ", replyid='" + replyid + '\'' +
+                ", mp4_url='" + mp4_url + '\'' +
+                ", length=" + length +
+                ", m3u8Hd_url='" + m3u8Hd_url + '\'' +
+                ", latest='" + latest + '\'' +
+                ", vid='" + vid + '\'' +
+                ", ptime='" + ptime + '\'' +
+                ", m3u8_url='" + m3u8_url + '\'' +
+                '}';
+    }
+
     public String getMp4Hd_url() {
         return mp4Hd_url;
     }

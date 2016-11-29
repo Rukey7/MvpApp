@@ -4,14 +4,14 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
-import com.dl7.helperlibrary.adapter.BaseViewHolder;
 import com.dl7.myapp.R;
 import com.dl7.myapp.api.bean.NewsItemBean;
 import com.dl7.myapp.module.detail.NewsDetailActivity;
 import com.dl7.myapp.utils.DefIconFactory;
 import com.dl7.myapp.utils.ImageLoader;
 import com.dl7.myapp.utils.StringUtils;
+import com.dl7.recycler.adapter.BaseQuickAdapter;
+import com.dl7.recycler.adapter.BaseViewHolder;
 
 import java.util.List;
 

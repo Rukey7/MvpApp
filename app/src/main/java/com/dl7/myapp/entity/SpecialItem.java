@@ -1,7 +1,7 @@
 package com.dl7.myapp.entity;
 
-import com.dl7.helperlibrary.entity.SectionEntity;
 import com.dl7.myapp.api.bean.NewsItemBean;
+import com.dl7.recycler.entity.SectionEntity;
 
 /**
  * Created by long on 2016/8/26.

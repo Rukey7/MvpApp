@@ -2,9 +2,6 @@ package com.dl7.myapp.module.beautylist;
 
 import android.support.v7.widget.RecyclerView;
 
-import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
-import com.dl7.helperlibrary.helper.RecyclerViewHelper;
-import com.dl7.helperlibrary.listener.OnRequestDataListener;
 import com.dl7.myapp.R;
 import com.dl7.myapp.injector.components.DaggerBeautyListComponent;
 import com.dl7.myapp.injector.modules.BeautyListModule;
@@ -12,6 +9,9 @@ import com.dl7.myapp.local.table.BeautyPhotoBean;
 import com.dl7.myapp.module.base.BaseFragment;
 import com.dl7.myapp.module.base.IBasePresenter;
 import com.dl7.myapp.module.base.ILoadDataView;
+import com.dl7.recycler.adapter.BaseQuickAdapter;
+import com.dl7.recycler.helper.RecyclerViewHelper;
+import com.dl7.recycler.listener.OnRequestDataListener;
 
 import java.util.List;
 

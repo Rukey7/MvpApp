@@ -7,17 +7,17 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
-import com.dl7.helperlibrary.helper.RecyclerViewHelper;
-import com.dl7.helperlibrary.listener.OnItemMoveListener;
-import com.dl7.helperlibrary.listener.OnRecyclerViewItemClickListener;
-import com.dl7.helperlibrary.listener.OnRemoveDataListener;
 import com.dl7.myapp.R;
 import com.dl7.myapp.injector.components.DaggerManageComponent;
 import com.dl7.myapp.injector.modules.ChannelModule;
 import com.dl7.myapp.local.table.NewsTypeBean;
 import com.dl7.myapp.module.base.BaseActivity;
 import com.dl7.myapp.module.base.ILocalPresenter;
+import com.dl7.recycler.adapter.BaseQuickAdapter;
+import com.dl7.recycler.helper.RecyclerViewHelper;
+import com.dl7.recycler.listener.OnItemMoveListener;
+import com.dl7.recycler.listener.OnRecyclerViewItemClickListener;
+import com.dl7.recycler.listener.OnRemoveDataListener;
 
 import java.util.List;
 

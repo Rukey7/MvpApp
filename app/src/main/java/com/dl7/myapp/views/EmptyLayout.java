@@ -10,9 +10,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.dl7.helperlibrary.indicator.SpinKitView;
-import com.dl7.helperlibrary.indicator.sprite.Sprite;
 import com.dl7.myapp.R;
+import com.github.ybq.android.spinkit.SpinKitView;
+import com.github.ybq.android.spinkit.sprite.Sprite;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

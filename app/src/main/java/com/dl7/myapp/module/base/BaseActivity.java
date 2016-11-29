@@ -228,6 +228,8 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
         super.finish();
         if (((Object) this).getClass().getName().contains("PhotosActivity")) {
             overridePendingTransition(0, 0);
+        } else if (((Object) this).getClass().getName().contains("VideosActivity")) {
+            overridePendingTransition(0, 0);
         } else if (!((Object) this).getClass().getName().contains("MainActivity")) {
             // 设置Activity退出动画为从左往右退出
             overridePendingTransition(R.anim.hold_long, R.anim.move_right_out_activity);

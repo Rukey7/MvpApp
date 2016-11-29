@@ -36,6 +36,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/news_icon_height"
             android:layout_marginLeft="10dp"
+            android:scaleType="fitStart"
             android:layout_weight="1"
             android:src="@mipmap/icon_default_1"/>
 
@@ -45,6 +46,8 @@
             android:layout_height="@dimen/news_icon_height"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:scaleType="fitStart"
+            android:visibility="gone"
             android:layout_weight="1"
             android:src="@mipmap/icon_default_2"/>
 
@@ -52,6 +55,8 @@
             android:id="@+id/iv_icon_3"
             android:layout_width="0dp"
             android:layout_height="@dimen/news_icon_height"
+            android:visibility="gone"
+            android:scaleType="fitStart"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:src="@mipmap/icon_default_3"/>

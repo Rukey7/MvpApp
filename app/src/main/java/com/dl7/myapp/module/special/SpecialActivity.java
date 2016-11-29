@@ -12,8 +12,6 @@ import android.view.ViewStub;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
-import com.dl7.helperlibrary.helper.RecyclerViewHelper;
 import com.dl7.myapp.R;
 import com.dl7.myapp.api.bean.SpecialBean;
 import com.dl7.myapp.entity.SpecialItem;
@@ -23,6 +21,8 @@ import com.dl7.myapp.module.base.BaseActivity;
 import com.dl7.myapp.module.base.IBasePresenter;
 import com.dl7.myapp.utils.DefIconFactory;
 import com.dl7.myapp.utils.ImageLoader;
+import com.dl7.recycler.adapter.BaseQuickAdapter;
+import com.dl7.recycler.helper.RecyclerViewHelper;
 
 import java.util.List;
 

@@ -1,11 +1,11 @@
 package com.dl7.myapp.injector.modules;
 
-import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
 import com.dl7.myapp.adapter.PhotoListAdapter;
 import com.dl7.myapp.injector.PerFragment;
 import com.dl7.myapp.module.base.IBasePresenter;
 import com.dl7.myapp.module.photonews.PhotoNewsFragment;
 import com.dl7.myapp.module.photonews.PhotoNewsPresenter;
+import com.dl7.recycler.adapter.BaseQuickAdapter;
 
 import dagger.Module;
 import dagger.Provides;

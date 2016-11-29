@@ -9,8 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.ViewStub;
 import android.widget.TextView;
 
-import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
-import com.dl7.helperlibrary.helper.RecyclerViewHelper;
 import com.dl7.myapp.R;
 import com.dl7.myapp.api.NewsUtils;
 import com.dl7.myapp.api.bean.NewsDetailBean;
@@ -19,6 +17,8 @@ import com.dl7.myapp.injector.modules.NewsDetailModule;
 import com.dl7.myapp.module.base.BaseActivity;
 import com.dl7.myapp.module.base.IBasePresenter;
 import com.dl7.myapp.utils.ListUtils;
+import com.dl7.recycler.adapter.BaseQuickAdapter;
+import com.dl7.recycler.helper.RecyclerViewHelper;
 import com.zzhoujay.richtext.RichText;
 import com.zzhoujay.richtext.callback.OnURLClickListener;
 

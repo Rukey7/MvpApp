@@ -1,6 +1,5 @@
 package com.dl7.myapp.injector.modules;
 
-import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
 import com.dl7.myapp.adapter.ManageAdapter;
 import com.dl7.myapp.injector.PerActivity;
 import com.dl7.myapp.local.table.DaoSession;
@@ -8,6 +7,7 @@ import com.dl7.myapp.module.base.ILocalPresenter;
 import com.dl7.myapp.module.channel.ChannelActivity;
 import com.dl7.myapp.module.channel.ChannelPresenter;
 import com.dl7.myapp.rxbus.RxBus;
+import com.dl7.recycler.adapter.BaseQuickAdapter;
 
 import dagger.Module;
 import dagger.Provides;

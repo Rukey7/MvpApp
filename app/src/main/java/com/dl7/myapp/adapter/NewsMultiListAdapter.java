@@ -4,8 +4,6 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.dl7.helperlibrary.adapter.BaseMultiItemQuickAdapter;
-import com.dl7.helperlibrary.adapter.BaseViewHolder;
 import com.dl7.myapp.R;
 import com.dl7.myapp.api.NewsUtils;
 import com.dl7.myapp.api.bean.NewsBean;
@@ -15,7 +13,10 @@ import com.dl7.myapp.module.photoset.PhotoSetActivity;
 import com.dl7.myapp.module.special.SpecialActivity;
 import com.dl7.myapp.utils.DefIconFactory;
 import com.dl7.myapp.utils.ImageLoader;
+import com.dl7.myapp.utils.ListUtils;
 import com.dl7.myapp.utils.StringUtils;
+import com.dl7.recycler.adapter.BaseMultiItemQuickAdapter;
+import com.dl7.recycler.adapter.BaseViewHolder;
 import com.flyco.labelview.LabelView;
 
 import java.util.List;
@@ -54,6 +55,7 @@ public class NewsMultiListAdapter extends BaseMultiItemQuickAdapter<NewsMultiIte
 
     /**
      * 处理正常的新闻
+     *
      * @param holder
      * @param item
      */
@@ -86,6 +88,7 @@ public class NewsMultiListAdapter extends BaseMultiItemQuickAdapter<NewsMultiIte
 
     /**
      * 处理图片的新闻
+     *
      * @param holder
      * @param item
      */
@@ -94,10 +97,14 @@ public class NewsMultiListAdapter extends BaseMultiItemQuickAdapter<NewsMultiIte
         newsPhoto[0] = holder.getView(R.id.iv_icon_1);
         newsPhoto[1] = holder.getView(R.id.iv_icon_2);
         newsPhoto[2] = holder.getView(R.id.iv_icon_3);
+        holder.setVisible(R.id.iv_icon_2, false).setVisible(R.id.iv_icon_3, false);
         ImageLoader.loadFit(mContext, item.getImgsrc(), newsPhoto[0], DefIconFactory.provideIcon());
-        for (int i = 0; i < Math.min(2, item.getImgextra().size()); i++) {
-            ImageLoader.loadFit(mContext, item.getImgextra().get(i).getImgsrc(),
-                    newsPhoto[i+1], DefIconFactory.provideIcon());
+        if (!ListUtils.isEmpty(item.getImgextra())) {
+            for (int i = 0; i < Math.min(2, item.getImgextra().size()); i++) {
+                newsPhoto[i + 1].setVisibility(View.VISIBLE);
+                ImageLoader.loadFit(mContext, item.getImgextra().get(i).getImgsrc(),
+                        newsPhoto[i + 1], DefIconFactory.provideIcon());
+            }
         }
         holder.setText(R.id.tv_title, item.getTitle())
                 .setText(R.id.tv_source, StringUtils.clipNewsSource(item.getSource()))

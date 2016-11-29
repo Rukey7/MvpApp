@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="horizontal">
 
-    <com.dl7.helperlibrary.indicator.SpinKitView
+    <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/iv_loading_icon"
         style="@style/SpinKitView.Circle"
         android:layout_width="60dp"

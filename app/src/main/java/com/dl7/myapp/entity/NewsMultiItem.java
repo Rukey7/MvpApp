@@ -2,8 +2,8 @@ package com.dl7.myapp.entity;
 
 import android.support.annotation.IntDef;
 
-import com.dl7.helperlibrary.entity.MultiItemEntity;
 import com.dl7.myapp.api.bean.NewsBean;
+import com.dl7.recycler.entity.MultiItemEntity;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

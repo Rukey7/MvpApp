@@ -7,9 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.daimajia.slider.library.SliderLayout;
-import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
-import com.dl7.helperlibrary.helper.RecyclerViewHelper;
-import com.dl7.helperlibrary.listener.OnRequestDataListener;
 import com.dl7.myapp.R;
 import com.dl7.myapp.api.bean.NewsBean;
 import com.dl7.myapp.entity.NewsMultiItem;
@@ -18,6 +15,9 @@ import com.dl7.myapp.injector.modules.NewsListModule;
 import com.dl7.myapp.module.base.BaseFragment;
 import com.dl7.myapp.module.base.IBasePresenter;
 import com.dl7.myapp.utils.SliderHelper;
+import com.dl7.recycler.adapter.BaseQuickAdapter;
+import com.dl7.recycler.helper.RecyclerViewHelper;
+import com.dl7.recycler.listener.OnRequestDataListener;
 
 import java.util.List;
 

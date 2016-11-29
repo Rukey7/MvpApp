@@ -52,6 +52,7 @@ public class VideoPlayerActivity extends BaseActivity<IBasePresenter> {
         initToolBar(mToolbar, true, mVideoData.getTitle());
         mPlayerView.init()
                 .setTitle(mVideoData.getTitle())
+                .enableDanmaku()
                 .setVideoSource(null, mVideoData.getM3u8_url(), mVideoData.getM3u8Hd_url(), null, null);
     }
 

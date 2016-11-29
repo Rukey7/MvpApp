@@ -8,9 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
-import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
-import com.dl7.helperlibrary.helper.RecyclerViewHelper;
-import com.dl7.helperlibrary.listener.OnRemoveDataListener;
 import com.dl7.myapp.R;
 import com.dl7.myapp.injector.components.DaggerLoveComponent;
 import com.dl7.myapp.injector.modules.LoveModule;
@@ -18,6 +15,9 @@ import com.dl7.myapp.local.table.BeautyPhotoBean;
 import com.dl7.myapp.module.base.BaseActivity;
 import com.dl7.myapp.module.base.ILocalPresenter;
 import com.dl7.myapp.module.bigphoto.BigPhotoActivity;
+import com.dl7.recycler.adapter.BaseQuickAdapter;
+import com.dl7.recycler.helper.RecyclerViewHelper;
+import com.dl7.recycler.listener.OnRemoveDataListener;
 
 import java.util.List;
 

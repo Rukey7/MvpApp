@@ -2,10 +2,10 @@ package com.dl7.myapp.adapter;
 
 import android.content.Context;
 
-import com.dl7.helperlibrary.adapter.BaseQuickAdapter;
-import com.dl7.helperlibrary.adapter.BaseViewHolder;
 import com.dl7.myapp.R;
 import com.dl7.myapp.local.table.NewsTypeBean;
+import com.dl7.recycler.adapter.BaseQuickAdapter;
+import com.dl7.recycler.adapter.BaseViewHolder;
 
 import java.util.List;
 

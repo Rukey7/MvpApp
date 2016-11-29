@@ -26,7 +26,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile project(':RecyclerViewHelper')
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:recyclerview-v7:23.4.0'
     compile 'com.android.support:cardview-v7:23.4.0'
@@ -77,5 +76,6 @@ dependencies {
     // filepicker
     compile 'com.github.angads25:filepicker:1.0.6'
     // IjkPlayerView
-    compile 'com.github.Rukey7:IjkPlayerView:v1.0.0'
+    compile 'com.github.Rukey7:IjkPlayerView:v1.0.2'
+    compile project(':RecyclerViewHelper')
 }
