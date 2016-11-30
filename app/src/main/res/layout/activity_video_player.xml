@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.dl7.myapp.module.video.player.VideoPlayerActivity">
+    tools:context="com.dl7.mvp.module.video.player.VideoPlayerActivity">
 
     <include layout="@layout/layout_toolbar"/>
 

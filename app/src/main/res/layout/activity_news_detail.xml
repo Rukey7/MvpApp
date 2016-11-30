@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dl7.myapp.module.detail.NewsDetailActivity">
+    tools:context=".module.news.detail.NewsDetailActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
         <include layout="@layout/layout_news_content"/>
     </android.support.v4.widget.NestedScrollView>
 
-    <com.dl7.myapp.views.EmptyLayout
+    <com.dl7.mvp.views.EmptyLayout
         android:id="@+id/empty_layout"
         android:layout_marginTop="@dimen/tab_bar_margin_top"
         android:layout_width="match_parent"
@@ -49,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        app:layout_behavior="com.dl7.myapp.views.behavior.ScrollAwareFABBehavior"
+        app:layout_behavior="com.dl7.mvp.views.behavior.ScrollAwareFABBehavior"
         android:src="@mipmap/ic_arrow_upward_white_24dp"
         android:layout_margin="16dp"/>
 </android.support.design.widget.CoordinatorLayout>

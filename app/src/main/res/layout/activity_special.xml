@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.dl7.myapp.module.special.SpecialActivity">
+    tools:context=".module.news.special.SpecialActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_news_list"

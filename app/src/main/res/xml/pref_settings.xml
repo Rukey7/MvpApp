@@ -10,7 +10,7 @@
             android:key="setting_no_image"
             android:summary="开启后在非Wifi下不加载图片"/>
 
-        <com.dl7.myapp.views.XFilePickerPreference
+        <com.dl7.mvp.views.XFilePickerPreference
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:key="setting_save_path"
             android:title="设置图片保存路径"

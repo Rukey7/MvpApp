@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.dl7.myapp"
+<manifest package="com.dl7.mvp"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppBaseTheme">
         <activity
-            android:name=".module.home.MainActivity"
+            android:name=".module.news.home.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -25,44 +25,44 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".module.detail.NewsDetailActivity"
+            android:name=".module.news.detail.NewsDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".module.special.SpecialActivity"
+            android:name=".module.news.special.SpecialActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".module.photoset.PhotoSetActivity"
+            android:name=".module.photo.photoset.PhotoSetActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppBaseTheme.TranslucentStatus">
         </activity>
         <activity
-            android:name=".module.channel.ChannelActivity"
+            android:name=".module.news.channel.ChannelActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".module.photos.PhotosActivity"
+            android:name=".module.photo.photos.PhotosActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".module.bigphoto.BigPhotoActivity"
+            android:name=".module.photo.bigphoto.BigPhotoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppBaseTheme.BigPhotoTheme">
         </activity>
         <activity
-            android:name=".module.love.LoveActivity"
+            android:name=".module.manage.love.LoveActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".module.setting.SettingsActivity"
+            android:name=".module.manage.setting.SettingsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait">
         </activity>

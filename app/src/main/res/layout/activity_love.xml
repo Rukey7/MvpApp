@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context="com.dl7.myapp.module.love.LoveActivity">
+    tools:context=".module.manage.love.LoveActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/tool_bar"
