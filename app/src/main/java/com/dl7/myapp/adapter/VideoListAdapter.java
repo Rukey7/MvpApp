@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.dl7.myapp.R;
-import com.dl7.myapp.api.bean.VideoBean;
+import com.dl7.myapp.local.table.VideoBean;
 import com.dl7.myapp.module.video.player.VideoPlayerActivity;
 import com.dl7.myapp.utils.DefIconFactory;
 import com.dl7.myapp.utils.ImageLoader;

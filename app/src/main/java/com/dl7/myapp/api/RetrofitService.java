@@ -8,7 +8,7 @@ import com.dl7.myapp.api.bean.NewsDetailBean;
 import com.dl7.myapp.api.bean.PhotoBean;
 import com.dl7.myapp.api.bean.PhotoSetBean;
 import com.dl7.myapp.api.bean.SpecialBean;
-import com.dl7.myapp.api.bean.VideoBean;
+import com.dl7.myapp.local.table.VideoBean;
 import com.dl7.myapp.api.bean.WelfarePhotoBean;
 import com.dl7.myapp.api.bean.WelfarePhotoList;
 import com.dl7.myapp.local.table.BeautyPhotoBean;

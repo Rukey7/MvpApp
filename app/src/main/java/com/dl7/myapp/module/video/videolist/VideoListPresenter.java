@@ -1,7 +1,7 @@
 package com.dl7.myapp.module.video.videolist;
 
 import com.dl7.myapp.api.RetrofitService;
-import com.dl7.myapp.api.bean.VideoBean;
+import com.dl7.myapp.local.table.VideoBean;
 import com.dl7.myapp.module.base.IBasePresenter;
 import com.dl7.myapp.module.base.ILoadDataView;
 import com.dl7.myapp.views.EmptyLayout;

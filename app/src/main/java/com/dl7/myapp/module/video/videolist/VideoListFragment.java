@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 
 import com.dl7.myapp.R;
-import com.dl7.myapp.api.bean.VideoBean;
+import com.dl7.myapp.local.table.VideoBean;
 import com.dl7.myapp.injector.components.DaggerVideoListComponent;
 import com.dl7.myapp.injector.modules.VideoListModule;
 import com.dl7.myapp.module.base.BaseFragment;
