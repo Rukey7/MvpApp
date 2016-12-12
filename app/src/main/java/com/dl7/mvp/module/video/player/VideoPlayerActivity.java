@@ -17,6 +17,7 @@ import com.dl7.mvp.local.table.VideoBean;
 import com.dl7.mvp.module.base.BaseActivity;
 import com.dl7.mvp.module.base.ILoadDataView;
 import com.dl7.mvp.module.base.ILocalPresenter;
+import com.dl7.mvp.utils.DialogHelper;
 import com.dl7.player.media.IjkPlayerView;
 import com.sackcentury.shinebuttonlib.ShineButton;
 
@@ -140,9 +141,7 @@ public class VideoPlayerActivity extends BaseActivity<ILocalPresenter> implement
     public void loadData(VideoBean data) {
         mVideoData = data;
         mIvVideoCollect.setChecked(data.isCollect());
-        if (data.getDownloadStatus() != DownloadStatus.NORMAL) {
-            mIvVideoDownload.setSelected(true);
-        }
+        mIvVideoDownload.setSelected(data.getDownloadStatus() != DownloadStatus.NORMAL);
     }
 
     @Override
@@ -159,6 +158,7 @@ public class VideoPlayerActivity extends BaseActivity<ILocalPresenter> implement
             case R.id.iv_video_share:
                 break;
             case R.id.iv_video_download:
+                DialogHelper.downloadDialog(this);
                 break;
         }
     }

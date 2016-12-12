@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.dl7.mvp"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.dl7.mvp">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -66,14 +66,17 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".module.video.videos.VideosActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".module.video.videos.VideosActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".module.video.player.VideoPlayerActivity"
-                  android:theme="@style/AppBaseTheme.TranslucentStatus"
-                  android:configChanges="orientation|keyboardHidden|screenSize">
+        <activity
+            android:name=".module.video.player.VideoPlayerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppBaseTheme.TranslucentStatus">
         </activity>
-
+        <activity android:name=".module.manage.download.DownloadActivity">
+        </activity>
     </application>
 
 </manifest>

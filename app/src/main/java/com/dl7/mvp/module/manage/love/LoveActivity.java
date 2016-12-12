@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.dl7.mvp.R;
+import com.dl7.mvp.adapter.SlideInBottomAdapter;
 import com.dl7.mvp.injector.components.DaggerLoveComponent;
 import com.dl7.mvp.injector.modules.LoveModule;
 import com.dl7.mvp.local.table.BeautyPhotoBean;
@@ -24,7 +25,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 import jp.wasabeef.recyclerview.animators.FlipInLeftYAnimator;
 
 /**
@@ -64,7 +64,7 @@ public class LoveActivity extends BaseActivity<ILocalPresenter> implements ILove
     @Override
     protected void initViews() {
         initToolBar(mToolBar, true, "收藏");
-        SlideInBottomAnimationAdapter slideAdapter = new SlideInBottomAnimationAdapter(mAdapter);
+        SlideInBottomAdapter slideAdapter = new SlideInBottomAdapter(mAdapter);
         RecyclerViewHelper.initRecyclerViewSV(this, mRvPhotoList, slideAdapter, 2);
         RecyclerViewHelper.startDragAndSwipe(mRvPhotoList, mAdapter);
         mRvPhotoList.setItemAnimator(new FlipInLeftYAnimator());

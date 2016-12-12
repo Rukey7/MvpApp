@@ -6,6 +6,7 @@ import com.dl7.mvp.local.table.VideoBeanDao;
 import com.dl7.mvp.module.base.ILoadDataView;
 import com.dl7.mvp.module.base.ILocalPresenter;
 import com.dl7.mvp.rxbus.RxBus;
+import com.dl7.mvp.rxbus.event.VideoEvent;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class VideoPlayerPresenter implements ILocalPresenter<VideoBean> {
     private final VideoBeanDao mDbDao;
     private final RxBus mRxBus;
     private final VideoBean mVideoData;
+    // 是否数据库有记录
     private boolean mIsContains = false;
 
     public VideoPlayerPresenter(ILoadDataView view, VideoBeanDao dbDao, RxBus rxBus, VideoBean videoData) {
@@ -63,6 +65,7 @@ public class VideoPlayerPresenter implements ILocalPresenter<VideoBean> {
         } else {
             mDbDao.insert(data);
         }
+        mRxBus.post(new VideoEvent());
     }
 
     @Override
@@ -73,10 +76,10 @@ public class VideoPlayerPresenter implements ILocalPresenter<VideoBean> {
         } else {
             mDbDao.update(data);
         }
+        mRxBus.post(new VideoEvent());
     }
 
     @Override
     public void update(List<VideoBean> list) {
-
     }
 }

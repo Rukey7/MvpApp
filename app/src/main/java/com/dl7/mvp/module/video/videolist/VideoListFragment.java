@@ -6,9 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.dl7.mvp.R;
-import com.dl7.mvp.local.table.VideoBean;
+import com.dl7.mvp.adapter.SlideInBottomAdapter;
 import com.dl7.mvp.injector.components.DaggerVideoListComponent;
 import com.dl7.mvp.injector.modules.VideoListModule;
+import com.dl7.mvp.local.table.VideoBean;
 import com.dl7.mvp.module.base.BaseFragment;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.module.base.ILoadDataView;
@@ -21,7 +22,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 
 /**
  * Created by long on 2016/10/11.
@@ -69,7 +69,7 @@ public class VideoListFragment extends BaseFragment<IBasePresenter> implements I
 
     @Override
     protected void initViews() {
-        SlideInBottomAnimationAdapter slideAdapter = new SlideInBottomAnimationAdapter(mAdapter);
+        SlideInBottomAdapter slideAdapter = new SlideInBottomAdapter(mAdapter);
         RecyclerViewHelper.initRecyclerViewV(mContext, mRvPhotoList, slideAdapter);
         mAdapter.setRequestDataListener(new OnRequestDataListener() {
             @Override

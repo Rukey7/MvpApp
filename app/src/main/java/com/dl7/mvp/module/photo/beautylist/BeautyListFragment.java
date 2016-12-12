@@ -3,6 +3,7 @@ package com.dl7.mvp.module.photo.beautylist;
 import android.support.v7.widget.RecyclerView;
 
 import com.dl7.mvp.R;
+import com.dl7.mvp.adapter.SlideInBottomAdapter;
 import com.dl7.mvp.injector.components.DaggerBeautyListComponent;
 import com.dl7.mvp.injector.modules.BeautyListModule;
 import com.dl7.mvp.local.table.BeautyPhotoBean;
@@ -18,7 +19,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 
 /**
  * Created by long on 2016/9/5.
@@ -49,7 +49,7 @@ public class BeautyListFragment extends BaseFragment<IBasePresenter> implements 
 
     @Override
     protected void initViews() {
-        SlideInBottomAnimationAdapter slideAdapter = new SlideInBottomAnimationAdapter(mAdapter);
+        SlideInBottomAdapter slideAdapter = new SlideInBottomAdapter(mAdapter);
         RecyclerViewHelper.initRecyclerViewSV(mContext, mRvPhotoList, slideAdapter, 2);
         mAdapter.setRequestDataListener(new OnRequestDataListener() {
             @Override

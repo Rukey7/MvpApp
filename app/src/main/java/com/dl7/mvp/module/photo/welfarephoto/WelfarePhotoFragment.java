@@ -3,6 +3,7 @@ package com.dl7.mvp.module.photo.welfarephoto;
 import android.support.v7.widget.RecyclerView;
 
 import com.dl7.mvp.R;
+import com.dl7.mvp.adapter.SlideInBottomAdapter;
 import com.dl7.mvp.api.bean.WelfarePhotoBean;
 import com.dl7.mvp.injector.components.DaggerWelfarePhotoComponent;
 import com.dl7.mvp.injector.modules.WelfarePhotoModule;
@@ -18,7 +19,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 
 /**
  * Created by long on 2016/10/11.
@@ -49,7 +49,7 @@ public class WelfarePhotoFragment extends BaseFragment<IBasePresenter> implement
 
     @Override
     protected void initViews() {
-        SlideInBottomAnimationAdapter slideAdapter = new SlideInBottomAnimationAdapter(mAdapter);
+        SlideInBottomAdapter slideAdapter = new SlideInBottomAdapter(mAdapter);
         RecyclerViewHelper.initRecyclerViewSV(mContext, mRvPhotoList, slideAdapter, 2);
         mAdapter.setRequestDataListener(new OnRequestDataListener() {
             @Override

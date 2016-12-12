@@ -20,6 +20,7 @@ import com.dl7.mvp.module.base.BaseNavActivity;
 import com.dl7.mvp.module.base.IRxBusPresenter;
 import com.dl7.mvp.module.photo.photos.IPhotosView;
 import com.dl7.mvp.module.video.videolist.VideoListFragment;
+import com.dl7.mvp.rxbus.event.VideoEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import rx.functions.Action1;
 
 public class VideosActivity extends BaseNavActivity<IRxBusPresenter> implements IPhotosView {
 
@@ -78,12 +80,12 @@ public class VideosActivity extends BaseNavActivity<IRxBusPresenter> implements 
         initToolBar(mToolBar, true, "视频");
         _setCustomToolbar();
         initDrawerLayout(mDrawerLayout, mNavView, mToolBar);
-//        mPresenter.registerRxBus(LoveEvent.class, new Action1<LoveEvent>() {
-//            @Override
-//            public void call(LoveEvent loveEvent) {
-//                mPresenter.getData();
-//            }
-//        });
+        mPresenter.registerRxBus(VideoEvent.class, new Action1<VideoEvent>() {
+            @Override
+            public void call(VideoEvent videoEvent) {
+                mPresenter.getData();
+            }
+        });
     }
 
     @Override
