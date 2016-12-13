@@ -16,10 +16,10 @@ public final class DialogHelper {
 
 
     public static void downloadDialog(Context context) {
-
+        String title = "剩余容量(" + StringUtils.convertStorageNoB(SDCardUtils.getFreeSpaceBytes()) + ")";
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("下载")
-                .setMessage("这是 android.support.v7.app.AlertDialog 中的样式")
+        builder.setTitle(title)
+                .setMessage("下载需要大量流量，在非wifi下请慎重，是否下载?")
                 .setNegativeButton("取消", null)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override

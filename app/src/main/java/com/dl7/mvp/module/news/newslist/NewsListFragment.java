@@ -1,5 +1,6 @@
 package com.dl7.mvp.module.news.newslist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;

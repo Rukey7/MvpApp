@@ -76,7 +76,7 @@ public class PhotosActivity extends BaseNavActivity<IRxBusPresenter> implements 
 
     @Override
     protected void initViews() {
-        initToolBar(mToolBar, true, "图片");
+        initToolBar(mToolBar, true, "");
         _setCustomToolbar();
         initDrawerLayout(mDrawerLayout, mNavView, mToolBar);
         mPresenter.registerRxBus(LoveEvent.class, new Action1<LoveEvent>() {
@@ -140,6 +140,8 @@ public class PhotosActivity extends BaseNavActivity<IRxBusPresenter> implements 
         View view = getLayoutInflater().inflate(R.layout.layout_custom_toolbar, mToolBar);
         View loveLayout = view.findViewById(R.id.fl_layout);
         mTvLovedCount = (TextView) view.findViewById(R.id.iv_count);
+        TextView tvTitle = (TextView) view.findViewById(R.id.tv_title);
+        tvTitle.setText("图片");
         loveLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

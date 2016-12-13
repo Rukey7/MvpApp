@@ -81,12 +81,11 @@ public class SDCardUtils {
 
     /**
      * 获取空闲的空间大小
-     * @param path  文件路径
      * @return  空间大小
      */
-    public static long getFreeSpaceBytes(final String path) {
+    public static long getFreeSpaceBytes() {
         long freeSpaceBytes;
-        final StatFs statFs = new StatFs(path);
+        final StatFs statFs = new StatFs(getSDPath());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             freeSpaceBytes = statFs.getAvailableBytes();
         } else {

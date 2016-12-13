@@ -7,6 +7,8 @@
     <dimen name="toolbar_margin_top">0dp</dimen>
     <dimen name="toolbar_height">56dp</dimen>
     <dimen name="tab_bar_margin_top">56dp</dimen>
+    <!-- TabLayout -->
+    <dimen name="tab_layout_height">38dp</dimen>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="nav_header_vertical_spacing">10dp</dimen>
@@ -30,5 +32,5 @@
     <dimen name="photo_set_desc_fix_height">150dp</dimen>
     <dimen name="photo_large_height">170dp</dimen>
     <dimen name="photo_small_height">90dp</dimen>
-    <dimen name="photo_margin_width">10dp</dimen>
+    <dimen name="photo_margin_width">1dp</dimen>
 </resources>

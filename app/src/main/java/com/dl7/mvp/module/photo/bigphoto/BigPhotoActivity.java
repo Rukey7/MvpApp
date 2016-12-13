@@ -1,9 +1,9 @@
 package com.dl7.mvp.module.photo.bigphoto;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -81,8 +81,8 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
     }
 
     // 这个给 LoveActivity 使用，配合 setResult() 返回取消的收藏，这样做体验会好点，其实用 RxBus 会更容易做
-    public static void launchForResult(Activity activity, ArrayList<BeautyPhotoBean> datas, int index) {
-        Intent intent = new Intent(activity, BigPhotoActivity.class);
+    public static void launchForResult(Fragment activity, ArrayList<BeautyPhotoBean> datas, int index) {
+        Intent intent = new Intent(activity.getContext(), BigPhotoActivity.class);
         intent.putParcelableArrayListExtra(BIG_PHOTO_KEY, datas);
         intent.putExtra(PHOTO_INDEX_KEY, index);
         intent.putExtra(FROM_LOVE_ACTIVITY, true);

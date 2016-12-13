@@ -698,6 +698,16 @@ public class TagLayout extends ViewGroup {
         }
     }
 
+    public void setCheckTag(int... indexs) {
+        if (mTagMode == TagView.MODE_SINGLE_CHOICE) {
+            for (int i : indexs) {
+                if (mTagViews.get(i) != null) {
+                    mTagViews.get(i).setChecked(true);
+                }
+            }
+        }
+    }
+
     /**
      * delete checked tags
      */

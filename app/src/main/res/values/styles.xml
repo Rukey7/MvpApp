@@ -66,4 +66,5 @@
     <style name="manage_sub_title">
         <item name="android:textSize">12sp</item>
     </style>
+
 </resources>

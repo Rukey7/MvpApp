@@ -140,6 +140,8 @@ public class VideosActivity extends BaseNavActivity<IRxBusPresenter> implements 
         View countLayout = view.findViewById(R.id.fl_layout);
         mTvDlCount = (TextView) view.findViewById(R.id.iv_count);
         mTvDlCount.setBackgroundResource(R.mipmap.btn_star);
+        TextView tvTitle = (TextView) view.findViewById(R.id.tv_title);
+        tvTitle.setText("视频");
         countLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

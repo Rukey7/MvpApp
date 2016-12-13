@@ -1,8 +1,9 @@
-package com.dl7.mvp.module.manage.love;
+package com.dl7.mvp.module.manage.love.photo;
 
 import com.dl7.mvp.local.table.BeautyPhotoBean;
 import com.dl7.mvp.local.table.BeautyPhotoBeanDao;
 import com.dl7.mvp.module.base.ILocalPresenter;
+import com.dl7.mvp.module.manage.love.ILoveView;
 import com.dl7.mvp.rxbus.RxBus;
 import com.dl7.mvp.rxbus.event.LoveEvent;
 
@@ -16,13 +17,13 @@ import rx.functions.Func1;
  * Created by long on 2016/9/28.
  * 收藏 Presenter
  */
-public class LovePresenter implements ILocalPresenter<BeautyPhotoBean> {
+public class LovePhotoPresenter implements ILocalPresenter<BeautyPhotoBean> {
 
     private final ILoveView mView;
     private final BeautyPhotoBeanDao mDbDao;
     private final RxBus mRxBus;
 
-    public LovePresenter(ILoveView view, BeautyPhotoBeanDao dbDao, RxBus rxBus) {
+    public LovePhotoPresenter(ILoveView view, BeautyPhotoBeanDao dbDao, RxBus rxBus) {
         mView = view;
         mDbDao = dbDao;
         mRxBus = rxBus;

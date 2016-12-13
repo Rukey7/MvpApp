@@ -1,7 +1,7 @@
 package com.dl7.mvp.adapter;
 
-import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import com.dl7.mvp.R;
 import com.dl7.mvp.local.table.BeautyPhotoBean;
 import com.dl7.mvp.module.photo.bigphoto.BigPhotoActivity;
-import com.dl7.mvp.module.manage.love.LoveActivity;
 import com.dl7.mvp.utils.DefIconFactory;
 import com.dl7.mvp.utils.ImageLoader;
 import com.dl7.mvp.utils.StringUtils;
@@ -27,7 +26,13 @@ public class BeautyPhotosAdapter extends BaseQuickAdapter<BeautyPhotoBean> {
 
     // 图片的宽度
     private int mPhotoWidth;
+    private Fragment mFragment;
 
+
+    public BeautyPhotosAdapter(Fragment fragment) {
+        this(fragment.getContext());
+        mFragment = fragment;
+    }
 
     public BeautyPhotosAdapter(Context context) {
         super(context);
@@ -59,8 +64,8 @@ public class BeautyPhotosAdapter extends BaseQuickAdapter<BeautyPhotoBean> {
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mContext instanceof LoveActivity) {
-                    BigPhotoActivity.launchForResult((Activity) mContext, (ArrayList<BeautyPhotoBean>) getData(), holder.getAdapterPosition());
+                if (mFragment != null) {
+                    BigPhotoActivity.launchForResult(mFragment, (ArrayList<BeautyPhotoBean>) getData(), holder.getAdapterPosition());
                 } else {
                     BigPhotoActivity.launch(mContext, (ArrayList<BeautyPhotoBean>) getData(), holder.getAdapterPosition());
                 }
