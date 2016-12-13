@@ -145,7 +145,7 @@ public class PhotosActivity extends BaseNavActivity<IRxBusPresenter> implements 
         loveLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoveActivity.launch(PhotosActivity.this);
+                LoveActivity.launch(PhotosActivity.this, 0);
             }
         });
     }

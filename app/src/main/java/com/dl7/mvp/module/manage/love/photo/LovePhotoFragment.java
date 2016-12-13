@@ -17,6 +17,7 @@ import com.dl7.mvp.module.manage.love.ILoveView;
 import com.dl7.mvp.module.photo.bigphoto.BigPhotoActivity;
 import com.dl7.recycler.adapter.BaseQuickAdapter;
 import com.dl7.recycler.helper.RecyclerViewHelper;
+import com.dl7.recycler.listener.OnRecyclerViewItemLongClickListener;
 import com.dl7.recycler.listener.OnRemoveDataListener;
 
 import java.util.List;
@@ -60,8 +61,14 @@ public class LovePhotoFragment extends BaseFragment<ILocalPresenter> implements 
     protected void initViews() {
         SlideInBottomAdapter slideAdapter = new SlideInBottomAdapter(mAdapter);
         RecyclerViewHelper.initRecyclerViewSV(mContext, mRvPhotoList, slideAdapter, 2);
-        RecyclerViewHelper.startDragAndSwipe(mRvPhotoList, mAdapter);
         mRvPhotoList.setItemAnimator(new FlipInLeftYAnimator());
+        mAdapter.setOnItemLongClickListener(new OnRecyclerViewItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(View view, int position) {
+
+                return true;
+            }
+        });
         mAdapter.setRemoveDataListener(new OnRemoveDataListener() {
             @Override
             public void onRemove(int position) {

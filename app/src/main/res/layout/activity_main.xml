@@ -15,12 +15,8 @@
         android:background="?attr/colorPrimary"/>
 
     <android.support.design.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".module.news.home.MainActivity">
+        android:layout_height="match_parent">
 
         <!--
         scroll(0x00000001):要和滚动联动都要设置这个标志;

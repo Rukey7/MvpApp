@@ -1,6 +1,6 @@
 package com.dl7.mvp.injector.modules;
 
-import com.dl7.mvp.adapter.BeautyPhotosAdapter;
+import com.dl7.mvp.adapter.VideoLoveAdapter;
 import com.dl7.mvp.injector.PerFragment;
 import com.dl7.mvp.local.table.DaoSession;
 import com.dl7.mvp.module.base.ILocalPresenter;
@@ -34,6 +34,6 @@ public class LoveVideoModule {
     @PerFragment
     @Provides
     public BaseQuickAdapter provideAdapter() {
-        return new BeautyPhotosAdapter(mView);
+        return new VideoLoveAdapter(mView.getContext());
     }
 }

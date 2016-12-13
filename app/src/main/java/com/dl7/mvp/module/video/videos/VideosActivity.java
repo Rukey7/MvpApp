@@ -18,6 +18,7 @@ import com.dl7.mvp.injector.components.DaggerVideosComponent;
 import com.dl7.mvp.injector.modules.VideosModule;
 import com.dl7.mvp.module.base.BaseNavActivity;
 import com.dl7.mvp.module.base.IRxBusPresenter;
+import com.dl7.mvp.module.manage.love.LoveActivity;
 import com.dl7.mvp.module.photo.photos.IPhotosView;
 import com.dl7.mvp.module.video.videolist.VideoListFragment;
 import com.dl7.mvp.rxbus.event.VideoEvent;
@@ -145,6 +146,7 @@ public class VideosActivity extends BaseNavActivity<IRxBusPresenter> implements 
         countLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LoveActivity.launch(VideosActivity.this, 1);
             }
         });
     }

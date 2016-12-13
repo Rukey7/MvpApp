@@ -11,6 +11,7 @@ import com.dl7.mvp.R;
 import com.dl7.mvp.adapter.ViewPagerAdapter;
 import com.dl7.mvp.module.base.BaseActivity;
 import com.dl7.mvp.module.manage.love.photo.LovePhotoFragment;
+import com.dl7.mvp.module.manage.love.video.LoveVideoFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,8 @@ import butterknife.BindView;
  */
 public class LoveActivity extends BaseActivity {
 
+    private static final String LOVE_INDEX_KEY = "LoveIndexKey";
+
     @BindView(R.id.tool_bar)
     Toolbar mToolBar;
     @BindView(R.id.tab_layout)
@@ -30,9 +33,11 @@ public class LoveActivity extends BaseActivity {
     ViewPager mViewPager;
 
     ViewPagerAdapter mPagerAdapter;
+    private int mIndex;
 
-    public static void launch(Context context) {
+    public static void launch(Context context, int index) {
         Intent intent = new Intent(context, LoveActivity.class);
+        intent.putExtra(LOVE_INDEX_KEY, index);
         context.startActivity(intent);
     }
 
@@ -47,6 +52,7 @@ public class LoveActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+        mIndex = getIntent().getIntExtra(LOVE_INDEX_KEY, 0);
         initToolBar(mToolBar, true, "收藏");
         mPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
     }
@@ -60,7 +66,9 @@ public class LoveActivity extends BaseActivity {
         titles.add("图片");
         titles.add("视频");
         fragments.add(new LovePhotoFragment());
-        fragments.add(new LovePhotoFragment());
+        fragments.add(new LoveVideoFragment());
         mPagerAdapter.setDatas(fragments, titles);
+        mViewPager.setOffscreenPageLimit(titles.size());
+        mViewPager.setCurrentItem(mIndex);
     }
 }
