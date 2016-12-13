@@ -33,4 +33,6 @@
     <dimen name="photo_large_height">170dp</dimen>
     <dimen name="photo_small_height">90dp</dimen>
     <dimen name="photo_margin_width">1dp</dimen>
+
+    <dimen name="video_thumb_width">100dp</dimen>
 </resources>

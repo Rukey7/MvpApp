@@ -34,7 +34,7 @@ import static android.app.Activity.RESULT_OK;
  */
 public class LovePhotoFragment extends BaseFragment<ILocalPresenter> implements ILoveView<BeautyPhotoInfo> {
 
-    @BindView(R.id.rv_photo_list)
+    @BindView(R.id.rv_love_list)
     RecyclerView mRvPhotoList;
     @BindView(R.id.default_bg)
     TextView mDefaultBg;
@@ -44,7 +44,7 @@ public class LovePhotoFragment extends BaseFragment<ILocalPresenter> implements 
 
     @Override
     protected int attachLayoutRes() {
-        return R.layout.fragment_love_photo;
+        return R.layout.fragment_love_list;
     }
 
     @Override
