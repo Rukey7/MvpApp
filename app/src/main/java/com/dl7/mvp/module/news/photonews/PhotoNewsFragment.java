@@ -3,7 +3,7 @@ package com.dl7.mvp.module.news.photonews;
 import android.support.v7.widget.RecyclerView;
 
 import com.dl7.mvp.R;
-import com.dl7.mvp.api.bean.PhotoBean;
+import com.dl7.mvp.api.bean.PhotoInfo;
 import com.dl7.mvp.injector.components.DaggerPhotoNewsComponent;
 import com.dl7.mvp.injector.modules.PhotoNewsModule;
 import com.dl7.mvp.module.base.BaseFragment;
@@ -24,7 +24,7 @@ import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
  * Created by long on 2016/9/5.
  * 图片新闻列表
  */
-public class PhotoNewsFragment extends BaseFragment<IBasePresenter> implements ILoadDataView<List<PhotoBean>> {
+public class PhotoNewsFragment extends BaseFragment<IBasePresenter> implements ILoadDataView<List<PhotoInfo>> {
 
     @BindView(R.id.rv_photo_list)
     RecyclerView mRvPhotoList;
@@ -63,12 +63,12 @@ public class PhotoNewsFragment extends BaseFragment<IBasePresenter> implements I
     }
 
     @Override
-    public void loadData(List<PhotoBean> photoList) {
+    public void loadData(List<PhotoInfo> photoList) {
         mAdapter.updateItems(photoList);
     }
 
     @Override
-    public void loadMoreData(List<PhotoBean> photoList) {
+    public void loadMoreData(List<PhotoInfo> photoList) {
         mAdapter.addItems(photoList);
     }
 

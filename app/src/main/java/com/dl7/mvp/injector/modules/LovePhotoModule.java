@@ -28,7 +28,7 @@ public class LovePhotoModule {
     @PerFragment
     @Provides
     public ILocalPresenter providePresenter(DaoSession daoSession, RxBus rxBus) {
-        return new LovePhotoPresenter(mView, daoSession.getBeautyPhotoBeanDao(), rxBus);
+        return new LovePhotoPresenter(mView, daoSession.getBeautyPhotoInfoDao(), rxBus);
     }
 
     @PerFragment

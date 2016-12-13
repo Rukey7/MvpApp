@@ -33,6 +33,6 @@ public class ChannelModule {
     @PerActivity
     @Provides
     public ILocalPresenter provideManagePresenter(DaoSession daoSession, RxBus rxBus) {
-        return new ChannelPresenter(mView, daoSession.getNewsTypeBeanDao(), rxBus);
+        return new ChannelPresenter(mView, daoSession.getNewsTypeInfoDao(), rxBus);
     }
 }

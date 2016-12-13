@@ -6,7 +6,7 @@ import android.widget.ImageView;
 
 import com.dl7.mvp.R;
 import com.dl7.mvp.api.NewsUtils;
-import com.dl7.mvp.api.bean.NewsBean;
+import com.dl7.mvp.api.bean.NewsInfo;
 import com.dl7.mvp.entity.NewsMultiItem;
 import com.dl7.mvp.module.news.detail.NewsDetailActivity;
 import com.dl7.mvp.module.photo.photoset.PhotoSetActivity;
@@ -59,7 +59,7 @@ public class NewsMultiListAdapter extends BaseMultiItemQuickAdapter<NewsMultiIte
      * @param holder
      * @param item
      */
-    private void _handleNewsNormal(BaseViewHolder holder, final NewsBean item) {
+    private void _handleNewsNormal(BaseViewHolder holder, final NewsInfo item) {
         ImageView newsIcon = holder.getView(R.id.iv_icon);
         ImageLoader.loadFit(mContext, item.getImgsrc(), newsIcon, DefIconFactory.provideIcon());
         holder.setText(R.id.tv_title, item.getTitle())
@@ -92,7 +92,7 @@ public class NewsMultiListAdapter extends BaseMultiItemQuickAdapter<NewsMultiIte
      * @param holder
      * @param item
      */
-    private void _handleNewsPhotoSet(BaseViewHolder holder, final NewsBean item) {
+    private void _handleNewsPhotoSet(BaseViewHolder holder, final NewsInfo item) {
         ImageView[] newsPhoto = new ImageView[3];
         newsPhoto[0] = holder.getView(R.id.iv_icon_1);
         newsPhoto[1] = holder.getView(R.id.iv_icon_2);

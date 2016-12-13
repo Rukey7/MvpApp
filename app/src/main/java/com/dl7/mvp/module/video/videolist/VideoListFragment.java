@@ -9,7 +9,7 @@ import com.dl7.mvp.R;
 import com.dl7.mvp.adapter.SlideInBottomAdapter;
 import com.dl7.mvp.injector.components.DaggerVideoListComponent;
 import com.dl7.mvp.injector.modules.VideoListModule;
-import com.dl7.mvp.local.table.VideoBean;
+import com.dl7.mvp.local.table.VideoInfo;
 import com.dl7.mvp.module.base.BaseFragment;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.module.base.ILoadDataView;
@@ -26,7 +26,7 @@ import butterknife.BindView;
 /**
  * Created by long on 2016/10/11.
  */
-public class VideoListFragment extends BaseFragment<IBasePresenter> implements ILoadDataView<List<VideoBean>> {
+public class VideoListFragment extends BaseFragment<IBasePresenter> implements ILoadDataView<List<VideoInfo>> {
 
     private static final String VIDEO_ID_KEY = "VideoIdKey";
 
@@ -85,15 +85,15 @@ public class VideoListFragment extends BaseFragment<IBasePresenter> implements I
     }
 
     @Override
-    public void loadData(List<VideoBean> videoList) {
+    public void loadData(List<VideoInfo> videoList) {
         mAdapter.updateItems(videoList);
-        for (VideoBean bean : videoList) {
+        for (VideoInfo bean : videoList) {
             Log.e("VideoListFragment", bean.toString());
         }
     }
 
     @Override
-    public void loadMoreData(List<VideoBean> photoList) {
+    public void loadMoreData(List<VideoInfo> photoList) {
         mAdapter.loadComplete();
         mAdapter.addItems(photoList);
     }

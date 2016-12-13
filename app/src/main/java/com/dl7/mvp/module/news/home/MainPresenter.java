@@ -1,7 +1,7 @@
 package com.dl7.mvp.module.news.home;
 
-import com.dl7.mvp.local.table.NewsTypeBean;
-import com.dl7.mvp.local.table.NewsTypeBeanDao;
+import com.dl7.mvp.local.table.NewsTypeInfo;
+import com.dl7.mvp.local.table.NewsTypeInfoDao;
 import com.dl7.mvp.module.base.IRxBusPresenter;
 import com.dl7.mvp.rxbus.RxBus;
 import com.orhanobut.logger.Logger;
@@ -19,10 +19,10 @@ import rx.functions.Action1;
 public class MainPresenter implements IRxBusPresenter {
 
     private final IMainView mView;
-    private final NewsTypeBeanDao mDbDao;
+    private final NewsTypeInfoDao mDbDao;
     private final RxBus mRxBus;
 
-    public MainPresenter(IMainView view, NewsTypeBeanDao dbDao, RxBus rxBus) {
+    public MainPresenter(IMainView view, NewsTypeInfoDao dbDao, RxBus rxBus) {
         mView = view;
         mDbDao = dbDao;
         mRxBus = rxBus;
@@ -32,9 +32,9 @@ public class MainPresenter implements IRxBusPresenter {
     public void getData() {
         mDbDao.queryBuilder().rx().list()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<List<NewsTypeBean>>() {
+                .subscribe(new Action1<List<NewsTypeInfo>>() {
                     @Override
-                    public void call(List<NewsTypeBean> newsTypeBeen) {
+                    public void call(List<NewsTypeInfo> newsTypeBeen) {
                         mView.loadData(newsTypeBeen);
                     }
                 });

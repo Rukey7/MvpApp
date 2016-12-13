@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.dl7.mvp.R;
-import com.dl7.mvp.api.bean.NewsBean;
+import com.dl7.mvp.api.bean.NewsInfo;
 import com.dl7.mvp.utils.DefIconFactory;
 import com.dl7.mvp.utils.ImageLoader;
 import com.dl7.recycler.adapter.BaseQuickAdapter;
@@ -17,13 +17,13 @@ import java.util.List;
  * 新闻列表适配器
  */
 @Deprecated
-public class NewsListAdapter extends BaseQuickAdapter<NewsBean> {
+public class NewsListAdapter extends BaseQuickAdapter<NewsInfo> {
 
     public NewsListAdapter(Context context) {
         super(context);
     }
 
-    public NewsListAdapter(Context context, List<NewsBean> data) {
+    public NewsListAdapter(Context context, List<NewsInfo> data) {
         super(context, data);
     }
 
@@ -33,7 +33,7 @@ public class NewsListAdapter extends BaseQuickAdapter<NewsBean> {
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, NewsBean item) {
+    protected void convert(BaseViewHolder holder, NewsInfo item) {
         ImageView newsIcon = holder.getView(R.id.iv_icon);
         ImageLoader.loadFit(mContext, item.getImgsrc(), newsIcon, DefIconFactory.provideIcon());
         holder.setText(R.id.tv_title, item.getTitle())

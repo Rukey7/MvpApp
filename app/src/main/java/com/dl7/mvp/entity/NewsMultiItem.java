@@ -2,7 +2,7 @@ package com.dl7.mvp.entity;
 
 import android.support.annotation.IntDef;
 
-import com.dl7.mvp.api.bean.NewsBean;
+import com.dl7.mvp.api.bean.NewsInfo;
 import com.dl7.recycler.entity.MultiItemEntity;
 
 import java.lang.annotation.Retention;
@@ -17,18 +17,18 @@ public class NewsMultiItem extends MultiItemEntity {
     public static final int ITEM_TYPE_NORMAL = 1;
     public static final int ITEM_TYPE_PHOTO_SET = 2;
 
-    private NewsBean mNewsBean;
+    private NewsInfo mNewsBean;
 
-    public NewsMultiItem(@NewsItemType int itemType, NewsBean newsBean) {
+    public NewsMultiItem(@NewsItemType int itemType, NewsInfo newsBean) {
         super(itemType);
         mNewsBean = newsBean;
     }
 
-    public NewsBean getNewsBean() {
+    public NewsInfo getNewsBean() {
         return mNewsBean;
     }
 
-    public void setNewsBean(NewsBean newsBean) {
+    public void setNewsBean(NewsInfo newsBean) {
         mNewsBean = newsBean;
     }
 

@@ -64,7 +64,7 @@ public class AndroidApplication extends Application {
         Database database = helper.getWritableDb();
         mDaoSession = new DaoMaster(database).newSession();
         NewsTypeDao.updateLocalData(this, mDaoSession);
-        DownloadUtils.init(mDaoSession.getBeautyPhotoBeanDao());
+        DownloadUtils.init(mDaoSession.getBeautyPhotoInfoDao());
     }
 
     /**

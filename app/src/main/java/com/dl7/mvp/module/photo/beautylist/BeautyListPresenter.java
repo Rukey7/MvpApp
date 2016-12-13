@@ -1,7 +1,7 @@
 package com.dl7.mvp.module.photo.beautylist;
 
 import com.dl7.mvp.api.RetrofitService;
-import com.dl7.mvp.local.table.BeautyPhotoBean;
+import com.dl7.mvp.local.table.BeautyPhotoInfo;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.module.base.ILoadDataView;
 import com.dl7.mvp.views.EmptyLayout;
@@ -36,7 +36,7 @@ public class BeautyListPresenter implements IBasePresenter {
                         mView.showLoading();
                     }
                 })
-                .subscribe(new Subscriber<List<BeautyPhotoBean>>() {
+                .subscribe(new Subscriber<List<BeautyPhotoInfo>>() {
                     @Override
                     public void onCompleted() {
                         mView.hideLoading();
@@ -54,7 +54,7 @@ public class BeautyListPresenter implements IBasePresenter {
                     }
 
                     @Override
-                    public void onNext(List<BeautyPhotoBean> photoList) {
+                    public void onNext(List<BeautyPhotoInfo> photoList) {
                         mView.loadData(photoList);
                     }
                 });
@@ -63,7 +63,7 @@ public class BeautyListPresenter implements IBasePresenter {
     @Override
     public void getMoreData() {
         RetrofitService.getMoreBeautyPhoto()
-                .subscribe(new Subscriber<List<BeautyPhotoBean>>() {
+                .subscribe(new Subscriber<List<BeautyPhotoInfo>>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -75,7 +75,7 @@ public class BeautyListPresenter implements IBasePresenter {
                     }
 
                     @Override
-                    public void onNext(List<BeautyPhotoBean> photoList) {
+                    public void onNext(List<BeautyPhotoInfo> photoList) {
                         mView.loadMoreData(photoList);
                     }
                 });

@@ -2,7 +2,7 @@ package com.dl7.mvp.injector.modules;
 
 import com.dl7.mvp.injector.PerActivity;
 import com.dl7.mvp.local.table.DaoSession;
-import com.dl7.mvp.local.table.VideoBean;
+import com.dl7.mvp.local.table.VideoInfo;
 import com.dl7.mvp.module.base.ILocalPresenter;
 import com.dl7.mvp.module.video.player.VideoPlayerActivity;
 import com.dl7.mvp.module.video.player.VideoPlayerPresenter;
@@ -19,9 +19,9 @@ import dagger.Provides;
 public class VideoPlayerModule {
 
     private final VideoPlayerActivity mView;
-    private final VideoBean mVideoData;
+    private final VideoInfo mVideoData;
 
-    public VideoPlayerModule(VideoPlayerActivity view, VideoBean videoData) {
+    public VideoPlayerModule(VideoPlayerActivity view, VideoInfo videoData) {
         this.mView = view;
         this.mVideoData = videoData;
     }
@@ -29,7 +29,7 @@ public class VideoPlayerModule {
     @PerActivity
     @Provides
     public ILocalPresenter providePresenter(DaoSession daoSession, RxBus rxBus) {
-        return new VideoPlayerPresenter(mView, daoSession.getVideoBeanDao(), rxBus, mVideoData);
+        return new VideoPlayerPresenter(mView, daoSession.getVideoInfoDao(), rxBus, mVideoData);
     }
 
 }

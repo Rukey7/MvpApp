@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dl7.mvp.R;
-import com.dl7.mvp.api.bean.SpecialBean;
+import com.dl7.mvp.api.bean.SpecialInfo;
 import com.dl7.mvp.entity.SpecialItem;
 import com.dl7.mvp.injector.components.DaggerSpecialComponent;
 import com.dl7.mvp.injector.modules.SpecialModule;
@@ -96,7 +96,7 @@ public class SpecialActivity extends BaseActivity<IBasePresenter> implements ISp
     }
 
     @Override
-    public void loadBanner(SpecialBean specialBean) {
+    public void loadBanner(SpecialInfo specialBean) {
         View headView = LayoutInflater.from(this).inflate(R.layout.head_special, null);
         ImageView mIvBanner = (ImageView) headView.findViewById(R.id.iv_banner);
         // 加载图片

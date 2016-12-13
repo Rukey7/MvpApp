@@ -1,8 +1,8 @@
 package com.dl7.mvp.module.photo.bigphoto;
 
 import com.dl7.mvp.api.RetrofitService;
-import com.dl7.mvp.local.table.BeautyPhotoBean;
-import com.dl7.mvp.local.table.BeautyPhotoBeanDao;
+import com.dl7.mvp.local.table.BeautyPhotoInfo;
+import com.dl7.mvp.local.table.BeautyPhotoInfoDao;
 import com.dl7.mvp.module.base.ILoadDataView;
 import com.dl7.mvp.module.base.ILocalPresenter;
 import com.dl7.mvp.rxbus.RxBus;
@@ -21,16 +21,16 @@ import rx.functions.Func1;
  * Created by long on 2016/9/27.
  * 大图 Presenter
  */
-public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoBean> {
+public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoInfo> {
 
     private final ILoadDataView mView;
-    private final BeautyPhotoBeanDao mDbDao;
-    private final List<BeautyPhotoBean> mPhotoList;
+    private final BeautyPhotoInfoDao mDbDao;
+    private final List<BeautyPhotoInfo> mPhotoList;
     private final RxBus mRxBus;
-    private List<BeautyPhotoBean> mDbLovedData;
+    private List<BeautyPhotoInfo> mDbLovedData;
 
 
-    public BigPhotoPresenter(ILoadDataView view, BeautyPhotoBeanDao dbDao, List<BeautyPhotoBean> photoList, RxBus rxBus) {
+    public BigPhotoPresenter(ILoadDataView view, BeautyPhotoInfoDao dbDao, List<BeautyPhotoInfo> photoList, RxBus rxBus) {
         this.mView = view;
         this.mDbDao = dbDao;
         this.mPhotoList = photoList;
@@ -49,11 +49,11 @@ public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoBean> {
                     }
                 })
                 // 判断数据库是否有数据，有则设置对应参数
-                .doOnNext(new Action1<BeautyPhotoBean>() {
-                    BeautyPhotoBean tmpBean;
+                .doOnNext(new Action1<BeautyPhotoInfo>() {
+                    BeautyPhotoInfo tmpBean;
 
                     @Override
-                    public void call(BeautyPhotoBean bean) {
+                    public void call(BeautyPhotoInfo bean) {
                         if (mDbLovedData.contains(bean)) {
                             tmpBean = mDbLovedData.get(mDbLovedData.indexOf(bean));
                             bean.setLove(tmpBean.isLove());
@@ -63,7 +63,7 @@ public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoBean> {
                     }
                 })
                 .toList()
-                .subscribe(new Subscriber<List<BeautyPhotoBean>>() {
+                .subscribe(new Subscriber<List<BeautyPhotoInfo>>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -74,7 +74,7 @@ public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoBean> {
                     }
 
                     @Override
-                    public void onNext(List<BeautyPhotoBean> photoList) {
+                    public void onNext(List<BeautyPhotoInfo> photoList) {
                         mView.loadData(photoList);
                     }
                 });
@@ -83,18 +83,18 @@ public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoBean> {
     @Override
     public void getMoreData() {
         RetrofitService.getMoreBeautyPhoto()
-                .flatMap(new Func1<List<BeautyPhotoBean>, Observable<BeautyPhotoBean>>() {
+                .flatMap(new Func1<List<BeautyPhotoInfo>, Observable<BeautyPhotoInfo>>() {
                     @Override
-                    public Observable<BeautyPhotoBean> call(List<BeautyPhotoBean> photoList) {
+                    public Observable<BeautyPhotoInfo> call(List<BeautyPhotoInfo> photoList) {
                         return Observable.from(photoList);
                     }
                 })
                 // 判断数据库是否有数据，有则设置对应参数
-                .doOnNext(new Action1<BeautyPhotoBean>() {
-                    BeautyPhotoBean tmpBean;
+                .doOnNext(new Action1<BeautyPhotoInfo>() {
+                    BeautyPhotoInfo tmpBean;
 
                     @Override
-                    public void call(BeautyPhotoBean bean) {
+                    public void call(BeautyPhotoInfo bean) {
                         if (mDbLovedData.contains(bean)) {
                             tmpBean = mDbLovedData.get(mDbLovedData.indexOf(bean));
                             bean.setLove(tmpBean.isLove());
@@ -104,7 +104,7 @@ public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoBean> {
                     }
                 })
                 .toList()
-                .subscribe(new Subscriber<List<BeautyPhotoBean>>() {
+                .subscribe(new Subscriber<List<BeautyPhotoInfo>>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -115,14 +115,14 @@ public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoBean> {
                     }
 
                     @Override
-                    public void onNext(List<BeautyPhotoBean> photoList) {
+                    public void onNext(List<BeautyPhotoInfo> photoList) {
                         mView.loadMoreData(photoList);
                     }
                 });
     }
 
     @Override
-    public void insert(BeautyPhotoBean data) {
+    public void insert(BeautyPhotoInfo data) {
         if (mDbLovedData.contains(data)) {
             mDbDao.update(data);
         } else {
@@ -133,7 +133,7 @@ public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoBean> {
     }
 
     @Override
-    public void delete(BeautyPhotoBean data) {
+    public void delete(BeautyPhotoInfo data) {
         if (!data.isLove() && !data.isDownload() && !data.isPraise()) {
             mDbDao.delete(data);
             mDbLovedData.remove(data);
@@ -144,6 +144,6 @@ public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoBean> {
     }
 
     @Override
-    public void update(List<BeautyPhotoBean> list) {
+    public void update(List<BeautyPhotoInfo> list) {
     }
 }

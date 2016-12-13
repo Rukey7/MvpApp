@@ -1,12 +1,12 @@
 package com.dl7.mvp.api;
 
-import com.dl7.mvp.api.bean.NewsBean;
-import com.dl7.mvp.api.bean.NewsDetailBean;
-import com.dl7.mvp.api.bean.PhotoBean;
-import com.dl7.mvp.api.bean.PhotoSetBean;
-import com.dl7.mvp.api.bean.SpecialBean;
-import com.dl7.mvp.local.table.VideoBean;
-import com.dl7.mvp.local.table.BeautyPhotoBean;
+import com.dl7.mvp.api.bean.NewsInfo;
+import com.dl7.mvp.api.bean.NewsDetailInfo;
+import com.dl7.mvp.api.bean.PhotoInfo;
+import com.dl7.mvp.api.bean.PhotoSetInfo;
+import com.dl7.mvp.api.bean.SpecialInfo;
+import com.dl7.mvp.local.table.VideoInfo;
+import com.dl7.mvp.local.table.BeautyPhotoInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -38,7 +38,7 @@ public interface INewsApi {
      */
     @Headers(CACHE_CONTROL_NETWORK)
     @GET("nc/article/{type}/{id}/{startPage}-20.html")
-    Observable<Map<String, List<NewsBean>>> getNewsList(@Path("type") String type, @Path("id") String id,
+    Observable<Map<String, List<NewsInfo>>> getNewsList(@Path("type") String type, @Path("id") String id,
                                                         @Path("startPage") int startPage);
 
     /**
@@ -50,7 +50,7 @@ public interface INewsApi {
      */
     @Headers(CACHE_CONTROL_NETWORK)
     @GET("nc/special/{specialId}.html")
-    Observable<Map<String, SpecialBean>> getSpecial(@Path("specialId") String specialIde);
+    Observable<Map<String, SpecialInfo>> getSpecial(@Path("specialId") String specialIde);
 
     /**
      * 获取新闻详情
@@ -61,7 +61,7 @@ public interface INewsApi {
      */
     @Headers(CACHE_CONTROL_NETWORK)
     @GET("nc/article/{newsId}/full.html")
-    Observable<Map<String, NewsDetailBean>> getNewsDetail(@Path("newsId") String newsId);
+    Observable<Map<String, NewsDetailInfo>> getNewsDetail(@Path("newsId") String newsId);
 
     /**
      * 获取新闻详情
@@ -72,7 +72,7 @@ public interface INewsApi {
      */
     @Headers(CACHE_CONTROL_NETWORK)
     @GET("photo/api/set/{photoId}.json")
-    Observable<PhotoSetBean> getPhotoSet(@Path("photoId") String photoId);
+    Observable<PhotoSetInfo> getPhotoSet(@Path("photoId") String photoId);
 
     /**
      * 获取图片列表
@@ -82,7 +82,7 @@ public interface INewsApi {
      */
     @Headers(CACHE_CONTROL_NETWORK)
     @GET("photo/api/list/0096/4GJ60096.json")
-    Observable<List<PhotoBean>> getPhotoList();
+    Observable<List<PhotoInfo>> getPhotoList();
 
     /**
      * 获取更多图片列表
@@ -92,7 +92,7 @@ public interface INewsApi {
      */
     @Headers(CACHE_CONTROL_NETWORK)
     @GET("photo/api/morelist/0096/4GJ60096/{setId}.json")
-    Observable<List<PhotoBean>> getPhotoMoreList(@Path("setId") String setId);
+    Observable<List<PhotoInfo>> getPhotoMoreList(@Path("setId") String setId);
 
     /**
      * 获取美女图片，这个API不完整，省略了好多参数
@@ -103,7 +103,7 @@ public interface INewsApi {
      */
     @Headers(CACHE_CONTROL_NETWORK)
     @GET("recommend/getChanListNews?channel=T1456112189138&size=20")
-    Observable<Map<String, List<BeautyPhotoBean>>> getBeautyPhoto(@Query("offset") int offset);
+    Observable<Map<String, List<BeautyPhotoInfo>>> getBeautyPhoto(@Query("offset") int offset);
 
     /**
      * 获取视频列表
@@ -115,6 +115,6 @@ public interface INewsApi {
      */
     @Headers(AVOID_HTTP403_FORBIDDEN)
     @GET("nc/video/list/{id}/n/{startPage}-10.html")
-    Observable<Map<String, List<VideoBean>>> getVideoList(@Path("id") String id,
+    Observable<Map<String, List<VideoInfo>>> getVideoList(@Path("id") String id,
                                                           @Path("startPage") int startPage);
 }

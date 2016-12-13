@@ -27,7 +27,7 @@ public class MainModule {
     @PerActivity
     @Provides
     public IRxBusPresenter provideMainPresenter(DaoSession daoSession, RxBus rxBus) {
-        return new MainPresenter(mView, daoSession.getNewsTypeBeanDao(), rxBus);
+        return new MainPresenter(mView, daoSession.getNewsTypeInfoDao(), rxBus);
     }
 
     @PerActivity

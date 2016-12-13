@@ -1,6 +1,6 @@
 package com.dl7.mvp.module.news.home;
 
-import com.dl7.mvp.local.table.NewsTypeBean;
+import com.dl7.mvp.local.table.NewsTypeInfo;
 
 import java.util.List;
 
@@ -14,5 +14,5 @@ public interface IMainView {
      * 显示数据
      * @param checkList     选中栏目
      */
-    void loadData(List<NewsTypeBean> checkList);
+    void loadData(List<NewsTypeInfo> checkList);
 }

@@ -7,8 +7,8 @@ import android.util.SparseBooleanArray;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
-import com.dl7.mvp.local.table.BeautyPhotoBean;
-import com.dl7.mvp.local.table.BeautyPhotoBeanDao;
+import com.dl7.mvp.local.table.BeautyPhotoInfo;
+import com.dl7.mvp.local.table.BeautyPhotoInfoDao;
 import com.orhanobut.logger.Logger;
 
 import java.io.File;
@@ -41,24 +41,24 @@ public final class DownloadUtils {
      * 先进行初始化，把之前下载的图片记录下来
      * @param dbDao
      */
-    public static void init(BeautyPhotoBeanDao dbDao) {
+    public static void init(BeautyPhotoInfoDao dbDao) {
         dbDao.queryBuilder().rx().list()
                 .subscribeOn(Schedulers.io())
-                .flatMap(new Func1<List<BeautyPhotoBean>, Observable<BeautyPhotoBean>>() {
+                .flatMap(new Func1<List<BeautyPhotoInfo>, Observable<BeautyPhotoInfo>>() {
                     @Override
-                    public Observable<BeautyPhotoBean> call(List<BeautyPhotoBean> photoList) {
+                    public Observable<BeautyPhotoInfo> call(List<BeautyPhotoInfo> photoList) {
                         return Observable.from(photoList);
                     }
                 })
-                .filter(new Func1<BeautyPhotoBean, Boolean>() {
+                .filter(new Func1<BeautyPhotoInfo, Boolean>() {
                     @Override
-                    public Boolean call(BeautyPhotoBean bean) {
+                    public Boolean call(BeautyPhotoInfo bean) {
                         return bean.isDownload();
                     }
                 })
-                .subscribe(new Action1<BeautyPhotoBean>() {
+                .subscribe(new Action1<BeautyPhotoInfo>() {
                     @Override
-                    public void call(BeautyPhotoBean bean) {
+                    public void call(BeautyPhotoInfo bean) {
                         sDlPhotos.put(bean.getImgsrc().hashCode(), true);
                     }
                 });

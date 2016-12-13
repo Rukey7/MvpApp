@@ -1,7 +1,7 @@
 package com.dl7.mvp.module.news.detail;
 
 import com.dl7.mvp.api.RetrofitService;
-import com.dl7.mvp.api.bean.NewsDetailBean;
+import com.dl7.mvp.api.bean.NewsDetailInfo;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.utils.ListUtils;
 import com.dl7.mvp.views.EmptyLayout;
@@ -36,13 +36,13 @@ public class NewsDetailPresenter implements IBasePresenter {
                         mView.showLoading();
                     }
                 })
-                .doOnNext(new Action1<NewsDetailBean>() {
+                .doOnNext(new Action1<NewsDetailInfo>() {
                     @Override
-                    public void call(NewsDetailBean newsDetailBean) {
+                    public void call(NewsDetailInfo newsDetailBean) {
                         _handleRichTextWithImg(newsDetailBean);
                     }
                 })
-                .subscribe(new Subscriber<NewsDetailBean>() {
+                .subscribe(new Subscriber<NewsDetailInfo>() {
                     @Override
                     public void onCompleted() {
                         mView.hideLoading();
@@ -59,7 +59,7 @@ public class NewsDetailPresenter implements IBasePresenter {
                     }
 
                     @Override
-                    public void onNext(NewsDetailBean newsDetailBean) {
+                    public void onNext(NewsDetailInfo newsDetailBean) {
                         mView.loadData(newsDetailBean);
                     }
                 });
@@ -73,10 +73,10 @@ public class NewsDetailPresenter implements IBasePresenter {
      * 处理富文本包含图片的情况
      * @param newsDetailBean    原始数据
      */
-    private void _handleRichTextWithImg(NewsDetailBean newsDetailBean) {
+    private void _handleRichTextWithImg(NewsDetailInfo newsDetailBean) {
         if (!ListUtils.isEmpty(newsDetailBean.getImg())) {
             String body = newsDetailBean.getBody();
-            for (NewsDetailBean.ImgEntity imgEntity : newsDetailBean.getImg()) {
+            for (NewsDetailInfo.ImgEntity imgEntity : newsDetailBean.getImg()) {
                 String ref = imgEntity.getRef();
                 String src = imgEntity.getSrc();
                 String img = HTML_IMG_TEMPLATE.replace("http", src);

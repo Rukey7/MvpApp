@@ -14,7 +14,7 @@ import org.greenrobot.greendao.annotation.Generated;
  * 视频实体
  */
 @Entity
-public class VideoBean implements Parcelable {
+public class VideoInfo implements Parcelable {
 
     /**
      * mp4Hd_url : http://flv2.bn.netease.com/videolib3/1501/28/wlncJ2098/HD/wlncJ2098-mobile.mp4
@@ -248,10 +248,10 @@ public class VideoBean implements Parcelable {
         dest.writeByte(this.isCollect ? (byte) 1 : (byte) 0);
     }
 
-    public VideoBean() {
+    public VideoInfo() {
     }
 
-    protected VideoBean(Parcel in) {
+    protected VideoInfo(Parcel in) {
         this.vid = in.readString();
         this.mp4Hd_url = in.readString();
         this.cover = in.readString();
@@ -270,8 +270,8 @@ public class VideoBean implements Parcelable {
         this.isCollect = in.readByte() != 0;
     }
 
-    @Generated(hash = 902011425)
-    public VideoBean(String vid, String mp4Hd_url, String cover, String title, String sectiontitle,
+    @Generated(hash = 1048022349)
+    public VideoInfo(String vid, String mp4Hd_url, String cover, String title, String sectiontitle,
             String mp4_url, int length, String m3u8Hd_url, String ptime, String m3u8_url,
             String videoUrl, long totalSize, long loadedSize, int downloadStatus, long downloadSpeed,
             boolean isCollect) {
@@ -293,24 +293,25 @@ public class VideoBean implements Parcelable {
         this.isCollect = isCollect;
     }
 
-    public static final Creator<VideoBean> CREATOR = new Creator<VideoBean>() {
+
+    public static final Creator<VideoInfo> CREATOR = new Creator<VideoInfo>() {
         @Override
-        public VideoBean createFromParcel(Parcel source) {
-            return new VideoBean(source);
+        public VideoInfo createFromParcel(Parcel source) {
+            return new VideoInfo(source);
         }
 
         @Override
-        public VideoBean[] newArray(int size) {
-            return new VideoBean[size];
+        public VideoInfo[] newArray(int size) {
+            return new VideoInfo[size];
         }
     };
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof VideoBean)) {
+        if (!(o instanceof VideoInfo)) {
             return false;
         }
-        VideoBean other = (VideoBean) o;
+        VideoInfo other = (VideoInfo) o;
         if (vid.equals(other.getVid())) {
             return true;
         }

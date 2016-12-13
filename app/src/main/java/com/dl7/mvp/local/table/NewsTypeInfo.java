@@ -9,7 +9,7 @@ import org.greenrobot.greendao.annotation.Generated;
  * 新闻类型
  */
 @Entity
-public class NewsTypeBean {
+public class NewsTypeInfo {
 
     @Id(autoincrement = true)
     private Long id;
@@ -17,15 +17,15 @@ public class NewsTypeBean {
     private String typeId;
 
 
-    @Generated(hash = 2087168464)
-    public NewsTypeBean(Long id, String name, String typeId) {
+    @Generated(hash = 1707873593)
+    public NewsTypeInfo(Long id, String name, String typeId) {
         this.id = id;
         this.name = name;
         this.typeId = typeId;
     }
 
-    @Generated(hash = 1217992188)
-    public NewsTypeBean() {
+    @Generated(hash = 215923915)
+    public NewsTypeInfo() {
     }
 
 

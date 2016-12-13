@@ -1,6 +1,6 @@
 package com.dl7.mvp.module.news.channel;
 
-import com.dl7.mvp.local.table.NewsTypeBean;
+import com.dl7.mvp.local.table.NewsTypeInfo;
 
 import java.util.List;
 
@@ -15,5 +15,5 @@ public interface IChannelView {
      * @param checkList     选中栏目
      * @param uncheckList   未选中栏目
      */
-    void loadData(List<NewsTypeBean> checkList, List<NewsTypeBean> uncheckList);
+    void loadData(List<NewsTypeInfo> checkList, List<NewsTypeInfo> uncheckList);
 }

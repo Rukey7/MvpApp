@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.dl7.mvp.R;
-import com.dl7.mvp.local.table.VideoBean;
+import com.dl7.mvp.local.table.VideoInfo;
 import com.dl7.mvp.module.video.player.VideoPlayerActivity;
 import com.dl7.mvp.utils.DefIconFactory;
 import com.dl7.mvp.utils.ImageLoader;
@@ -18,13 +18,13 @@ import java.util.List;
  * Created by long on 2016/10/11.
  */
 
-public class VideoListAdapter extends BaseQuickAdapter<VideoBean> {
+public class VideoListAdapter extends BaseQuickAdapter<VideoInfo> {
 
     public VideoListAdapter(Context context) {
         super(context);
     }
 
-    public VideoListAdapter(Context context, List<VideoBean> data) {
+    public VideoListAdapter(Context context, List<VideoInfo> data) {
         super(context, data);
     }
 
@@ -34,7 +34,7 @@ public class VideoListAdapter extends BaseQuickAdapter<VideoBean> {
     }
 
     @Override
-    protected void convert(final BaseViewHolder holder, final VideoBean item) {
+    protected void convert(final BaseViewHolder holder, final VideoInfo item) {
         final ImageView ivPhoto = holder.getView(R.id.iv_photo);
         ImageLoader.loadFitCenter(mContext, item.getCover(), ivPhoto, DefIconFactory.provideIcon());
         holder.setText(R.id.tv_title, item.getTitle());

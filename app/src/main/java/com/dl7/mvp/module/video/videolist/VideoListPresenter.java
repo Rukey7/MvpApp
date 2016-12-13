@@ -1,7 +1,7 @@
 package com.dl7.mvp.module.video.videolist;
 
 import com.dl7.mvp.api.RetrofitService;
-import com.dl7.mvp.local.table.VideoBean;
+import com.dl7.mvp.local.table.VideoInfo;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.module.base.ILoadDataView;
 import com.dl7.mvp.views.EmptyLayout;
@@ -37,7 +37,7 @@ public class VideoListPresenter implements IBasePresenter {
                         mView.showLoading();
                     }
                 })
-                .subscribe(new Subscriber<List<VideoBean>>() {
+                .subscribe(new Subscriber<List<VideoInfo>>() {
                     @Override
                     public void onCompleted() {
                         mView.hideLoading();
@@ -55,7 +55,7 @@ public class VideoListPresenter implements IBasePresenter {
                     }
 
                     @Override
-                    public void onNext(List<VideoBean> videoList) {
+                    public void onNext(List<VideoInfo> videoList) {
                         mView.loadData(videoList);
                     }
                 });
@@ -65,7 +65,7 @@ public class VideoListPresenter implements IBasePresenter {
     @Override
     public void getMoreData() {
         RetrofitService.getVideoListNext(mVideoId)
-                .subscribe(new Subscriber<List<VideoBean>>() {
+                .subscribe(new Subscriber<List<VideoInfo>>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -77,7 +77,7 @@ public class VideoListPresenter implements IBasePresenter {
                     }
 
                     @Override
-                    public void onNext(List<VideoBean> videoList) {
+                    public void onNext(List<VideoInfo> videoList) {
                         mView.loadMoreData(videoList);
                     }
                 });

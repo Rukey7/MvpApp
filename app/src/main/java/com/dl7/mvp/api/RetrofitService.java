@@ -3,15 +3,15 @@ package com.dl7.mvp.api;
 import android.util.SparseArray;
 
 import com.dl7.mvp.AndroidApplication;
-import com.dl7.mvp.api.bean.NewsBean;
-import com.dl7.mvp.api.bean.NewsDetailBean;
-import com.dl7.mvp.api.bean.PhotoBean;
-import com.dl7.mvp.api.bean.PhotoSetBean;
-import com.dl7.mvp.api.bean.SpecialBean;
-import com.dl7.mvp.local.table.VideoBean;
-import com.dl7.mvp.api.bean.WelfarePhotoBean;
+import com.dl7.mvp.api.bean.NewsInfo;
+import com.dl7.mvp.api.bean.NewsDetailInfo;
+import com.dl7.mvp.api.bean.PhotoInfo;
+import com.dl7.mvp.api.bean.PhotoSetInfo;
+import com.dl7.mvp.api.bean.SpecialInfo;
+import com.dl7.mvp.local.table.VideoInfo;
+import com.dl7.mvp.api.bean.WelfarePhotoInfo;
 import com.dl7.mvp.api.bean.WelfarePhotoList;
-import com.dl7.mvp.local.table.BeautyPhotoBean;
+import com.dl7.mvp.local.table.BeautyPhotoInfo;
 import com.dl7.mvp.utils.NetUtil;
 import com.dl7.mvp.utils.StringUtils;
 import com.orhanobut.logger.Logger;
@@ -182,7 +182,7 @@ public class RetrofitService {
      * 获取新闻列表
      * @return
      */
-    public static Observable<NewsBean> getNewsList(String newsId) {
+    public static Observable<NewsInfo> getNewsList(String newsId) {
         synchronized (key) {
             sNewsPage.put(newsId.hashCode(), 0);
         }
@@ -202,7 +202,7 @@ public class RetrofitService {
      * 获取下一页新闻列表
      * @return
      */
-    public static Observable<NewsBean> getNewsListNext(String newsId) {
+    public static Observable<NewsInfo> getNewsListNext(String newsId) {
         int page;
         synchronized (key) {
             Integer prePage = sNewsPage.get(newsId.hashCode());
@@ -230,7 +230,7 @@ public class RetrofitService {
      * @param specialId
      * @return
      */
-    public static Observable<SpecialBean> getSpecial(String specialId) {
+    public static Observable<SpecialInfo> getSpecial(String specialId) {
         return sNewsService.getSpecial(specialId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -242,13 +242,13 @@ public class RetrofitService {
      * @param newsId 新闻ID
      * @return
      */
-    public static Observable<NewsDetailBean> getNewsDetail(final String newsId) {
+    public static Observable<NewsDetailInfo> getNewsDetail(final String newsId) {
         return sNewsService.getNewsDetail(newsId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(new Func1<Map<String, NewsDetailBean>, Observable<NewsDetailBean>>() {
+                .flatMap(new Func1<Map<String, NewsDetailInfo>, Observable<NewsDetailInfo>>() {
                     @Override
-                    public Observable<NewsDetailBean> call(Map<String, NewsDetailBean> newsDetailMap) {
+                    public Observable<NewsDetailInfo> call(Map<String, NewsDetailInfo> newsDetailMap) {
                         return Observable.just(newsDetailMap.get(newsId));
                     }
                 });
@@ -259,7 +259,7 @@ public class RetrofitService {
      * @param photoId 图集ID
      * @return
      */
-    public static Observable<PhotoSetBean> getPhotoSet(String photoId) {
+    public static Observable<PhotoSetInfo> getPhotoSet(String photoId) {
         return sNewsService.getPhotoSet(StringUtils.clipPhotoSetId(photoId))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -269,7 +269,7 @@ public class RetrofitService {
      * 获取图片列表
      * @return
      */
-    public static Observable<List<PhotoBean>> getPhotoList() {
+    public static Observable<List<PhotoInfo>> getPhotoList() {
         return sNewsService.getPhotoList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -279,7 +279,7 @@ public class RetrofitService {
      * 获取更多图片列表
      * @return
      */
-    public static Observable<List<PhotoBean>> getPhotoMoreList(String setId) {
+    public static Observable<List<PhotoInfo>> getPhotoMoreList(String setId) {
         return sNewsService.getPhotoMoreList(setId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -290,7 +290,7 @@ public class RetrofitService {
      * 注: 因为网易这个原接口参数一大堆，我只传了部分参数，返回的数据会出现图片重复的情况，请不要在意这个问题- -
      * @return
      */
-    public static Observable<List<BeautyPhotoBean>> getBeautyPhoto() {
+    public static Observable<List<BeautyPhotoInfo>> getBeautyPhoto() {
         sBeautyPage = 0;
         return sNewsService.getBeautyPhoto(sBeautyPage)
                 .subscribeOn(Schedulers.io())
@@ -303,7 +303,7 @@ public class RetrofitService {
      * 注: 因为网易这个原接口参数一大堆，我只传了部分参数，返回的数据会出现图片重复的情况，请不要在意这个问题- -
      * @return
      */
-    public static Observable<List<BeautyPhotoBean>> getMoreBeautyPhoto() {
+    public static Observable<List<BeautyPhotoInfo>> getMoreBeautyPhoto() {
         sBeautyPage += INCREASE_PAGE;
         return sNewsService.getBeautyPhoto(sBeautyPage)
                 .subscribeOn(Schedulers.io())
@@ -315,7 +315,7 @@ public class RetrofitService {
      * 获取福利图片
      * @return
      */
-    public static Observable<WelfarePhotoBean> getWelfarePhoto() {
+    public static Observable<WelfarePhotoInfo> getWelfarePhoto() {
         sWelfarePage = 1;
         return sWelfareService.getWelfarePhoto(sWelfarePage)
                 .subscribeOn(Schedulers.io())
@@ -327,7 +327,7 @@ public class RetrofitService {
      * 获取福利图片
      * @return
      */
-    public static Observable<WelfarePhotoBean> getMoreWelfarePhoto() {
+    public static Observable<WelfarePhotoInfo> getMoreWelfarePhoto() {
         sWelfarePage += 1;
         return sWelfareService.getWelfarePhoto(sWelfarePage)
                 .subscribeOn(Schedulers.io())
@@ -339,7 +339,7 @@ public class RetrofitService {
      * 获取视频列表
      * @return
      */
-    public static Observable<List<VideoBean>> getVideoList(String videoId) {
+    public static Observable<List<VideoInfo>> getVideoList(String videoId) {
         synchronized (key) {
             sNewsPage.put(videoId.hashCode(), 0);
         }
@@ -353,7 +353,7 @@ public class RetrofitService {
      * 获取下一页视频列表
      * @return
      */
-    public static Observable<List<VideoBean>> getVideoListNext(String videoId) {
+    public static Observable<List<VideoInfo>> getVideoListNext(String videoId) {
         int page;
         synchronized (key) {
             Integer prePage = sNewsPage.get(videoId.hashCode());
@@ -377,10 +377,10 @@ public class RetrofitService {
      * @param typeStr 新闻类型
      * @return
      */
-    private static Func1<Map<String, List<NewsBean>>, Observable<NewsBean>> _flatMapNews(final String typeStr) {
-        return new Func1<Map<String, List<NewsBean>>, Observable<NewsBean>>() {
+    private static Func1<Map<String, List<NewsInfo>>, Observable<NewsInfo>> _flatMapNews(final String typeStr) {
+        return new Func1<Map<String, List<NewsInfo>>, Observable<NewsInfo>>() {
             @Override
-            public Observable<NewsBean> call(Map<String, List<NewsBean>> newsListMap) {
+            public Observable<NewsInfo> call(Map<String, List<NewsInfo>> newsListMap) {
                 return Observable.from(newsListMap.get(typeStr));
             }
         };
@@ -391,10 +391,10 @@ public class RetrofitService {
      * @param typeStr 视频类型
      * @return
      */
-    private static Func1<Map<String, List<VideoBean>>, Observable<List<VideoBean>>> _flatMapVideo(final String typeStr) {
-        return new Func1<Map<String, List<VideoBean>>, Observable<List<VideoBean>>>() {
+    private static Func1<Map<String, List<VideoInfo>>, Observable<List<VideoInfo>>> _flatMapVideo(final String typeStr) {
+        return new Func1<Map<String, List<VideoInfo>>, Observable<List<VideoInfo>>>() {
             @Override
-            public Observable<List<VideoBean>> call(Map<String, List<VideoBean>> newsListMap) {
+            public Observable<List<VideoInfo>> call(Map<String, List<VideoInfo>> newsListMap) {
                 return Observable.just(newsListMap.get(typeStr));
             }
         };
@@ -405,10 +405,10 @@ public class RetrofitService {
      * @param specialId 专题id
      * @return
      */
-    private static Func1<Map<String, SpecialBean>, Observable<SpecialBean>> _flatMapSpecial(final String specialId) {
-        return new Func1<Map<String, SpecialBean>, Observable<SpecialBean>>() {
+    private static Func1<Map<String, SpecialInfo>, Observable<SpecialInfo>> _flatMapSpecial(final String specialId) {
+        return new Func1<Map<String, SpecialInfo>, Observable<SpecialInfo>>() {
             @Override
-            public Observable<SpecialBean> call(Map<String, SpecialBean> specialMap) {
+            public Observable<SpecialInfo> call(Map<String, SpecialInfo> specialMap) {
                 return Observable.just(specialMap.get(specialId));
             }
         };
@@ -418,10 +418,10 @@ public class RetrofitService {
      * 类型转换
      * @return
      */
-    private static Func1<Map<String, List<BeautyPhotoBean>>, Observable<List<BeautyPhotoBean>>> _flatMapPhotos() {
-        return new Func1<Map<String, List<BeautyPhotoBean>>, Observable<List<BeautyPhotoBean>>>() {
+    private static Func1<Map<String, List<BeautyPhotoInfo>>, Observable<List<BeautyPhotoInfo>>> _flatMapPhotos() {
+        return new Func1<Map<String, List<BeautyPhotoInfo>>, Observable<List<BeautyPhotoInfo>>>() {
             @Override
-            public Observable<List<BeautyPhotoBean>> call(Map<String, List<BeautyPhotoBean>> newsListMap) {
+            public Observable<List<BeautyPhotoInfo>> call(Map<String, List<BeautyPhotoInfo>> newsListMap) {
                 return Observable.just(newsListMap.get("美女"));
             }
         };
@@ -431,10 +431,10 @@ public class RetrofitService {
      * 类型转换
      * @return
      */
-    private static Func1<WelfarePhotoList, Observable<WelfarePhotoBean>> _flatMapWelfarePhotos() {
-        return new Func1<WelfarePhotoList, Observable<WelfarePhotoBean>>() {
+    private static Func1<WelfarePhotoList, Observable<WelfarePhotoInfo>> _flatMapWelfarePhotos() {
+        return new Func1<WelfarePhotoList, Observable<WelfarePhotoInfo>>() {
             @Override
-            public Observable<WelfarePhotoBean> call(WelfarePhotoList welfarePhotoList) {
+            public Observable<WelfarePhotoInfo> call(WelfarePhotoList welfarePhotoList) {
                 Logger.w(""+welfarePhotoList.getResults().size());
                 if (welfarePhotoList.getResults().size() == 0) {
                     return Observable.empty();

@@ -6,7 +6,7 @@ import java.util.List;
  * Created by long on 2016/8/29.
  * 图集新闻实体
  */
-public final class PhotoSetBean {
+public final class PhotoSetInfo {
 
     /**
      * postid : PHOT216AK000617K

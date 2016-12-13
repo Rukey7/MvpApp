@@ -1,7 +1,7 @@
 package com.dl7.mvp.module.news.photonews;
 
 import com.dl7.mvp.api.RetrofitService;
-import com.dl7.mvp.api.bean.PhotoBean;
+import com.dl7.mvp.api.bean.PhotoInfo;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.module.base.ILoadDataView;
 import com.dl7.mvp.views.EmptyLayout;
@@ -36,7 +36,7 @@ public class PhotoNewsPresenter implements IBasePresenter {
                         mView.showLoading();
                     }
                 })
-                .subscribe(new Subscriber<List<PhotoBean>>() {
+                .subscribe(new Subscriber<List<PhotoInfo>>() {
                     @Override
                     public void onCompleted() {
                         mView.hideLoading();
@@ -54,7 +54,7 @@ public class PhotoNewsPresenter implements IBasePresenter {
                     }
 
                     @Override
-                    public void onNext(List<PhotoBean> photoList) {
+                    public void onNext(List<PhotoInfo> photoList) {
                         mView.loadData(photoList);
                         mNextSetId = photoList.get(photoList.size() - 1).getSetid();
                     }
@@ -64,7 +64,7 @@ public class PhotoNewsPresenter implements IBasePresenter {
     @Override
     public void getMoreData() {
         RetrofitService.getPhotoMoreList(mNextSetId)
-                .subscribe(new Subscriber<List<PhotoBean>>() {
+                .subscribe(new Subscriber<List<PhotoInfo>>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -75,7 +75,7 @@ public class PhotoNewsPresenter implements IBasePresenter {
                     }
 
                     @Override
-                    public void onNext(List<PhotoBean> photoList) {
+                    public void onNext(List<PhotoInfo> photoList) {
                         mView.loadMoreData(photoList);
                     }
                 });

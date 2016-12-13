@@ -10,7 +10,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.dl7.mvp.R;
-import com.dl7.mvp.local.table.BeautyPhotoBean;
+import com.dl7.mvp.local.table.BeautyPhotoInfo;
 import com.dl7.mvp.utils.ImageLoader;
 import com.github.ybq.android.spinkit.SpinKitView;
 
@@ -28,14 +28,14 @@ public class PhotoPagerAdapter extends PagerAdapter {
 
     // 限制 Adapter 在倒数第3个位置时启动加载更多回调
     private final static int LOAD_MORE_LIMIT = 3;
-    private List<BeautyPhotoBean> mImgList;
+    private List<BeautyPhotoInfo> mImgList;
     private Context mContext;
     private OnTapListener mTapListener;
     private OnLoadMoreListener mLoadMoreListener;
     private boolean mIsLoadMore = false;
 
 
-    public PhotoPagerAdapter(Context context, List<BeautyPhotoBean> imgList) {
+    public PhotoPagerAdapter(Context context, List<BeautyPhotoInfo> imgList) {
         this.mContext = context;
         this.mImgList = imgList;
     }
@@ -45,12 +45,12 @@ public class PhotoPagerAdapter extends PagerAdapter {
         this.mImgList = Collections.EMPTY_LIST;
     }
 
-    public void updateData(List<BeautyPhotoBean> imgList) {
+    public void updateData(List<BeautyPhotoInfo> imgList) {
         this.mImgList = imgList;
         notifyDataSetChanged();
     }
 
-    public void addData(List<BeautyPhotoBean> imgList) {
+    public void addData(List<BeautyPhotoInfo> imgList) {
         mImgList.addAll(imgList);
         notifyDataSetChanged();
         mIsLoadMore = false;
@@ -143,12 +143,12 @@ public class PhotoPagerAdapter extends PagerAdapter {
      * @param position
      * @return
      */
-    public BeautyPhotoBean getData(int position) {
+    public BeautyPhotoInfo getData(int position) {
         return mImgList.get(position);
     }
 
-    public BeautyPhotoBean getData(String url) {
-        for (BeautyPhotoBean bean : mImgList) {
+    public BeautyPhotoInfo getData(String url) {
+        for (BeautyPhotoInfo bean : mImgList) {
             if (bean.getImgsrc().equals(url)) {
                 return bean;
             }

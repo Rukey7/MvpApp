@@ -1,7 +1,7 @@
 package com.dl7.mvp.module.photo.photoset;
 
 import com.dl7.mvp.api.RetrofitService;
-import com.dl7.mvp.api.bean.PhotoSetBean;
+import com.dl7.mvp.api.bean.PhotoSetInfo;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.views.EmptyLayout;
 import com.orhanobut.logger.Logger;
@@ -32,7 +32,7 @@ public class PhotoSetPresenter implements IBasePresenter {
                         mView.showLoading();
                     }
                 })
-                .subscribe(new Subscriber<PhotoSetBean>() {
+                .subscribe(new Subscriber<PhotoSetInfo>() {
                     @Override
                     public void onCompleted() {
                         mView.hideLoading();
@@ -50,7 +50,7 @@ public class PhotoSetPresenter implements IBasePresenter {
                     }
 
                     @Override
-                    public void onNext(PhotoSetBean photoSetBean) {
+                    public void onNext(PhotoSetInfo photoSetBean) {
                         mView.loadData(photoSetBean);
                     }
                 });

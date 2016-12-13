@@ -6,7 +6,7 @@ import java.util.List;
  * Created by long on 2016/8/23.
  * 新闻详情
  */
-public class NewsDetailBean {
+public class NewsDetailInfo {
 
     /**
      * body : <!--IMG#0--><!--IMG#1--><!--IMG#2--><!--IMG#3--><!--IMG#4--><p>　　  8月26日，王宝强更新微博，晒出和刘国梁王楠等人合照，配文称：“奥运精神，兄弟之情，举杯同庆，其乐融融。”</p><p>　　照片发布后，网友纷纷留言称：“宝宝我们都支持你。”“宝宝，喜欢你开心地笑，加油。”</p><!--SPINFO#0--><!--SPINFO#1--><!--SPINFO#2-->
@@ -109,7 +109,7 @@ public class NewsDetailBean {
      * href :
      */
 
-    private List<NewsItemBean> relative_sys;
+    private List<NewsItemInfo> relative_sys;
 
     public String getBody() {
         return body;
@@ -343,11 +343,11 @@ public class NewsDetailBean {
         this.apps = apps;
     }
 
-    public List<NewsItemBean> getRelative_sys() {
+    public List<NewsItemInfo> getRelative_sys() {
         return relative_sys;
     }
 
-    public void setRelative_sys(List<NewsItemBean> relative_sys) {
+    public void setRelative_sys(List<NewsItemInfo> relative_sys) {
         this.relative_sys = relative_sys;
     }
 

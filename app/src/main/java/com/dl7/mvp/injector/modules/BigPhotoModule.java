@@ -2,7 +2,7 @@ package com.dl7.mvp.injector.modules;
 
 import com.dl7.mvp.adapter.PhotoPagerAdapter;
 import com.dl7.mvp.injector.PerActivity;
-import com.dl7.mvp.local.table.BeautyPhotoBean;
+import com.dl7.mvp.local.table.BeautyPhotoInfo;
 import com.dl7.mvp.local.table.DaoSession;
 import com.dl7.mvp.module.base.ILocalPresenter;
 import com.dl7.mvp.module.photo.bigphoto.BigPhotoActivity;
@@ -23,9 +23,9 @@ import dagger.Provides;
 public class BigPhotoModule {
 
     private final BigPhotoActivity mView;
-    private List<BeautyPhotoBean> mPhotoList;
+    private List<BeautyPhotoInfo> mPhotoList;
 
-    public BigPhotoModule(BigPhotoActivity view, List<BeautyPhotoBean> photoList) {
+    public BigPhotoModule(BigPhotoActivity view, List<BeautyPhotoInfo> photoList) {
         this.mView = view;
         this.mPhotoList = photoList;
     }
@@ -33,7 +33,7 @@ public class BigPhotoModule {
     @PerActivity
     @Provides
     public ILocalPresenter providePresenter(DaoSession daoSession, RxBus rxBus) {
-        return new BigPhotoPresenter(mView, daoSession.getBeautyPhotoBeanDao(), mPhotoList, rxBus);
+        return new BigPhotoPresenter(mView, daoSession.getBeautyPhotoInfoDao(), mPhotoList, rxBus);
     }
 
     @PerActivity

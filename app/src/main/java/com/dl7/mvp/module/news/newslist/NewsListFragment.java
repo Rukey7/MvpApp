@@ -1,6 +1,5 @@
 package com.dl7.mvp.module.news.newslist;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +8,7 @@ import android.view.View;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.dl7.mvp.R;
-import com.dl7.mvp.api.bean.NewsBean;
+import com.dl7.mvp.api.bean.NewsInfo;
 import com.dl7.mvp.entity.NewsMultiItem;
 import com.dl7.mvp.injector.components.DaggerNewsListComponent;
 import com.dl7.mvp.injector.modules.NewsListModule;
@@ -126,7 +125,7 @@ public class NewsListFragment extends BaseFragment<IBasePresenter> implements IN
     }
 
     @Override
-    public void loadAdData(NewsBean newsBean) {
+    public void loadAdData(NewsInfo newsBean) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.head_news_list, null);
         mAdSlider = (SliderLayout) view.findViewById(R.id.slider_ads);
         SliderHelper.initAdSlider(mContext, mAdSlider, newsBean);

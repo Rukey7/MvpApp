@@ -12,7 +12,7 @@ import org.greenrobot.greendao.annotation.Generated;
  * 美女图片
  */
 @Entity
-public class BeautyPhotoBean implements Parcelable {
+public class BeautyPhotoInfo implements Parcelable {
 
     /**
      * adtype : 0
@@ -158,10 +158,10 @@ public class BeautyPhotoBean implements Parcelable {
         this.isLove = isLove;
     }
 
-    public BeautyPhotoBean() {
+    public BeautyPhotoInfo() {
     }
 
-    protected BeautyPhotoBean(Parcel in) {
+    protected BeautyPhotoInfo(Parcel in) {
         this.imgsrc = in.readString();
         this.pixel = in.readString();
         this.docid = in.readString();
@@ -171,8 +171,8 @@ public class BeautyPhotoBean implements Parcelable {
         this.isDownload = in.readByte() != 0;
     }
 
-    @Generated(hash = 576484771)
-    public BeautyPhotoBean(String imgsrc, String pixel, String docid, String title,
+    @Generated(hash = 215652306)
+    public BeautyPhotoInfo(String imgsrc, String pixel, String docid, String title,
             boolean isLove, boolean isPraise, boolean isDownload) {
         this.imgsrc = imgsrc;
         this.pixel = pixel;
@@ -183,24 +183,24 @@ public class BeautyPhotoBean implements Parcelable {
         this.isDownload = isDownload;
     }
 
-    public static final Creator<BeautyPhotoBean> CREATOR = new Creator<BeautyPhotoBean>() {
+    public static final Creator<BeautyPhotoInfo> CREATOR = new Creator<BeautyPhotoInfo>() {
         @Override
-        public BeautyPhotoBean createFromParcel(Parcel source) {
-            return new BeautyPhotoBean(source);
+        public BeautyPhotoInfo createFromParcel(Parcel source) {
+            return new BeautyPhotoInfo(source);
         }
 
         @Override
-        public BeautyPhotoBean[] newArray(int size) {
-            return new BeautyPhotoBean[size];
+        public BeautyPhotoInfo[] newArray(int size) {
+            return new BeautyPhotoInfo[size];
         }
     };
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof BeautyPhotoBean)) {
+        if (!(o instanceof BeautyPhotoInfo)) {
             return false;
         }
-        BeautyPhotoBean other = (BeautyPhotoBean) o;
+        BeautyPhotoInfo other = (BeautyPhotoInfo) o;
         if (imgsrc.equals(other.getImgsrc())) {
             return true;
         }

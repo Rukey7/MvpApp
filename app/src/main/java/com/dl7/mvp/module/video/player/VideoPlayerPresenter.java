@@ -1,8 +1,8 @@
 package com.dl7.mvp.module.video.player;
 
 import com.dl7.downloaderlib.model.DownloadStatus;
-import com.dl7.mvp.local.table.VideoBean;
-import com.dl7.mvp.local.table.VideoBeanDao;
+import com.dl7.mvp.local.table.VideoInfo;
+import com.dl7.mvp.local.table.VideoInfoDao;
 import com.dl7.mvp.module.base.ILoadDataView;
 import com.dl7.mvp.module.base.ILocalPresenter;
 import com.dl7.mvp.rxbus.RxBus;
@@ -17,16 +17,16 @@ import rx.functions.Func1;
  * Created by long on 2016/11/30.
  * Video Presenter
  */
-public class VideoPlayerPresenter implements ILocalPresenter<VideoBean> {
+public class VideoPlayerPresenter implements ILocalPresenter<VideoInfo> {
 
     private final ILoadDataView mView;
-    private final VideoBeanDao mDbDao;
+    private final VideoInfoDao mDbDao;
     private final RxBus mRxBus;
-    private final VideoBean mVideoData;
+    private final VideoInfo mVideoData;
     // 是否数据库有记录
     private boolean mIsContains = false;
 
-    public VideoPlayerPresenter(ILoadDataView view, VideoBeanDao dbDao, RxBus rxBus, VideoBean videoData) {
+    public VideoPlayerPresenter(ILoadDataView view, VideoInfoDao dbDao, RxBus rxBus, VideoInfo videoData) {
         mView = view;
         mDbDao = dbDao;
         mRxBus = rxBus;
@@ -38,15 +38,15 @@ public class VideoPlayerPresenter implements ILocalPresenter<VideoBean> {
     public void getData() {
         mDbDao.queryBuilder().rx()
                 .oneByOne()
-                .filter(new Func1<VideoBean, Boolean>() {
+                .filter(new Func1<VideoInfo, Boolean>() {
                     @Override
-                    public Boolean call(VideoBean videoBean) {
+                    public Boolean call(VideoInfo videoBean) {
                         return mVideoData.equals(videoBean);
                     }
                 })
-                .subscribe(new Action1<VideoBean>() {
+                .subscribe(new Action1<VideoInfo>() {
                     @Override
-                    public void call(VideoBean videoBean) {
+                    public void call(VideoInfo videoBean) {
                         mIsContains = true;
                         mView.loadData(videoBean);
                     }
@@ -59,7 +59,7 @@ public class VideoPlayerPresenter implements ILocalPresenter<VideoBean> {
     }
 
     @Override
-    public void insert(VideoBean data) {
+    public void insert(VideoInfo data) {
         if (mIsContains) {
             mDbDao.update(data);
         } else {
@@ -69,7 +69,7 @@ public class VideoPlayerPresenter implements ILocalPresenter<VideoBean> {
     }
 
     @Override
-    public void delete(VideoBean data) {
+    public void delete(VideoInfo data) {
         if (!data.isCollect() && data.getDownloadStatus() == DownloadStatus.NORMAL) {
             mDbDao.delete(data);
             mIsContains = false;
@@ -80,6 +80,6 @@ public class VideoPlayerPresenter implements ILocalPresenter<VideoBean> {
     }
 
     @Override
-    public void update(List<VideoBean> list) {
+    public void update(List<VideoInfo> list) {
     }
 }

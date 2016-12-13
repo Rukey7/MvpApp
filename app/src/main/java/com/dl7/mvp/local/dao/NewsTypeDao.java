@@ -3,8 +3,8 @@ package com.dl7.mvp.local.dao;
 import android.content.Context;
 
 import com.dl7.mvp.local.table.DaoSession;
-import com.dl7.mvp.local.table.NewsTypeBean;
-import com.dl7.mvp.local.table.NewsTypeBeanDao;
+import com.dl7.mvp.local.table.NewsTypeInfo;
+import com.dl7.mvp.local.table.NewsTypeInfoDao;
 import com.dl7.mvp.utils.AssetsHelper;
 import com.dl7.mvp.utils.GsonHelper;
 
@@ -17,7 +17,7 @@ import java.util.List;
 public class NewsTypeDao {
 
     // 所有栏目
-    private static List<NewsTypeBean> sAllChannels;
+    private static List<NewsTypeInfo> sAllChannels;
 
 
     private NewsTypeDao() {
@@ -29,8 +29,8 @@ public class NewsTypeDao {
      * @param daoSession
      */
     public static void updateLocalData(Context context, DaoSession daoSession) {
-        sAllChannels = GsonHelper.convertEntities(AssetsHelper.readData(context, "NewsChannel"), NewsTypeBean.class);
-        NewsTypeBeanDao beanDao = daoSession.getNewsTypeBeanDao();
+        sAllChannels = GsonHelper.convertEntities(AssetsHelper.readData(context, "NewsChannel"), NewsTypeInfo.class);
+        NewsTypeInfoDao beanDao = daoSession.getNewsTypeInfoDao();
         if (beanDao.count() == 0) {
             beanDao.insertInTx(sAllChannels.subList(0, 3));
         }
@@ -40,7 +40,7 @@ public class NewsTypeDao {
      * 获取所有栏目
      * @return
      */
-    public static List<NewsTypeBean> getAllChannels() {
+    public static List<NewsTypeInfo> getAllChannels() {
         return sAllChannels;
     }
 }

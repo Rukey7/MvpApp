@@ -9,8 +9,8 @@ import android.widget.TextView;
 import com.dl7.drag.DragSlopLayout;
 import com.dl7.mvp.R;
 import com.dl7.mvp.adapter.PhotoSetAdapter;
-import com.dl7.mvp.api.bean.PhotoSetBean;
-import com.dl7.mvp.api.bean.PhotoSetBean.PhotosEntity;
+import com.dl7.mvp.api.bean.PhotoSetInfo;
+import com.dl7.mvp.api.bean.PhotoSetInfo.PhotosEntity;
 import com.dl7.mvp.injector.components.DaggerPhotoSetComponent;
 import com.dl7.mvp.injector.modules.PhotoSetModule;
 import com.dl7.mvp.module.base.BaseActivity;
@@ -81,7 +81,7 @@ public class PhotoSetActivity extends BaseActivity<IBasePresenter> implements IP
     }
 
     @Override
-    public void loadData(PhotoSetBean photoSetBean) {
+    public void loadData(PhotoSetInfo photoSetBean) {
         List<String> imgUrls = new ArrayList<>();
         mPhotosEntities = photoSetBean.getPhotos();
         for (PhotosEntity entity : mPhotosEntities) {

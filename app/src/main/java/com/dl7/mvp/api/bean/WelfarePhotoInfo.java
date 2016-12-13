@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by long on 2016/10/10.
  */
 
-public class WelfarePhotoBean {
+public class WelfarePhotoInfo {
 
     /**
      * _id : 57facc74421aa95de3b8ab6b

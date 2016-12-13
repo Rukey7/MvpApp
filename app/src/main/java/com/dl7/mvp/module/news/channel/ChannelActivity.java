@@ -10,7 +10,7 @@ import android.view.View;
 import com.dl7.mvp.R;
 import com.dl7.mvp.injector.components.DaggerManageComponent;
 import com.dl7.mvp.injector.modules.ChannelModule;
-import com.dl7.mvp.local.table.NewsTypeBean;
+import com.dl7.mvp.local.table.NewsTypeInfo;
 import com.dl7.mvp.module.base.BaseActivity;
 import com.dl7.mvp.module.base.ILocalPresenter;
 import com.dl7.recycler.adapter.BaseQuickAdapter;
@@ -109,7 +109,7 @@ public class ChannelActivity extends BaseActivity<ILocalPresenter> implements IC
     }
 
     @Override
-    public void loadData(List<NewsTypeBean> checkList, List<NewsTypeBean> uncheckList) {
+    public void loadData(List<NewsTypeInfo> checkList, List<NewsTypeInfo> uncheckList) {
         mCheckedAdapter.updateItems(checkList);
         mUncheckedAdapter.updateItems(uncheckList);
     }

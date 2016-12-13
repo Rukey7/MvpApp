@@ -2,7 +2,7 @@ package com.dl7.mvp.api;
 
 import android.support.annotation.NonNull;
 
-import com.dl7.mvp.api.bean.NewsBean;
+import com.dl7.mvp.api.bean.NewsInfo;
 
 /**
  * Created by Rukey7 on 2016/8/22.
@@ -30,7 +30,7 @@ public final class NewsUtils {
      * @param newsBean
      * @return
      */
-    public static boolean isAbNews(@NonNull NewsBean newsBean) {
+    public static boolean isAbNews(@NonNull NewsInfo newsBean) {
         return (newsBean.getHasHead() == HAS_HEAD &&
                 newsBean.getAds() != null && newsBean.getAds().size() > 1);
     }

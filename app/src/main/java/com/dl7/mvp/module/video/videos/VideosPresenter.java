@@ -1,6 +1,6 @@
 package com.dl7.mvp.module.video.videos;
 
-import com.dl7.mvp.local.table.VideoBeanDao;
+import com.dl7.mvp.local.table.VideoInfoDao;
 import com.dl7.mvp.module.base.IRxBusPresenter;
 import com.dl7.mvp.module.photo.photos.IPhotosView;
 import com.dl7.mvp.rxbus.RxBus;
@@ -16,10 +16,10 @@ import rx.functions.Action1;
 public class VideosPresenter implements IRxBusPresenter {
 
     private final IPhotosView mView;
-    private final VideoBeanDao mDbDao;
+    private final VideoInfoDao mDbDao;
     private final RxBus mRxBus;
 
-    public VideosPresenter(IPhotosView view, VideoBeanDao dbDao, RxBus rxBus) {
+    public VideosPresenter(IPhotosView view, VideoInfoDao dbDao, RxBus rxBus) {
         mView = view;
         mDbDao = dbDao;
         mRxBus = rxBus;
@@ -27,7 +27,7 @@ public class VideosPresenter implements IRxBusPresenter {
 
     @Override
     public void getData() {
-        mView.updateCount((int) mDbDao.queryBuilder().where(VideoBeanDao.Properties.IsCollect.eq(true)).count());
+        mView.updateCount((int) mDbDao.queryBuilder().where(VideoInfoDao.Properties.IsCollect.eq(true)).count());
     }
 
     @Override

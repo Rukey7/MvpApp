@@ -6,7 +6,7 @@ import com.dl7.mvp.R;
 import com.dl7.mvp.adapter.SlideInBottomAdapter;
 import com.dl7.mvp.injector.components.DaggerBeautyListComponent;
 import com.dl7.mvp.injector.modules.BeautyListModule;
-import com.dl7.mvp.local.table.BeautyPhotoBean;
+import com.dl7.mvp.local.table.BeautyPhotoInfo;
 import com.dl7.mvp.module.base.BaseFragment;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.module.base.ILoadDataView;
@@ -24,7 +24,7 @@ import butterknife.BindView;
  * Created by long on 2016/9/5.
  * 美女图片
  */
-public class BeautyListFragment extends BaseFragment<IBasePresenter> implements ILoadDataView<List<BeautyPhotoBean>> {
+public class BeautyListFragment extends BaseFragment<IBasePresenter> implements ILoadDataView<List<BeautyPhotoInfo>> {
 
     @BindView(R.id.rv_photo_list)
     RecyclerView mRvPhotoList;
@@ -65,12 +65,12 @@ public class BeautyListFragment extends BaseFragment<IBasePresenter> implements 
     }
 
     @Override
-    public void loadData(List<BeautyPhotoBean> photoList) {
+    public void loadData(List<BeautyPhotoInfo> photoList) {
         mAdapter.updateItems(photoList);
     }
 
     @Override
-    public void loadMoreData(List<BeautyPhotoBean> photoList) {
+    public void loadMoreData(List<BeautyPhotoInfo> photoList) {
         mAdapter.loadComplete();
         mAdapter.addItems(photoList);
     }

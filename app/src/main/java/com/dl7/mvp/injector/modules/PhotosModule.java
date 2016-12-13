@@ -33,6 +33,6 @@ public class PhotosModule {
     @PerActivity
     @Provides
     public IRxBusPresenter providePhotosPresenter(DaoSession daoSession, RxBus rxBus) {
-        return new PhotosPresenter(mView, daoSession.getBeautyPhotoBeanDao(), rxBus);
+        return new PhotosPresenter(mView, daoSession.getBeautyPhotoInfoDao(), rxBus);
     }
 }

@@ -1,6 +1,6 @@
 package com.dl7.mvp.module.news.special;
 
-import com.dl7.mvp.api.bean.SpecialBean;
+import com.dl7.mvp.api.bean.SpecialInfo;
 import com.dl7.mvp.entity.SpecialItem;
 import com.dl7.mvp.module.base.IBaseView;
 
@@ -22,5 +22,5 @@ public interface ISpecialView extends IBaseView {
      * 添加头部
      * @param specialBean
      */
-    void loadBanner(SpecialBean specialBean);
+    void loadBanner(SpecialInfo specialBean);
 }

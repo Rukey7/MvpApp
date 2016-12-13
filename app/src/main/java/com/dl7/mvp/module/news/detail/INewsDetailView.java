@@ -1,6 +1,6 @@
 package com.dl7.mvp.module.news.detail;
 
-import com.dl7.mvp.api.bean.NewsDetailBean;
+import com.dl7.mvp.api.bean.NewsDetailInfo;
 import com.dl7.mvp.module.base.IBaseView;
 
 /**
@@ -13,5 +13,5 @@ public interface INewsDetailView extends IBaseView {
      * 显示数据
      * @param newsDetailBean 新闻详情
      */
-    void loadData(NewsDetailBean newsDetailBean);
+    void loadData(NewsDetailInfo newsDetailBean);
 }

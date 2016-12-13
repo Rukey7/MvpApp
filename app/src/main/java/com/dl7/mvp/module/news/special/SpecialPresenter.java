@@ -1,9 +1,9 @@
 package com.dl7.mvp.module.news.special;
 
 import com.dl7.mvp.api.RetrofitService;
-import com.dl7.mvp.api.bean.NewsItemBean;
-import com.dl7.mvp.api.bean.SpecialBean;
-import com.dl7.mvp.api.bean.SpecialBean.TopicsEntity;
+import com.dl7.mvp.api.bean.NewsItemInfo;
+import com.dl7.mvp.api.bean.SpecialInfo;
+import com.dl7.mvp.api.bean.SpecialInfo.TopicsEntity;
 import com.dl7.mvp.entity.SpecialItem;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.views.EmptyLayout;
@@ -42,9 +42,9 @@ public class SpecialPresenter implements IBasePresenter {
                         mView.showLoading();
                     }
                 })
-                .flatMap(new Func1<SpecialBean, Observable<SpecialItem>>() {
+                .flatMap(new Func1<SpecialInfo, Observable<SpecialItem>>() {
                     @Override
-                    public Observable<SpecialItem> call(SpecialBean specialBean) {
+                    public Observable<SpecialItem> call(SpecialInfo specialBean) {
                         mView.loadBanner(specialBean);
                         return _convertSpecialBeanToItem(specialBean);
                     }
@@ -83,7 +83,7 @@ public class SpecialPresenter implements IBasePresenter {
      * @param specialBean
      * @return
      */
-    private Observable<SpecialItem> _convertSpecialBeanToItem(SpecialBean specialBean) {
+    private Observable<SpecialItem> _convertSpecialBeanToItem(SpecialInfo specialBean) {
         // 这边 +1 是接口数据还有个 topicsplus 的字段可能是穿插在 topics 字段列表中间。这里没有处理 topicsplus
         final SpecialItem[] specialItems = new SpecialItem[specialBean.getTopics().size() + 1];
         return Observable.from(specialBean.getTopics())
@@ -114,9 +114,9 @@ public class SpecialPresenter implements IBasePresenter {
                         public Observable<SpecialItem> call(TopicsEntity topicsEntity) {
                             // 转换并在每个列表项增加头部
                             return Observable.from(topicsEntity.getDocs())
-                                    .map(new Func1<NewsItemBean, SpecialItem>() {
+                                    .map(new Func1<NewsItemInfo, SpecialItem>() {
                                         @Override
-                                        public SpecialItem call(NewsItemBean newsItemBean) {
+                                        public SpecialItem call(NewsItemInfo newsItemBean) {
                                             return new SpecialItem(newsItemBean);
                                         }
                                     })

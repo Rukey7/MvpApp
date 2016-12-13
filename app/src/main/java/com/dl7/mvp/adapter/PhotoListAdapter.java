@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.dl7.mvp.R;
-import com.dl7.mvp.api.bean.PhotoBean;
+import com.dl7.mvp.api.bean.PhotoInfo;
 import com.dl7.mvp.module.photo.photoset.PhotoSetActivity;
 import com.dl7.mvp.utils.DefIconFactory;
 import com.dl7.mvp.utils.ImageLoader;
@@ -18,7 +18,7 @@ import java.util.List;
  * Created by long on 2016/9/5.
  * 图片列表适配器
  */
-public class PhotoListAdapter extends BaseQuickAdapter<PhotoBean> {
+public class PhotoListAdapter extends BaseQuickAdapter<PhotoInfo> {
 
     private final static String PERFIX_PHOTO_ID = "0096";
 
@@ -27,7 +27,7 @@ public class PhotoListAdapter extends BaseQuickAdapter<PhotoBean> {
         super(context);
     }
 
-    public PhotoListAdapter(Context context, List<PhotoBean> data) {
+    public PhotoListAdapter(Context context, List<PhotoInfo> data) {
         super(context, data);
     }
 
@@ -37,7 +37,7 @@ public class PhotoListAdapter extends BaseQuickAdapter<PhotoBean> {
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, final PhotoBean item) {
+    protected void convert(BaseViewHolder holder, final PhotoInfo item) {
         ImageView ivPhoto1 = holder.getView(R.id.iv_photo_1);
         ImageView ivPhoto2 = holder.getView(R.id.iv_photo_2);
         ImageView ivPhoto3 = holder.getView(R.id.iv_photo_3);

@@ -15,7 +15,7 @@ import com.dl7.mvp.R;
 import com.dl7.mvp.adapter.ViewPagerAdapter;
 import com.dl7.mvp.injector.components.DaggerMainComponent;
 import com.dl7.mvp.injector.modules.MainModule;
-import com.dl7.mvp.local.table.NewsTypeBean;
+import com.dl7.mvp.local.table.NewsTypeInfo;
 import com.dl7.mvp.module.base.BaseNavActivity;
 import com.dl7.mvp.module.base.IRxBusPresenter;
 import com.dl7.mvp.module.news.channel.ChannelActivity;
@@ -92,10 +92,10 @@ public class MainActivity extends BaseNavActivity<IRxBusPresenter> implements IM
     }
 
     @Override
-    public void loadData(List<NewsTypeBean> checkList) {
+    public void loadData(List<NewsTypeInfo> checkList) {
         List<Fragment> fragments = new ArrayList<>();
         List<String> titles = new ArrayList<>();
-        for (NewsTypeBean bean : checkList) {
+        for (NewsTypeInfo bean : checkList) {
             titles.add(bean.getName());
             fragments.add(NewsListFragment.newInstance(bean.getTypeId()));
         }

@@ -2,7 +2,7 @@ package com.dl7.mvp.module.news.newslist;
 
 import com.dl7.mvp.api.NewsUtils;
 import com.dl7.mvp.api.RetrofitService;
-import com.dl7.mvp.api.bean.NewsBean;
+import com.dl7.mvp.api.bean.NewsInfo;
 import com.dl7.mvp.entity.NewsMultiItem;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.views.EmptyLayout;
@@ -37,18 +37,18 @@ public class NewsListPresenter implements IBasePresenter {
                         mView.showLoading();
                     }
                 })
-                .filter(new Func1<NewsBean, Boolean>() {
+                .filter(new Func1<NewsInfo, Boolean>() {
                     @Override
-                    public Boolean call(NewsBean newsBean) {
+                    public Boolean call(NewsInfo newsBean) {
                         if (NewsUtils.isAbNews(newsBean)) {
                             mView.loadAdData(newsBean);
                         }
                         return !NewsUtils.isAbNews(newsBean);
                     }
                 })
-                .map(new Func1<NewsBean, NewsMultiItem>() {
+                .map(new Func1<NewsInfo, NewsMultiItem>() {
                     @Override
-                    public NewsMultiItem call(NewsBean newsBean) {
+                    public NewsMultiItem call(NewsInfo newsBean) {
                         if (NewsUtils.isNewsPhotoSet(newsBean.getSkipType())) {
                             return new NewsMultiItem(NewsMultiItem.ITEM_TYPE_PHOTO_SET, newsBean);
                         }
@@ -83,9 +83,9 @@ public class NewsListPresenter implements IBasePresenter {
     @Override
     public void getMoreData() {
         RetrofitService.getNewsListNext(mNewsId)
-                .map(new Func1<NewsBean, NewsMultiItem>() {
+                .map(new Func1<NewsInfo, NewsMultiItem>() {
                     @Override
-                    public NewsMultiItem call(NewsBean newsBean) {
+                    public NewsMultiItem call(NewsInfo newsBean) {
                         if (NewsUtils.isNewsPhotoSet(newsBean.getSkipType())) {
                             return new NewsMultiItem(NewsMultiItem.ITEM_TYPE_PHOTO_SET, newsBean);
                         }

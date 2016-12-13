@@ -17,7 +17,7 @@ import com.dl7.mvp.R;
 import com.dl7.mvp.adapter.PhotoPagerAdapter;
 import com.dl7.mvp.injector.components.DaggerBigPhotoComponent;
 import com.dl7.mvp.injector.modules.BigPhotoModule;
-import com.dl7.mvp.local.table.BeautyPhotoBean;
+import com.dl7.mvp.local.table.BeautyPhotoInfo;
 import com.dl7.mvp.module.base.BaseActivity;
 import com.dl7.mvp.module.base.ILoadDataView;
 import com.dl7.mvp.module.base.ILocalPresenter;
@@ -37,7 +37,7 @@ import butterknife.OnClick;
 /**
  * 大图界面，这里和比较多地方关联，所以逻辑会多一点
  */
-public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements ILoadDataView<List<BeautyPhotoBean>> {
+public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements ILoadDataView<List<BeautyPhotoInfo>> {
 
     private static final String BIG_PHOTO_KEY = "BigPhotoKey";
     private static final String PHOTO_INDEX_KEY = "PhotoIndexKey";
@@ -64,7 +64,7 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
 
     @Inject
     PhotoPagerAdapter mAdapter;
-    private List<BeautyPhotoBean> mPhotoList;
+    private List<BeautyPhotoInfo> mPhotoList;
     private int mIndex; // 初始索引
     private boolean mIsFromLoveActivity;    // 是否从 LoveActivity 启动进来
     private boolean mIsHideToolbar = false; // 是否隐藏 Toolbar
@@ -72,7 +72,7 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
     private int mCurPosition;   // Adapter 当前位置
     private boolean[] mIsDelLove;   // 保存被删除的收藏项
 
-    public static void launch(Context context, ArrayList<BeautyPhotoBean> datas, int index) {
+    public static void launch(Context context, ArrayList<BeautyPhotoInfo> datas, int index) {
         Intent intent = new Intent(context, BigPhotoActivity.class);
         intent.putParcelableArrayListExtra(BIG_PHOTO_KEY, datas);
         intent.putExtra(PHOTO_INDEX_KEY, index);
@@ -81,7 +81,7 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
     }
 
     // 这个给 LoveActivity 使用，配合 setResult() 返回取消的收藏，这样做体验会好点，其实用 RxBus 会更容易做
-    public static void launchForResult(Fragment activity, ArrayList<BeautyPhotoBean> datas, int index) {
+    public static void launchForResult(Fragment activity, ArrayList<BeautyPhotoInfo> datas, int index) {
         Intent intent = new Intent(activity.getContext(), BigPhotoActivity.class);
         intent.putParcelableArrayListExtra(BIG_PHOTO_KEY, datas);
         intent.putExtra(PHOTO_INDEX_KEY, index);
@@ -165,7 +165,7 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
     }
 
     @Override
-    public void loadData(List<BeautyPhotoBean> data) {
+    public void loadData(List<BeautyPhotoInfo> data) {
         mAdapter.updateData(data);
         mVpPhoto.setCurrentItem(mIndex);
         if (mIndex == 0) {
@@ -177,7 +177,7 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
     }
 
     @Override
-    public void loadMoreData(List<BeautyPhotoBean> data) {
+    public void loadMoreData(List<BeautyPhotoInfo> data) {
         mAdapter.addData(data);
         mAdapter.startUpdate(mVpPhoto);
     }

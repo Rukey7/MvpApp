@@ -1,7 +1,7 @@
 package com.dl7.mvp.module.photo.welfarephoto;
 
 import com.dl7.mvp.api.RetrofitService;
-import com.dl7.mvp.api.bean.WelfarePhotoBean;
+import com.dl7.mvp.api.bean.WelfarePhotoInfo;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.utils.ImageLoader;
 import com.dl7.mvp.views.EmptyLayout;
@@ -41,9 +41,9 @@ public class WelfarePhotoPresenter implements IBasePresenter {
                 })
                 .observeOn(Schedulers.io())
                 // 接口返回的数据是没有宽高参数的，所以这里设置图片的宽度和高度，速度会慢一点
-                .filter(new Func1<WelfarePhotoBean, Boolean>() {
+                .filter(new Func1<WelfarePhotoInfo, Boolean>() {
                     @Override
-                    public Boolean call(WelfarePhotoBean photoBean) {
+                    public Boolean call(WelfarePhotoInfo photoBean) {
                         try {
                             photoBean.setPixel(ImageLoader.calePhotoSize(mView.getContext(), photoBean.getUrl()));
                             return true;
@@ -58,7 +58,7 @@ public class WelfarePhotoPresenter implements IBasePresenter {
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .toList()
-                .subscribe(new Subscriber<List<WelfarePhotoBean>>() {
+                .subscribe(new Subscriber<List<WelfarePhotoInfo>>() {
                     @Override
                     public void onCompleted() {
                         mView.hideLoading();
@@ -76,7 +76,7 @@ public class WelfarePhotoPresenter implements IBasePresenter {
                     }
 
                     @Override
-                    public void onNext(List<WelfarePhotoBean> photoList) {
+                    public void onNext(List<WelfarePhotoInfo> photoList) {
                         mView.loadData(photoList);
                     }
                 });
@@ -87,9 +87,9 @@ public class WelfarePhotoPresenter implements IBasePresenter {
         RetrofitService.getMoreWelfarePhoto()
                 .observeOn(Schedulers.io())
                 // 接口返回的数据是没有宽高参数的，所以这里设置图片的宽度和高度，速度会慢一点
-                .filter(new Func1<WelfarePhotoBean, Boolean>() {
+                .filter(new Func1<WelfarePhotoInfo, Boolean>() {
                     @Override
-                    public Boolean call(WelfarePhotoBean photoBean) {
+                    public Boolean call(WelfarePhotoInfo photoBean) {
                         try {
                             photoBean.setPixel(ImageLoader.calePhotoSize(mView.getContext(), photoBean.getUrl()));
                             return true;
@@ -104,7 +104,7 @@ public class WelfarePhotoPresenter implements IBasePresenter {
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .toList()
-                .subscribe(new Subscriber<List<WelfarePhotoBean>>() {
+                .subscribe(new Subscriber<List<WelfarePhotoInfo>>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -116,7 +116,7 @@ public class WelfarePhotoPresenter implements IBasePresenter {
                     }
 
                     @Override
-                    public void onNext(List<WelfarePhotoBean> photoList) {
+                    public void onNext(List<WelfarePhotoInfo> photoList) {
                         mView.loadMoreData(photoList);
                     }
                 });

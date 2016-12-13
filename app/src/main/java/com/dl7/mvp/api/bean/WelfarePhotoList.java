@@ -14,7 +14,7 @@ public class WelfarePhotoList {
      */
     private boolean error;
 
-    private List<WelfarePhotoBean> results;
+    private List<WelfarePhotoInfo> results;
 
     public boolean isError() {
         return error;
@@ -24,11 +24,11 @@ public class WelfarePhotoList {
         this.error = error;
     }
 
-    public List<WelfarePhotoBean> getResults() {
+    public List<WelfarePhotoInfo> getResults() {
         return results;
     }
 
-    public void setResults(List<WelfarePhotoBean> results) {
+    public void setResults(List<WelfarePhotoInfo> results) {
         this.results = results;
     }
 }

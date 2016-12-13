@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.dl7.mvp.R;
-import com.dl7.mvp.api.bean.NewsItemBean;
+import com.dl7.mvp.api.bean.NewsItemInfo;
 import com.dl7.mvp.module.news.detail.NewsDetailActivity;
 import com.dl7.mvp.utils.DefIconFactory;
 import com.dl7.mvp.utils.ImageLoader;
@@ -19,13 +19,13 @@ import java.util.List;
  * Created by long on 2016/8/25.
  * 相关新闻适配器
  */
-public class RelatedNewsAdapter extends BaseQuickAdapter<NewsItemBean> {
+public class RelatedNewsAdapter extends BaseQuickAdapter<NewsItemInfo> {
 
     public RelatedNewsAdapter(Context context) {
         super(context);
     }
 
-    public RelatedNewsAdapter(Context context, List<NewsItemBean> data) {
+    public RelatedNewsAdapter(Context context, List<NewsItemInfo> data) {
         super(context, data);
     }
 
@@ -35,7 +35,7 @@ public class RelatedNewsAdapter extends BaseQuickAdapter<NewsItemBean> {
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, final NewsItemBean item) {
+    protected void convert(BaseViewHolder holder, final NewsItemInfo item) {
         ImageView newsIcon = holder.getView(R.id.iv_icon);
         ImageLoader.loadFit(mContext, item.getImgsrc(), newsIcon, DefIconFactory.provideIcon());
         holder.setText(R.id.tv_title, item.getTitle())

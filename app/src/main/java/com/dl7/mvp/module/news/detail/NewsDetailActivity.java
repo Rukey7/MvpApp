@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.dl7.mvp.R;
 import com.dl7.mvp.api.NewsUtils;
-import com.dl7.mvp.api.bean.NewsDetailBean;
+import com.dl7.mvp.api.bean.NewsDetailInfo;
 import com.dl7.mvp.injector.components.DaggerNewsDetailComponent;
 import com.dl7.mvp.injector.modules.NewsDetailModule;
 import com.dl7.mvp.module.base.BaseActivity;
@@ -85,7 +85,7 @@ public class NewsDetailActivity extends BaseActivity<IBasePresenter> implements 
     }
 
     @Override
-    public void loadData(NewsDetailBean newsDetailBean) {
+    public void loadData(NewsDetailInfo newsDetailBean) {
         mTvTitle.setText(newsDetailBean.getTitle());
         mTvSource.setText(newsDetailBean.getSource());
         mTvTime.setText(newsDetailBean.getPtime());
@@ -100,7 +100,7 @@ public class NewsDetailActivity extends BaseActivity<IBasePresenter> implements 
      *
      * @param spinfo
      */
-    private void _handleSpInfo(List<NewsDetailBean.SpinfoEntity> spinfo) {
+    private void _handleSpInfo(List<NewsDetailInfo.SpinfoEntity> spinfo) {
         if (!ListUtils.isEmpty(spinfo)) {
             ViewStub stub = (ViewStub) findViewById(R.id.vs_related_content);
             assert stub != null;
@@ -128,7 +128,7 @@ public class NewsDetailActivity extends BaseActivity<IBasePresenter> implements 
      *
      * @param newsDetailBean
      */
-    private void _handleRelatedNews(NewsDetailBean newsDetailBean) {
+    private void _handleRelatedNews(NewsDetailInfo newsDetailBean) {
         if (!ListUtils.isEmpty(newsDetailBean.getRelative_sys())) {
             ViewStub stub = (ViewStub) findViewById(R.id.vs_related_news);
             assert stub != null;

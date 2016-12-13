@@ -4,7 +4,7 @@ package com.dl7.mvp.api.bean;
  * Created by long on 2016/8/26.
  * 整合专题和详情的新闻列表实体
  */
-public class NewsItemBean {
+public class NewsItemInfo {
 
     private String id;
     private String docID;

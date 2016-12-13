@@ -1,8 +1,8 @@
 package com.dl7.mvp.module.news.channel;
 
 import com.dl7.mvp.local.dao.NewsTypeDao;
-import com.dl7.mvp.local.table.NewsTypeBean;
-import com.dl7.mvp.local.table.NewsTypeBeanDao;
+import com.dl7.mvp.local.table.NewsTypeInfo;
+import com.dl7.mvp.local.table.NewsTypeInfoDao;
 import com.dl7.mvp.module.base.ILocalPresenter;
 import com.dl7.mvp.rxbus.RxBus;
 import com.dl7.mvp.rxbus.event.ChannelEvent;
@@ -22,13 +22,13 @@ import rx.schedulers.Schedulers;
  * Created by long on 2016/9/1.
  * 栏目管理 Presenter
  */
-public class ChannelPresenter implements ILocalPresenter<NewsTypeBean> {
+public class ChannelPresenter implements ILocalPresenter<NewsTypeInfo> {
 
     private final IChannelView mView;
-    private final NewsTypeBeanDao mDbDao;
+    private final NewsTypeInfoDao mDbDao;
     private final RxBus mRxBus;
 
-    public ChannelPresenter(IChannelView view, NewsTypeBeanDao dbDao, RxBus rxBus) {
+    public ChannelPresenter(IChannelView view, NewsTypeInfoDao dbDao, RxBus rxBus) {
         mView = view;
         mDbDao = dbDao;
         mRxBus = rxBus;
@@ -38,23 +38,23 @@ public class ChannelPresenter implements ILocalPresenter<NewsTypeBean> {
     @Override
     public void getData() {
         // 从数据库获取
-        final List<NewsTypeBean> checkList = mDbDao.queryBuilder().list();
+        final List<NewsTypeInfo> checkList = mDbDao.queryBuilder().list();
         final List<String> typeList = new ArrayList<>();
-        for (NewsTypeBean bean : checkList) {
+        for (NewsTypeInfo bean : checkList) {
             typeList.add(bean.getTypeId());
         }
         Observable.from(NewsTypeDao.getAllChannels())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .filter(new Func1<NewsTypeBean, Boolean>() {
+                .filter(new Func1<NewsTypeInfo, Boolean>() {
                     @Override
-                    public Boolean call(NewsTypeBean newsTypeBean) {
+                    public Boolean call(NewsTypeInfo newsTypeBean) {
                         // 过滤掉已经选中的栏目
                         return !typeList.contains(newsTypeBean.getTypeId());
                     }
                 })
                 .toList()
-                .subscribe(new Subscriber<List<NewsTypeBean>>() {
+                .subscribe(new Subscriber<List<NewsTypeInfo>>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -65,7 +65,7 @@ public class ChannelPresenter implements ILocalPresenter<NewsTypeBean> {
                     }
 
                     @Override
-                    public void onNext(List<NewsTypeBean> uncheckList) {
+                    public void onNext(List<NewsTypeInfo> uncheckList) {
                         mView.loadData(checkList, uncheckList);
                     }
                 });
@@ -76,10 +76,10 @@ public class ChannelPresenter implements ILocalPresenter<NewsTypeBean> {
     }
 
     @Override
-    public void insert(NewsTypeBean data) {
+    public void insert(NewsTypeInfo data) {
         mDbDao.rx().insert(data)
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<NewsTypeBean>() {
+                .subscribe(new Subscriber<NewsTypeInfo>() {
                     @Override
                     public void onCompleted() {
                         mRxBus.post(new ChannelEvent());
@@ -91,14 +91,14 @@ public class ChannelPresenter implements ILocalPresenter<NewsTypeBean> {
                     }
 
                     @Override
-                    public void onNext(NewsTypeBean newsTypeBean) {
+                    public void onNext(NewsTypeInfo newsTypeBean) {
                         Logger.w(newsTypeBean.toString());
                     }
                 });
     }
 
     @Override
-    public void delete(NewsTypeBean data) {
+    public void delete(NewsTypeInfo data) {
         mDbDao.rx().delete(data)
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<Void>() {
@@ -119,7 +119,7 @@ public class ChannelPresenter implements ILocalPresenter<NewsTypeBean> {
     }
 
     @Override
-    public void update(List<NewsTypeBean> list) {
+    public void update(List<NewsTypeInfo> list) {
         // 这做法不太妥当，而且列表在交互位置时可能产生很多无用的交互没处理掉，暂时没想到简便的方法来处理，以后有想法再改。
         Observable.from(list)
                 .doOnSubscribe(new Action0() {
@@ -130,7 +130,7 @@ public class ChannelPresenter implements ILocalPresenter<NewsTypeBean> {
                     }
                 })
                 .subscribeOn(Schedulers.computation())
-                .subscribe(new Subscriber<NewsTypeBean>() {
+                .subscribe(new Subscriber<NewsTypeInfo>() {
                     @Override
                     public void onCompleted() {
                         mRxBus.post(new ChannelEvent());
@@ -142,7 +142,7 @@ public class ChannelPresenter implements ILocalPresenter<NewsTypeBean> {
                     }
 
                     @Override
-                    public void onNext(NewsTypeBean newsTypeBean) {
+                    public void onNext(NewsTypeInfo newsTypeBean) {
                         // 把ID清除再加入数据库会从新按列表顺序递增ID
                         newsTypeBean.setId(null);
                         mDbDao.save(newsTypeBean);

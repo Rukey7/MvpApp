@@ -9,7 +9,7 @@ import java.util.List;
  * Created by long on 2016/8/22.
  * 新闻实体
  */
-public final class NewsBean {
+public final class NewsInfo {
 
     /**
      * postid : PHOT22SMT000100A

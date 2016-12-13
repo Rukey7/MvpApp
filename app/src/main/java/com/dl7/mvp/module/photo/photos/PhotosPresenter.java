@@ -1,6 +1,6 @@
 package com.dl7.mvp.module.photo.photos;
 
-import com.dl7.mvp.local.table.BeautyPhotoBeanDao;
+import com.dl7.mvp.local.table.BeautyPhotoInfoDao;
 import com.dl7.mvp.module.base.IRxBusPresenter;
 import com.dl7.mvp.rxbus.RxBus;
 import com.orhanobut.logger.Logger;
@@ -15,10 +15,10 @@ import rx.functions.Action1;
 public class PhotosPresenter implements IRxBusPresenter {
 
     private final IPhotosView mView;
-    private final BeautyPhotoBeanDao mDbDao;
+    private final BeautyPhotoInfoDao mDbDao;
     private final RxBus mRxBus;
 
-    public PhotosPresenter(IPhotosView view, BeautyPhotoBeanDao dbDao, RxBus rxBus) {
+    public PhotosPresenter(IPhotosView view, BeautyPhotoInfoDao dbDao, RxBus rxBus) {
         mView = view;
         mDbDao = dbDao;
         mRxBus = rxBus;
@@ -26,7 +26,7 @@ public class PhotosPresenter implements IRxBusPresenter {
 
     @Override
     public void getData() {
-        mView.updateCount((int) mDbDao.queryBuilder().where(BeautyPhotoBeanDao.Properties.IsLove.eq(true)).count());
+        mView.updateCount((int) mDbDao.queryBuilder().where(BeautyPhotoInfoDao.Properties.IsLove.eq(true)).count());
     }
 
     @Override

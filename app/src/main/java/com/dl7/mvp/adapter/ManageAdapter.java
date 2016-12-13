@@ -3,7 +3,7 @@ package com.dl7.mvp.adapter;
 import android.content.Context;
 
 import com.dl7.mvp.R;
-import com.dl7.mvp.local.table.NewsTypeBean;
+import com.dl7.mvp.local.table.NewsTypeInfo;
 import com.dl7.recycler.adapter.BaseQuickAdapter;
 import com.dl7.recycler.adapter.BaseViewHolder;
 
@@ -13,13 +13,13 @@ import java.util.List;
  * Created by long on 2016/8/31.
  * 管理界面适配器
  */
-public class ManageAdapter extends BaseQuickAdapter<NewsTypeBean> {
+public class ManageAdapter extends BaseQuickAdapter<NewsTypeInfo> {
 
     public ManageAdapter(Context context) {
         super(context);
     }
 
-    public ManageAdapter(Context context, List<NewsTypeBean> data) {
+    public ManageAdapter(Context context, List<NewsTypeInfo> data) {
         super(context, data);
     }
 
@@ -29,7 +29,7 @@ public class ManageAdapter extends BaseQuickAdapter<NewsTypeBean> {
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, NewsTypeBean item) {
+    protected void convert(BaseViewHolder holder, NewsTypeInfo item) {
         holder.setText(R.id.tv_channel_name, item.getName());
     }
 }

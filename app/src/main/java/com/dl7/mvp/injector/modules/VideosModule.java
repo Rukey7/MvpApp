@@ -32,6 +32,6 @@ public class VideosModule {
     @PerActivity
     @Provides
     public IRxBusPresenter provideVideosPresenter(DaoSession daoSession, RxBus rxBus) {
-        return new VideosPresenter(mView, daoSession.getVideoBeanDao(), rxBus);
+        return new VideosPresenter(mView, daoSession.getVideoInfoDao(), rxBus);
     }
 }

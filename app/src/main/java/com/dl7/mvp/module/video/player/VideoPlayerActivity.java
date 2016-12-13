@@ -13,7 +13,7 @@ import com.dl7.downloaderlib.model.DownloadStatus;
 import com.dl7.mvp.R;
 import com.dl7.mvp.injector.components.DaggerVideoPlayerComponent;
 import com.dl7.mvp.injector.modules.VideoPlayerModule;
-import com.dl7.mvp.local.table.VideoBean;
+import com.dl7.mvp.local.table.VideoInfo;
 import com.dl7.mvp.module.base.BaseActivity;
 import com.dl7.mvp.module.base.ILoadDataView;
 import com.dl7.mvp.module.base.ILocalPresenter;
@@ -24,7 +24,7 @@ import com.sackcentury.shinebuttonlib.ShineButton;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class VideoPlayerActivity extends BaseActivity<ILocalPresenter> implements ILoadDataView<VideoBean> {
+public class VideoPlayerActivity extends BaseActivity<ILocalPresenter> implements ILoadDataView<VideoInfo> {
 
     private static final String VIDEO_DATA_KEY = "VideoPlayerKey";
 
@@ -39,9 +39,9 @@ public class VideoPlayerActivity extends BaseActivity<ILocalPresenter> implement
     @BindView(R.id.iv_video_download)
     ImageView mIvVideoDownload;
 
-    private VideoBean mVideoData;
+    private VideoInfo mVideoData;
 
-    public static void launch(Context context, VideoBean data) {
+    public static void launch(Context context, VideoInfo data) {
         Intent intent = new Intent(context, VideoPlayerActivity.class);
         intent.putExtra(VIDEO_DATA_KEY, data);
         context.startActivity(intent);
@@ -138,14 +138,14 @@ public class VideoPlayerActivity extends BaseActivity<ILocalPresenter> implement
     }
 
     @Override
-    public void loadData(VideoBean data) {
+    public void loadData(VideoInfo data) {
         mVideoData = data;
         mIvVideoCollect.setChecked(data.isCollect());
         mIvVideoDownload.setSelected(data.getDownloadStatus() != DownloadStatus.NORMAL);
     }
 
     @Override
-    public void loadMoreData(VideoBean data) {
+    public void loadMoreData(VideoInfo data) {
     }
 
     @Override

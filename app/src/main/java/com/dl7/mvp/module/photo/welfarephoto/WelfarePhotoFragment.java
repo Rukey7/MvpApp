@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.dl7.mvp.R;
 import com.dl7.mvp.adapter.SlideInBottomAdapter;
-import com.dl7.mvp.api.bean.WelfarePhotoBean;
+import com.dl7.mvp.api.bean.WelfarePhotoInfo;
 import com.dl7.mvp.injector.components.DaggerWelfarePhotoComponent;
 import com.dl7.mvp.injector.modules.WelfarePhotoModule;
 import com.dl7.mvp.module.base.BaseFragment;
@@ -24,7 +24,7 @@ import butterknife.BindView;
  * Created by long on 2016/10/11.
  * 福利图片界面
  */
-public class WelfarePhotoFragment extends BaseFragment<IBasePresenter> implements ILoadDataView<List<WelfarePhotoBean>> {
+public class WelfarePhotoFragment extends BaseFragment<IBasePresenter> implements ILoadDataView<List<WelfarePhotoInfo>> {
 
     @BindView(R.id.rv_photo_list)
     RecyclerView mRvPhotoList;
@@ -65,12 +65,12 @@ public class WelfarePhotoFragment extends BaseFragment<IBasePresenter> implement
     }
 
     @Override
-    public void loadData(List<WelfarePhotoBean> photoList) {
+    public void loadData(List<WelfarePhotoInfo> photoList) {
         mAdapter.updateItems(photoList);
     }
 
     @Override
-    public void loadMoreData(List<WelfarePhotoBean> photoList) {
+    public void loadMoreData(List<WelfarePhotoInfo> photoList) {
         mAdapter.loadComplete();
         mAdapter.addItems(photoList);
     }

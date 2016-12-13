@@ -6,7 +6,7 @@ import java.util.List;
  * Created by long on 2016/8/23.
  * 专题数据
  */
-public final class SpecialBean {
+public final class SpecialInfo {
 
     private String sid;
     private String shownav;
@@ -212,7 +212,7 @@ public final class SpecialBean {
          * ptime : 2016-08-23 09:48:02
          */
 
-        private List<NewsItemBean> docs;
+        private List<NewsItemInfo> docs;
 
         public int getIndex() {
             return index;
@@ -246,11 +246,11 @@ public final class SpecialBean {
             this.type = type;
         }
 
-        public List<NewsItemBean> getDocs() {
+        public List<NewsItemInfo> getDocs() {
             return docs;
         }
 
-        public void setDocs(List<NewsItemBean> docs) {
+        public void setDocs(List<NewsItemInfo> docs) {
             this.docs = docs;
         }
 

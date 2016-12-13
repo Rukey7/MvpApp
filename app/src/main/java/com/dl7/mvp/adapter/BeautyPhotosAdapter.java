@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.dl7.mvp.R;
-import com.dl7.mvp.local.table.BeautyPhotoBean;
+import com.dl7.mvp.local.table.BeautyPhotoInfo;
 import com.dl7.mvp.module.photo.bigphoto.BigPhotoActivity;
 import com.dl7.mvp.utils.DefIconFactory;
 import com.dl7.mvp.utils.ImageLoader;
@@ -22,7 +22,7 @@ import java.util.List;
  * Created by long on 2016/9/22.
  * 美图 Adapter
  */
-public class BeautyPhotosAdapter extends BaseQuickAdapter<BeautyPhotoBean> {
+public class BeautyPhotosAdapter extends BaseQuickAdapter<BeautyPhotoInfo> {
 
     // 图片的宽度
     private int mPhotoWidth;
@@ -41,7 +41,7 @@ public class BeautyPhotosAdapter extends BaseQuickAdapter<BeautyPhotoBean> {
         mPhotoWidth = widthPixels / 2 - marginPixels;
     }
 
-    public BeautyPhotosAdapter(Context context, List<BeautyPhotoBean> data) {
+    public BeautyPhotosAdapter(Context context, List<BeautyPhotoInfo> data) {
         super(context, data);
     }
 
@@ -51,7 +51,7 @@ public class BeautyPhotosAdapter extends BaseQuickAdapter<BeautyPhotoBean> {
     }
 
     @Override
-    protected void convert(final BaseViewHolder holder, final BeautyPhotoBean item) {
+    protected void convert(final BaseViewHolder holder, final BeautyPhotoInfo item) {
         final ImageView ivPhoto = holder.getView(R.id.iv_photo);
         int photoHeight = StringUtils.calcPhotoHeight(item.getPixel(), mPhotoWidth);
         // 接口返回的数据有像素分辨率，根据这个来缩放图片大小
@@ -65,9 +65,9 @@ public class BeautyPhotosAdapter extends BaseQuickAdapter<BeautyPhotoBean> {
             @Override
             public void onClick(View v) {
                 if (mFragment != null) {
-                    BigPhotoActivity.launchForResult(mFragment, (ArrayList<BeautyPhotoBean>) getData(), holder.getAdapterPosition());
+                    BigPhotoActivity.launchForResult(mFragment, (ArrayList<BeautyPhotoInfo>) getData(), holder.getAdapterPosition());
                 } else {
-                    BigPhotoActivity.launch(mContext, (ArrayList<BeautyPhotoBean>) getData(), holder.getAdapterPosition());
+                    BigPhotoActivity.launch(mContext, (ArrayList<BeautyPhotoInfo>) getData(), holder.getAdapterPosition());
                 }
             }
         });

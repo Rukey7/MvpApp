@@ -10,7 +10,7 @@ import com.dl7.mvp.R;
 import com.dl7.mvp.adapter.SlideInBottomAdapter;
 import com.dl7.mvp.injector.components.DaggerLovePhotoComponent;
 import com.dl7.mvp.injector.modules.LovePhotoModule;
-import com.dl7.mvp.local.table.BeautyPhotoBean;
+import com.dl7.mvp.local.table.BeautyPhotoInfo;
 import com.dl7.mvp.module.base.BaseFragment;
 import com.dl7.mvp.module.base.ILocalPresenter;
 import com.dl7.mvp.module.manage.love.ILoveView;
@@ -32,7 +32,7 @@ import static android.app.Activity.RESULT_OK;
  * Created by long on 2016/12/13.
  * 图片收藏界面
  */
-public class LovePhotoFragment extends BaseFragment<ILocalPresenter> implements ILoveView {
+public class LovePhotoFragment extends BaseFragment<ILocalPresenter> implements ILoveView<BeautyPhotoInfo> {
 
     @BindView(R.id.rv_photo_list)
     RecyclerView mRvPhotoList;
@@ -76,7 +76,7 @@ public class LovePhotoFragment extends BaseFragment<ILocalPresenter> implements 
     }
 
     @Override
-    public void loadData(List<BeautyPhotoBean> photoList) {
+    public void loadData(List<BeautyPhotoInfo> photoList) {
         if (mDefaultBg.getVisibility() == View.VISIBLE) {
             mDefaultBg.setVisibility(View.GONE);
         }

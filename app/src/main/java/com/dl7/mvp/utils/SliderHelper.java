@@ -8,7 +8,7 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.dl7.mvp.api.NewsUtils;
-import com.dl7.mvp.api.bean.NewsBean;
+import com.dl7.mvp.api.bean.NewsInfo;
 import com.dl7.mvp.module.news.detail.NewsDetailActivity;
 import com.dl7.mvp.module.photo.photoset.PhotoSetActivity;
 import com.dl7.mvp.module.news.special.SpecialActivity;
@@ -32,8 +32,8 @@ public final class SliderHelper {
      * @param sliderLayout
      * @param newsBean
      */
-    public static void initAdSlider(final Context context, SliderLayout sliderLayout, NewsBean newsBean) {
-        for (NewsBean.AdData adData : newsBean.getAds()) {
+    public static void initAdSlider(final Context context, SliderLayout sliderLayout, NewsInfo newsBean) {
+        for (NewsInfo.AdData adData : newsBean.getAds()) {
             TextSliderView textSliderView = new TextSliderView(context);
             // initialize a SliderLayout
             textSliderView.description(adData.getTitle())
@@ -43,7 +43,7 @@ public final class SliderHelper {
                         @Override
                         public void onSliderClick(BaseSliderView slider) {
                             if (slider.getBundle() != null) {
-                                NewsBean.AdData adData = slider.getBundle().getParcelable(SLIDER_KEY);
+                                NewsInfo.AdData adData = slider.getBundle().getParcelable(SLIDER_KEY);
                                 if (adData != null) {
                                     if (NewsUtils.isNewsPhotoSet(adData.getTag())) {
                                         PhotoSetActivity.launch(context, adData.getUrl());

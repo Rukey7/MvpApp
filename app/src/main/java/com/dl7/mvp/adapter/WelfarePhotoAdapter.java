@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.dl7.mvp.R;
-import com.dl7.mvp.api.bean.WelfarePhotoBean;
+import com.dl7.mvp.api.bean.WelfarePhotoInfo;
 import com.dl7.mvp.utils.DefIconFactory;
 import com.dl7.mvp.utils.ImageLoader;
 import com.dl7.mvp.utils.StringUtils;
@@ -18,9 +18,9 @@ import java.util.List;
 
 /**
  * Created by long on 2016/10/11.
+ * 福利图适配器
  */
-
-public class WelfarePhotoAdapter extends BaseQuickAdapter<WelfarePhotoBean> {
+public class WelfarePhotoAdapter extends BaseQuickAdapter<WelfarePhotoInfo> {
 
     // 图片的宽度
     private int mPhotoWidth;
@@ -33,7 +33,7 @@ public class WelfarePhotoAdapter extends BaseQuickAdapter<WelfarePhotoBean> {
         mPhotoWidth = widthPixels / 2 - marginPixels;
     }
 
-    public WelfarePhotoAdapter(Context context, List<WelfarePhotoBean> data) {
+    public WelfarePhotoAdapter(Context context, List<WelfarePhotoInfo> data) {
         super(context, data);
     }
 
@@ -43,7 +43,7 @@ public class WelfarePhotoAdapter extends BaseQuickAdapter<WelfarePhotoBean> {
     }
 
     @Override
-    protected void convert(final BaseViewHolder holder, final WelfarePhotoBean item) {
+    protected void convert(final BaseViewHolder holder, final WelfarePhotoInfo item) {
         final ImageView ivPhoto = holder.getView(R.id.iv_photo);
         int photoHeight = StringUtils.calcPhotoHeight(item.getPixel(), mPhotoWidth);
         // 返回的数据有像素分辨率，根据这个来缩放图片大小
