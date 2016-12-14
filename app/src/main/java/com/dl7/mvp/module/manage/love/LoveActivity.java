@@ -69,6 +69,6 @@ public class LoveActivity extends BaseActivity {
         fragments.add(new LoveVideoFragment());
         mPagerAdapter.setDatas(fragments, titles);
         mViewPager.setOffscreenPageLimit(titles.size());
-        mViewPager.setCurrentItem(mIndex);
+        mViewPager.setCurrentItem(mIndex, true);
     }
 }
