@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -24,9 +23,9 @@ import com.dl7.mvp.module.photo.beautylist.BeautyListFragment;
 import com.dl7.mvp.module.photo.welfarephoto.WelfarePhotoFragment;
 import com.dl7.mvp.rxbus.event.LoveEvent;
 import com.dl7.mvp.utils.AnimateHelper;
+import com.flyco.tablayout.SlidingTabLayout;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -41,7 +40,7 @@ public class PhotosActivity extends BaseNavActivity<IRxBusPresenter> implements 
     @BindView(R.id.tool_bar)
     Toolbar mToolBar;
     @BindView(R.id.tab_layout)
-    TabLayout mTabLayout;
+    SlidingTabLayout mTabLayout;
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
     @BindView(R.id.nav_view)
@@ -89,17 +88,23 @@ public class PhotosActivity extends BaseNavActivity<IRxBusPresenter> implements 
 
     @Override
     protected void updateViews() {
-        mViewPager.setAdapter(mPagerAdapter);
-        mTabLayout.setupWithViewPager(mViewPager);
-        List<Fragment> fragments = new ArrayList<>();
-        List<String> titles = new ArrayList<>();
-        titles.add("美女");
-        titles.add("福利");
-        titles.add("生活");
+        ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(new BeautyListFragment());
         fragments.add(new WelfarePhotoFragment());
         fragments.add(new PhotoNewsFragment());
-        mPagerAdapter.setItems(fragments, titles);
+        mTabLayout.setViewPager(mViewPager, new String[] {"美女", "福利", "生活"}, this, fragments);
+
+//        mViewPager.setAdapter(mPagerAdapter);
+//        mTabLayout.setupWithViewPager(mViewPager);
+//        List<Fragment> fragments = new ArrayList<>();
+//        List<String> titles = new ArrayList<>();
+//        titles.add("美女");
+//        titles.add("福利");
+//        titles.add("生活");
+//        fragments.add(new BeautyListFragment());
+//        fragments.add(new WelfarePhotoFragment());
+//        fragments.add(new PhotoNewsFragment());
+//        mPagerAdapter.setItems(fragments, titles);
         mPresenter.getData();
     }
 

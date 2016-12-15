@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import com.dl7.mvp.R;
 import com.dl7.mvp.adapter.ViewPagerAdapter;
 import com.dl7.mvp.module.base.BaseActivity;
+import com.dl7.mvp.module.base.ILocalPresenter;
 import com.dl7.mvp.module.manage.love.photo.LovePhotoFragment;
 import com.dl7.mvp.module.manage.love.video.LoveVideoFragment;
 import com.flyco.tablayout.SlidingTabLayout;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 
-public class DownloadActivity extends BaseActivity {
+public class DownloadActivity extends BaseActivity<ILocalPresenter> {
 
     @BindView(R.id.tool_bar)
     Toolbar mToolBar;

@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/iv_thumb"
-        android:layout_width="120dp"
-        android:layout_height="67dp"
+        android:layout_width="@dimen/video_thumb_width"
+        android:layout_height="@dimen/video_thumb_height"
         android:scaleType="fitXY"
         android:src="@mipmap/icon_default_1"/>
 

@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -22,9 +21,9 @@ import com.dl7.mvp.module.manage.love.LoveActivity;
 import com.dl7.mvp.module.photo.photos.IPhotosView;
 import com.dl7.mvp.module.video.videolist.VideoListFragment;
 import com.dl7.mvp.rxbus.event.VideoEvent;
+import com.flyco.tablayout.SlidingTabLayout;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -43,7 +42,7 @@ public class VideosActivity extends BaseNavActivity<IRxBusPresenter> implements 
     @BindView(R.id.tool_bar)
     Toolbar mToolBar;
     @BindView(R.id.tab_layout)
-    TabLayout mTabLayout;
+    SlidingTabLayout mTabLayout;
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
     @BindView(R.id.nav_view)
@@ -91,15 +90,21 @@ public class VideosActivity extends BaseNavActivity<IRxBusPresenter> implements 
 
     @Override
     protected void updateViews() {
-        mViewPager.setAdapter(mPagerAdapter);
-        mTabLayout.setupWithViewPager(mViewPager);
-        List<Fragment> fragments = new ArrayList<>();
-        List<String> titles = new ArrayList<>();
+        ArrayList<Fragment> fragments = new ArrayList<>();
         for (int i = 0; i < VIDEO_ID.length; i++) {
-            titles.add(VIDEO_TITLE[i]);
             fragments.add(VideoListFragment.newInstance(VIDEO_ID[i]));
         }
-        mPagerAdapter.setItems(fragments, titles);
+        mTabLayout.setViewPager(mViewPager, VIDEO_TITLE, this, fragments);
+
+//        mViewPager.setAdapter(mPagerAdapter);
+//        mTabLayout.setupWithViewPager(mViewPager);
+//        List<Fragment> fragments = new ArrayList<>();
+//        List<String> titles = new ArrayList<>();
+//        for (int i = 0; i < VIDEO_ID.length; i++) {
+//            titles.add(VIDEO_TITLE[i]);
+//            fragments.add(VideoListFragment.newInstance(VIDEO_ID[i]));
+//        }
+//        mPagerAdapter.setItems(fragments, titles);
         mPresenter.getData();
     }
 

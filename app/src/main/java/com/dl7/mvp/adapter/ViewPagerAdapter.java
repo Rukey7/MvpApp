@@ -5,8 +5,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 
-import com.orhanobut.logger.Logger;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +17,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     List<String> mTitles;
     List<Fragment> fragments;
-
 
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -47,16 +44,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         return PagerAdapter.POSITION_NONE;
     }
 
-    public void setFragments(List<Fragment> fragments) {
-        this.fragments = fragments;
-        notifyDataSetChanged();
-    }
-
-    public void setTitles(List<String> mTitles) {
-        this.mTitles = mTitles;
-        notifyDataSetChanged();
-    }
-
     public void setItems(List<Fragment> fragments, List<String> mTitles) {
         this.fragments = fragments;
         this.mTitles = mTitles;
@@ -77,18 +64,20 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     public int delItem(String title) {
         int index = mTitles.indexOf(title);
-        Logger.e(mTitles.toString());
-        Logger.i(title);
-        Logger.i(""+index);
         if (index != -1) {
             delItem(index);
         }
         return index;
     }
 
-    public void swapItems(int posOne, int posTwo) {
-        Collections.swap(mTitles, posOne, posTwo);
-        Collections.swap(fragments, posOne, posTwo);
+    public void swapItems(int fromPos, int toPos) {
+        Collections.swap(mTitles, fromPos, toPos);
+        Collections.swap(fragments, fromPos, toPos);
+        notifyDataSetChanged();
+    }
+
+    public void modifyTitle(int position, String title) {
+        mTitles.set(position, title);
         notifyDataSetChanged();
     }
 }
