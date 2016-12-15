@@ -12,7 +12,6 @@ import com.dl7.mvp.injector.components.DaggerManageComponent;
 import com.dl7.mvp.injector.modules.ChannelModule;
 import com.dl7.mvp.local.table.NewsTypeInfo;
 import com.dl7.mvp.module.base.BaseActivity;
-import com.dl7.mvp.module.base.ILocalPresenter;
 import com.dl7.recycler.adapter.BaseQuickAdapter;
 import com.dl7.recycler.helper.RecyclerViewHelper;
 import com.dl7.recycler.listener.OnItemMoveListener;
@@ -30,7 +29,7 @@ import jp.wasabeef.recyclerview.animators.ScaleInAnimator;
 /**
  * 新闻栏目管理界面
  */
-public class ChannelActivity extends BaseActivity<ILocalPresenter> implements IChannelView {
+public class ChannelActivity extends BaseActivity<IChannelPresenter> implements IChannelView {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -88,6 +87,7 @@ public class ChannelActivity extends BaseActivity<ILocalPresenter> implements IC
             @Override
             public void onItemMove(int fromPosition, int toPosition) {
                 mPresenter.update(mCheckedAdapter.getData());
+                mPresenter.swap(fromPosition, toPosition);
             }
         });
         // 设置点击删除

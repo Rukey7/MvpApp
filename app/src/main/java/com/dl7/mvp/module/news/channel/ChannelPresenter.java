@@ -3,7 +3,6 @@ package com.dl7.mvp.module.news.channel;
 import com.dl7.mvp.local.dao.NewsTypeDao;
 import com.dl7.mvp.local.table.NewsTypeInfo;
 import com.dl7.mvp.local.table.NewsTypeInfoDao;
-import com.dl7.mvp.module.base.ILocalPresenter;
 import com.dl7.mvp.rxbus.RxBus;
 import com.dl7.mvp.rxbus.event.ChannelEvent;
 import com.orhanobut.logger.Logger;
@@ -22,7 +21,7 @@ import rx.schedulers.Schedulers;
  * Created by long on 2016/9/1.
  * 栏目管理 Presenter
  */
-public class ChannelPresenter implements ILocalPresenter<NewsTypeInfo> {
+public class ChannelPresenter implements IChannelPresenter<NewsTypeInfo> {
 
     private final IChannelView mView;
     private final NewsTypeInfoDao mDbDao;
@@ -76,13 +75,13 @@ public class ChannelPresenter implements ILocalPresenter<NewsTypeInfo> {
     }
 
     @Override
-    public void insert(NewsTypeInfo data) {
+    public void insert(final NewsTypeInfo data) {
         mDbDao.rx().insert(data)
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<NewsTypeInfo>() {
                     @Override
                     public void onCompleted() {
-                        mRxBus.post(new ChannelEvent());
+                        mRxBus.post(new ChannelEvent(ChannelEvent.ADD_EVENT, data));
                     }
 
                     @Override
@@ -98,13 +97,13 @@ public class ChannelPresenter implements ILocalPresenter<NewsTypeInfo> {
     }
 
     @Override
-    public void delete(NewsTypeInfo data) {
+    public void delete(final NewsTypeInfo data) {
         mDbDao.rx().delete(data)
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<Void>() {
                     @Override
                     public void onCompleted() {
-                        mRxBus.post(new ChannelEvent());
+                        mRxBus.post(new ChannelEvent(ChannelEvent.DEL_EVENT, data));
                     }
 
                     @Override
@@ -133,7 +132,6 @@ public class ChannelPresenter implements ILocalPresenter<NewsTypeInfo> {
                 .subscribe(new Subscriber<NewsTypeInfo>() {
                     @Override
                     public void onCompleted() {
-                        mRxBus.post(new ChannelEvent());
                     }
 
                     @Override
@@ -150,4 +148,8 @@ public class ChannelPresenter implements ILocalPresenter<NewsTypeInfo> {
                 });
     }
 
+    @Override
+    public void swap(int fromPos, int toPos) {
+        mRxBus.post(new ChannelEvent(ChannelEvent.SWAP_EVENT, fromPos, toPos));
+    }
 }

@@ -3,7 +3,7 @@ package com.dl7.mvp.module.news.newslist;
 import com.dl7.mvp.api.NewsUtils;
 import com.dl7.mvp.api.RetrofitService;
 import com.dl7.mvp.api.bean.NewsInfo;
-import com.dl7.mvp.entity.NewsMultiItem;
+import com.dl7.mvp.adapter.item.NewsMultiItem;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.views.EmptyLayout;
 import com.orhanobut.logger.Logger;

@@ -29,4 +29,10 @@ public final class DialogHelper {
                 });
         builder.create().show();
     }
+
+    public static void deleteDialog(Context context, DialogInterface.OnClickListener listener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("是否删除?").setPositiveButton("确定", listener).setNegativeButton("取消", null);
+        builder.create().show();
+    }
 }

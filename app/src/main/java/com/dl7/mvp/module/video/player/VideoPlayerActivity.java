@@ -3,6 +3,7 @@ package com.dl7.mvp.module.video.player;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
@@ -17,8 +18,10 @@ import com.dl7.mvp.local.table.VideoInfo;
 import com.dl7.mvp.module.base.BaseActivity;
 import com.dl7.mvp.module.base.ILoadDataView;
 import com.dl7.mvp.module.base.ILocalPresenter;
+import com.dl7.mvp.utils.CommonConstant;
 import com.dl7.mvp.utils.DialogHelper;
 import com.dl7.player.media.IjkPlayerView;
+import com.orhanobut.logger.Logger;
 import com.sackcentury.shinebuttonlib.ShineButton;
 
 import butterknife.BindView;
@@ -45,6 +48,12 @@ public class VideoPlayerActivity extends BaseActivity<ILocalPresenter> implement
         Intent intent = new Intent(context, VideoPlayerActivity.class);
         intent.putExtra(VIDEO_DATA_KEY, data);
         context.startActivity(intent);
+    }
+
+    public static void launchForResult(Fragment fragment, VideoInfo data) {
+        Intent intent = new Intent(fragment.getContext(), VideoPlayerActivity.class);
+        intent.putExtra(VIDEO_DATA_KEY, data);
+        fragment.startActivityForResult(intent, CommonConstant.VIDEO_REQUEST_CODE);
     }
 
     @Override
@@ -161,5 +170,14 @@ public class VideoPlayerActivity extends BaseActivity<ILocalPresenter> implement
                 DialogHelper.downloadDialog(this);
                 break;
         }
+    }
+
+    @Override
+    public void finish() {
+        Logger.e("finish " + mVideoData.isCollect());
+        Intent intent = new Intent();
+        intent.putExtra(CommonConstant.RESULT_KEY, mVideoData.isCollect());
+        setResult(RESULT_OK, intent);
+        super.finish();
     }
 }

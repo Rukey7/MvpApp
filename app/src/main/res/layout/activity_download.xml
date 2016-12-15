@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.dl7.mvp.module.manage.download.DownloadActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -25,7 +26,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/tab_layout_height"
             app:tl_indicator_color="@android:color/white"
-            app:tl_tab_padding="22dp"
+            app:tl_indicator_margin_left="30dp"
+            app:tl_indicator_margin_right="30dp"
             app:tl_tab_space_equal="true"/>
     </android.support.design.widget.AppBarLayout>
 

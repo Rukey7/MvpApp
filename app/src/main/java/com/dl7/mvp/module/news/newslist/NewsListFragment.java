@@ -9,7 +9,7 @@ import android.view.View;
 import com.daimajia.slider.library.SliderLayout;
 import com.dl7.mvp.R;
 import com.dl7.mvp.api.bean.NewsInfo;
-import com.dl7.mvp.entity.NewsMultiItem;
+import com.dl7.mvp.adapter.item.NewsMultiItem;
 import com.dl7.mvp.injector.components.DaggerNewsListComponent;
 import com.dl7.mvp.injector.modules.NewsListModule;
 import com.dl7.mvp.module.base.BaseFragment;

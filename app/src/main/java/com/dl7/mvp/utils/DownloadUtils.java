@@ -2,7 +2,6 @@ package com.dl7.mvp.utils;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
 import android.util.SparseBooleanArray;
 
 import com.bumptech.glide.Glide;
@@ -71,16 +70,24 @@ public final class DownloadUtils {
      */
     public static void downloadOrDeletePhoto(final Context context, final String url, final String id, final OnCompletedListener listener) {
         if (sDlPhotos.get(url.hashCode(), false)) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setMessage("是否删除?").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            DialogHelper.deleteDialog(context, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     FileUtils.deleteFile(PreferencesUtils.getSavePath(context) + File.separator + id + ".jpg");
                     listener.onDeleted(url);
                     delDownloadPhoto(url);
                 }
-            }).setNegativeButton("取消", null);
-            builder.create().show();
+            });
+//            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//            builder.setMessage("是否删除?").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//                    FileUtils.deleteFile(PreferencesUtils.getSavePath(context) + File.separator + id + ".jpg");
+//                    listener.onDeleted(url);
+//                    delDownloadPhoto(url);
+//                }
+//            }).setNegativeButton("取消", null);
+//            builder.create().show();
             return;
         }
         if (sDoDlPhotos.get(url.hashCode(), false)) {

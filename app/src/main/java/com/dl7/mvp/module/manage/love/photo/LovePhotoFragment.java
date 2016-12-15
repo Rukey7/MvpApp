@@ -1,5 +1,6 @@
 package com.dl7.mvp.module.manage.love.photo;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
@@ -14,11 +15,11 @@ import com.dl7.mvp.local.table.BeautyPhotoInfo;
 import com.dl7.mvp.module.base.BaseFragment;
 import com.dl7.mvp.module.base.ILocalPresenter;
 import com.dl7.mvp.module.manage.love.ILoveView;
-import com.dl7.mvp.module.photo.bigphoto.BigPhotoActivity;
+import com.dl7.mvp.utils.CommonConstant;
+import com.dl7.mvp.utils.DialogHelper;
 import com.dl7.recycler.adapter.BaseQuickAdapter;
 import com.dl7.recycler.helper.RecyclerViewHelper;
 import com.dl7.recycler.listener.OnRecyclerViewItemLongClickListener;
-import com.dl7.recycler.listener.OnRemoveDataListener;
 
 import java.util.List;
 
@@ -64,15 +65,15 @@ public class LovePhotoFragment extends BaseFragment<ILocalPresenter> implements 
         mRvPhotoList.setItemAnimator(new FlipInLeftYAnimator());
         mAdapter.setOnItemLongClickListener(new OnRecyclerViewItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(View view, int position) {
-
+            public boolean onItemLongClick(View view, final int position) {
+                DialogHelper.deleteDialog(mContext, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mPresenter.delete(mAdapter.getItem(position));
+                        mAdapter.removeItem(position);
+                    }
+                });
                 return true;
-            }
-        });
-        mAdapter.setRemoveDataListener(new OnRemoveDataListener() {
-            @Override
-            public void onRemove(int position) {
-                mPresenter.delete(mAdapter.getItem(position));
             }
         });
     }
@@ -97,8 +98,8 @@ public class LovePhotoFragment extends BaseFragment<ILocalPresenter> implements 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == BigPhotoActivity.REQUEST_CODE && resultCode == RESULT_OK) {
-            final boolean[] delLove = data.getBooleanArrayExtra(BigPhotoActivity.RESULT_KEY);
+        if (requestCode == CommonConstant.REQUEST_CODE && resultCode == RESULT_OK) {
+            final boolean[] delLove = data.getBooleanArrayExtra(CommonConstant.RESULT_KEY);
             // 延迟 500MS 做删除操作，不然退回来看不到动画效果
             new Handler().postDelayed(new Runnable() {
                 @Override

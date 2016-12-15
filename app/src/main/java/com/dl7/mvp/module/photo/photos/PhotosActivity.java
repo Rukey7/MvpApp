@@ -18,9 +18,9 @@ import com.dl7.mvp.injector.components.DaggerPhotosComponent;
 import com.dl7.mvp.injector.modules.PhotosModule;
 import com.dl7.mvp.module.base.BaseNavActivity;
 import com.dl7.mvp.module.base.IRxBusPresenter;
-import com.dl7.mvp.module.photo.beautylist.BeautyListFragment;
 import com.dl7.mvp.module.manage.love.LoveActivity;
 import com.dl7.mvp.module.news.photonews.PhotoNewsFragment;
+import com.dl7.mvp.module.photo.beautylist.BeautyListFragment;
 import com.dl7.mvp.module.photo.welfarephoto.WelfarePhotoFragment;
 import com.dl7.mvp.rxbus.event.LoveEvent;
 import com.dl7.mvp.utils.AnimateHelper;
@@ -99,7 +99,7 @@ public class PhotosActivity extends BaseNavActivity<IRxBusPresenter> implements 
         fragments.add(new BeautyListFragment());
         fragments.add(new WelfarePhotoFragment());
         fragments.add(new PhotoNewsFragment());
-        mPagerAdapter.setDatas(fragments, titles);
+        mPagerAdapter.setItems(fragments, titles);
         mPresenter.getData();
     }
 

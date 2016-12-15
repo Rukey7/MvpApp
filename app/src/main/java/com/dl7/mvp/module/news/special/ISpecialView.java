@@ -1,7 +1,7 @@
 package com.dl7.mvp.module.news.special;
 
 import com.dl7.mvp.api.bean.SpecialInfo;
-import com.dl7.mvp.entity.SpecialItem;
+import com.dl7.mvp.adapter.item.SpecialItem;
 import com.dl7.mvp.module.base.IBaseView;
 
 import java.util.List;

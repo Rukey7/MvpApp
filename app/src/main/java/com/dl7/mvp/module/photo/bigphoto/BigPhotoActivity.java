@@ -22,6 +22,7 @@ import com.dl7.mvp.module.base.BaseActivity;
 import com.dl7.mvp.module.base.ILoadDataView;
 import com.dl7.mvp.module.base.ILocalPresenter;
 import com.dl7.mvp.utils.AnimateHelper;
+import com.dl7.mvp.utils.CommonConstant;
 import com.dl7.mvp.utils.DownloadUtils;
 import com.dl7.mvp.utils.NavUtils;
 import com.dl7.mvp.utils.ToastUtils;
@@ -42,8 +43,6 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
     private static final String BIG_PHOTO_KEY = "BigPhotoKey";
     private static final String PHOTO_INDEX_KEY = "PhotoIndexKey";
     private static final String FROM_LOVE_ACTIVITY = "FromLoveActivity";
-    public static final int REQUEST_CODE = 10086;
-    public static final String RESULT_KEY = "ResultKey";
 
     @BindView(R.id.vp_photo)
     ViewPager mVpPhoto;
@@ -81,12 +80,12 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
     }
 
     // 这个给 LoveActivity 使用，配合 setResult() 返回取消的收藏，这样做体验会好点，其实用 RxBus 会更容易做
-    public static void launchForResult(Fragment activity, ArrayList<BeautyPhotoInfo> datas, int index) {
-        Intent intent = new Intent(activity.getContext(), BigPhotoActivity.class);
+    public static void launchForResult(Fragment fragment, ArrayList<BeautyPhotoInfo> datas, int index) {
+        Intent intent = new Intent(fragment.getContext(), BigPhotoActivity.class);
         intent.putParcelableArrayListExtra(BIG_PHOTO_KEY, datas);
         intent.putExtra(PHOTO_INDEX_KEY, index);
         intent.putExtra(FROM_LOVE_ACTIVITY, true);
-        activity.startActivityForResult(intent, REQUEST_CODE);
+        fragment.startActivityForResult(intent, CommonConstant.REQUEST_CODE);
     }
 
     @Override
@@ -285,7 +284,7 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
     public void finish() {
         if (mIsFromLoveActivity) {
             Intent intent = new Intent();
-            intent.putExtra(RESULT_KEY, mIsDelLove);
+            intent.putExtra(CommonConstant.RESULT_KEY, mIsDelLove);
             // 把数据传给 LoveActivity
             setResult(RESULT_OK, intent);
         }

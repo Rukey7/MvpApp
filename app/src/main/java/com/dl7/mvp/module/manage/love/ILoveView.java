@@ -10,9 +10,9 @@ public interface ILoveView<T> {
 
     /**
      * 显示数据
-     * @param photoList 图片数据
+     * @param dataList 数据
      */
-    void loadData(List<T> photoList);
+    void loadData(List<T> dataList);
 
     /**
      * 没有数据

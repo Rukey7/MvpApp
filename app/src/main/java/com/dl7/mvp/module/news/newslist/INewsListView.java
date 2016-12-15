@@ -1,7 +1,7 @@
 package com.dl7.mvp.module.news.newslist;
 
 import com.dl7.mvp.api.bean.NewsInfo;
-import com.dl7.mvp.entity.NewsMultiItem;
+import com.dl7.mvp.adapter.item.NewsMultiItem;
 import com.dl7.mvp.module.base.ILoadDataView;
 
 import java.util.List;

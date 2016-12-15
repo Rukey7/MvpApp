@@ -1,4 +1,4 @@
-package com.dl7.mvp.entity;
+package com.dl7.mvp.adapter.item;
 
 import com.dl7.mvp.api.bean.NewsItemInfo;
 import com.dl7.recycler.entity.SectionEntity;

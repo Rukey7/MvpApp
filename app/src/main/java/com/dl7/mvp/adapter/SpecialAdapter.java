@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 import com.dl7.mvp.R;
 import com.dl7.mvp.api.NewsUtils;
-import com.dl7.mvp.entity.SpecialItem;
+import com.dl7.mvp.adapter.item.SpecialItem;
 import com.dl7.mvp.module.news.detail.NewsDetailActivity;
 import com.dl7.mvp.module.photo.photoset.PhotoSetActivity;
 import com.dl7.mvp.module.news.special.SpecialActivity;

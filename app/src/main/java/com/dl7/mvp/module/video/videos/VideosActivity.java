@@ -99,7 +99,7 @@ public class VideosActivity extends BaseNavActivity<IRxBusPresenter> implements 
             titles.add(VIDEO_TITLE[i]);
             fragments.add(VideoListFragment.newInstance(VIDEO_ID[i]));
         }
-        mPagerAdapter.setDatas(fragments, titles);
+        mPagerAdapter.setItems(fragments, titles);
         mPresenter.getData();
     }
 

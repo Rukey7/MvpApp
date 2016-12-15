@@ -1,4 +1,4 @@
-package com.dl7.mvp.entity;
+package com.dl7.mvp.adapter.item;
 
 import android.support.annotation.IntDef;
 

@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.dl7.mvp.R;
 import com.dl7.mvp.api.bean.SpecialInfo;
-import com.dl7.mvp.entity.SpecialItem;
+import com.dl7.mvp.adapter.item.SpecialItem;
 import com.dl7.mvp.injector.components.DaggerSpecialComponent;
 import com.dl7.mvp.injector.modules.SpecialModule;
 import com.dl7.mvp.module.base.BaseActivity;

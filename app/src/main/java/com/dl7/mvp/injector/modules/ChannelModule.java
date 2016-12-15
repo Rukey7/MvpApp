@@ -3,9 +3,9 @@ package com.dl7.mvp.injector.modules;
 import com.dl7.mvp.adapter.ManageAdapter;
 import com.dl7.mvp.injector.PerActivity;
 import com.dl7.mvp.local.table.DaoSession;
-import com.dl7.mvp.module.base.ILocalPresenter;
 import com.dl7.mvp.module.news.channel.ChannelActivity;
 import com.dl7.mvp.module.news.channel.ChannelPresenter;
+import com.dl7.mvp.module.news.channel.IChannelPresenter;
 import com.dl7.mvp.rxbus.RxBus;
 import com.dl7.recycler.adapter.BaseQuickAdapter;
 
@@ -32,7 +32,7 @@ public class ChannelModule {
 
     @PerActivity
     @Provides
-    public ILocalPresenter provideManagePresenter(DaoSession daoSession, RxBus rxBus) {
+    public IChannelPresenter provideManagePresenter(DaoSession daoSession, RxBus rxBus) {
         return new ChannelPresenter(mView, daoSession.getNewsTypeInfoDao(), rxBus);
     }
 }

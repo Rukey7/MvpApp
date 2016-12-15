@@ -6,7 +6,7 @@ import com.dl7.mvp.local.table.VideoInfoDao;
 import com.dl7.mvp.module.base.ILocalPresenter;
 import com.dl7.mvp.module.manage.love.ILoveView;
 import com.dl7.mvp.rxbus.RxBus;
-import com.dl7.mvp.rxbus.event.LoveEvent;
+import com.dl7.mvp.rxbus.event.VideoEvent;
 
 import java.util.List;
 
@@ -72,7 +72,7 @@ public class LoveVideoPresenter implements ILocalPresenter<VideoInfo> {
             // 如果收藏为0则显示无收藏
             mView.noData();
         }
-        mRxBus.post(new LoveEvent());
+        mRxBus.post(new VideoEvent());
     }
 
     @Override

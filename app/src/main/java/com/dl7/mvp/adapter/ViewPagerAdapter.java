@@ -3,8 +3,12 @@ package com.dl7.mvp.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -38,6 +42,11 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         return mTitles.get(position);
     }
 
+    @Override
+    public int getItemPosition(Object object) {
+        return PagerAdapter.POSITION_NONE;
+    }
+
     public void setFragments(List<Fragment> fragments) {
         this.fragments = fragments;
         notifyDataSetChanged();
@@ -48,14 +57,38 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         notifyDataSetChanged();
     }
 
-    public void setDatas(List<Fragment> fragments, List<String> mTitles) {
+    public void setItems(List<Fragment> fragments, List<String> mTitles) {
         this.fragments = fragments;
         this.mTitles = mTitles;
         notifyDataSetChanged();
     }
 
-    public void addData(Fragment fragment, String title) {
+    public void addItem(Fragment fragment, String title) {
         fragments.add(fragment);
         mTitles.add(title);
+        notifyDataSetChanged();
+    }
+
+    public void delItem(int position) {
+        mTitles.remove(position);
+        fragments.remove(position);
+        notifyDataSetChanged();
+    }
+
+    public int delItem(String title) {
+        int index = mTitles.indexOf(title);
+        Logger.e(mTitles.toString());
+        Logger.i(title);
+        Logger.i(""+index);
+        if (index != -1) {
+            delItem(index);
+        }
+        return index;
+    }
+
+    public void swapItems(int posOne, int posTwo) {
+        Collections.swap(mTitles, posOne, posTwo);
+        Collections.swap(fragments, posOne, posTwo);
+        notifyDataSetChanged();
     }
 }

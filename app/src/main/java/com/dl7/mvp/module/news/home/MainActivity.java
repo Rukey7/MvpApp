@@ -46,7 +46,6 @@ public class MainActivity extends BaseNavActivity<IRxBusPresenter> implements IM
     @Inject
     ViewPagerAdapter mPagerAdapter;
 
-
     public static void launch(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
@@ -75,7 +74,8 @@ public class MainActivity extends BaseNavActivity<IRxBusPresenter> implements IM
         mPresenter.registerRxBus(ChannelEvent.class, new Action1<ChannelEvent>() {
             @Override
             public void call(ChannelEvent channelEvent) {
-                mPresenter.getData();
+//                mPresenter.getData();
+                _handleChannelEvent(channelEvent);
             }
         });
     }
@@ -99,7 +99,7 @@ public class MainActivity extends BaseNavActivity<IRxBusPresenter> implements IM
             titles.add(bean.getName());
             fragments.add(NewsListFragment.newInstance(bean.getTypeId()));
         }
-        mPagerAdapter.setDatas(fragments, titles);
+        mPagerAdapter.setItems(fragments, titles);
     }
 
     @Override
@@ -121,6 +121,26 @@ public class MainActivity extends BaseNavActivity<IRxBusPresenter> implements IM
             return true;
         } else {
             return false;
+        }
+    }
+
+    /**
+     * 处理频道事件
+     * @param channelEvent
+     */
+    private void _handleChannelEvent(ChannelEvent channelEvent) {
+        switch (channelEvent.eventType) {
+            case ChannelEvent.ADD_EVENT:
+                mPagerAdapter.addItem(NewsListFragment.newInstance(channelEvent.newsInfo.getTypeId()), channelEvent.newsInfo.getName());
+                break;
+            case ChannelEvent.DEL_EVENT:
+                // 如果是删除操作直接切换第一项，不然容易出现加载到不存在的Fragment
+                mViewPager.setCurrentItem(0);
+                mPagerAdapter.delItem(channelEvent.newsInfo.getName());
+                break;
+            case ChannelEvent.SWAP_EVENT:
+                mPagerAdapter.swapItems(channelEvent.fromPos, channelEvent.toPos);
+                break;
         }
     }
 }
