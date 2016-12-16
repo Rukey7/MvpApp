@@ -18,4 +18,8 @@
     <color name="item_special_bg">#FF4081</color>
     <color name="item_photo_set_bg">#5677fc</color>
     <color name="btn_press_bg">#ffbababa</color>
+
+    <color name="download_normal">#666666</color>
+    <color name="download_stop">#f57c00</color>
+    <color name="download_error">#fd4d51</color>
 </resources>

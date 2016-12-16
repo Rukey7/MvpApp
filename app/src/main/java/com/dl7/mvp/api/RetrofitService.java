@@ -75,7 +75,9 @@ public class RetrofitService {
     private static final int INCREASE_PAGE = 20;
 
 
-    private RetrofitService() {}
+    private RetrofitService() {
+        throw new AssertionError();
+    }
 
     /**
      * 初始化网络通信服务

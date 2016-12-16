@@ -111,7 +111,8 @@ public final class DownloadUtils {
                             e.printStackTrace();
                         }
                         // 复制图片文件到指定路径，并改为 .jpg 后缀名
-                        return FileUtils.copyFile(file.getPath(), PreferencesUtils.getSavePath(context) + File.separator + id + ".jpg");
+                        return FileUtils.copyFile(file.getPath(), PreferencesUtils.getSavePath(context) +
+                                File.separator + "picture" + File.separator + id + ".jpg");
                     }
                 })
                 .subscribeOn(Schedulers.io())

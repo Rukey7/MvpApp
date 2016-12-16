@@ -50,6 +50,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         app:layout_behavior="com.dl7.mvp.views.behavior.ScrollAwareFABBehavior"
-        android:src="@mipmap/ic_arrow_upward_white_24dp"
+        android:src="@mipmap/ic_arrow_upward"
         android:layout_margin="16dp"/>
 </android.support.design.widget.CoordinatorLayout>

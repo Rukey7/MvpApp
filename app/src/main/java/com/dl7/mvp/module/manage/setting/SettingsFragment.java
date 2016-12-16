@@ -16,7 +16,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public static final String NO_IMAGE_KEY = "setting_no_image";
     public static final String SAVE_PATH_KEY = "setting_save_path";
 
-    public static final String DEFAULT_SAVE_PATH = "/storage/emulated/0/NewsApp";
+    public static final String DEFAULT_SAVE_PATH = "/storage/emulated/0/MvpApp";
 
     private XFilePickerPreference mFilePickerPreference;
 

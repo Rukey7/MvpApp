@@ -13,7 +13,7 @@ import com.dl7.mvp.injector.modules.LoveVideoModule;
 import com.dl7.mvp.local.table.VideoInfo;
 import com.dl7.mvp.module.base.BaseFragment;
 import com.dl7.mvp.module.base.ILocalPresenter;
-import com.dl7.mvp.module.manage.love.ILoveView;
+import com.dl7.mvp.module.base.ILocalView;
 import com.dl7.mvp.module.video.player.VideoPlayerActivity;
 import com.dl7.mvp.utils.CommonConstant;
 import com.dl7.mvp.utils.DialogHelper;
@@ -36,7 +36,7 @@ import static android.app.Activity.RESULT_OK;
  * Created by long on 2016/12/13.
  * Video收藏界面
  */
-public class LoveVideoFragment extends BaseFragment<ILocalPresenter> implements ILoveView<VideoInfo> {
+public class LoveVideoFragment extends BaseFragment<ILocalPresenter> implements ILocalView<VideoInfo> {
 
     @BindView(R.id.rv_love_list)
     RecyclerView mRvVideoList;

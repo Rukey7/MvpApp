@@ -14,7 +14,7 @@ import com.dl7.mvp.injector.modules.LovePhotoModule;
 import com.dl7.mvp.local.table.BeautyPhotoInfo;
 import com.dl7.mvp.module.base.BaseFragment;
 import com.dl7.mvp.module.base.ILocalPresenter;
-import com.dl7.mvp.module.manage.love.ILoveView;
+import com.dl7.mvp.module.base.ILocalView;
 import com.dl7.mvp.utils.CommonConstant;
 import com.dl7.mvp.utils.DialogHelper;
 import com.dl7.recycler.adapter.BaseQuickAdapter;
@@ -34,7 +34,7 @@ import static android.app.Activity.RESULT_OK;
  * Created by long on 2016/12/13.
  * 图片收藏界面
  */
-public class LovePhotoFragment extends BaseFragment<ILocalPresenter> implements ILoveView<BeautyPhotoInfo> {
+public class LovePhotoFragment extends BaseFragment<ILocalPresenter> implements ILocalView<BeautyPhotoInfo> {
 
     @BindView(R.id.rv_love_list)
     RecyclerView mRvPhotoList;

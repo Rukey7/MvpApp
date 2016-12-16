@@ -4,7 +4,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_news"
-            android:icon="@mipmap/ic_insert_drive_file_white_18dp"
+            android:icon="@mipmap/ic_nav_news"
             android:title="新闻"/>
 
         <item

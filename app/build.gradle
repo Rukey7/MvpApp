@@ -87,6 +87,8 @@ dependencies {
     compile 'com.sackcentury:shinebutton:0.1.6'
     // tablayout
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.0@aar'
+    // progressbar
+    compile 'com.daimajia.numberprogressbar:library:1.2'
     // Dialog
     compile 'com.flyco.dialog:FlycoDialog_Lib:1.3.2@aar'
     compile project(':RecyclerViewHelper')

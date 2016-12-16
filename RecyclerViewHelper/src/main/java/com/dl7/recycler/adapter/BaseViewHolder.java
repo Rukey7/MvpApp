@@ -168,6 +168,11 @@ public class BaseViewHolder extends RecyclerView.ViewHolder implements ItemTouch
         return this;
     }
 
+    public boolean isVisible(int viewId) {
+        View view = getView(viewId);
+        return view.getVisibility() == View.VISIBLE;
+    }
+
     /**
      * Add links into a TextView.
      *
@@ -413,6 +418,19 @@ public class BaseViewHolder extends RecyclerView.ViewHolder implements ItemTouch
         }
         return this;
     }
+
+
+    public BaseViewHolder setSelected(int viewId, boolean selected) {
+        View view = getView(viewId);
+        view.setSelected(selected);
+        return this;
+    }
+
+    public boolean isSelected(int viewId) {
+        View view = getView(viewId);
+        return view.isSelected();
+    }
+
 
     /**
      * Sets the adapter of a adapter view.

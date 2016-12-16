@@ -27,12 +27,12 @@ public class DownloadStatus {
     public static final int DOWNLOADING = 3;
     // 停止下载
     public static final int STOP = 4;
-    // 下载完成
-    public static final int COMPLETE = 5;
-    // 取消下载
-    public static final int CANCEL = 6;
     // 下载失败
-    public static final int ERROR = 7;
+    public static final int ERROR = 5;
+    // 下载完成
+    public static final int COMPLETE = 6;
+    // 取消下载
+    public static final int CANCEL = 7;
     // 安装中
     public static final int INSTALLING = 8;
     // 已经安装

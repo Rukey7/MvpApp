@@ -1,12 +1,12 @@
-package com.dl7.mvp.module.manage.love;
+package com.dl7.mvp.module.base;
 
 import java.util.List;
 
 /**
  * Created by long on 2016/9/28.
- * 收藏界面接口
+ * 和本地数据关联的界面接口
  */
-public interface ILoveView<T> {
+public interface ILocalView<T> {
 
     /**
      * 显示数据

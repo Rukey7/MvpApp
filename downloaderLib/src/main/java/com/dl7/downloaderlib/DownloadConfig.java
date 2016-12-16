@@ -20,7 +20,7 @@ public class DownloadConfig {
 
     private DownloadConfig() {
             mDownloadDir = Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/xunrui/market/appdownload/";
+                    "/MvpApp/video/";
             File dir = new File(mDownloadDir);
             if (!dir.exists()) {
                 dir.mkdirs();

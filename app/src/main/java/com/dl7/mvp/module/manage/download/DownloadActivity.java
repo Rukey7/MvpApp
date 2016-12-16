@@ -10,8 +10,8 @@ import com.dl7.mvp.R;
 import com.dl7.mvp.adapter.ViewPagerAdapter;
 import com.dl7.mvp.module.base.BaseActivity;
 import com.dl7.mvp.module.base.ILocalPresenter;
-import com.dl7.mvp.module.manage.love.photo.LovePhotoFragment;
-import com.dl7.mvp.module.manage.love.video.LoveVideoFragment;
+import com.dl7.mvp.module.manage.download.cache.VideoCacheFragment;
+import com.dl7.mvp.module.manage.download.complete.VideoCompleteFragment;
 import com.flyco.tablayout.SlidingTabLayout;
 
 import java.util.ArrayList;
@@ -52,8 +52,8 @@ public class DownloadActivity extends BaseActivity<ILocalPresenter> {
     @Override
     protected void updateViews() {
         ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(new LovePhotoFragment());
-        fragments.add(new LoveVideoFragment());
-        mTabLayout.setViewPager(mViewPager, new String[] {"图片", "视频"}, this, fragments);
+        fragments.add(new VideoCompleteFragment());
+        fragments.add(new VideoCacheFragment());
+        mTabLayout.setViewPager(mViewPager, new String[] {"已缓存", "缓存中"}, this, fragments);
     }
 }

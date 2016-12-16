@@ -20,10 +20,12 @@ public class ApplicationModule {
 
     private final AndroidApplication mApplication;
     private final DaoSession mDaoSession;
+    private final RxBus mRxBus;
 
-    public ApplicationModule(AndroidApplication application, DaoSession daoSession) {
+    public ApplicationModule(AndroidApplication application, DaoSession daoSession, RxBus rxBus) {
         mApplication = application;
         mDaoSession = daoSession;
+        mRxBus = rxBus;
     }
 
     @Provides
@@ -35,7 +37,7 @@ public class ApplicationModule {
     @Provides
     @Singleton
     RxBus provideRxBus() {
-        return new RxBus();
+        return mRxBus;
     }
 
     @Provides

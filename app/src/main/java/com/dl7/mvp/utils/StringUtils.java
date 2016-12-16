@@ -24,6 +24,7 @@ public class StringUtils {
 
     /**
      * 计算图片要显示的高度
+     *
      * @param pixel 原始分辨率
      * @param width 要显示的宽度
      * @return
@@ -44,8 +45,10 @@ public class StringUtils {
 
         return height;
     }
+
     /**
      * 裁剪新闻的 Source 数据
+     *
      * @param source
      * @return
      */
@@ -62,6 +65,7 @@ public class StringUtils {
 
     /**
      * 裁剪图集ID
+     *
      * @param photoId
      * @return
      */
@@ -79,7 +83,8 @@ public class StringUtils {
 
     /**
      * 转换文件路径
-     * @param filePath  原路径
+     *
+     * @param filePath 原路径
      * @return
      */
     public static String replaceFilePath(String filePath) {
@@ -367,9 +372,10 @@ public class StringUtils {
 
     /**
      * 格式化字符串
-     * @param msg   格式数据
-     * @param args  参数
-     * @return  格式化字符串
+     *
+     * @param msg  格式数据
+     * @param args 参数
+     * @return 格式化字符串
      */
     public static String formatString(final String msg, Object... args) {
         return String.format(Locale.ENGLISH, msg, args);
@@ -377,6 +383,7 @@ public class StringUtils {
 
     /**
      * 转换安装人数
+     *
      * @param hotCount 安装人数
      * @return
      */
@@ -389,7 +396,7 @@ public class StringUtils {
         } else if (hotCount >= tenThousand) {
             float f = (float) hotCount / tenThousand;
             return String.format(Locale.CHINA, f > 100 ? "%.0f万人在用" : "%.1f万人在用", f);
-        }  else {
+        } else {
             return String.format(Locale.CHINA, "%d人在用", hotCount);
         }
     }
@@ -417,14 +424,27 @@ public class StringUtils {
         long gb = mb * 1024;
 
         if (size >= gb) {
-            return String.format("%.1fG", (float) size / gb);
+            return String.format("%.1fGB", (float) size / gb);
         } else if (size >= mb) {
             float f = (float) size / mb;
-            return String.format(f > 100 ? "%.0fM" : "%.1fM", f);
+            return String.format(f > 100 ? "%.0fMB" : "%.1fMB", f);
         } else if (size >= kb) {
             float f = (float) size / kb;
-            return String.format(f > 100 ? "%.0fK" : "%.1fK", f);
+            return String.format(f > 100 ? "%.0fKB" : "%.1fKB", f);
         } else
             return String.format("%dB", size);
+    }
+
+    /**
+     * 从url中截取文件名
+     * @param url
+     * @return
+     */
+    public static String clipFileName(String url) {
+        int index = url.lastIndexOf("/");
+        if (index != -1) {
+            return url.substring(index + 1);
+        }
+        return null;
     }
 }

@@ -21,7 +21,6 @@ import com.dl7.mvp.module.base.ILocalPresenter;
 import com.dl7.mvp.utils.CommonConstant;
 import com.dl7.mvp.utils.DialogHelper;
 import com.dl7.player.media.IjkPlayerView;
-import com.orhanobut.logger.Logger;
 import com.sackcentury.shinebuttonlib.ShineButton;
 
 import butterknife.BindView;
@@ -167,14 +166,13 @@ public class VideoPlayerActivity extends BaseActivity<ILocalPresenter> implement
             case R.id.iv_video_share:
                 break;
             case R.id.iv_video_download:
-                DialogHelper.downloadDialog(this);
+                DialogHelper.downloadDialog(this, mVideoData);
                 break;
         }
     }
 
     @Override
     public void finish() {
-        Logger.e("finish " + mVideoData.isCollect());
         Intent intent = new Intent();
         intent.putExtra(CommonConstant.RESULT_KEY, mVideoData.isCollect());
         setResult(RESULT_OK, intent);

@@ -3,13 +3,16 @@ package com.dl7.mvp;
 import android.app.Application;
 import android.content.Context;
 
+import com.dl7.downloaderlib.FileDownloader;
 import com.dl7.mvp.api.RetrofitService;
+import com.dl7.mvp.engine.DownloaderWrapper;
 import com.dl7.mvp.injector.components.ApplicationComponent;
 import com.dl7.mvp.injector.components.DaggerApplicationComponent;
 import com.dl7.mvp.injector.modules.ApplicationModule;
 import com.dl7.mvp.local.dao.NewsTypeDao;
 import com.dl7.mvp.local.table.DaoMaster;
 import com.dl7.mvp.local.table.DaoSession;
+import com.dl7.mvp.rxbus.RxBus;
 import com.dl7.mvp.utils.DownloadUtils;
 import com.dl7.mvp.utils.ToastUtils;
 import com.orhanobut.logger.Logger;
@@ -28,14 +31,15 @@ public class AndroidApplication extends Application {
     private ApplicationComponent mAppComponent;
     private static Context sContext;
     private DaoSession mDaoSession;
+    private RxBus mRxBus = new RxBus();
 
     @Override
     public void onCreate() {
         super.onCreate();
         sContext = this;
-        _initConfig();
         _initDatabase();
         _initInjector();
+        _initConfig();
     }
 
 
@@ -52,7 +56,7 @@ public class AndroidApplication extends Application {
      */
     private void _initInjector() {
         mAppComponent = DaggerApplicationComponent.builder()
-                .applicationModule(new ApplicationModule(this, mDaoSession))
+                .applicationModule(new ApplicationModule(this, mDaoSession, mRxBus))
                 .build();
     }
 
@@ -77,5 +81,10 @@ public class AndroidApplication extends Application {
         }
         RetrofitService.init();
         ToastUtils.init(this);
+        DownloaderWrapper.init(mRxBus);
+        FileDownloader.init(this);
+//        DownloadConfig config = new DownloadConfig.Builder()
+//                .setDownloadDir(PreferencesUtils.getSavePath(this) + File.separator + "video").build();
+//        FileDownloader.setConfig(config);
     }
 }

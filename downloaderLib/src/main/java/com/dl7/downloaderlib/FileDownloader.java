@@ -60,40 +60,30 @@ public class FileDownloader {
     }
 
     /**
-     * 获取APK路径
+     * 获取路径
      *
      * @param url url
      * @return
      */
-    public static String getApkPath(String url) {
+    public static String getFilePathByUrl(String url) {
         FileInfo info = FileDAOImpl.getInstance().query(url);
         if (info == null) {
             return null;
         }
-        File appFile;
-        if (info.getName().endsWith(".apk")) {
-            appFile = new File(info.getPath(), info.getName());
-        } else {
-            appFile = new File(info.getPath(), info.getName() + ".apk");
-        }
-        return appFile.getAbsolutePath();
+        File file = new File(info.getPath(), info.getName());
+        return file.getAbsolutePath();
     }
 
     /**
-     * 获取APK路径
+     * 获取路径
      *
-     * @param pkgName 包名
+     * @param name 文件名
      * @return
      */
-    public static String getApkPathByPkg(String pkgName) {
-        FileInfo info = FileDAOImpl.getInstance().queryPkg(pkgName);
-        File appFile;
-        if (info.getName().endsWith(".apk")) {
-            appFile = new File(info.getPath(), info.getName());
-        } else {
-            appFile = new File(info.getPath(), info.getName() + ".apk");
-        }
-        return appFile.getAbsolutePath();
+    public static String getFilePathByName(String name) {
+        FileInfo info = FileDAOImpl.getInstance().queryPkg(name);
+        File file = new File(info.getPath(), info.getName());
+        return file.getAbsolutePath();
     }
 
     /**
@@ -188,12 +178,7 @@ public class FileDownloader {
      * @return
      */
     private static boolean _checkFileIsExists(FileInfo fileInfo, DownloadListener listener) {
-        File file;
-        if (fileInfo.getName().endsWith(".apk")) {
-            file = new File(getDownloadDir(), fileInfo.getName());
-        } else {
-            file = new File(getDownloadDir(), fileInfo.getName() + ".apk");
-        }
+        File file = new File(getDownloadDir(), fileInfo.getName());
         if (file.exists()) {
             // 已经存在则删除重下
             file.delete();
