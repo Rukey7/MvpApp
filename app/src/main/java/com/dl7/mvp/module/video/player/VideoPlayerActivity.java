@@ -1,6 +1,7 @@
 package com.dl7.mvp.module.video.player;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.dl7.downloaderlib.model.DownloadStatus;
 import com.dl7.mvp.R;
+import com.dl7.mvp.engine.DownloaderWrapper;
 import com.dl7.mvp.injector.components.DaggerVideoPlayerComponent;
 import com.dl7.mvp.injector.modules.VideoPlayerModule;
 import com.dl7.mvp.local.table.VideoInfo;
@@ -26,9 +28,9 @@ import com.sackcentury.shinebuttonlib.ShineButton;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class VideoPlayerActivity extends BaseActivity<ILocalPresenter> implements ILoadDataView<VideoInfo> {
+import static com.dl7.mvp.utils.CommonConstant.VIDEO_DATA_KEY;
 
-    private static final String VIDEO_DATA_KEY = "VideoPlayerKey";
+public class VideoPlayerActivity extends BaseActivity<ILocalPresenter> implements ILoadDataView<VideoInfo> {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -166,7 +168,17 @@ public class VideoPlayerActivity extends BaseActivity<ILocalPresenter> implement
             case R.id.iv_video_share:
                 break;
             case R.id.iv_video_download:
-                DialogHelper.downloadDialog(this, mVideoData);
+                if (view.isSelected()) {
+                    DialogHelper.checkDialog(this, mVideoData);
+                } else {
+                    DialogHelper.downloadDialog(this, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            DownloaderWrapper.start(mVideoData);
+                            mIvVideoDownload.setSelected(true);
+                        }
+                    });
+                }
                 break;
         }
     }

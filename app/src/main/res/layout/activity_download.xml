@@ -31,10 +31,56 @@
             app:tl_tab_space_equal="true"/>
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.view.ViewPager
+    <com.dl7.mvp.views.FlexibleViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
+    <FrameLayout
+        android:id="@+id/fl_del_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/btn_select_all"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/sel_common_bg_press"
+                android:gravity="center"
+                android:textColor="@android:color/black"
+                android:text="全选"/>
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="@color/background_gray"/>
+
+            <TextView
+                android:id="@+id/btn_select_del"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/sel_common_bg_press"
+                android:gravity="center"
+                android:text="删除"
+                android:textColor="@drawable/sel_btn_download_del"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginBottom="50dp"
+            android:background="@color/background_gray"/>
+    </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -77,6 +77,8 @@
         </activity>
         <activity android:name=".module.manage.download.DownloadActivity">
         </activity>
+        <activity android:name=".module.video.fullscreen.VideoFullscreenActivity">
+        </activity>
     </application>
 
 </manifest>

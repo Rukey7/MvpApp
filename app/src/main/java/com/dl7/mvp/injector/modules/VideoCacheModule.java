@@ -1,5 +1,6 @@
 package com.dl7.mvp.injector.modules;
 
+import com.dl7.mvp.adapter.BaseVideoDownloadAdapter;
 import com.dl7.mvp.adapter.VideoCacheAdapter;
 import com.dl7.mvp.injector.PerFragment;
 import com.dl7.mvp.local.table.DaoSession;
@@ -32,7 +33,7 @@ public class VideoCacheModule {
 
     @PerFragment
     @Provides
-    public VideoCacheAdapter provideAdapter(RxBus rxBus) {
+    public BaseVideoDownloadAdapter provideAdapter(RxBus rxBus) {
         return new VideoCacheAdapter(mView.getContext(), rxBus);
     }
 }

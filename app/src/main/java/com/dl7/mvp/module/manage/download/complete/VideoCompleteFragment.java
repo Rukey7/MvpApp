@@ -5,14 +5,17 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.dl7.mvp.R;
+import com.dl7.mvp.adapter.BaseVideoDownloadAdapter;
 import com.dl7.mvp.injector.components.DaggerVideoCompleteComponent;
 import com.dl7.mvp.injector.modules.VideoCompleteModule;
 import com.dl7.mvp.local.table.VideoInfo;
 import com.dl7.mvp.module.base.BaseFragment;
 import com.dl7.mvp.module.base.ILocalView;
 import com.dl7.mvp.module.base.IRxBusPresenter;
-import com.dl7.recycler.adapter.BaseQuickAdapter;
+import com.dl7.mvp.module.manage.download.DownloadActivity;
 import com.dl7.recycler.helper.RecyclerViewHelper;
+import com.dl7.recycler.listener.OnRecyclerViewItemLongClickListener;
+import com.dl7.recycler.listener.OnRemoveDataListener;
 
 import java.util.List;
 
@@ -34,7 +37,7 @@ public class VideoCompleteFragment extends BaseFragment<IRxBusPresenter> impleme
     TextView mDefaultBg;
 
     @Inject
-    BaseQuickAdapter mAdapter;
+    BaseVideoDownloadAdapter mAdapter;
 
     @Override
     protected int attachLayoutRes() {
@@ -54,10 +57,34 @@ public class VideoCompleteFragment extends BaseFragment<IRxBusPresenter> impleme
     protected void initViews() {
         RecyclerViewHelper.initRecyclerViewV(mContext, mRvVideoList, mAdapter);
         mRvVideoList.setItemAnimator(new SlideInLeftAnimator());
+        mAdapter.setRemoveDataListener(new OnRemoveDataListener() {
+            @Override
+            public void onRemove(int position) {
+                if (mAdapter.getItemCount() <= 1 && mDefaultBg.getVisibility() == View.GONE) {
+                    mDefaultBg.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        mAdapter.setOnItemLongClickListener(new OnRecyclerViewItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(View view, int position) {
+                if (!mAdapter.isEditMode()) {
+                    mAdapter.toggleItemChecked(position);
+                    mAdapter.setEditMode(true);
+                    ((DownloadActivity) getActivity()).enableEditMode(true);
+                } else {
+                    mAdapter.toggleItemChecked(position);
+                }
+                return true;
+            }
+        });
         mPresenter.registerRxBus(VideoInfo.class, new Action1<VideoInfo>() {
             @Override
             public void call(VideoInfo info) {
                 mAdapter.addItem(info);
+                if (mDefaultBg.getVisibility() == View.VISIBLE) {
+                    mDefaultBg.setVisibility(View.GONE);
+                }
             }
         });
     }
@@ -84,5 +111,30 @@ public class VideoCompleteFragment extends BaseFragment<IRxBusPresenter> impleme
     public void onDestroy() {
         super.onDestroy();
         mPresenter.unregisterRxBus();
+    }
+
+    /**
+     * 处理后退键
+     *
+     * @return
+     */
+    public boolean onBackPressed() {
+        if (mAdapter.isEditMode()) {
+            mAdapter.setEditMode(false);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isEditMode() {
+        return mAdapter.isEditMode();
+    }
+
+    public void checkAllOrNone(boolean isChecked) {
+        mAdapter.checkAllOrNone(isChecked);
+    }
+
+    public void deleteChecked() {
+        mAdapter.deleteItemChecked();
     }
 }

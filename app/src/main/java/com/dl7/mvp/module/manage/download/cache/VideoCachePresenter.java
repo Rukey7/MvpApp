@@ -14,6 +14,7 @@ import java.util.List;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.functions.Func1;
 
 /**
  * Created by long on 2016/12/16.
@@ -33,15 +34,22 @@ public class VideoCachePresenter implements IRxBusPresenter {
 
     @Override
     public void getData() {
-        mDbDao.queryBuilder()
-                // 在 DownloadStatus.WAIT 和 DownloadStatus.ERROR 之间说明在下载中
-                .where(VideoInfoDao.Properties.DownloadStatus.between(DownloadStatus.WAIT, DownloadStatus.ERROR))
-                .rx()
-                .list()
+        mDbDao.queryBuilder().rx()
+                .oneByOne()
+                .filter(new Func1<VideoInfo, Boolean>() {
+                    @Override
+                    public Boolean call(VideoInfo info) {
+                        // 判断是否存于下载中
+                        return (info.getDownloadStatus() != DownloadStatus.NORMAL &&
+                                info.getDownloadStatus() != DownloadStatus.COMPLETE);
+                    }
+                })
+                .toList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<VideoInfo>>() {
                     @Override
                     public void call(List<VideoInfo> videoList) {
+                        Logger.e(""+ListUtils.isEmpty(videoList));
                         if (ListUtils.isEmpty(videoList)) {
                             mView.noData();
                         } else {
@@ -49,6 +57,24 @@ public class VideoCachePresenter implements IRxBusPresenter {
                         }
                     }
                 });
+
+//        mDbDao.queryBuilder()
+//                // 在 DownloadStatus.WAIT 和 DownloadStatus.ERROR 之间说明在下载中
+//                .where(VideoInfoDao.Properties.DownloadStatus.between(DownloadStatus.WAIT, DownloadStatus.ERROR))
+//                .rx()
+//                .list()
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Action1<List<VideoInfo>>() {
+//                    @Override
+//                    public void call(List<VideoInfo> videoList) {
+//                        Logger.e(""+ListUtils.isEmpty(videoList));
+//                        if (ListUtils.isEmpty(videoList)) {
+//                            mView.noData();
+//                        } else {
+//                            mView.loadData(videoList);
+//                        }
+//                    }
+//                });
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.dl7.mvp.rxbus.event;
 
+import android.support.annotation.IntDef;
+
 import com.dl7.mvp.local.table.NewsTypeInfo;
 
 import java.lang.annotation.ElementType;
@@ -13,12 +15,16 @@ import java.lang.annotation.Target;
  */
 public class ChannelEvent {
 
+    /**
+     * 频道事件：添加、删除和交换位置
+     */
     public static final int ADD_EVENT = 301;
     public static final int DEL_EVENT = 302;
     public static final int SWAP_EVENT = 303;
 
     @Retention(RetentionPolicy.SOURCE)
     @Target(ElementType.PARAMETER)
+    @IntDef({ADD_EVENT, DEL_EVENT, SWAP_EVENT})
     public @interface ChannelEventType{}
 
     public int eventType;

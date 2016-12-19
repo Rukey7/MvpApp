@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_marginLeft="20dp"
-              android:layout_marginRight="20dp"
+              android:layout_marginLeft="10dp"
+              android:layout_marginRight="10dp"
               android:layout_marginTop="10dp"
               android:background="@mipmap/bg_card"
               android:orientation="horizontal"
@@ -11,6 +11,14 @@
               android:paddingLeft="10dp"
               android:paddingRight="20dp"
               android:paddingTop="10dp">
+
+    <CheckBox
+        android:id="@+id/cb_delete"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:visibility="gone"
+        android:layout_marginRight="5dp"
+        android:layout_height="wrap_content"/>
 
     <ImageView
         android:id="@+id/iv_thumb"

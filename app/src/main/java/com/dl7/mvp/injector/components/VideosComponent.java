@@ -8,6 +8,7 @@ import dagger.Component;
 
 /**
  * Created by long on 2016/10/11.
+ *
  */
 @PerActivity
 @Component(dependencies = ApplicationComponent.class, modules = VideosModule.class)

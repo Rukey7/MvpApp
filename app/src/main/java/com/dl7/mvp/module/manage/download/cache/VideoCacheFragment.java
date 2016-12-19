@@ -6,14 +6,17 @@ import android.widget.TextView;
 
 import com.dl7.downloaderlib.entity.FileInfo;
 import com.dl7.mvp.R;
-import com.dl7.mvp.adapter.VideoCacheAdapter;
+import com.dl7.mvp.adapter.BaseVideoDownloadAdapter;
 import com.dl7.mvp.injector.components.DaggerVideoCacheComponent;
 import com.dl7.mvp.injector.modules.VideoCacheModule;
 import com.dl7.mvp.local.table.VideoInfo;
 import com.dl7.mvp.module.base.BaseFragment;
 import com.dl7.mvp.module.base.ILocalView;
 import com.dl7.mvp.module.base.IRxBusPresenter;
+import com.dl7.mvp.module.manage.download.DownloadActivity;
 import com.dl7.recycler.helper.RecyclerViewHelper;
+import com.dl7.recycler.listener.OnRecyclerViewItemLongClickListener;
+import com.dl7.recycler.listener.OnRemoveDataListener;
 
 import java.util.List;
 
@@ -35,7 +38,7 @@ public class VideoCacheFragment extends BaseFragment<IRxBusPresenter> implements
     TextView mDefaultBg;
 
     @Inject
-    VideoCacheAdapter mAdapter;
+    BaseVideoDownloadAdapter mAdapter;
 
     @Override
     protected int attachLayoutRes() {
@@ -55,6 +58,27 @@ public class VideoCacheFragment extends BaseFragment<IRxBusPresenter> implements
     protected void initViews() {
         RecyclerViewHelper.initRecyclerViewV(mContext, mRvVideoList, mAdapter);
         mRvVideoList.setItemAnimator(new SlideInLeftAnimator());
+        mAdapter.setRemoveDataListener(new OnRemoveDataListener() {
+            @Override
+            public void onRemove(int position) {
+                if (mAdapter.getItemCount() <= 1 && mDefaultBg.getVisibility() == View.GONE) {
+                    mDefaultBg.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        mAdapter.setOnItemLongClickListener(new OnRecyclerViewItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(View view, int position) {
+                if (!mAdapter.isEditMode()) {
+                    mAdapter.toggleItemChecked(position);
+                    mAdapter.setEditMode(true);
+                    ((DownloadActivity) getActivity()).enableEditMode(true);
+                } else {
+                    mAdapter.toggleItemChecked(position);
+                }
+                return true;
+            }
+        });
         mPresenter.registerRxBus(FileInfo.class, new Action1<FileInfo>() {
             @Override
             public void call(FileInfo fileInfo) {
@@ -85,5 +109,30 @@ public class VideoCacheFragment extends BaseFragment<IRxBusPresenter> implements
     public void onDestroy() {
         super.onDestroy();
         mPresenter.unregisterRxBus();
+    }
+
+    /**
+     * 处理后退键
+     *
+     * @return
+     */
+    public boolean onBackPressed() {
+        if (mAdapter.isEditMode()) {
+            mAdapter.setEditMode(false);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isEditMode() {
+        return mAdapter.isEditMode();
+    }
+
+    public void checkAllOrNone(boolean isChecked) {
+        mAdapter.checkAllOrNone(isChecked);
+    }
+
+    public void deleteChecked() {
+        mAdapter.deleteItemChecked();
     }
 }

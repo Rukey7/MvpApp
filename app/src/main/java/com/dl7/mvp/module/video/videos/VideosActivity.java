@@ -132,7 +132,7 @@ public class VideosActivity extends BaseNavActivity<IRxBusPresenter> implements 
         dlLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DownloadActivity.launch(VideosActivity.this);
+                DownloadActivity.launch(VideosActivity.this, 0);
             }
         });
     }

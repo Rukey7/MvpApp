@@ -74,7 +74,6 @@ public class MainActivity extends BaseNavActivity<IRxBusPresenter> implements IM
         mPresenter.registerRxBus(ChannelEvent.class, new Action1<ChannelEvent>() {
             @Override
             public void call(ChannelEvent channelEvent) {
-//                mPresenter.getData();
                 _handleChannelEvent(channelEvent);
             }
         });

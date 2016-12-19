@@ -81,7 +81,7 @@ public class AndroidApplication extends Application {
         }
         RetrofitService.init();
         ToastUtils.init(this);
-        DownloaderWrapper.init(mRxBus);
+        DownloaderWrapper.init(mRxBus, mDaoSession.getVideoInfoDao());
         FileDownloader.init(this);
 //        DownloadConfig config = new DownloadConfig.Builder()
 //                .setDownloadDir(PreferencesUtils.getSavePath(this) + File.separator + "video").build();
