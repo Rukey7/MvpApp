@@ -265,33 +265,33 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
     @Override
     public void startActivity(Intent intent) {
         super.startActivity(intent);
-        if (intent != null && intent.getComponent() != null
-                && !intent.getComponent().getClassName().contains("MainActivity")) {
-            // 设置Activity进入动画为从右往左覆盖
-            overridePendingTransition(R.anim.move_right_in_activity, R.anim.hold_long);
-        }
+//        if (intent != null && intent.getComponent() != null
+//                && !intent.getComponent().getClassName().contains("MainActivity")) {
+//            // 设置Activity进入动画为从右往左覆盖
+//            overridePendingTransition(R.anim.move_right_in_activity, R.anim.hold_long);
+//        }
     }
 
     @Override
     public void startActivityForResult(Intent intent, int requestCode) {
         super.startActivityForResult(intent, requestCode);
-        if (intent != null && intent.getComponent() != null) {
-            // 设置Activity进入动画为从右往左覆盖
-            overridePendingTransition(R.anim.move_right_in_activity, R.anim.hold_long);
-        }
+//        if (intent != null && intent.getComponent() != null) {
+//            // 设置Activity进入动画为从右往左覆盖
+//            overridePendingTransition(R.anim.move_right_in_activity, R.anim.hold_long);
+//        }
     }
 
     @Override
     public void finish() {
         super.finish();
-        if (((Object) this).getClass().getName().contains("PhotosActivity")) {
-            overridePendingTransition(0, 0);
-        } else if (((Object) this).getClass().getName().contains("VideosActivity")) {
-            overridePendingTransition(0, 0);
-        } else if (!((Object) this).getClass().getName().contains("MainActivity")) {
-            // 设置Activity退出动画为从左往右退出
-            overridePendingTransition(R.anim.hold_long, R.anim.move_right_out_activity);
-        }
+//        if (((Object) this).getClass().getName().contains("PhotosActivity")) {
+//            overridePendingTransition(0, 0);
+//        } else if (((Object) this).getClass().getName().contains("VideosActivity")) {
+//            overridePendingTransition(0, 0);
+//        } else if (!((Object) this).getClass().getName().contains("MainActivity")) {
+//            // 设置Activity退出动画为从左往右退出
+//            overridePendingTransition(R.anim.hold_long, R.anim.move_right_out_activity);
+//        }
     }
 
     @Override

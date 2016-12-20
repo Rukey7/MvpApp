@@ -13,7 +13,7 @@ import com.dl7.mvp.adapter.ViewPagerAdapter;
 import com.dl7.mvp.injector.components.DaggerDownloadComponent;
 import com.dl7.mvp.injector.modules.DownloadModule;
 import com.dl7.mvp.module.base.BaseActivity;
-import com.dl7.mvp.module.base.BaseVideoDownloadFragment;
+import com.dl7.mvp.module.base.BaseVideoDLFragment;
 import com.dl7.mvp.module.base.IRxBusPresenter;
 import com.dl7.mvp.module.manage.download.cache.VideoCacheFragment;
 import com.dl7.mvp.module.manage.download.complete.VideoCompleteFragment;
@@ -54,8 +54,8 @@ public class DownloadActivity extends BaseActivity<IRxBusPresenter> {
 
     @Inject
     ViewPagerAdapter mPagerAdapter;
-    private BaseVideoDownloadFragment mCompleteFragment;
-    private BaseVideoDownloadFragment mCacheFragment;
+    private BaseVideoDLFragment mCompleteFragment;
+    private BaseVideoDLFragment mCacheFragment;
     private int mIndex;
 
     public static void launch(Context context, int index) {

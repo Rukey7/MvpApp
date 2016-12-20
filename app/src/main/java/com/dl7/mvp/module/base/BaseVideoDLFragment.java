@@ -12,7 +12,7 @@ import javax.inject.Inject;
  * Created by long on 2016/12/20.
  * video下载的基类Fragment
  */
-public abstract class BaseVideoDownloadFragment<T extends IBasePresenter> extends BaseFragment<T> {
+public abstract class BaseVideoDLFragment<T extends IBasePresenter> extends BaseFragment<T> {
 
     @Inject
     protected BaseVideoDownloadAdapter mAdapter;

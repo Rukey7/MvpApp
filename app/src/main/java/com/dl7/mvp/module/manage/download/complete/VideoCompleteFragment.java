@@ -8,7 +8,7 @@ import com.dl7.mvp.R;
 import com.dl7.mvp.injector.components.DaggerVideoCompleteComponent;
 import com.dl7.mvp.injector.modules.VideoCompleteModule;
 import com.dl7.mvp.local.table.VideoInfo;
-import com.dl7.mvp.module.base.BaseVideoDownloadFragment;
+import com.dl7.mvp.module.base.BaseVideoDLFragment;
 import com.dl7.mvp.module.base.ILocalView;
 import com.dl7.mvp.module.base.IRxBusPresenter;
 import com.dl7.recycler.helper.RecyclerViewHelper;
@@ -24,7 +24,7 @@ import rx.functions.Action1;
  * Created by long on 2016/12/16.
  * video 缓存完成列表
  */
-public class VideoCompleteFragment extends BaseVideoDownloadFragment<IRxBusPresenter> implements ILocalView<VideoInfo> {
+public class VideoCompleteFragment extends BaseVideoDLFragment<IRxBusPresenter> implements ILocalView<VideoInfo> {
 
     @BindView(R.id.rv_video_list)
     RecyclerView mRvVideoList;

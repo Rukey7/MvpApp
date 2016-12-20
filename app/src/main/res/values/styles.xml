@@ -25,6 +25,13 @@
         <!--<item name="android:divider">@color/divider_line</item>-->
         <!--<item name="android:windowBackground">@color/window_background</item>-->
         <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/slide_in_right</item>
+    </style>
+
+    <style name="slide_in_right" parent="@android:style/Animation.Translucent">
+        <item name="android:windowEnterAnimation">@anim/move_right_in_activity</item>
+        <item name="android:windowExitAnimation">@anim/move_right_out_activity</item>
     </style>
 
     <!--<style name="AppBaseTheme.LauncherAppTheme">-->

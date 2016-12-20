@@ -26,39 +26,32 @@
         </activity>
         <activity
             android:name=".module.news.detail.NewsDetailActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".module.news.special.SpecialActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".module.photo.photoset.PhotoSetActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppBaseTheme.TranslucentStatus">
         </activity>
         <activity
             android:name=".module.news.channel.ChannelActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".module.photo.bigphoto.BigPhotoActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppBaseTheme.BigPhotoTheme">
         </activity>
         <activity
             android:name=".module.manage.love.LoveActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".module.manage.setting.SettingsActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait">
         </activity>
         <activity
@@ -66,7 +59,8 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppBaseTheme.TranslucentStatus">
         </activity>
-        <activity android:name=".module.manage.download.DownloadActivity">
+        <activity android:name=".module.manage.download.DownloadActivity"
+                  android:screenOrientation="portrait">
         </activity>
         <activity android:name=".module.video.fullscreen.VideoFullscreenActivity">
         </activity>
