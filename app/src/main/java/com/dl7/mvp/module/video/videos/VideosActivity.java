@@ -18,7 +18,6 @@ import com.dl7.mvp.module.base.BaseNavActivity;
 import com.dl7.mvp.module.base.IRxBusPresenter;
 import com.dl7.mvp.module.manage.download.DownloadActivity;
 import com.dl7.mvp.module.manage.love.LoveActivity;
-import com.dl7.mvp.module.photo.photos.IPhotosView;
 import com.dl7.mvp.module.video.videolist.VideoListFragment;
 import com.dl7.mvp.rxbus.event.VideoEvent;
 import com.flyco.tablayout.SlidingTabLayout;
@@ -30,7 +29,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import rx.functions.Action1;
 
-public class VideosActivity extends BaseNavActivity<IRxBusPresenter> implements IPhotosView {
+public class VideosActivity extends BaseNavActivity<IRxBusPresenter> implements IVideosView {
 
     private final String[] VIDEO_ID = new String[]{
             "V9LG4B3A0", "V9LG4E6VR", "V9LG4CHOR", "00850FRB"
@@ -83,7 +82,9 @@ public class VideosActivity extends BaseNavActivity<IRxBusPresenter> implements 
         mPresenter.registerRxBus(VideoEvent.class, new Action1<VideoEvent>() {
             @Override
             public void call(VideoEvent videoEvent) {
-                mPresenter.getData();
+                if (videoEvent.checkStatus == VideoEvent.CHECK_INVALID) {
+                    mPresenter.getData();
+                }
             }
         });
     }
@@ -99,8 +100,14 @@ public class VideosActivity extends BaseNavActivity<IRxBusPresenter> implements 
     }
 
     @Override
-    public void updateCount(int lovedCount) {
+    public void updateLovedCount(int lovedCount) {
         mLoveCount.setText(lovedCount + "");
+    }
+
+    @Override
+    public void updateDownloadCount(int downloadCount) {
+        mDlCount.setVisibility(downloadCount > 0 ? View.VISIBLE : View.GONE);
+        mDlCount.setText(downloadCount + "");
     }
 
     @Override

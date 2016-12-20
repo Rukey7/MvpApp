@@ -10,6 +10,7 @@ import com.dl7.mvp.rxbus.event.VideoEvent;
 
 import java.util.List;
 
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 
@@ -44,6 +45,7 @@ public class VideoPlayerPresenter implements ILocalPresenter<VideoInfo> {
                         return mVideoData.equals(videoBean);
                     }
                 })
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<VideoInfo>() {
                     @Override
                     public void call(VideoInfo videoBean) {

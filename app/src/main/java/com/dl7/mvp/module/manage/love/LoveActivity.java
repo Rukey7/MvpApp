@@ -17,12 +17,12 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 
+import static com.dl7.mvp.utils.CommonConstant.INDEX_KEY;
+
 /**
  * 收藏界面
  */
 public class LoveActivity extends BaseActivity {
-
-    private static final String LOVE_INDEX_KEY = "LoveIndexKey";
 
     @BindView(R.id.tool_bar)
     Toolbar mToolBar;
@@ -36,7 +36,7 @@ public class LoveActivity extends BaseActivity {
 
     public static void launch(Context context, int index) {
         Intent intent = new Intent(context, LoveActivity.class);
-        intent.putExtra(LOVE_INDEX_KEY, index);
+        intent.putExtra(INDEX_KEY, index);
         context.startActivity(intent);
     }
 
@@ -51,7 +51,7 @@ public class LoveActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        mIndex = getIntent().getIntExtra(LOVE_INDEX_KEY, 0);
+        mIndex = getIntent().getIntExtra(INDEX_KEY, 0);
         initToolBar(mToolBar, true, "收藏");
         mPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
     }

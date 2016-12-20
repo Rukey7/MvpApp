@@ -19,7 +19,21 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways|snap"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <TextView
+                android:id="@+id/tv_close_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/sel_common_bg_press"
+                android:padding="10dp"
+                android:text="完成"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:visibility="gone"/>
+        </android.support.v7.widget.Toolbar>
 
         <com.flyco.tablayout.SlidingTabLayout
             android:id="@+id/tab_layout"
@@ -58,8 +72,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/sel_common_bg_press"
                 android:gravity="center"
-                android:textColor="@android:color/black"
-                android:text="全选"/>
+                android:text="全选"
+                android:textColor="@android:color/black"/>
 
             <View
                 android:layout_width="1px"

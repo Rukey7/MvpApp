@@ -42,8 +42,7 @@ public class VideoCacheAdapter extends BaseVideoDownloadAdapter {
         ImageLoader.loadFitCenter(mContext, item.getCover(), ivThumb, DefIconFactory.provideIcon());
         NumberProgressBar pbDownload = holder.getView(R.id.pb_download);
         pbDownload.setMax((int) item.getTotalSize());
-        holder.setText(R.id.tv_total_size, StringUtils.convertStorageNoB(item.getTotalSize()))
-                .setText(R.id.tv_title, item.getTitle());
+        holder.setText(R.id.tv_title, item.getTitle());
         _switchViews(holder, item);
 
         holder.getView(R.id.btn_download).setOnClickListener(new View.OnClickListener() {
@@ -90,6 +89,7 @@ public class VideoCacheAdapter extends BaseVideoDownloadAdapter {
                 if (!holder.isVisible(R.id.pb_download) || !holder.isSelected(R.id.btn_download)) {
                     holder.setVisible(R.id.pb_download, true)
                             .setSelected(R.id.btn_download, true)
+                            .setText(R.id.tv_total_size, StringUtils.convertStorageNoB(item.getTotalSize()))
                             .setTextColor(R.id.tv_speed, ContextCompat.getColor(mContext, R.color.download_normal));
                 }
                 NumberProgressBar pbDownload = holder.getView(R.id.pb_download);

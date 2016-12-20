@@ -1,8 +1,8 @@
 package com.dl7.mvp.module.video.videos;
 
+import com.dl7.downloaderlib.model.DownloadStatus;
 import com.dl7.mvp.local.table.VideoInfoDao;
 import com.dl7.mvp.module.base.IRxBusPresenter;
-import com.dl7.mvp.module.photo.photos.IPhotosView;
 import com.dl7.mvp.rxbus.RxBus;
 import com.orhanobut.logger.Logger;
 
@@ -11,15 +11,15 @@ import rx.functions.Action1;
 
 /**
  * Created by long on 2016/10/11.
+ * Video 主界面 Presenter
  */
-
 public class VideosPresenter implements IRxBusPresenter {
 
-    private final IPhotosView mView;
+    private final IVideosView mView;
     private final VideoInfoDao mDbDao;
     private final RxBus mRxBus;
 
-    public VideosPresenter(IPhotosView view, VideoInfoDao dbDao, RxBus rxBus) {
+    public VideosPresenter(IVideosView view, VideoInfoDao dbDao, RxBus rxBus) {
         mView = view;
         mDbDao = dbDao;
         mRxBus = rxBus;
@@ -27,7 +27,9 @@ public class VideosPresenter implements IRxBusPresenter {
 
     @Override
     public void getData() {
-        mView.updateCount((int) mDbDao.queryBuilder().where(VideoInfoDao.Properties.IsCollect.eq(true)).count());
+        mView.updateLovedCount((int) mDbDao.queryBuilder().where(VideoInfoDao.Properties.IsCollect.eq(true)).count());
+        mView.updateDownloadCount((int) mDbDao.queryBuilder()
+                .where(VideoInfoDao.Properties.DownloadStatus.notIn(DownloadStatus.NORMAL, DownloadStatus.COMPLETE)).count());
     }
 
     @Override

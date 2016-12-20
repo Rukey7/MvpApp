@@ -10,6 +10,7 @@ import com.dl7.downloaderlib.model.DownloadStatus;
 import com.dl7.mvp.local.table.VideoInfo;
 import com.dl7.mvp.local.table.VideoInfoDao;
 import com.dl7.mvp.rxbus.RxBus;
+import com.dl7.mvp.rxbus.event.VideoEvent;
 import com.dl7.mvp.utils.StringUtils;
 import com.orhanobut.logger.Logger;
 
@@ -52,6 +53,8 @@ public final class DownloaderWrapper {
         // 插入或更新
         sDbDao.insertOrReplace(info);
         sDLVideoList.add(info);
+        // 通知 Video 主界面刷新下载数
+        sRxBus.post(new VideoEvent());
         // 启动下载
         FileDownloader.start(info.getVideoUrl(), StringUtils.clipFileName(info.getVideoUrl()), new ListenerWrapper());
     }
@@ -73,6 +76,9 @@ public final class DownloaderWrapper {
         FileDownloader.cancel(info.getVideoUrl());
         // 删除
         sDbDao.delete(info);
+        // 通知 Video 主界面刷新下载数
+        sRxBus.post(new VideoEvent());
+        // 通知缓存列表
         sRxBus.post(new FileInfo(DownloadStatus.CANCEL, info.getVideoUrl(),
                 StringUtils.clipFileName(info.getVideoUrl()), (int) info.getTotalSize()));
         sDLVideoList.remove(_findApp(info.getVideoUrl()));
@@ -88,6 +94,8 @@ public final class DownloaderWrapper {
         FileDownloader.cancel(info.getVideoUrl());
         // 删除
         sDbDao.delete(info);
+        // 通知 Video 主界面刷新下载数
+        sRxBus.post(new VideoEvent());
         sDLVideoList.remove(_findApp(info.getVideoUrl()));
         File file = new File(path);
         if (file.exists()) {
@@ -124,6 +132,8 @@ public final class DownloaderWrapper {
         public void onComplete(FileInfo fileInfo) {
             _updateVideoInfo(fileInfo);
             sRxBus.post(fileInfo);
+            // 通知 Video 主界面刷新下载数
+            sRxBus.post(new VideoEvent());
             Logger.e("onComplete " + fileInfo.toString());
         }
 

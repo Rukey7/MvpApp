@@ -57,24 +57,6 @@ public class VideoCachePresenter implements IRxBusPresenter {
                         }
                     }
                 });
-
-//        mDbDao.queryBuilder()
-//                // 在 DownloadStatus.WAIT 和 DownloadStatus.ERROR 之间说明在下载中
-//                .where(VideoInfoDao.Properties.DownloadStatus.between(DownloadStatus.WAIT, DownloadStatus.ERROR))
-//                .rx()
-//                .list()
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Action1<List<VideoInfo>>() {
-//                    @Override
-//                    public void call(List<VideoInfo> videoList) {
-//                        Logger.e(""+ListUtils.isEmpty(videoList));
-//                        if (ListUtils.isEmpty(videoList)) {
-//                            mView.noData();
-//                        } else {
-//                            mView.loadData(videoList);
-//                        }
-//                    }
-//                });
     }
 
     @Override

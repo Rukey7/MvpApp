@@ -18,7 +18,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+//            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
@@ -27,7 +27,9 @@ android {
 //            targetGenDir 'src/main/java'
         }
     }
-
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
