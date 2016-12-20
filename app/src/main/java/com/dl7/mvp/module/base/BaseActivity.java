@@ -12,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.dl7.mvp.AndroidApplication;
 import com.dl7.mvp.R;
@@ -256,6 +255,7 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
             fragmentTransaction.addToBackStack(tag);
             fragmentTransaction.commit();
         } else {
+            // 存在则弹出在它上面的所有fragment，并显示对应fragment
             getSupportFragmentManager().popBackStack(tag, 0);
         }
     }
@@ -301,26 +301,5 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (getClass().getName().contains("MainActivity")) {
-            _exit();
-            return;
-        }
-        super.onBackPressed();
-    }
-
-    /**
-     * 退出
-     */
-    private void _exit() {
-        if (System.currentTimeMillis() - mExitTime > 2000) {
-            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
-            mExitTime = System.currentTimeMillis();
-        } else {
-            ActivityCollector.finishAll();
-        }
     }
 }

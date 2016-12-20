@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.dl7.mvp.R;
 import com.dl7.mvp.module.base.BaseActivity;
+import com.dl7.mvp.module.manage.setting.SettingsActivity;
 import com.dl7.mvp.module.news.main.NewsMainFragment;
 import com.dl7.mvp.module.photo.main.PhotoMainFragment;
 import com.dl7.mvp.module.video.main.VideoMainFragment;
@@ -76,7 +77,8 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.nav_videos:
                 replaceFragment(R.id.fl_container, new VideoMainFragment(), mSparseTags.get(R.id.nav_videos));
                 break;
-            case R.id.nav_setting:
+           case R.id.nav_setting:
+                SettingsActivity.launch(this);
                 break;
             default:
                 return false;
