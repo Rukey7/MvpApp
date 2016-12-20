@@ -1,4 +1,4 @@
-package com.dl7.mvp.module.news.home;
+package com.dl7.mvp.module.news.main;
 
 import com.dl7.mvp.local.table.NewsTypeInfo;
 
@@ -8,7 +8,7 @@ import java.util.List;
  * Created by long on 2016/9/1.
  * 主页接口
  */
-public interface IMainView {
+public interface INewsMainView {
 
     /**
      * 显示数据

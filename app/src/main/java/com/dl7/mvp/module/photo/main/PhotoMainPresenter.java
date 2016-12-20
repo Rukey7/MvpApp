@@ -1,7 +1,6 @@
-package com.dl7.mvp.module.video.videos;
+package com.dl7.mvp.module.photo.main;
 
-import com.dl7.downloaderlib.model.DownloadStatus;
-import com.dl7.mvp.local.table.VideoInfoDao;
+import com.dl7.mvp.local.table.BeautyPhotoInfoDao;
 import com.dl7.mvp.module.base.IRxBusPresenter;
 import com.dl7.mvp.rxbus.RxBus;
 import com.orhanobut.logger.Logger;
@@ -10,16 +9,16 @@ import rx.Subscription;
 import rx.functions.Action1;
 
 /**
- * Created by long on 2016/10/11.
- * Video 主界面 Presenter
+ * Created by long on 2016/9/23.
+ * 图片专栏 Presenter
  */
-public class VideosPresenter implements IRxBusPresenter {
+public class PhotoMainPresenter implements IRxBusPresenter {
 
-    private final IVideosView mView;
-    private final VideoInfoDao mDbDao;
+    private final IPhotoMainView mView;
+    private final BeautyPhotoInfoDao mDbDao;
     private final RxBus mRxBus;
 
-    public VideosPresenter(IVideosView view, VideoInfoDao dbDao, RxBus rxBus) {
+    public PhotoMainPresenter(IPhotoMainView view, BeautyPhotoInfoDao dbDao, RxBus rxBus) {
         mView = view;
         mDbDao = dbDao;
         mRxBus = rxBus;
@@ -27,9 +26,7 @@ public class VideosPresenter implements IRxBusPresenter {
 
     @Override
     public void getData() {
-        mView.updateLovedCount((int) mDbDao.queryBuilder().where(VideoInfoDao.Properties.IsCollect.eq(true)).count());
-        mView.updateDownloadCount((int) mDbDao.queryBuilder()
-                .where(VideoInfoDao.Properties.DownloadStatus.notIn(DownloadStatus.NORMAL, DownloadStatus.COMPLETE)).count());
+        mView.updateCount((int) mDbDao.queryBuilder().where(BeautyPhotoInfoDao.Properties.IsLove.eq(true)).count());
     }
 
     @Override

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.dl7.mvp">
+<manifest package="com.dl7.mvp"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -15,8 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppBaseTheme">
         <activity
-            android:name=".module.news.home.MainActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:name=".module.home.HomeActivity"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -46,11 +46,6 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".module.photo.photos.PhotosActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
             android:name=".module.photo.bigphoto.BigPhotoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
@@ -64,10 +59,6 @@
         <activity
             android:name=".module.manage.setting.SettingsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name=".module.video.videos.VideosActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity

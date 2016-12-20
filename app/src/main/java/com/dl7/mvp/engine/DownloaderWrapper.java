@@ -1,7 +1,6 @@
 package com.dl7.mvp.engine;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.dl7.downloaderlib.DownloadListener;
 import com.dl7.downloaderlib.FileDownloader;
@@ -118,7 +117,6 @@ public final class DownloaderWrapper {
         public void onUpdate(FileInfo fileInfo) {
             _updateVideoInfo(fileInfo);
             sRxBus.post(fileInfo);
-            Log.i("ListenerWrapper", fileInfo.toString());
         }
 
         @Override

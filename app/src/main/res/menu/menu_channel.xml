@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/item_channel"
-        android:icon="@mipmap/ic_playlist_add_white_24dp"
+        android:icon="@mipmap/ic_channel_manage"
         android:title="栏目管理"
         app:showAsAction="always"/>
 </menu>

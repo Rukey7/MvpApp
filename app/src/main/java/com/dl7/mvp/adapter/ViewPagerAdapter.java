@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -47,6 +48,12 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     public void setItems(List<Fragment> fragments, List<String> mTitles) {
         this.fragments = fragments;
         this.mTitles = mTitles;
+        notifyDataSetChanged();
+    }
+
+    public void setItems(List<Fragment> fragments, String[] mTitles) {
+        this.fragments = fragments;
+        this.mTitles = Arrays.asList(mTitles);
         notifyDataSetChanged();
     }
 

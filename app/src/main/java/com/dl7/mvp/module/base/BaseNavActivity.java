@@ -2,7 +2,6 @@ package com.dl7.mvp.module.base;
 
 import android.content.Intent;
 import android.os.Build;
-import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,10 +11,6 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 
 import com.dl7.mvp.R;
-import com.dl7.mvp.module.news.home.MainActivity;
-import com.dl7.mvp.module.photo.photos.PhotosActivity;
-import com.dl7.mvp.module.manage.setting.SettingsActivity;
-import com.dl7.mvp.module.video.videos.VideosActivity;
 
 /**
  * Created by long on 2016/9/5.
@@ -58,37 +53,29 @@ public abstract class BaseNavActivity<T extends IBasePresenter> extends BaseActi
         if (item.isChecked()) {
             return true;
         }
-        final Intent intent;
-        switch (item.getItemId()) {
-            case R.id.nav_photos:
-                intent = new Intent(this, PhotosActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                break;
-            case R.id.nav_news:
-                intent = new Intent(this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                break;
-            case R.id.nav_videos:
-                intent = new Intent(this, VideosActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                break;
-            case R.id.nav_setting:
-                intent = new Intent(this, SettingsActivity.class);
-                break;
-            default:
-                return false;
-        }
-        // 延迟是为了让抽屉菜单先收回去
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(intent);
-                if (item.getItemId() != R.id.nav_setting) {
-                    // 这个要放 startActivity 后面
-                    overridePendingTransition(R.anim.fade_in_activity, R.anim.scale_out_activity);
-                }
-            }
-        }, 250);
+//        final Intent intent;
+//        switch (item.getItemId()) {
+//            case R.id.nav_videos:
+//                intent = new Intent(this, VideosActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+//                break;
+//            case R.id.nav_setting:
+//                intent = new Intent(this, SettingsActivity.class);
+//                break;
+//            default:
+//                return false;
+//        }
+//        // 延迟是为了让抽屉菜单先收回去
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                startActivity(intent);
+//                if (item.getItemId() != R.id.nav_setting) {
+//                    // 这个要放 startActivity 后面
+//                    overridePendingTransition(R.anim.fade_in_activity, R.anim.scale_out_activity);
+//                }
+//            }
+//        }, 250);
         return false;
     }
 

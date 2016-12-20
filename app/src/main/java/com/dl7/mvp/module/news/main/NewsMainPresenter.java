@@ -1,4 +1,4 @@
-package com.dl7.mvp.module.news.home;
+package com.dl7.mvp.module.news.main;
 
 import com.dl7.mvp.local.table.NewsTypeInfo;
 import com.dl7.mvp.local.table.NewsTypeInfoDao;
@@ -16,13 +16,13 @@ import rx.functions.Action1;
  * Created by long on 2016/9/1.
  * 主页 Presenter
  */
-public class MainPresenter implements IRxBusPresenter {
+public class NewsMainPresenter implements IRxBusPresenter {
 
-    private final IMainView mView;
+    private final INewsMainView mView;
     private final NewsTypeInfoDao mDbDao;
     private final RxBus mRxBus;
 
-    public MainPresenter(IMainView view, NewsTypeInfoDao dbDao, RxBus rxBus) {
+    public NewsMainPresenter(INewsMainView view, NewsTypeInfoDao dbDao, RxBus rxBus) {
         mView = view;
         mDbDao = dbDao;
         mRxBus = rxBus;
@@ -43,22 +43,6 @@ public class MainPresenter implements IRxBusPresenter {
     @Override
     public void getMoreData() {
     }
-
-//    @Override
-//    public <T> void registerRxBus(Class<T> eventType) {
-//        Subscription subscription = mRxBus.doSubscribe(eventType, new Action1<T>() {
-//            @Override
-//            public void call(T t) {
-//                getData();
-//            }
-//        }, new Action1<Throwable>() {
-//            @Override
-//            public void call(Throwable throwable) {
-//
-//            }
-//        });
-//        mRxBus.addSubscription(this, subscription);
-//    }
 
     @Override
     public <T> void registerRxBus(Class<T> eventType, Action1<T> action) {

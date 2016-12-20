@@ -1,22 +1,19 @@
-package com.dl7.mvp.module.news.home;
+package com.dl7.mvp.module.news.main;
 
-import android.content.Context;
-import android.content.Intent;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.dl7.mvp.R;
 import com.dl7.mvp.adapter.ViewPagerAdapter;
-import com.dl7.mvp.injector.components.DaggerMainComponent;
-import com.dl7.mvp.injector.modules.MainModule;
+import com.dl7.mvp.injector.components.DaggerNewsMainComponent;
+import com.dl7.mvp.injector.modules.NewsMainModule;
 import com.dl7.mvp.local.table.NewsTypeInfo;
-import com.dl7.mvp.module.base.BaseNavActivity;
+import com.dl7.mvp.module.base.BaseFragment;
 import com.dl7.mvp.module.base.IRxBusPresenter;
 import com.dl7.mvp.module.news.channel.ChannelActivity;
 import com.dl7.mvp.module.news.newslist.NewsListFragment;
@@ -30,7 +27,11 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import rx.functions.Action1;
 
-public class MainActivity extends BaseNavActivity<IRxBusPresenter> implements IMainView {
+/**
+ * Created by long on 2016/12/20.
+ * 新闻主界面
+ */
+public class NewsMainFragment extends BaseFragment<IRxBusPresenter> implements INewsMainView {
 
     @BindView(R.id.tool_bar)
     Toolbar mToolBar;
@@ -38,29 +39,20 @@ public class MainActivity extends BaseNavActivity<IRxBusPresenter> implements IM
     TabLayout mTabLayout;
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
-    @BindView(R.id.nav_view)
-    NavigationView mNavView;
-    @BindView(R.id.drawer_layout)
-    DrawerLayout mDrawerLayout;
 
     @Inject
     ViewPagerAdapter mPagerAdapter;
 
-    public static void launch(Context context) {
-        Intent intent = new Intent(context, MainActivity.class);
-        context.startActivity(intent);
-    }
-
     @Override
     protected int attachLayoutRes() {
-        return R.layout.activity_home;
+        return R.layout.fragment_news_main;
     }
 
     @Override
     protected void initInjector() {
-        DaggerMainComponent.builder()
+        DaggerNewsMainComponent.builder()
                 .applicationComponent(getAppComponent())
-                .mainModule(new MainModule(this))
+                .newsMainModule(new NewsMainModule(this))
                 .build()
                 .inject(this);
     }
@@ -68,7 +60,7 @@ public class MainActivity extends BaseNavActivity<IRxBusPresenter> implements IM
     @Override
     protected void initViews() {
         initToolBar(mToolBar, true, "新闻");
-        initDrawerLayout(mDrawerLayout, mNavView, mToolBar);
+        setHasOptionsMenu(true);
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
         mPresenter.registerRxBus(ChannelEvent.class, new Action1<ChannelEvent>() {
@@ -85,12 +77,6 @@ public class MainActivity extends BaseNavActivity<IRxBusPresenter> implements IM
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        mNavView.setCheckedItem(R.id.nav_news);
-    }
-
-    @Override
     public void loadData(List<NewsTypeInfo> checkList) {
         List<Fragment> fragments = new ArrayList<>();
         List<String> titles = new ArrayList<>();
@@ -102,25 +88,23 @@ public class MainActivity extends BaseNavActivity<IRxBusPresenter> implements IM
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         mPresenter.unregisterRxBus();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_channel, menu);
-        return true;
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_channel, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.item_channel) {
-            ChannelActivity.launch(this);
+            ChannelActivity.launch(mContext);
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     /**

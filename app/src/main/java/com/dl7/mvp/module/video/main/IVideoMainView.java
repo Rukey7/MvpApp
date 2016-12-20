@@ -1,10 +1,10 @@
-package com.dl7.mvp.module.video.videos;
+package com.dl7.mvp.module.video.main;
 
 /**
  * Created by long on 2016/12/20.
  * video 主界面接口
  */
-public interface IVideosView {
+public interface IVideoMainView {
 
     /**
      * 更新数据
