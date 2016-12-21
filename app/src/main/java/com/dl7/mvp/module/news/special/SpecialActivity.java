@@ -1,5 +1,6 @@
 package com.dl7.mvp.module.news.special;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,8 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dl7.mvp.R;
-import com.dl7.mvp.api.bean.SpecialInfo;
 import com.dl7.mvp.adapter.item.SpecialItem;
+import com.dl7.mvp.api.bean.SpecialInfo;
 import com.dl7.mvp.injector.components.DaggerSpecialComponent;
 import com.dl7.mvp.injector.modules.SpecialModule;
 import com.dl7.mvp.module.base.BaseActivity;
@@ -60,6 +61,7 @@ public class SpecialActivity extends BaseActivity<IBasePresenter> implements ISp
         Intent intent = new Intent(context, SpecialActivity.class);
         intent.putExtra(SPECIAL_KEY, newsId);
         context.startActivity(intent);
+        ((Activity)context).overridePendingTransition(R.anim.slide_right_entry, R.anim.hold);
     }
 
     @Override
@@ -111,6 +113,12 @@ public class SpecialActivity extends BaseActivity<IBasePresenter> implements ISp
         }
         mTagLayout = (TagContainerLayout) headView.findViewById(R.id.tag_layout);
         mSpecialAdapter.addHeaderView(headView);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.hold, R.anim.slide_right_exit);
     }
 
     /**

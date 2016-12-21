@@ -2,7 +2,7 @@ package com.dl7.mvp.injector.components;
 
 import com.dl7.mvp.injector.PerFragment;
 import com.dl7.mvp.injector.modules.VideoListModule;
-import com.dl7.mvp.module.video.videolist.VideoListFragment;
+import com.dl7.mvp.module.video.list.VideoListFragment;
 
 import dagger.Component;
 

@@ -1,5 +1,6 @@
 package com.dl7.mvp.module.manage.download;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -63,6 +64,7 @@ public class DownloadActivity extends BaseActivity<IRxBusPresenter> {
         Intent intent = new Intent(context, DownloadActivity.class);
         intent.putExtra(INDEX_KEY, index);
         context.startActivity(intent);
+        ((Activity)context).overridePendingTransition(R.anim.zoom_in_entry, R.anim.hold);
     }
 
     @Override
@@ -180,5 +182,11 @@ public class DownloadActivity extends BaseActivity<IRxBusPresenter> {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.hold, R.anim.zoom_in_exit);
     }
 }

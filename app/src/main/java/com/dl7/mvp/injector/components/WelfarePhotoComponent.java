@@ -2,7 +2,7 @@ package com.dl7.mvp.injector.components;
 
 import com.dl7.mvp.injector.PerFragment;
 import com.dl7.mvp.injector.modules.WelfarePhotoModule;
-import com.dl7.mvp.module.photo.welfarephoto.WelfarePhotoFragment;
+import com.dl7.mvp.module.photo.welfare.WelfareListFragment;
 
 import dagger.Component;
 
@@ -13,5 +13,5 @@ import dagger.Component;
 @PerFragment
 @Component(dependencies = ApplicationComponent.class, modules = WelfarePhotoModule.class)
 public interface WelfarePhotoComponent {
-    void inject(WelfarePhotoFragment fragment);
+    void inject(WelfareListFragment fragment);
 }

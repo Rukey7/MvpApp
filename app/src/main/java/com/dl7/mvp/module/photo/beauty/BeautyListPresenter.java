@@ -1,7 +1,7 @@
-package com.dl7.mvp.module.video.videolist;
+package com.dl7.mvp.module.photo.beauty;
 
 import com.dl7.mvp.api.RetrofitService;
-import com.dl7.mvp.local.table.VideoInfo;
+import com.dl7.mvp.local.table.BeautyPhotoInfo;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.module.base.ILoadDataView;
 import com.dl7.mvp.views.EmptyLayout;
@@ -13,31 +13,30 @@ import rx.Subscriber;
 import rx.functions.Action0;
 
 /**
- * Created by long on 2016/10/11.
+ * Created by long on 2016/9/5.
+ * 美图 Presenter
  */
+public class BeautyListPresenter implements IBasePresenter {
 
-public class VideoListPresenter implements IBasePresenter {
-
-    final private ILoadDataView mView;
-    final private String mVideoId;
+    private ILoadDataView mView;
 
 
-    public VideoListPresenter(ILoadDataView view, String videoId) {
+    public BeautyListPresenter(ILoadDataView view) {
         this.mView = view;
-        this.mVideoId = videoId;
     }
 
 
     @Override
     public void getData() {
-        RetrofitService.getVideoList(mVideoId)
+        // 因为网易这个原接口参数一大堆，我只传了部分参数，返回的数据会出现图片重复的情况，请不要在意这个问题- -
+        RetrofitService.getBeautyPhoto()
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
                         mView.showLoading();
                     }
                 })
-                .subscribe(new Subscriber<List<VideoInfo>>() {
+                .subscribe(new Subscriber<List<BeautyPhotoInfo>>() {
                     @Override
                     public void onCompleted() {
                         mView.hideLoading();
@@ -55,17 +54,16 @@ public class VideoListPresenter implements IBasePresenter {
                     }
 
                     @Override
-                    public void onNext(List<VideoInfo> videoList) {
-                        mView.loadData(videoList);
+                    public void onNext(List<BeautyPhotoInfo> photoList) {
+                        mView.loadData(photoList);
                     }
                 });
-
     }
 
     @Override
     public void getMoreData() {
-        RetrofitService.getVideoListNext(mVideoId)
-                .subscribe(new Subscriber<List<VideoInfo>>() {
+        RetrofitService.getMoreBeautyPhoto()
+                .subscribe(new Subscriber<List<BeautyPhotoInfo>>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -77,10 +75,9 @@ public class VideoListPresenter implements IBasePresenter {
                     }
 
                     @Override
-                    public void onNext(List<VideoInfo> videoList) {
-                        mView.loadMoreData(videoList);
+                    public void onNext(List<BeautyPhotoInfo> photoList) {
+                        mView.loadMoreData(photoList);
                     }
                 });
     }
-
 }

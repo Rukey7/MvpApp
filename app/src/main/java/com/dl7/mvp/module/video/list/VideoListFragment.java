@@ -1,4 +1,4 @@
-package com.dl7.mvp.module.video.videolist;
+package com.dl7.mvp.module.video.list;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -55,7 +55,7 @@ public class VideoListFragment extends BaseFragment<IBasePresenter> implements I
 
     @Override
     protected int attachLayoutRes() {
-        return R.layout.fragment_photo_news;
+        return R.layout.fragment_photo_list;
     }
 
     @Override

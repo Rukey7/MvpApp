@@ -1,4 +1,4 @@
-package com.dl7.mvp.module.photo.welfarephoto;
+package com.dl7.mvp.module.photo.welfare;
 
 import com.dl7.mvp.api.RetrofitService;
 import com.dl7.mvp.api.bean.WelfarePhotoInfo;
@@ -20,12 +20,12 @@ import rx.schedulers.Schedulers;
  * Created by long on 2016/10/11.
  * 福利图片界面 Presenter
  */
-public class WelfarePhotoPresenter implements IBasePresenter {
+public class WelfareListPresenter implements IBasePresenter {
 
-    private WelfarePhotoFragment mView;
+    private WelfareListFragment mView;
 
 
-    public WelfarePhotoPresenter(WelfarePhotoFragment view) {
+    public WelfareListPresenter(WelfareListFragment view) {
         this.mView = view;
     }
 

@@ -2,8 +2,8 @@ package com.dl7.mvp.injector.modules;
 
 import com.dl7.mvp.injector.PerActivity;
 import com.dl7.mvp.module.base.IBasePresenter;
-import com.dl7.mvp.module.photo.photoset.PhotoSetActivity;
-import com.dl7.mvp.module.photo.photoset.PhotoSetPresenter;
+import com.dl7.mvp.module.news.photoset.PhotoSetActivity;
+import com.dl7.mvp.module.news.photoset.PhotoSetPresenter;
 
 import dagger.Module;
 import dagger.Provides;

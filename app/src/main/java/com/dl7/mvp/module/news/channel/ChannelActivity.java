@@ -1,5 +1,6 @@
 package com.dl7.mvp.module.news.channel;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
@@ -47,6 +48,7 @@ public class ChannelActivity extends BaseActivity<IChannelPresenter> implements 
     public static void launch(Context context) {
         Intent intent = new Intent(context, ChannelActivity.class);
         context.startActivity(intent);
+        ((Activity)context).overridePendingTransition(R.anim.fade_entry, R.anim.hold);
     }
 
     @Override
@@ -112,5 +114,11 @@ public class ChannelActivity extends BaseActivity<IChannelPresenter> implements 
     public void loadData(List<NewsTypeInfo> checkList, List<NewsTypeInfo> uncheckList) {
         mCheckedAdapter.updateItems(checkList);
         mUncheckedAdapter.updateItems(uncheckList);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.hold, R.anim.fade_exit);
     }
 }

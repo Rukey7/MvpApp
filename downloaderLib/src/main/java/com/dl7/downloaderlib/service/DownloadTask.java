@@ -69,7 +69,6 @@ public class DownloadTask implements Runnable {
         // 1.检测是否存在未下载完的文件
         _checkIsResumeAvailable();
 
-        Log.e(TAG, mFileInfo.toString());
         Response response = null;
         Call call = null;
         try {
@@ -89,12 +88,10 @@ public class DownloadTask implements Runnable {
             final boolean isSucceedStart = response.code() == HttpURLConnection.HTTP_OK;
             final boolean isSucceedResume = response.code() == HttpURLConnection.HTTP_PARTIAL;
 
-            Log.e("1", mFileInfo.toString());
             if (isSucceedResume || isSucceedStart) {
                 int total = mFileInfo.getTotalBytes();
                 final String transferEncoding = response.header("Transfer-Encoding");
 
-                Log.e("2", mFileInfo.toString());
                 // 5.获取文件长度
                 if (isSucceedStart || total <= 0) {
                     if (transferEncoding == null) {
@@ -109,13 +106,10 @@ public class DownloadTask implements Runnable {
                     throw new DownloadException("Get content length error!");
                 }
 
-                Log.e("3", mFileInfo.toString());
                 // 6.网络状态已连接
                 _onConnected();
-                Log.e("4", mFileInfo.toString());
                 // 7.开始获取数据
                 _onDownload(response);
-                Log.e("5", mFileInfo.toString());
             } else {
                 if (!_onRetry()) {
                     mListener.onError(mFileInfo, "Numeric status code is error!");
@@ -290,22 +284,18 @@ public class DownloadTask implements Runnable {
     private void _onConnected() {
         mIsRunning = true;
         if (!mIsRetry) {
-            Log.e("6", mFileInfo.toString());
             // 如果为异常重试则不进行回调
             mListener.onStart(mFileInfo);
-            Log.e("7", mFileInfo.toString());
         }
         if (!mIsResumeAvailable) {
             // 插入数据库
             mIsResumeAvailable = true;
-            Log.e("8", mFileInfo.toString());
             DownloadThreadPool.getInstance().update(new Runnable() {
                 @Override
                 public void run() {
                     FileDAOImpl.getInstance().insert(mFileInfo);
                 }
             });
-            Log.e("9", mFileInfo.toString());
         }
     }
 

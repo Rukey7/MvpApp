@@ -1,5 +1,6 @@
 package com.dl7.mvp.module.video.player;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -49,12 +50,14 @@ public class VideoPlayerActivity extends BaseActivity<ILocalPresenter> implement
         Intent intent = new Intent(context, VideoPlayerActivity.class);
         intent.putExtra(VIDEO_DATA_KEY, data);
         context.startActivity(intent);
+        ((Activity)context).overridePendingTransition(R.anim.slide_top_entry, R.anim.hold);
     }
 
     public static void launchForResult(Fragment fragment, VideoInfo data) {
         Intent intent = new Intent(fragment.getContext(), VideoPlayerActivity.class);
         intent.putExtra(VIDEO_DATA_KEY, data);
         fragment.startActivityForResult(intent, CommonConstant.VIDEO_REQUEST_CODE);
+        fragment.getActivity().overridePendingTransition(R.anim.slide_top_entry, R.anim.hold);
     }
 
     @Override
@@ -189,5 +192,6 @@ public class VideoPlayerActivity extends BaseActivity<ILocalPresenter> implement
         intent.putExtra(CommonConstant.RESULT_KEY, mVideoData.isCollect());
         setResult(RESULT_OK, intent);
         super.finish();
+        overridePendingTransition(R.anim.hold, R.anim.slide_top_exit);
     }
 }

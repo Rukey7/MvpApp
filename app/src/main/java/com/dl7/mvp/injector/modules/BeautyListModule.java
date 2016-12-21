@@ -3,8 +3,8 @@ package com.dl7.mvp.injector.modules;
 import com.dl7.mvp.adapter.BeautyPhotosAdapter;
 import com.dl7.mvp.injector.PerFragment;
 import com.dl7.mvp.module.base.IBasePresenter;
-import com.dl7.mvp.module.photo.beautylist.BeautyListFragment;
-import com.dl7.mvp.module.photo.beautylist.BeautyListPresenter;
+import com.dl7.mvp.module.photo.beauty.BeautyListFragment;
+import com.dl7.mvp.module.photo.beauty.BeautyListPresenter;
 import com.dl7.recycler.adapter.BaseQuickAdapter;
 
 import dagger.Module;

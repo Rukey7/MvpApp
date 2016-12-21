@@ -1,12 +1,12 @@
-package com.dl7.mvp.module.photo.welfarephoto;
+package com.dl7.mvp.module.photo.beauty;
 
 import android.support.v7.widget.RecyclerView;
 
 import com.dl7.mvp.R;
 import com.dl7.mvp.adapter.SlideInBottomAdapter;
-import com.dl7.mvp.api.bean.WelfarePhotoInfo;
-import com.dl7.mvp.injector.components.DaggerWelfarePhotoComponent;
-import com.dl7.mvp.injector.modules.WelfarePhotoModule;
+import com.dl7.mvp.injector.components.DaggerBeautyListComponent;
+import com.dl7.mvp.injector.modules.BeautyListModule;
+import com.dl7.mvp.local.table.BeautyPhotoInfo;
 import com.dl7.mvp.module.base.BaseFragment;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.module.base.ILoadDataView;
@@ -21,10 +21,10 @@ import javax.inject.Inject;
 import butterknife.BindView;
 
 /**
- * Created by long on 2016/10/11.
- * 福利图片界面
+ * Created by long on 2016/9/5.
+ * 美女图片
  */
-public class WelfarePhotoFragment extends BaseFragment<IBasePresenter> implements ILoadDataView<List<WelfarePhotoInfo>> {
+public class BeautyListFragment extends BaseFragment<IBasePresenter> implements ILoadDataView<List<BeautyPhotoInfo>> {
 
     @BindView(R.id.rv_photo_list)
     RecyclerView mRvPhotoList;
@@ -35,14 +35,14 @@ public class WelfarePhotoFragment extends BaseFragment<IBasePresenter> implement
 
     @Override
     protected int attachLayoutRes() {
-        return R.layout.fragment_photo_news;
+        return R.layout.fragment_photo_list;
     }
 
     @Override
     protected void initInjector() {
-        DaggerWelfarePhotoComponent.builder()
+        DaggerBeautyListComponent.builder()
                 .applicationComponent(getAppComponent())
-                .welfarePhotoModule(new WelfarePhotoModule(this))
+                .beautyListModule(new BeautyListModule(this))
                 .build()
                 .inject(this);
     }
@@ -65,12 +65,12 @@ public class WelfarePhotoFragment extends BaseFragment<IBasePresenter> implement
     }
 
     @Override
-    public void loadData(List<WelfarePhotoInfo> photoList) {
+    public void loadData(List<BeautyPhotoInfo> photoList) {
         mAdapter.updateItems(photoList);
     }
 
     @Override
-    public void loadMoreData(List<WelfarePhotoInfo> photoList) {
+    public void loadMoreData(List<BeautyPhotoInfo> photoList) {
         mAdapter.loadComplete();
         mAdapter.addItems(photoList);
     }

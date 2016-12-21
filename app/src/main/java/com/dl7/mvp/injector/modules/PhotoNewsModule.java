@@ -3,8 +3,8 @@ package com.dl7.mvp.injector.modules;
 import com.dl7.mvp.adapter.PhotoListAdapter;
 import com.dl7.mvp.injector.PerFragment;
 import com.dl7.mvp.module.base.IBasePresenter;
-import com.dl7.mvp.module.news.photonews.PhotoNewsFragment;
-import com.dl7.mvp.module.news.photonews.PhotoNewsPresenter;
+import com.dl7.mvp.module.photo.news.PhotoNewsFragment;
+import com.dl7.mvp.module.photo.news.PhotoNewsPresenter;
 import com.dl7.recycler.adapter.BaseQuickAdapter;
 
 import dagger.Module;

@@ -1,4 +1,4 @@
-package com.dl7.mvp.module.photo.photoset;
+package com.dl7.mvp.module.news.photoset;
 
 import android.content.Context;
 import android.content.Intent;

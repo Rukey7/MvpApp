@@ -1,7 +1,7 @@
-package com.dl7.mvp.module.photo.beautylist;
+package com.dl7.mvp.module.photo.news;
 
 import com.dl7.mvp.api.RetrofitService;
-import com.dl7.mvp.local.table.BeautyPhotoInfo;
+import com.dl7.mvp.api.bean.PhotoInfo;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.module.base.ILoadDataView;
 import com.dl7.mvp.views.EmptyLayout;
@@ -14,29 +14,29 @@ import rx.functions.Action0;
 
 /**
  * Created by long on 2016/9/5.
- * 美图 Presenter
+ * 图片新闻列表 Presenter
  */
-public class BeautyListPresenter implements IBasePresenter {
+public class PhotoNewsPresenter implements IBasePresenter {
 
+    private String mNextSetId;
     private ILoadDataView mView;
 
 
-    public BeautyListPresenter(ILoadDataView view) {
+    public PhotoNewsPresenter(ILoadDataView view) {
         this.mView = view;
     }
 
 
     @Override
     public void getData() {
-        // 因为网易这个原接口参数一大堆，我只传了部分参数，返回的数据会出现图片重复的情况，请不要在意这个问题- -
-        RetrofitService.getBeautyPhoto()
+        RetrofitService.getPhotoList()
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
                         mView.showLoading();
                     }
                 })
-                .subscribe(new Subscriber<List<BeautyPhotoInfo>>() {
+                .subscribe(new Subscriber<List<PhotoInfo>>() {
                     @Override
                     public void onCompleted() {
                         mView.hideLoading();
@@ -54,28 +54,28 @@ public class BeautyListPresenter implements IBasePresenter {
                     }
 
                     @Override
-                    public void onNext(List<BeautyPhotoInfo> photoList) {
+                    public void onNext(List<PhotoInfo> photoList) {
                         mView.loadData(photoList);
+                        mNextSetId = photoList.get(photoList.size() - 1).getSetid();
                     }
                 });
     }
 
     @Override
     public void getMoreData() {
-        RetrofitService.getMoreBeautyPhoto()
-                .subscribe(new Subscriber<List<BeautyPhotoInfo>>() {
+        RetrofitService.getPhotoMoreList(mNextSetId)
+                .subscribe(new Subscriber<List<PhotoInfo>>() {
                     @Override
                     public void onCompleted() {
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Logger.e(e.toString());
                         mView.loadNoData();
                     }
 
                     @Override
-                    public void onNext(List<BeautyPhotoInfo> photoList) {
+                    public void onNext(List<PhotoInfo> photoList) {
                         mView.loadMoreData(photoList);
                     }
                 });

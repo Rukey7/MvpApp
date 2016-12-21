@@ -1,5 +1,6 @@
 package com.dl7.mvp.module.manage.love;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -38,6 +39,7 @@ public class LoveActivity extends BaseActivity {
         Intent intent = new Intent(context, LoveActivity.class);
         intent.putExtra(INDEX_KEY, index);
         context.startActivity(intent);
+        ((Activity)context).overridePendingTransition(R.anim.zoom_out_entry, R.anim.hold);
     }
 
     @Override
@@ -64,5 +66,11 @@ public class LoveActivity extends BaseActivity {
         mTabLayout.setViewPager(mViewPager, new String[] {"图片", "视频"}, this, fragments);
         mViewPager.setOffscreenPageLimit(fragments.size());
         mViewPager.setCurrentItem(mIndex);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.hold, R.anim.zoom_out_exit);
     }
 }

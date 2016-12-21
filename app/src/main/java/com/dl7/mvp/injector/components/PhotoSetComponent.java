@@ -2,7 +2,7 @@ package com.dl7.mvp.injector.components;
 
 import com.dl7.mvp.injector.PerActivity;
 import com.dl7.mvp.injector.modules.PhotoSetModule;
-import com.dl7.mvp.module.photo.photoset.PhotoSetActivity;
+import com.dl7.mvp.module.news.photoset.PhotoSetActivity;
 
 import dagger.Component;
 

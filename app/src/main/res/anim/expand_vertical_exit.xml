@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scale xmlns:android="http://schemas.android.com/apk/res/android"
+       android:duration="@android:integer/config_mediumAnimTime"
+       android:fromXScale="1.0"
+       android:fromYScale="1.0"
+       android:pivotY="50%p"
+       android:toXScale="1.0"
+       android:toYScale="0.0"/>

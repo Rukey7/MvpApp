@@ -15,7 +15,7 @@ import com.dl7.mvp.module.base.BaseFragment;
 import com.dl7.mvp.module.base.IRxBusPresenter;
 import com.dl7.mvp.module.manage.download.DownloadActivity;
 import com.dl7.mvp.module.manage.love.LoveActivity;
-import com.dl7.mvp.module.video.videolist.VideoListFragment;
+import com.dl7.mvp.module.video.list.VideoListFragment;
 import com.dl7.mvp.rxbus.event.VideoEvent;
 import com.flyco.tablayout.SlidingTabLayout;
 

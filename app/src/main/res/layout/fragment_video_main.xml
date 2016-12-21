@@ -36,7 +36,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="right|center_horizontal"
                     android:layout_marginRight="10dp"
-                    android:background="@color/colorPrimary">
+                    android:background="@drawable/sel_common_bg_press">
 
                     <TextView
                         android:id="@+id/iv_love_count"
@@ -54,7 +54,7 @@
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="right|center_horizontal"
-                    android:background="@color/colorPrimary">
+                    android:background="@drawable/sel_common_bg_press">
 
                     <TextView
                         android:layout_width="22dp"

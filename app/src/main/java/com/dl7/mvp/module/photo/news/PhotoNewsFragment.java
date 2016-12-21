@@ -1,4 +1,4 @@
-package com.dl7.mvp.module.news.photonews;
+package com.dl7.mvp.module.photo.news;
 
 import android.support.v7.widget.RecyclerView;
 
@@ -34,7 +34,7 @@ public class PhotoNewsFragment extends BaseFragment<IBasePresenter> implements I
 
     @Override
     protected int attachLayoutRes() {
-        return R.layout.fragment_photo_news;
+        return R.layout.fragment_photo_list;
     }
 
     @Override

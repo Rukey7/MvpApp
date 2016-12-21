@@ -1,5 +1,6 @@
 package com.dl7.mvp.module.news.detail;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
@@ -58,6 +59,7 @@ public class NewsDetailActivity extends BaseActivity<IBasePresenter> implements 
         Intent intent = new Intent(context, NewsDetailActivity.class);
         intent.putExtra(APP_KEY, newsId);
         context.startActivity(intent);
+        ((Activity)context).overridePendingTransition(R.anim.slide_right_entry, R.anim.hold);
     }
 
     @Override
@@ -147,5 +149,11 @@ public class NewsDetailActivity extends BaseActivity<IBasePresenter> implements 
     public void onClick() {
         mSvContent.stopNestedScroll();
         mSvContent.smoothScrollTo(0, 0);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.hold, R.anim.slide_right_exit);
     }
 }

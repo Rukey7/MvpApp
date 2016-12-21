@@ -26,13 +26,13 @@
         <!--<item name="android:windowBackground">@color/window_background</item>-->
         <item name="android:windowBackground">@android:color/white</item>
         <!--<item name="android:windowIsTranslucent">true</item>-->
-        <!--<item name="android:windowAnimationStyle">@style/slide_in_right</item>-->
+        <!--<item name="android:windowAnimationStyle">@style/slide_right_entry</item>-->
     </style>
 
     <!-- 右滑动进入/退出动画 -->
     <style name="slide_in_right" parent="@android:style/Animation.Translucent">
-        <item name="android:windowEnterAnimation">@anim/slide_in_right</item>
-        <item name="android:windowExitAnimation">@anim/slide_out_right</item>
+        <item name="android:windowEnterAnimation">@anim/slide_right_entry</item>
+        <item name="android:windowExitAnimation">@anim/slide_right_exit</item>
     </style>
 
     <style name="news_title">

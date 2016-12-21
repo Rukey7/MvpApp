@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Special window zoom animation: this is the element that exits the
+     screen, it is forced above the entering element and starts at its
+     normal size (filling the screen) and scales down while fading out.
+     This goes with zoom_in_entry.xml -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+     android:interpolator="@android:anim/decelerate_interpolator"
+     android:zAdjustment="top">
+    <scale
+        android:duration="@android:integer/config_mediumAnimTime"
+        android:fromXScale="1.0"
+        android:fromYScale="1.0"
+        android:pivotX="50%p"
+        android:pivotY="50%p"
+        android:toXScale=".5"
+        android:toYScale=".5"/>
+    <alpha
+        android:duration="@android:integer/config_mediumAnimTime"
+        android:fromAlpha="1.0"
+        android:toAlpha="0"/>
+</set>

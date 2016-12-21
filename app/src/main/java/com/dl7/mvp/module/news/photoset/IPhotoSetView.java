@@ -1,4 +1,4 @@
-package com.dl7.mvp.module.photo.photoset;
+package com.dl7.mvp.module.news.photoset;
 
 import com.dl7.mvp.api.bean.PhotoSetInfo;
 import com.dl7.mvp.module.base.IBaseView;

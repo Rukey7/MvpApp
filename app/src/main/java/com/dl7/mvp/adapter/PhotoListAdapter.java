@@ -6,7 +6,7 @@ import android.widget.ImageView;
 
 import com.dl7.mvp.R;
 import com.dl7.mvp.api.bean.PhotoInfo;
-import com.dl7.mvp.module.photo.photoset.PhotoSetActivity;
+import com.dl7.mvp.module.news.photoset.PhotoSetActivity;
 import com.dl7.mvp.utils.DefIconFactory;
 import com.dl7.mvp.utils.ImageLoader;
 import com.dl7.recycler.adapter.BaseQuickAdapter;

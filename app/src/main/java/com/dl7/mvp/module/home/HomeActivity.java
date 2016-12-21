@@ -1,6 +1,8 @@
 package com.dl7.mvp.module.home;
 
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -36,6 +38,28 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
 //    private SparseArray<Fragment> mSparseFragments = new SparseArray<>();
     private SparseArray<String> mSparseTags = new SparseArray<>();
     private long mExitTime = 0;
+    private Handler mHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            switch (msg.what) {
+                case R.id.nav_news:
+                    replaceFragment(R.id.fl_container, new NewsMainFragment(), mSparseTags.get(R.id.nav_news));
+                    break;
+                case R.id.nav_photos:
+                    replaceFragment(R.id.fl_container, new PhotoMainFragment(), mSparseTags.get(R.id.nav_photos));
+                    break;
+                case R.id.nav_videos:
+                    replaceFragment(R.id.fl_container, new VideoMainFragment(), mSparseTags.get(R.id.nav_videos));
+                    break;
+                case R.id.nav_setting:
+                    SettingsActivity.launch(HomeActivity.this);
+                    break;
+                default:
+                    return false;
+            }
+            return true;
+        }
+    });
 
     @Override
     protected int attachLayoutRes() {
@@ -61,27 +85,13 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull final MenuItem item) {
         mDrawerLayout.closeDrawer(GravityCompat.START);
         if (item.isChecked()) {
             return true;
         }
-        switch (item.getItemId()) {
-            case R.id.nav_news:
-                replaceFragment(R.id.fl_container, new NewsMainFragment(), mSparseTags.get(R.id.nav_news));
-                break;
-            case R.id.nav_photos:
-                replaceFragment(R.id.fl_container, new PhotoMainFragment(), mSparseTags.get(R.id.nav_photos));
-                break;
-            case R.id.nav_videos:
-                replaceFragment(R.id.fl_container, new VideoMainFragment(), mSparseTags.get(R.id.nav_videos));
-                break;
-           case R.id.nav_setting:
-                SettingsActivity.launch(this);
-                break;
-            default:
-                return false;
-        }
+        // 延迟一会再做切换，不然会出现卡顿现象，可以改为监听 DrawerLayout 关闭来做处理
+        mHandler.sendEmptyMessageDelayed(item.getItemId(), 200);
         return true;
     }
 

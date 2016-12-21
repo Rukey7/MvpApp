@@ -1,7 +1,7 @@
-package com.dl7.mvp.module.news.photonews;
+package com.dl7.mvp.module.video.list;
 
 import com.dl7.mvp.api.RetrofitService;
-import com.dl7.mvp.api.bean.PhotoInfo;
+import com.dl7.mvp.local.table.VideoInfo;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.module.base.ILoadDataView;
 import com.dl7.mvp.views.EmptyLayout;
@@ -13,30 +13,31 @@ import rx.Subscriber;
 import rx.functions.Action0;
 
 /**
- * Created by long on 2016/9/5.
- * 图片新闻列表 Presenter
+ * Created by long on 2016/10/11.
  */
-public class PhotoNewsPresenter implements IBasePresenter {
 
-    private String mNextSetId;
-    private ILoadDataView mView;
+public class VideoListPresenter implements IBasePresenter {
+
+    final private ILoadDataView mView;
+    final private String mVideoId;
 
 
-    public PhotoNewsPresenter(ILoadDataView view) {
+    public VideoListPresenter(ILoadDataView view, String videoId) {
         this.mView = view;
+        this.mVideoId = videoId;
     }
 
 
     @Override
     public void getData() {
-        RetrofitService.getPhotoList()
+        RetrofitService.getVideoList(mVideoId)
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
                         mView.showLoading();
                     }
                 })
-                .subscribe(new Subscriber<List<PhotoInfo>>() {
+                .subscribe(new Subscriber<List<VideoInfo>>() {
                     @Override
                     public void onCompleted() {
                         mView.hideLoading();
@@ -54,30 +55,32 @@ public class PhotoNewsPresenter implements IBasePresenter {
                     }
 
                     @Override
-                    public void onNext(List<PhotoInfo> photoList) {
-                        mView.loadData(photoList);
-                        mNextSetId = photoList.get(photoList.size() - 1).getSetid();
+                    public void onNext(List<VideoInfo> videoList) {
+                        mView.loadData(videoList);
                     }
                 });
+
     }
 
     @Override
     public void getMoreData() {
-        RetrofitService.getPhotoMoreList(mNextSetId)
-                .subscribe(new Subscriber<List<PhotoInfo>>() {
+        RetrofitService.getVideoListNext(mVideoId)
+                .subscribe(new Subscriber<List<VideoInfo>>() {
                     @Override
                     public void onCompleted() {
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        Logger.e(e.toString());
                         mView.loadNoData();
                     }
 
                     @Override
-                    public void onNext(List<PhotoInfo> photoList) {
-                        mView.loadMoreData(photoList);
+                    public void onNext(List<VideoInfo> videoList) {
+                        mView.loadMoreData(videoList);
                     }
                 });
     }
+
 }

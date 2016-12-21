@@ -3,8 +3,8 @@ package com.dl7.mvp.injector.modules;
 import com.dl7.mvp.adapter.VideoListAdapter;
 import com.dl7.mvp.injector.PerFragment;
 import com.dl7.mvp.module.base.IBasePresenter;
-import com.dl7.mvp.module.video.videolist.VideoListFragment;
-import com.dl7.mvp.module.video.videolist.VideoListPresenter;
+import com.dl7.mvp.module.video.list.VideoListFragment;
+import com.dl7.mvp.module.video.list.VideoListPresenter;
 import com.dl7.recycler.adapter.BaseQuickAdapter;
 
 import dagger.Module;
