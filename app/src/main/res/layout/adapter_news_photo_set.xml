@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical">
+<com.dl7.mvp.views.RippleView
+    android:id="@+id/item_ripple"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:rv_listMode="true"
+    app:rv_rippleDuration="1000"
+    app:rv_type="rectangle">
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="40dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
         android:maxLines="1"
         android:text="里约奥运会"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
@@ -19,16 +24,16 @@
         xmlns:lv="http://schemas.android.com/apk/res-auto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        lv:lv_text="图集"
-        lv:lv_fill_triangle="true"
         lv:lv_background_color="#5677fc"
+        lv:lv_fill_triangle="true"
+        lv:lv_text="图集"
         lv:lv_text_size="11sp"/>
 
     <LinearLayout
         android:id="@+id/ll_item_icons"
-        android:layout_below="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_title"
         android:orientation="horizontal">
 
         <ImageView
@@ -36,8 +41,8 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/news_icon_height"
             android:layout_marginLeft="10dp"
-            android:scaleType="fitStart"
             android:layout_weight="1"
+            android:scaleType="fitStart"
             android:src="@mipmap/icon_default_1"/>
 
         <ImageView
@@ -46,26 +51,26 @@
             android:layout_height="@dimen/news_icon_height"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:scaleType="fitStart"
-            android:visibility="gone"
             android:layout_weight="1"
-            android:src="@mipmap/icon_default_2"/>
+            android:scaleType="fitStart"
+            android:src="@mipmap/icon_default_2"
+            android:visibility="gone"/>
 
         <ImageView
             android:id="@+id/iv_icon_3"
             android:layout_width="0dp"
             android:layout_height="@dimen/news_icon_height"
-            android:visibility="gone"
-            android:scaleType="fitStart"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:src="@mipmap/icon_default_3"/>
+            android:scaleType="fitStart"
+            android:src="@mipmap/icon_default_3"
+            android:visibility="gone"/>
     </LinearLayout>
 
     <FrameLayout
-        android:layout_below="@+id/ll_item_icons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_item_icons"
         android:layout_margin="10dp">
 
         <TextView
@@ -82,4 +87,4 @@
             android:layout_gravity="right"
             android:text="2016-08-23 11:48:46"/>
     </FrameLayout>
-</RelativeLayout>
+</com.dl7.mvp.views.RippleView>

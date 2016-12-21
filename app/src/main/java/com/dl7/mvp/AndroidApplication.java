@@ -3,6 +3,7 @@ package com.dl7.mvp;
 import android.app.Application;
 import android.content.Context;
 
+import com.dl7.downloaderlib.DownloadConfig;
 import com.dl7.downloaderlib.FileDownloader;
 import com.dl7.mvp.api.RetrofitService;
 import com.dl7.mvp.engine.DownloaderWrapper;
@@ -14,11 +15,14 @@ import com.dl7.mvp.local.table.DaoMaster;
 import com.dl7.mvp.local.table.DaoSession;
 import com.dl7.mvp.rxbus.RxBus;
 import com.dl7.mvp.utils.DownloadUtils;
+import com.dl7.mvp.utils.PreferencesUtils;
 import com.dl7.mvp.utils.ToastUtils;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
 
 import org.greenrobot.greendao.database.Database;
+
+import java.io.File;
 
 /**
  * Created by long on 2016/8/19.
@@ -83,8 +87,8 @@ public class AndroidApplication extends Application {
         ToastUtils.init(this);
         DownloaderWrapper.init(mRxBus, mDaoSession.getVideoInfoDao());
         FileDownloader.init(this);
-//        DownloadConfig config = new DownloadConfig.Builder()
-//                .setDownloadDir(PreferencesUtils.getSavePath(this) + File.separator + "video").build();
-//        FileDownloader.setConfig(config);
+        DownloadConfig config = new DownloadConfig.Builder()
+                .setDownloadDir(PreferencesUtils.getSavePath(this) + File.separator + "video/").build();
+        FileDownloader.setConfig(config);
     }
 }

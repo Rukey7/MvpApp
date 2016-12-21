@@ -5,9 +5,9 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.dl7.mvp.R;
+import com.dl7.mvp.adapter.item.NewsMultiItem;
 import com.dl7.mvp.api.NewsUtils;
 import com.dl7.mvp.api.bean.NewsInfo;
-import com.dl7.mvp.adapter.item.NewsMultiItem;
 import com.dl7.mvp.module.news.detail.NewsDetailActivity;
 import com.dl7.mvp.module.news.photoset.PhotoSetActivity;
 import com.dl7.mvp.module.news.special.SpecialActivity;
@@ -15,6 +15,7 @@ import com.dl7.mvp.utils.DefIconFactory;
 import com.dl7.mvp.utils.ImageLoader;
 import com.dl7.mvp.utils.ListUtils;
 import com.dl7.mvp.utils.StringUtils;
+import com.dl7.mvp.views.RippleView;
 import com.dl7.recycler.adapter.BaseMultiItemQuickAdapter;
 import com.dl7.recycler.adapter.BaseViewHolder;
 import com.flyco.labelview.LabelView;
@@ -73,10 +74,11 @@ public class NewsMultiListAdapter extends BaseMultiItemQuickAdapter<NewsMultiIte
         } else {
             holder.setVisible(R.id.label_view, false);
         }
-
-        holder.getConvertView().setOnClickListener(new View.OnClickListener() {
+        // 波纹效果
+        RippleView rippleLayout = holder.getView(R.id.item_ripple);
+        rippleLayout.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
-            public void onClick(View v) {
+            public void onComplete(RippleView rippleView) {
                 if (NewsUtils.isNewsSpecial(item.getSkipType())) {
                     SpecialActivity.launch(mContext, item.getSpecialID());
                 } else {
@@ -109,9 +111,11 @@ public class NewsMultiListAdapter extends BaseMultiItemQuickAdapter<NewsMultiIte
         holder.setText(R.id.tv_title, item.getTitle())
                 .setText(R.id.tv_source, StringUtils.clipNewsSource(item.getSource()))
                 .setText(R.id.tv_time, item.getPtime());
-        holder.getConvertView().setOnClickListener(new View.OnClickListener() {
+        // 波纹效果
+        RippleView rippleLayout = holder.getView(R.id.item_ripple);
+        rippleLayout.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
-            public void onClick(View v) {
+            public void onComplete(RippleView rippleView) {
                 PhotoSetActivity.launch(mContext, item.getPhotosetID());
             }
         });

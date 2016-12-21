@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+<com.dl7.mvp.views.RippleView
+    android:id="@+id/item_ripple"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:rv_listMode="true"
+    app:rv_rippleDuration="1000"
+    app:rv_type="rectangle">
 
     <ImageView
         android:id="@+id/iv_icon"
-        android:layout_margin="10dp"
-        android:src="@mipmap/icon_default_1"
-        android:scaleType="fitXY"
         android:layout_width="@dimen/news_icon_width"
-        android:layout_height="@dimen/news_icon_height"/>
+        android:layout_height="@dimen/news_icon_height"
+        android:layout_margin="10dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/icon_default_1"/>
 
     <com.flyco.labelview.LabelView
         android:id="@+id/label_view"
@@ -22,30 +28,30 @@
 
     <TextView
         android:id="@+id/tv_title"
-        android:text="里约奥运会"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignTop="@+id/iv_icon"
+        android:layout_marginRight="10dp"
         android:layout_toRightOf="@+id/iv_icon"
         android:maxLines="2"
-        android:layout_marginRight="10dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:text="里约奥运会"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
     <TextView
         android:id="@+id/tv_source"
-        android:text="网易原创"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/iv_icon"
         android:layout_toRightOf="@+id/iv_icon"
-        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:text="网易原创"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
 
     <TextView
         android:id="@+id/tv_time"
-        android:layout_alignTop="@+id/tv_source"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:text="2016-08-23 11:48:46"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-</RelativeLayout>
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tv_source"
+        android:layout_marginRight="10dp"
+        android:text="2016-08-23 11:48:46"/>
+</com.dl7.mvp.views.RippleView>

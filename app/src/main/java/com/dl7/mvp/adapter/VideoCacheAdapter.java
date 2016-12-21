@@ -40,8 +40,6 @@ public class VideoCacheAdapter extends BaseVideoDLAdapter {
         setTag(holder, item.getVideoUrl());
         ImageView ivThumb = holder.getView(R.id.iv_thumb);
         ImageLoader.loadFitCenter(mContext, item.getCover(), ivThumb, DefIconFactory.provideIcon());
-        NumberProgressBar pbDownload = holder.getView(R.id.pb_download);
-        pbDownload.setMax((int) item.getTotalSize());
         holder.setText(R.id.tv_title, item.getTitle());
         _switchViews(holder, item);
 
@@ -86,13 +84,14 @@ public class VideoCacheAdapter extends BaseVideoDLAdapter {
     private void _switchViews(BaseViewHolder holder, VideoInfo item) {
         switch (item.getDownloadStatus()) {
             case DownloadStatus.DOWNLOADING:
+                NumberProgressBar pbDownload = holder.getView(R.id.pb_download);
                 if (!holder.isVisible(R.id.pb_download) || !holder.isSelected(R.id.btn_download)) {
                     holder.setVisible(R.id.pb_download, true)
                             .setSelected(R.id.btn_download, true)
                             .setText(R.id.tv_total_size, StringUtils.convertStorageNoB(item.getTotalSize()))
                             .setTextColor(R.id.tv_speed, ContextCompat.getColor(mContext, R.color.download_normal));
+                    pbDownload.setMax((int) item.getTotalSize());
                 }
-                NumberProgressBar pbDownload = holder.getView(R.id.pb_download);
                 holder.setText(R.id.tv_load_size, StringUtils.convertStorageNoB(item.getLoadedSize()) + "/")
                         .setText(R.id.tv_speed, StringUtils.convertStorageNoB(item.getDownloadSpeed()) + "/s");
                 pbDownload.setProgress((int) item.getLoadedSize());

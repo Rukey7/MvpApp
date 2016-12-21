@@ -49,7 +49,6 @@ public class VideoCachePresenter implements IRxBusPresenter {
                 .subscribe(new Action1<List<VideoInfo>>() {
                     @Override
                     public void call(List<VideoInfo> videoList) {
-                        Logger.e(""+ListUtils.isEmpty(videoList));
                         if (ListUtils.isEmpty(videoList)) {
                             mView.noData();
                         } else {
