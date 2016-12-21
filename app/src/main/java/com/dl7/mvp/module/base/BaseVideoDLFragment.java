@@ -2,7 +2,7 @@ package com.dl7.mvp.module.base;
 
 import android.view.View;
 
-import com.dl7.mvp.adapter.BaseVideoDownloadAdapter;
+import com.dl7.mvp.adapter.BaseVideoDLAdapter;
 import com.dl7.mvp.module.manage.download.DownloadActivity;
 import com.dl7.recycler.listener.OnRecyclerViewItemLongClickListener;
 
@@ -15,7 +15,7 @@ import javax.inject.Inject;
 public abstract class BaseVideoDLFragment<T extends IBasePresenter> extends BaseFragment<T> {
 
     @Inject
-    protected BaseVideoDownloadAdapter mAdapter;
+    protected BaseVideoDLAdapter mAdapter;
 
     /**
      * 初始化长按点击，必须在 initViews() 里调用

@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 
-import com.bumptech.glide.Glide;
 import com.dl7.downloaderlib.FileDownloader;
 import com.dl7.mvp.local.table.VideoInfo;
 import com.dl7.player.media.IjkPlayerView;
+import com.orhanobut.logger.Logger;
 
 import static com.dl7.mvp.utils.CommonConstant.VIDEO_DATA_KEY;
 
@@ -35,12 +35,11 @@ public class VideoFullscreenActivity extends AppCompatActivity {
         mVideoData = getIntent().getParcelableExtra(VIDEO_DATA_KEY);
         mPlayerView = new IjkPlayerView(this);
         setContentView(mPlayerView);
-        Glide.with(this).load(mVideoData.getCover()).fitCenter().into(mPlayerView.mPlayerThumb);
+        Logger.w(FileDownloader.getFilePathByUrl(mVideoData.getVideoUrl()));
         mPlayerView.init()
                 .alwaysFullScreen()
                 .enableOrientation()
                 .setVideoPath(FileDownloader.getFilePathByUrl(mVideoData.getVideoUrl()))
-                .enableDanmaku()
                 .setTitle(mVideoData.getTitle())
                 .start();
     }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -170,5 +171,14 @@ public class DownloadActivity extends BaseActivity<IRxBusPresenter> {
                 }
                 break;
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home && mCompleteFragment.exitEditMode() || mCacheFragment.exitEditMode()) {
+            enableEditMode(false);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

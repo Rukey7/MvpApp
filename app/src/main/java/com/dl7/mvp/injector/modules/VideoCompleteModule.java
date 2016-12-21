@@ -1,6 +1,6 @@
 package com.dl7.mvp.injector.modules;
 
-import com.dl7.mvp.adapter.BaseVideoDownloadAdapter;
+import com.dl7.mvp.adapter.BaseVideoDLAdapter;
 import com.dl7.mvp.adapter.VideoCompleteAdapter;
 import com.dl7.mvp.injector.PerFragment;
 import com.dl7.mvp.local.table.DaoSession;
@@ -33,7 +33,7 @@ public class VideoCompleteModule {
 
     @PerFragment
     @Provides
-    public BaseVideoDownloadAdapter provideAdapter(RxBus rxBus) {
+    public BaseVideoDLAdapter provideAdapter(RxBus rxBus) {
         return new VideoCompleteAdapter(mView.getContext(), rxBus);
     }
 }

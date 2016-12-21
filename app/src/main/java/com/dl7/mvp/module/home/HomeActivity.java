@@ -17,7 +17,6 @@ import com.dl7.mvp.module.manage.setting.SettingsActivity;
 import com.dl7.mvp.module.news.main.NewsMainFragment;
 import com.dl7.mvp.module.photo.main.PhotoMainFragment;
 import com.dl7.mvp.module.video.main.VideoMainFragment;
-import com.dl7.mvp.utils.ActivityCollector;
 
 import butterknife.BindView;
 
@@ -136,7 +135,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
             Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
             mExitTime = System.currentTimeMillis();
         } else {
-            ActivityCollector.finishAll();
+            finish();
         }
     }
 }

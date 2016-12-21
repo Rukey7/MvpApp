@@ -14,13 +14,13 @@ import com.dl7.recycler.adapter.BaseQuickAdapter;
  * Created by long on 2016/12/19.
  * video下载适配器基类
  */
-public abstract class BaseVideoDownloadAdapter extends BaseQuickAdapter<VideoInfo> {
+public abstract class BaseVideoDLAdapter extends BaseQuickAdapter<VideoInfo> {
 
     protected boolean mIsEditMode = false;
     protected SparseBooleanArray mSparseItemChecked = new SparseBooleanArray();
     protected final RxBus mRxBus;
 
-    public BaseVideoDownloadAdapter(Context context, RxBus rxBus) {
+    public BaseVideoDLAdapter(Context context, RxBus rxBus) {
         super(context);
         mRxBus = rxBus;
     }

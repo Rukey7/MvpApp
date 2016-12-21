@@ -24,7 +24,7 @@ import com.dl7.recycler.adapter.BaseViewHolder;
  * Created by long on 2016/12/15.
  * Video 下载适配器
  */
-public class VideoCacheAdapter extends BaseVideoDownloadAdapter {
+public class VideoCacheAdapter extends BaseVideoDLAdapter {
 
     public VideoCacheAdapter(Context context, RxBus rxBus) {
         super(context, rxBus);

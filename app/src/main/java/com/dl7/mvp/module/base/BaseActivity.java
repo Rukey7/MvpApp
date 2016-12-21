@@ -17,7 +17,6 @@ import com.dl7.mvp.AndroidApplication;
 import com.dl7.mvp.R;
 import com.dl7.mvp.injector.components.ApplicationComponent;
 import com.dl7.mvp.injector.modules.ActivityModule;
-import com.dl7.mvp.utils.ActivityCollector;
 import com.dl7.mvp.views.EmptyLayout;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
@@ -44,8 +43,6 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
      */
     @Inject
     protected T mPresenter;
-
-    private long mExitTime = 0;
 
     /**
      * 绑定布局文件
@@ -80,13 +77,6 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
         initInjector();
         initViews();
         updateViews();
-        ActivityCollector.addActivity(this);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ActivityCollector.removeActivity(this);
     }
 
     @Override
@@ -205,6 +195,7 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
 
     /**
      * 添加 Fragment
+     *
      * @param containerViewId
      * @param fragment
      */
@@ -216,6 +207,7 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
 
     /**
      * 添加 Fragment
+     *
      * @param containerViewId
      * @param fragment
      */
@@ -229,6 +221,7 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
 
     /**
      * 替换 Fragment
+     *
      * @param containerViewId
      * @param fragment
      */
@@ -242,6 +235,7 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
 
     /**
      * 替换 Fragment
+     *
      * @param containerViewId
      * @param fragment
      */
@@ -260,7 +254,44 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
         }
     }
 
-    /**************************************************************************/
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * ================================= 切换动画 =================================
+     */
+
+    private static final int ANIM_FADE = 1;
+    private static final int ANIM_ZOOM = 2;
+    private static final int ANIM_SLIDE_RIGHT = 3;
+
+    protected int mAnimMode = ANIM_SLIDE_RIGHT;
+
+    /**
+     * 处理activity切换动画
+     * @param isInAnim
+     */
+    private void _handleAnimation(boolean isInAnim) {
+        switch (mAnimMode) {
+            case ANIM_FADE:
+                overridePendingTransition(R.anim.fade_in, R.anim.hold);
+                break;
+            case ANIM_ZOOM:
+                overridePendingTransition(R.anim.fade_in, R.anim.hold);
+                break;
+            case ANIM_SLIDE_RIGHT:
+                overridePendingTransition(R.anim.fade_in, R.anim.hold);
+                break;
+        }
+    }
+
+
 
     @Override
     public void startActivity(Intent intent) {
@@ -268,7 +299,7 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
 //        if (intent != null && intent.getComponent() != null
 //                && !intent.getComponent().getClassName().contains("MainActivity")) {
 //            // 设置Activity进入动画为从右往左覆盖
-//            overridePendingTransition(R.anim.move_right_in_activity, R.anim.hold_long);
+//            overridePendingTransition(R.anim.slide_in_right, R.anim.hold_long);
 //        }
     }
 
@@ -277,7 +308,7 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
         super.startActivityForResult(intent, requestCode);
 //        if (intent != null && intent.getComponent() != null) {
 //            // 设置Activity进入动画为从右往左覆盖
-//            overridePendingTransition(R.anim.move_right_in_activity, R.anim.hold_long);
+//            overridePendingTransition(R.anim.slide_in_right, R.anim.hold_long);
 //        }
     }
 
@@ -290,16 +321,7 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
 //            overridePendingTransition(0, 0);
 //        } else if (!((Object) this).getClass().getName().contains("MainActivity")) {
 //            // 设置Activity退出动画为从左往右退出
-//            overridePendingTransition(R.anim.hold_long, R.anim.move_right_out_activity);
+//            overridePendingTransition(R.anim.hold_long, R.anim.slide_out_right);
 //        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

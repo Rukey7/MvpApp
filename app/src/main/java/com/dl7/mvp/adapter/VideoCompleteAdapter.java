@@ -20,7 +20,7 @@ import com.dl7.recycler.adapter.BaseViewHolder;
  * Created by long on 2016/12/16.
  * video 缓存完成适配器
  */
-public class VideoCompleteAdapter extends BaseVideoDownloadAdapter {
+public class VideoCompleteAdapter extends BaseVideoDLAdapter {
 
     public VideoCompleteAdapter(Context context, RxBus rxBus) {
         super(context, rxBus);
