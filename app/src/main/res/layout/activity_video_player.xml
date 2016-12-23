@@ -6,9 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context="com.dl7.mvp.module.video.player.VideoPlayerActivity">
 
-    <include layout="@layout/layout_toolbar"/>
+    <!--<include layout="@layout/layout_toolbar"/>-->
 
     <com.dl7.player.media.IjkPlayerView
         android:id="@+id/video_player"
@@ -28,14 +29,6 @@
             android:background="@drawable/sel_btn_press_bg"
             android:src="@mipmap/video_share"/>
 
-        <!--<ImageView-->
-            <!--android:id="@+id/iv_video_collect"-->
-            <!--android:layout_width="40dp"-->
-            <!--android:layout_height="40dp"-->
-            <!--android:layout_margin="20dp"-->
-            <!--android:background="@drawable/sel_btn_press_bg"-->
-            <!--android:src="@drawable/sel_btn_video_collect"/>-->
-
         <com.sackcentury.shinebuttonlib.ShineButton
             android:id="@+id/iv_video_collect"
             android:layout_width="40dp"
@@ -53,4 +46,53 @@
             android:background="@drawable/sel_btn_press_bg"
             android:src="@drawable/sel_btn_video_download"/>
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:text="Something"
+        android:gravity="center"
+        android:background="#dddddd"
+        android:layout_height="0dp"/>
+
+    <LinearLayout
+        android:id="@+id/ll_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/emoji_layout"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_content"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:focusableInTouchMode="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/shape_comment_border"
+            android:gravity="center_vertical"
+            android:hint="发射弹幕吧"
+            android:paddingLeft="10dp"
+            android:lines="2"
+            android:inputType="textMultiLine"
+            android:textColor="#333333"
+            android:textColorHint="#cccccc"
+            android:textSize="14sp"/>
+
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="45dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/sel_btn_send"
+            android:text="发表"
+            android:textColor="@drawable/sel_btn_send_text"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
 </LinearLayout>

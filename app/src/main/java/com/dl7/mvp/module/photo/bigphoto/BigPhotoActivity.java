@@ -27,6 +27,7 @@ import com.dl7.mvp.utils.CommonConstant;
 import com.dl7.mvp.utils.DownloadUtils;
 import com.dl7.mvp.utils.NavUtils;
 import com.dl7.mvp.utils.ToastUtils;
+import com.dl7.mvp.views.PhotoViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +47,7 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
     private static final String FROM_LOVE_ACTIVITY = "FromLoveActivity";
 
     @BindView(R.id.vp_photo)
-    ViewPager mVpPhoto;
+    PhotoViewPager mVpPhoto;
     @BindView(R.id.iv_favorite)
     ImageView mIvFavorite;
     @BindView(R.id.iv_download)
@@ -120,7 +121,7 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
             // 空出底部导航的高度，因为 NavigationBar 是透明的
             mLlLayout.setPadding(0, 0, 0, NavUtils.getNavigationBarHeight(this));
         }
-        mAdapter = new PhotoPagerAdapter(this);
+//        mAdapter = new PhotoPagerAdapter(this);
         mVpPhoto.setAdapter(mAdapter);
         // 设置是否 ViewPager 联动和动画
         mDragLayout.interactWithViewPager(mIsInteract);

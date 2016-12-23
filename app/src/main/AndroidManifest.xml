@@ -59,7 +59,7 @@
         <activity
             android:name=".module.video.player.VideoPlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/AppBaseTheme.TranslucentStatus">
+            android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
         <activity android:name=".module.manage.download.DownloadActivity"
                   android:configChanges="orientation|keyboardHidden|screenSize"

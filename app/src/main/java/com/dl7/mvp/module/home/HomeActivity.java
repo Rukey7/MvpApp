@@ -9,6 +9,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.SparseArray;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -38,6 +39,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
 //    private SparseArray<Fragment> mSparseFragments = new SparseArray<>();
     private SparseArray<String> mSparseTags = new SparseArray<>();
     private long mExitTime = 0;
+    private int mItemId = -1;
     private Handler mHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
@@ -54,9 +56,8 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
                 case R.id.nav_setting:
                     SettingsActivity.launch(HomeActivity.this);
                     break;
-                default:
-                    return false;
             }
+            mItemId = -1;
             return true;
         }
     });
@@ -90,8 +91,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         if (item.isChecked()) {
             return true;
         }
-        // 延迟一会再做切换，不然会出现卡顿现象，可以改为监听 DrawerLayout 关闭来做处理
-        mHandler.sendEmptyMessageDelayed(item.getItemId(), 200);
+        mItemId = item.getItemId();
         return true;
     }
 
@@ -133,6 +133,12 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
             //将主页面顶部延伸至status bar
             drawerLayout.setClipToPadding(false);
         }
+        drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                mHandler.sendEmptyMessage(mItemId);
+            }
+        });
         navView.setNavigationItemSelectedListener(this);
     }
 

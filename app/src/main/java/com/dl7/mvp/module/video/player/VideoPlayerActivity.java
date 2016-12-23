@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,26 +14,31 @@ import com.bumptech.glide.Glide;
 import com.dl7.downloaderlib.model.DownloadStatus;
 import com.dl7.mvp.R;
 import com.dl7.mvp.engine.DownloaderWrapper;
+import com.dl7.mvp.engine.danmaku.DanmakuConverter;
+import com.dl7.mvp.engine.danmaku.DanmakuLoader;
+import com.dl7.mvp.engine.danmaku.DanmakuParser;
 import com.dl7.mvp.injector.components.DaggerVideoPlayerComponent;
 import com.dl7.mvp.injector.modules.VideoPlayerModule;
+import com.dl7.mvp.local.table.DanmakuInfo;
 import com.dl7.mvp.local.table.VideoInfo;
 import com.dl7.mvp.module.base.BaseActivity;
-import com.dl7.mvp.module.base.ILoadDataView;
-import com.dl7.mvp.module.base.ILocalPresenter;
 import com.dl7.mvp.utils.CommonConstant;
 import com.dl7.mvp.utils.DialogHelper;
 import com.dl7.player.media.IjkPlayerView;
+import com.orhanobut.logger.Logger;
 import com.sackcentury.shinebuttonlib.ShineButton;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 import static com.dl7.mvp.utils.CommonConstant.VIDEO_DATA_KEY;
 
-public class VideoPlayerActivity extends BaseActivity<ILocalPresenter> implements ILoadDataView<VideoInfo> {
+public class VideoPlayerActivity extends BaseActivity<IVideoPresenter> implements IVideoView {
 
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
+//    @BindView(R.id.toolbar)
+//    Toolbar mToolbar;
     @BindView(R.id.video_player)
     IjkPlayerView mPlayerView;
     @BindView(R.id.iv_video_share)
@@ -82,11 +86,12 @@ public class VideoPlayerActivity extends BaseActivity<ILocalPresenter> implement
 
     @Override
     protected void initViews() {
-        initToolBar(mToolbar, true, mVideoData.getTitle());
+//        initToolBar(mToolbar, true, mVideoData.getTitle());
         mPlayerView.init()
                 .setTitle(mVideoData.getTitle())
+                .setVideoSource(null, mVideoData.getM3u8_url(), mVideoData.getM3u8Hd_url(), null, null)
                 .enableDanmaku()
-                .setVideoSource(null, mVideoData.getM3u8_url(), mVideoData.getM3u8Hd_url(), null, null);
+                .setDanmakuCustomParser(new DanmakuParser(), DanmakuLoader.instance(), DanmakuConverter.instance());
         mIvVideoCollect.init(this);
         mIvVideoCollect.setShapeResource(R.mipmap.video_collect);
         mIvVideoCollect.setOnCheckStateChangeListener(new ShineButton.OnCheckedChangeListener() {
@@ -102,11 +107,11 @@ public class VideoPlayerActivity extends BaseActivity<ILocalPresenter> implement
                 }
             }
         });
+        Glide.with(this).load(mVideoData.getCover()).fitCenter().into(mPlayerView.mPlayerThumb);
     }
 
     @Override
     protected void updateViews() {
-        Glide.with(this).load(mVideoData.getCover()).fitCenter().into(mPlayerView.mPlayerThumb);
         mPresenter.getData();
     }
 
@@ -158,11 +163,8 @@ public class VideoPlayerActivity extends BaseActivity<ILocalPresenter> implement
     }
 
     @Override
-    public void loadMoreData(VideoInfo data) {
-    }
-
-    @Override
-    public void loadNoData() {
+    public void loadDanmakuData(List<DanmakuInfo> dataList) {
+        Logger.w(dataList.toString());
     }
 
     @OnClick({R.id.iv_video_share, R.id.iv_video_download})

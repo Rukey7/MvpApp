@@ -59,6 +59,7 @@ public class AndroidApplication extends Application {
      * 初始化注射器
      */
     private void _initInjector() {
+        // 这里不做注入操作，只提供一些全局单例数据
         mAppComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this, mDaoSession, mRxBus))
                 .build();

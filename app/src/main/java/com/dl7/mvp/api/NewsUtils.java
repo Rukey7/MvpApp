@@ -17,7 +17,7 @@ public final class NewsUtils {
     // 新闻列表头部
     private static final int HAS_HEAD = 1;
     // 新闻ID长度
-    private static final int NEWS_ID_LENGHT = 16;
+    private static final int NEWS_ID_LENGTH = 16;
     // 新闻ID前缀，eg：BV9KHEMS0001124J
     private static final String NEWS_ID_PREFIX = "BV";
 
@@ -44,7 +44,7 @@ public final class NewsUtils {
         String newsId = null;
         int index = url.indexOf(NEWS_ID_PREFIX);
         if (index != -1) {
-            newsId = url.substring(index, index + NEWS_ID_LENGHT);
+            newsId = url.substring(index, index + NEWS_ID_LENGTH);
         }
         return newsId;
     }

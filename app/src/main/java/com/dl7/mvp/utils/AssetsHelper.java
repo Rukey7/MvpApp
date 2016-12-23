@@ -9,14 +9,20 @@ import java.io.InputStream;
 
 /**
  * Created by long on 2016/6/28.
- * Assets帮助类,测试用
+ * Assets帮助类
  */
 public class AssetsHelper {
 
     private AssetsHelper() {
+        throw new AssertionError();
     }
 
-
+    /**
+     * 读取 assets 文件
+     * @param context
+     * @param fileName
+     * @return
+     */
     public static String readData(Context context, String fileName) {
         InputStream inStream = null;
         String data = null;

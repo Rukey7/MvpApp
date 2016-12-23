@@ -21,14 +21,6 @@ public class FlexibleViewPager extends ViewPager {
         super(context, attrs);
     }
 
-//    @Override
-//    public boolean onTouchEvent(MotionEvent ev) {
-//        if (!mIsCanScroll) {
-//            return true;
-//        }
-//        return super.onTouchEvent(ev);
-//    }
-
     @Override
     public void scrollTo(int x, int y) {
         if (mIsCanScroll) {

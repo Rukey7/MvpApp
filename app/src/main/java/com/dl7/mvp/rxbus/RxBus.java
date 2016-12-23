@@ -21,7 +21,6 @@ public class RxBus {
     private SerializedSubject<Object, Object> mSubject;
     private HashMap<String, CompositeSubscription> mSubscriptionMap;
 
-
     public RxBus() {
         mSubject = new SerializedSubject<>(PublishSubject.create());
     }
