@@ -1,6 +1,5 @@
 package com.dl7.mvp.module.manage.download.cache;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -27,8 +26,6 @@ import rx.functions.Action1;
  */
 public class VideoCacheFragment extends BaseVideoDLFragment<IRxBusPresenter> implements ILocalView<VideoInfo> {
 
-    @BindView(R.id.rv_video_list)
-    RecyclerView mRvVideoList;
     @BindView(R.id.default_bg)
     TextView mDefaultBg;
 

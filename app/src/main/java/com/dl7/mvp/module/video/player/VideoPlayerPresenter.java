@@ -1,5 +1,6 @@
 package com.dl7.mvp.module.video.player;
 
+import com.alibaba.fastjson.JSON;
 import com.dl7.downloaderlib.model.DownloadStatus;
 import com.dl7.mvp.local.table.DanmakuInfo;
 import com.dl7.mvp.local.table.DanmakuInfoDao;
@@ -8,6 +9,8 @@ import com.dl7.mvp.local.table.VideoInfoDao;
 import com.dl7.mvp.rxbus.RxBus;
 import com.dl7.mvp.rxbus.event.VideoEvent;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.List;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -55,14 +58,35 @@ public class VideoPlayerPresenter implements IVideoPresenter {
                         mView.loadData(videoBean);
                     }
                 });
+//        mDanmakuDao.queryBuilder().where(DanmakuInfoDao.Properties.Vid.eq(mVideoData.getVid()))
+//                .rx()
+//                .list()
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Action1<List<DanmakuInfo>>() {
+//                    @Override
+//                    public void call(List<DanmakuInfo> danmakuInfos) {
+//                        Logger.e(GsonHelper.object2JsonStr(danmakuInfos));
+//                        mView.loadDanmakuData(danmakuInfos);
+//                    }
+//                });
         mDanmakuDao.queryBuilder().where(DanmakuInfoDao.Properties.Vid.eq(mVideoData.getVid()))
                 .rx()
                 .list()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<List<DanmakuInfo>>() {
+                .map(new Func1<List<DanmakuInfo>, InputStream>() {
                     @Override
-                    public void call(List<DanmakuInfo> danmakuInfos) {
-                        mView.loadDanmakuData(danmakuInfos);
+                    public InputStream call(List<DanmakuInfo> danmakuInfos) {
+                        // 由于 DanmakuInfo 和父类用了相同的字段，用 Gson 直接解析会报错，这里用 FastJson 来处理
+//                        GsonHelper.object2JsonStr(danmakuInfos);
+                        String jsonStr = JSON.toJSONString(danmakuInfos);
+                        // 将 String 转为 InputStream
+                        InputStream inputStream = new ByteArrayInputStream(jsonStr.getBytes());
+                        return inputStream;
+                    }
+                })
+                .subscribe(new Action1<InputStream>() {
+                    @Override
+                    public void call(InputStream inputStream) {
+                        mView.loadDanmakuData(inputStream);
                     }
                 });
     }

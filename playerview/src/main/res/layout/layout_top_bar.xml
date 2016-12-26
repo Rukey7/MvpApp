@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/fullscreen_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/control_bar_height"
+        android:background="@color/bg_video_view"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sel_item_background"
+            android:padding="10dp"
+            android:src="@mipmap/ic_return_back"/>
+
+        <com.dl7.player.widgets.MarqueeTextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:text="标题"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"/>
+
+        <ProgressBar
+            android:id="@+id/pb_battery"
+            style="@style/ProgressBarBattery"
+            android:layout_marginRight="10dp"
+            android:max="100"/>
+
+        <TextView
+            android:id="@+id/tv_system_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"/>
+
+        <ImageView
+            android:id="@+id/iv_screenshot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sel_item_background"
+            android:padding="10dp"
+            android:src="@mipmap/ic_video_screenshot"/>
+
+        <TextView
+            android:id="@+id/tv_settings"
+            android:layout_width="@dimen/settings_btn_width"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/sel_item_background"
+            android:text="设置"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/window_top_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_back_window"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sel_item_background"
+            android:padding="10dp"
+            android:src="@mipmap/ic_return_back"/>
+    </FrameLayout>
+
+    <RadioGroup
+        android:id="@+id/aspect_ratio_group"
+        android:layout_width="@dimen/settings_btn_width"
+        android:layout_height="0dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/control_bar_height"
+        android:background="@color/bg_video_view"
+        android:checkedButton="@id/aspect_fit_parent"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/aspect_fit_parent"
+            style="@style/AspectRatioButton"
+            android:background="@drawable/sel_btn_ar_adjust_screen"/>
+
+        <RadioButton
+            android:id="@+id/aspect_fit_screen"
+            style="@style/AspectRatioButton"
+            android:background="@drawable/sel_btn_ar_adjust_video"/>
+
+        <RadioButton
+            android:id="@+id/aspect_16_and_9"
+            style="@style/AspectRatioButton"
+            android:background="@drawable/sel_btn_ar_16_9"/>
+
+        <RadioButton
+            android:id="@+id/aspect_4_and_3"
+            style="@style/AspectRatioButton"
+            android:background="@drawable/sel_btn_ar_4_3"/>
+    </RadioGroup>
+</merge>

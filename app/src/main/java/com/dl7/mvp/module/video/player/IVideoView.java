@@ -1,10 +1,9 @@
 package com.dl7.mvp.module.video.player;
 
-import com.dl7.mvp.local.table.DanmakuInfo;
 import com.dl7.mvp.local.table.VideoInfo;
 import com.dl7.mvp.module.base.IBaseView;
 
-import java.util.List;
+import java.io.InputStream;
 
 /**
  * Created by long on 2016/12/23.
@@ -20,8 +19,8 @@ public interface IVideoView extends IBaseView {
 
     /**
      * 获取弹幕数据
-     * @param dataList 数据
+     * @param inputStream 数据
      */
-    void loadDanmakuData(List<DanmakuInfo> dataList);
+    void loadDanmakuData(InputStream inputStream);
 
 }

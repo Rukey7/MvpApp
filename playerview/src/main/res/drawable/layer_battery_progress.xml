@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 低电Progress -->
+    <item
+        android:id="@android:id/secondaryProgress"
+        android:gravity="center_vertical">
+        <clip>
+            <shape>
+                <solid android:color="@android:color/holo_red_light"/>
+            </shape>
+        </clip>
+    </item>
+
+    <!-- 正常Progress -->
+    <item android:id="@android:id/progress"
+        android:gravity="center_vertical">
+        <clip>
+            <shape>
+                <solid android:color="#aaf5f5f5"/>
+            </shape>
+        </clip>
+    </item>
+
+</layer-list>

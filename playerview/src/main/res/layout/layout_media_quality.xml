@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <FrameLayout
+        android:visibility="gone"
+        android:id="@+id/fl_media_quality"
+        android:layout_width="150dp"
+        android:layout_gravity="right"
+        android:translationX="150dp"
+        android:background="@color/bg_video_view"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/lv_media_quality"
+            android:layout_gravity="center"
+            android:divider="@null"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </FrameLayout>
+</merge>

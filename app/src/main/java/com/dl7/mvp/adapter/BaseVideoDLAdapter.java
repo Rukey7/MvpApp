@@ -4,11 +4,13 @@ import android.content.Context;
 import android.util.SparseBooleanArray;
 
 import com.dl7.downloaderlib.entity.FileInfo;
+import com.dl7.mvp.R;
 import com.dl7.mvp.engine.DownloaderWrapper;
 import com.dl7.mvp.local.table.VideoInfo;
 import com.dl7.mvp.rxbus.RxBus;
 import com.dl7.mvp.rxbus.event.VideoEvent;
 import com.dl7.recycler.adapter.BaseQuickAdapter;
+import com.dl7.recycler.adapter.BaseViewHolder;
 
 /**
  * Created by long on 2016/12/19.
@@ -67,10 +69,12 @@ public abstract class BaseVideoDLAdapter extends BaseQuickAdapter<VideoInfo> {
      * 切换 Item 的选中状态
      * @param position
      */
-    public void toggleItemChecked(int position) {
+    public void toggleItemChecked(int position, BaseViewHolder holder) {
         boolean isChecked = mSparseItemChecked.get(position);
         mSparseItemChecked.put(position, !isChecked);
-        notifyItemChanged(position);
+        holder.setChecked(R.id.cb_delete, mSparseItemChecked.get(position));
+        // 如果用 notifyItemChanged()，会有一闪的情况
+//        notifyItemChanged(position);
     }
 
     public void deleteItemChecked() {

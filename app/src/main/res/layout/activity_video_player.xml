@@ -6,10 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:fitsSystemWindows="true"
     tools:context="com.dl7.mvp.module.video.player.VideoPlayerActivity">
 
     <!--<include layout="@layout/layout_toolbar"/>-->
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <com.dl7.player.media.IjkPlayerView
         android:id="@+id/video_player"
@@ -17,6 +24,7 @@
         android:layout_height="200dp"/>
 
     <LinearLayout
+        android:id="@+id/ll_operate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right|center_vertical"
@@ -49,17 +57,16 @@
 
     <TextView
         android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="Something"
-        android:gravity="center"
         android:background="#dddddd"
-        android:layout_height="0dp"/>
+        android:gravity="center"
+        android:text="Something"/>
 
     <LinearLayout
-        android:id="@+id/ll_layout"
+        android:id="@+id/ll_edit_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/emoji_layout"
         android:background="@android:color/white"
         android:gravity="center"
         android:orientation="horizontal">
@@ -68,17 +75,17 @@
             android:id="@+id/et_content"
             android:layout_width="0dp"
             android:layout_height="30dp"
-            android:layout_weight="1"
-            android:focusableInTouchMode="true"
+            android:layout_marginBottom="3dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp"
+            android:layout_weight="1"
             android:background="@drawable/shape_comment_border"
+            android:focusableInTouchMode="true"
             android:gravity="center_vertical"
             android:hint="发射弹幕吧"
-            android:paddingLeft="10dp"
-            android:lines="2"
             android:inputType="textMultiLine"
+            android:lines="2"
+            android:paddingLeft="10dp"
             android:textColor="#333333"
             android:textColorHint="#cccccc"
             android:textSize="14sp"/>

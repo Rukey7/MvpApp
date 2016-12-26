@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:id="@+id/fl_touch_layout"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_video_bg"
+        android:visibility="gone"
+        android:layout_width="100dp"
+        android:layout_height="100dp">
+
+        <!-- 声音 -->
+        <TextView
+            android:id="@+id/tv_volume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawablePadding="5dp"
+            android:drawableTop="@mipmap/ic_volume_on"
+            android:gravity="center"
+            android:text="50%"
+            android:textColor="@android:color/white"
+            android:visibility="gone"/>
+
+        <!-- 亮度 -->
+        <TextView
+            android:id="@+id/tv_brightness"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawablePadding="5dp"
+            android:drawableTop="@mipmap/ic_brightness"
+            android:gravity="center"
+            android:text="50%"
+            android:textColor="@android:color/white"
+            android:visibility="gone"/>
+
+        <!-- 快进 -->
+        <TextView
+            android:id="@+id/tv_fast_forward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:text="50%"
+            android:textColor="@android:color/white"
+            android:visibility="gone"/>
+
+        <!-- 快退 -->
+        <TextView
+            android:id="@+id/tv_fast_rewind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawablePadding="5dp"
+            android:drawableTop="@mipmap/ic_fast_rewind"
+            android:gravity="center"
+            android:text="50%"
+            android:textColor="@android:color/white"
+            android:visibility="gone"/>
+    </FrameLayout>
+
+</merge>

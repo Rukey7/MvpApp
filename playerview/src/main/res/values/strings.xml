@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">PlayerView</string>
+    <string name="video_record">记忆上次播放到</string>
+    <string name="video_skip">继续播放</string>
+
+    <string-array name="media_quality">
+        <item>流畅</item>
+        <item>清晰</item>
+        <item>高清</item>
+        <item>超清</item>
+        <item>1080P</item>
+    </string-array>
+</resources>

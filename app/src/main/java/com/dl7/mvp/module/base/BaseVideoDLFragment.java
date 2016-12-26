@@ -1,18 +1,26 @@
 package com.dl7.mvp.module.base;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.dl7.mvp.R;
 import com.dl7.mvp.adapter.BaseVideoDLAdapter;
 import com.dl7.mvp.module.manage.download.DownloadActivity;
+import com.dl7.recycler.adapter.BaseViewHolder;
 import com.dl7.recycler.listener.OnRecyclerViewItemLongClickListener;
 
 import javax.inject.Inject;
+
+import butterknife.BindView;
 
 /**
  * Created by long on 2016/12/20.
  * video下载的基类Fragment
  */
 public abstract class BaseVideoDLFragment<T extends IBasePresenter> extends BaseFragment<T> {
+
+    @BindView(R.id.rv_video_list)
+    protected RecyclerView mRvVideoList;
 
     @Inject
     protected BaseVideoDLAdapter mAdapter;
@@ -25,11 +33,13 @@ public abstract class BaseVideoDLFragment<T extends IBasePresenter> extends Base
             @Override
             public boolean onItemLongClick(View view, int position) {
                 if (!mAdapter.isEditMode()) {
-                    mAdapter.toggleItemChecked(position);
                     mAdapter.setEditMode(true);
                     ((DownloadActivity) getActivity()).enableEditMode(true);
-                } else {
-                    mAdapter.toggleItemChecked(position);
+                }
+                // 这里获取对应position对应的ViewHolder,需要借助RecyclerView，还有个更简便的做法是自定义的点击事件把ViewHolder一起传过来
+                BaseViewHolder viewHolder = (BaseViewHolder) mRvVideoList.getChildViewHolder(view);
+                if (viewHolder != null) {
+                    mAdapter.toggleItemChecked(position, viewHolder);
                 }
                 return true;
             }

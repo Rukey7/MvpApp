@@ -1,36 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="10dp"
     android:layout_marginBottom="5dp"
+    android:layout_marginLeft="10dp"
     android:layout_marginRight="20dp"
-    android:layout_marginTop="5dp">
+    android:layout_marginTop="5dp"
+    android:foreground="@drawable/sel_common_bg_press">
 
-    <ImageView
-        android:id="@+id/iv_thumb"
-        android:layout_width="@dimen/video_thumb_width"
-        android:layout_height="@dimen/video_thumb_height"
-        android:scaleType="fitXY"
-        android:src="@mipmap/icon_default_1"/>
-
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_toRightOf="@id/iv_thumb"
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_desc"
-        android:layout_alignLeft="@+id/tv_title"
-        android:layout_below="@+id/tv_title"
-        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/iv_thumb"
+            android:layout_width="@dimen/video_thumb_width"
+            android:layout_height="@dimen/video_thumb_height"
+            android:scaleType="fitXY"
+            android:src="@mipmap/icon_default_1"/>
 
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@id/iv_thumb"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_title"
+            android:layout_below="@+id/tv_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
+    </RelativeLayout>
+
+</FrameLayout>

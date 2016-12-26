@@ -3,7 +3,13 @@
 
     <item android:state_pressed="true">
         <shape>
-            <solid android:color="#44bababa"/>
+            <solid android:color="@color/item_pressed"/>
+        </shape>
+    </item>
+    <item android:state_focused="true"
+        android:state_enabled="true">
+        <shape>
+            <solid android:color="@color/item_pressed"/>
         </shape>
     </item>
     <item android:drawable="@android:color/transparent"/>

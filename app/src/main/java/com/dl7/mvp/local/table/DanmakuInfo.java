@@ -12,12 +12,12 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 public class DanmakuInfo extends BaseDanmakuData {
 
-    // 为了数据库字段生成，把基类的字段拷过来
-    public int type;
-    public String content;
-    public long time;
-    public float textSize;
-    public int textColor;
+    // 为了数据库字段生成，把基类的字段拷过来，没找到GreenDao生成父类字段的方式
+    private int type;
+    private String content;
+    private long time;
+    private float textSize;
+    private int textColor;
     // 用户名
     private String userName;
     // 对应一个视频

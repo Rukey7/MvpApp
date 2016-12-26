@@ -3,8 +3,9 @@ package com.dl7.mvp.engine.danmaku;
 import android.graphics.Color;
 import android.text.TextUtils;
 
+import com.alibaba.fastjson.JSON;
 import com.dl7.mvp.local.table.DanmakuInfo;
-import com.dl7.mvp.utils.GsonHelper;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -36,21 +37,25 @@ public class DanmakuParser extends BaseDanmakuParser {
      * @return 转换后的Danmakus
      */
     private Danmakus _doParse(String jsonStr) {
+        Logger.w(jsonStr);
         Danmakus danmakus = new Danmakus();
         if (TextUtils.isEmpty(jsonStr)) {
             return danmakus;
         }
         try {
-            List<DanmakuInfo> datas = GsonHelper.convertEntities(jsonStr, DanmakuInfo.class);
+            // 由于 DanmakuInfo 和父类用了相同的字段，用 Gson 直接解析会报错，这里用 FastJson 来处理
+//            List<DanmakuInfo> datas = GsonHelper.convertEntities(jsonStr, DanmakuInfo.class);
+            List<DanmakuInfo> datas = JSON.parseArray(jsonStr, DanmakuInfo.class);
+            Logger.i(datas.toString());
             int size = datas.size();
             for (int i = 0; i < size; i++) {
-                BaseDanmaku item = mContext.mDanmakuFactory.createDanmaku(datas.get(i).type, mContext);
+                BaseDanmaku item = mContext.mDanmakuFactory.createDanmaku(datas.get(i).getType(), mContext);
                 if (item != null) {
-                    item.setTime(datas.get(i).time);
-                    item.textSize = datas.get(i).textSize;
-                    item.textColor = datas.get(i).textColor;
+                    item.setTime(datas.get(i).getTime());
+                    item.textSize = datas.get(i).getTextSize();
+                    item.textColor = datas.get(i).getTextColor();
                     item.textShadowColor = textColor <= Color.BLACK ? Color.WHITE : Color.BLACK;
-                    DanmakuUtils.fillText(item, datas.get(i).content);
+                    DanmakuUtils.fillText(item, datas.get(i).getContent());
                     item.index = i;
                     item.setTimer(mTimer);
                     danmakus.addItem(item);

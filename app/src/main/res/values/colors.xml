@@ -22,4 +22,6 @@
     <color name="download_normal">#666666</color>
     <color name="download_stop">#f57c00</color>
     <color name="download_error">#fd4d51</color>
+
+    <color name="item_pressed">#33626262</color>
 </resources>

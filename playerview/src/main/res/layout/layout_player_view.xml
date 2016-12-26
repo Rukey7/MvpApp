@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@+id/fl_video_box"
+             xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:focusable="true"
+             android:focusableInTouchMode="true"
+             android:background="@android:color/black">
+
+    <com.dl7.player.media.IjkVideoView
+        android:id="@+id/video_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ImageView
+        android:id="@+id/iv_thumb"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@android:color/black"/>
+
+    <master.flame.danmaku.ui.widget.DanmakuView
+        android:id="@+id/sv_danmaku"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:visibility="gone"
+        android:indeterminateBehavior="repeat"
+        android:indeterminateOnly="true"/>
+
+    <include
+        layout="@layout/layout_touch_gestures"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+
+    <include
+        layout="@layout/layout_top_bar"/>
+
+    <include
+        layout="@layout/layout_bottom_bar"/>
+
+    <ImageView
+        android:id="@+id/iv_player_lock"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:padding="10dp"
+        android:background="@drawable/shape_player_lock_bg"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/sel_player_lock"
+        android:visibility="gone"/>
+
+    <include layout="@layout/layout_skip_tip"/>
+
+    <ImageView
+        android:id="@+id/iv_play_circle"
+        android:src="@mipmap/ic_play_circle"
+        android:layout_gravity="center"
+        android:layout_width="56dp"
+        android:layout_height="56dp"/>
+
+    <include layout="@layout/layout_media_quality"/>
+
+    <include layout="@layout/layout_send_danmaku"/>
+</FrameLayout>

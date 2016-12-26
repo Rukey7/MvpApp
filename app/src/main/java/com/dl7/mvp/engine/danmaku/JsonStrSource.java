@@ -3,6 +3,8 @@ package com.dl7.mvp.engine.danmaku;
 import android.net.Uri;
 import android.text.TextUtils;
 
+import com.orhanobut.logger.Logger;
+
 import org.json.JSONException;
 
 import java.io.File;
@@ -35,7 +37,9 @@ public class JsonStrSource implements IDataSource<String> {
         if(in == null)
             throw new NullPointerException("input stream cannot be null!");
         mInput = in;
+        Logger.e("init");
         String json = IOUtils.getString(mInput);
+        Logger.w(json);
         init(json);
     }
 

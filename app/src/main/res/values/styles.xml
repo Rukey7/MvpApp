@@ -29,6 +29,12 @@
         <!--<item name="android:windowAnimationStyle">@style/slide_right_entry</item>-->
     </style>
 
+    <style name="VideoPlayerTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
     <!-- 右滑动进入/退出动画 -->
     <style name="slide_in_right" parent="@android:style/Animation.Translucent">
         <item name="android:windowEnterAnimation">@anim/slide_right_entry</item>

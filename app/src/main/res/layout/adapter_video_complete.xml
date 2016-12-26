@@ -1,62 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginLeft="10dp"
-              android:layout_marginRight="10dp"
-              android:layout_marginTop="10dp"
-              android:background="@mipmap/bg_card"
-              android:orientation="horizontal"
-              android:paddingBottom="10dp"
-              android:paddingLeft="10dp"
-              android:paddingRight="20dp"
-              android:paddingTop="10dp">
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
+    android:foreground="@drawable/sel_common_bg_press">
 
-    <CheckBox
-        android:id="@+id/cb_delete"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:visibility="gone"
-        android:layout_marginRight="5dp"
-        android:layout_height="wrap_content"/>
-
-    <ImageView
-        android:id="@+id/iv_thumb"
-        android:layout_width="@dimen/video_thumb_width"
-        android:layout_height="@dimen/video_thumb_height"
-        android:layout_marginRight="10dp"
-        android:scaleType="fitXY"
-        android:src="@mipmap/icon_default_1"/>
-
-    <RelativeLayout
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@mipmap/bg_card"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp">
 
-        <TextView
-            android:id="@+id/tv_title"
+        <CheckBox
+            android:id="@+id/cb_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="5dp"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/iv_thumb"
+            android:layout_width="@dimen/video_thumb_width"
+            android:layout_height="@dimen/video_thumb_height"
+            android:layout_marginRight="10dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/icon_default_1"/>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:maxLines="2"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:padding="5dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:maxLines="2"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
-        <TextView
-            android:id="@+id/tv_show_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/tv_size"
-            android:padding="5dp"
-            android:text="视频详情>"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:padding="5dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/tv_show_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/tv_size"
+                android:padding="5dp"
+                android:text="视频详情>"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+</FrameLayout>

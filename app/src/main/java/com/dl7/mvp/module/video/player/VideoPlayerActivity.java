@@ -6,9 +6,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.dl7.downloaderlib.model.DownloadStatus;
@@ -24,11 +29,13 @@ import com.dl7.mvp.local.table.VideoInfo;
 import com.dl7.mvp.module.base.BaseActivity;
 import com.dl7.mvp.utils.CommonConstant;
 import com.dl7.mvp.utils.DialogHelper;
+import com.dl7.player.danmaku.OnDanmakuListener;
 import com.dl7.player.media.IjkPlayerView;
+import com.dl7.player.utils.SoftInputUtils;
 import com.orhanobut.logger.Logger;
 import com.sackcentury.shinebuttonlib.ShineButton;
 
-import java.util.List;
+import java.io.InputStream;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -37,8 +44,8 @@ import static com.dl7.mvp.utils.CommonConstant.VIDEO_DATA_KEY;
 
 public class VideoPlayerActivity extends BaseActivity<IVideoPresenter> implements IVideoView {
 
-//    @BindView(R.id.toolbar)
-//    Toolbar mToolbar;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
     @BindView(R.id.video_player)
     IjkPlayerView mPlayerView;
     @BindView(R.id.iv_video_share)
@@ -47,6 +54,14 @@ public class VideoPlayerActivity extends BaseActivity<IVideoPresenter> implement
     ShineButton mIvVideoCollect;
     @BindView(R.id.iv_video_download)
     ImageView mIvVideoDownload;
+    @BindView(R.id.ll_operate)
+    LinearLayout mLlOperate;
+    @BindView(R.id.et_content)
+    EditText mEtContent;
+    @BindView(R.id.btn_send)
+    Button mBtnSend;
+    @BindView(R.id.ll_edit_layout)
+    LinearLayout mLlEditLayout;
 
     private VideoInfo mVideoData;
 
@@ -54,14 +69,14 @@ public class VideoPlayerActivity extends BaseActivity<IVideoPresenter> implement
         Intent intent = new Intent(context, VideoPlayerActivity.class);
         intent.putExtra(VIDEO_DATA_KEY, data);
         context.startActivity(intent);
-        ((Activity)context).overridePendingTransition(R.anim.slide_top_entry, R.anim.hold);
+        ((Activity) context).overridePendingTransition(R.anim.slide_bottom_entry, R.anim.hold);
     }
 
     public static void launchForResult(Fragment fragment, VideoInfo data) {
         Intent intent = new Intent(fragment.getContext(), VideoPlayerActivity.class);
         intent.putExtra(VIDEO_DATA_KEY, data);
         fragment.startActivityForResult(intent, CommonConstant.VIDEO_REQUEST_CODE);
-        fragment.getActivity().overridePendingTransition(R.anim.slide_top_entry, R.anim.hold);
+        fragment.getActivity().overridePendingTransition(R.anim.slide_bottom_entry, R.anim.hold);
     }
 
     @Override
@@ -86,12 +101,26 @@ public class VideoPlayerActivity extends BaseActivity<IVideoPresenter> implement
 
     @Override
     protected void initViews() {
-//        initToolBar(mToolbar, true, mVideoData.getTitle());
+        initToolBar(mToolbar, true, mVideoData.getTitle());
         mPlayerView.init()
                 .setTitle(mVideoData.getTitle())
-                .setVideoSource(null, mVideoData.getM3u8_url(), mVideoData.getM3u8Hd_url(), null, null)
+                .setVideoSource(null, mVideoData.getMp4_url(), mVideoData.getMp4Hd_url(), null, null)
                 .enableDanmaku()
-                .setDanmakuCustomParser(new DanmakuParser(), DanmakuLoader.instance(), DanmakuConverter.instance());
+                .setDanmakuCustomParser(new DanmakuParser(), DanmakuLoader.instance(), DanmakuConverter.instance())
+                .setDanmakuListener(new OnDanmakuListener<DanmakuInfo>() {
+                    @Override
+                    public boolean isValid() {
+                        return true;
+                    }
+
+                    @Override
+                    public void onDataObtain(DanmakuInfo danmakuInfo) {
+                        Logger.w(danmakuInfo.toString());
+                        danmakuInfo.setUserName("Long");
+                        danmakuInfo.setVid(mVideoData.getVid());
+                        mPresenter.addDanmaku(danmakuInfo);
+                    }
+                });
         mIvVideoCollect.init(this);
         mIvVideoCollect.setShapeResource(R.mipmap.video_collect);
         mIvVideoCollect.setOnCheckStateChangeListener(new ShineButton.OnCheckedChangeListener() {
@@ -108,6 +137,15 @@ public class VideoPlayerActivity extends BaseActivity<IVideoPresenter> implement
             }
         });
         Glide.with(this).load(mVideoData.getCover()).fitCenter().into(mPlayerView.mPlayerThumb);
+        mEtContent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    mPlayerView.editVideo();
+                }
+                mLlOperate.setVisibility(hasFocus ? View.GONE : View.VISIBLE);
+            }
+        });
     }
 
     @Override
@@ -163,11 +201,11 @@ public class VideoPlayerActivity extends BaseActivity<IVideoPresenter> implement
     }
 
     @Override
-    public void loadDanmakuData(List<DanmakuInfo> dataList) {
-        Logger.w(dataList.toString());
+    public void loadDanmakuData(InputStream inputStream) {
+        mPlayerView.setDanmakuSource(inputStream);
     }
 
-    @OnClick({R.id.iv_video_share, R.id.iv_video_download})
+    @OnClick({R.id.iv_video_share, R.id.iv_video_download, R.id.btn_send})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_video_share:
@@ -185,6 +223,11 @@ public class VideoPlayerActivity extends BaseActivity<IVideoPresenter> implement
                     });
                 }
                 break;
+            case R.id.btn_send:
+                mPlayerView.sendDanmaku(mEtContent.getText().toString(), false);
+                mEtContent.setText("");
+                _closeSoftInput();
+                break;
         }
     }
 
@@ -194,6 +237,31 @@ public class VideoPlayerActivity extends BaseActivity<IVideoPresenter> implement
         intent.putExtra(CommonConstant.RESULT_KEY, mVideoData.isCollect());
         setResult(RESULT_OK, intent);
         super.finish();
-        overridePendingTransition(R.anim.hold, R.anim.slide_top_exit);
+        overridePendingTransition(R.anim.hold, R.anim.slide_bottom_exit);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View view = getCurrentFocus();
+        if (_isHideSoftInput(view, (int) ev.getX(), (int) ev.getY())) {
+            _closeSoftInput();
+            return true;
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    private void _closeSoftInput() {
+        mEtContent.clearFocus();
+        SoftInputUtils.closeSoftInput(this);
+        mPlayerView.recoverFromEditVideo();
+    }
+
+    private boolean _isHideSoftInput(View view, int x, int y) {
+        if (view == null || !(view instanceof EditText) || !mEtContent.isFocused()) {
+            return false;
+        }
+        return x < mLlEditLayout.getLeft() ||
+                x > mLlEditLayout.getRight() ||
+                y < mLlEditLayout.getTop();
     }
 }
