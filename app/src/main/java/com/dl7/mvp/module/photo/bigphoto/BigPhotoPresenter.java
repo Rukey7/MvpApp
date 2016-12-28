@@ -29,6 +29,7 @@ public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoInfo> {
     private final RxBus mRxBus;
     private List<BeautyPhotoInfo> mDbLovedData;
 
+    private int mPage = 1;
 
     public BigPhotoPresenter(ILoadDataView view, BeautyPhotoInfoDao dbDao, List<BeautyPhotoInfo> photoList, RxBus rxBus) {
         this.mView = view;
@@ -82,7 +83,7 @@ public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoInfo> {
 
     @Override
     public void getMoreData() {
-        RetrofitService.getMoreBeautyPhoto()
+        RetrofitService.getBeautyPhoto(mPage)
                 .flatMap(new Func1<List<BeautyPhotoInfo>, Observable<BeautyPhotoInfo>>() {
                     @Override
                     public Observable<BeautyPhotoInfo> call(List<BeautyPhotoInfo> photoList) {
@@ -117,6 +118,7 @@ public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoInfo> {
                     @Override
                     public void onNext(List<BeautyPhotoInfo> photoList) {
                         mView.loadMoreData(photoList);
+                        mPage++;
                     }
                 });
     }

@@ -21,6 +21,8 @@ public class VideoListPresenter implements IBasePresenter {
     final private ILoadDataView mView;
     final private String mVideoId;
 
+    private int mPage = 0;
+
 
     public VideoListPresenter(ILoadDataView view, String videoId) {
         this.mView = view;
@@ -30,7 +32,7 @@ public class VideoListPresenter implements IBasePresenter {
 
     @Override
     public void getData() {
-        RetrofitService.getVideoList(mVideoId)
+        RetrofitService.getVideoList(mVideoId, mPage)
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
@@ -57,6 +59,7 @@ public class VideoListPresenter implements IBasePresenter {
                     @Override
                     public void onNext(List<VideoInfo> videoList) {
                         mView.loadData(videoList);
+                        mPage++;
                     }
                 });
 
@@ -64,7 +67,7 @@ public class VideoListPresenter implements IBasePresenter {
 
     @Override
     public void getMoreData() {
-        RetrofitService.getVideoListNext(mVideoId)
+        RetrofitService.getVideoList(mVideoId, mPage)
                 .subscribe(new Subscriber<List<VideoInfo>>() {
                     @Override
                     public void onCompleted() {
@@ -79,6 +82,7 @@ public class VideoListPresenter implements IBasePresenter {
                     @Override
                     public void onNext(List<VideoInfo> videoList) {
                         mView.loadMoreData(videoList);
+                        mPage++;
                     }
                 });
     }

@@ -23,6 +23,8 @@ public class NewsListPresenter implements IBasePresenter {
     private INewsListView mView;
     private String mNewsId;
 
+    private int mPage = 0;
+
     public NewsListPresenter(INewsListView view, String newsId) {
         this.mView = view;
         this.mNewsId = newsId;
@@ -30,7 +32,7 @@ public class NewsListPresenter implements IBasePresenter {
 
     @Override
     public void getData() {
-        RetrofitService.getNewsList(mNewsId)
+        RetrofitService.getNewsList(mNewsId, mPage)
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
@@ -76,13 +78,14 @@ public class NewsListPresenter implements IBasePresenter {
                     @Override
                     public void onNext(List<NewsMultiItem> newsMultiItems) {
                         mView.loadData(newsMultiItems);
+                        mPage++;
                     }
                 });
     }
 
     @Override
     public void getMoreData() {
-        RetrofitService.getNewsListNext(mNewsId)
+        RetrofitService.getNewsList(mNewsId, mPage)
                 .map(new Func1<NewsInfo, NewsMultiItem>() {
                     @Override
                     public NewsMultiItem call(NewsInfo newsBean) {
@@ -107,6 +110,7 @@ public class NewsListPresenter implements IBasePresenter {
                     @Override
                     public void onNext(List<NewsMultiItem> newsList) {
                         mView.loadMoreData(newsList);
+                        mPage++;
                     }
                 });
     }

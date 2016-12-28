@@ -44,25 +44,6 @@ public class LovePhotoPresenter implements ILocalPresenter<BeautyPhotoInfo> {
                         }
                     }
                 });
-//
-//        Observable.from(mDbDao.queryBuilder().list())
-//                .filter(new Func1<BeautyPhotoInfo, Boolean>() {
-//                    @Override
-//                    public Boolean call(BeautyPhotoInfo bean) {
-//                        return bean.isLove();
-//                    }
-//                })
-//                .toList()
-//                .subscribe(new Action1<List<BeautyPhotoInfo>>() {
-//                    @Override
-//                    public void call(List<BeautyPhotoInfo> list) {
-//                        if (list.size() == 0) {
-//                            mView.noData();
-//                        } else {
-//                            mView.loadData(list);
-//                        }
-//                    }
-//                });
     }
 
     @Override

@@ -1,17 +1,15 @@
 package com.dl7.mvp.api;
 
-import android.util.SparseArray;
-
 import com.dl7.mvp.AndroidApplication;
-import com.dl7.mvp.api.bean.NewsInfo;
 import com.dl7.mvp.api.bean.NewsDetailInfo;
+import com.dl7.mvp.api.bean.NewsInfo;
 import com.dl7.mvp.api.bean.PhotoInfo;
 import com.dl7.mvp.api.bean.PhotoSetInfo;
 import com.dl7.mvp.api.bean.SpecialInfo;
-import com.dl7.mvp.local.table.VideoInfo;
 import com.dl7.mvp.api.bean.WelfarePhotoInfo;
 import com.dl7.mvp.api.bean.WelfarePhotoList;
 import com.dl7.mvp.local.table.BeautyPhotoInfo;
+import com.dl7.mvp.local.table.VideoInfo;
 import com.dl7.mvp.utils.NetUtil;
 import com.dl7.mvp.utils.StringUtils;
 import com.orhanobut.logger.Logger;
@@ -65,12 +63,6 @@ public class RetrofitService {
 
     private static INewsApi sNewsService;
     private static IWelfareApi sWelfareService;
-    // 同步锁，处理页码 sNewsPage
-    private static Object key = new Object();
-    // 保存新闻列表的当前页码
-    private static SparseArray<Integer> sNewsPage;
-    private static int sBeautyPage = 0;
-    private static int sWelfarePage = 0;
     // 递增页码
     private static final int INCREASE_PAGE = 20;
 
@@ -109,7 +101,6 @@ public class RetrofitService {
                 .baseUrl(WELFARE_HOST)
                 .build();
         sWelfareService = retrofit.create(IWelfareApi.class);
-        sNewsPage = new SparseArray<>();
     }
 
     /**
@@ -184,44 +175,14 @@ public class RetrofitService {
      * 获取新闻列表
      * @return
      */
-    public static Observable<NewsInfo> getNewsList(String newsId) {
-        synchronized (key) {
-            sNewsPage.put(newsId.hashCode(), 0);
-        }
+    public static Observable<NewsInfo> getNewsList(String newsId, int page) {
         String type;
         if (newsId.equals(HEAD_LINE_NEWS)) {
             type = "headline";
         } else {
             type = "list";
         }
-        return sNewsService.getNewsList(type, newsId, 0)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(_flatMapNews(newsId));
-    }
-
-    /**
-     * 获取下一页新闻列表
-     * @return
-     */
-    public static Observable<NewsInfo> getNewsListNext(String newsId) {
-        int page;
-        synchronized (key) {
-            Integer prePage = sNewsPage.get(newsId.hashCode());
-            if (prePage == null) {
-                page = 0;
-            } else {
-                page = prePage + INCREASE_PAGE;
-            }
-            sNewsPage.put(newsId.hashCode(), page);
-        }
-        String type;
-        if (newsId.equals(HEAD_LINE_NEWS)) {
-            type = "headline";
-        } else {
-            type = "list";
-        }
-        return sNewsService.getNewsList(type, newsId, page)
+        return sNewsService.getNewsList(type, newsId, page * INCREASE_PAGE)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(_flatMapNews(newsId));
@@ -292,22 +253,8 @@ public class RetrofitService {
      * 注: 因为网易这个原接口参数一大堆，我只传了部分参数，返回的数据会出现图片重复的情况，请不要在意这个问题- -
      * @return
      */
-    public static Observable<List<BeautyPhotoInfo>> getBeautyPhoto() {
-        sBeautyPage = 0;
-        return sNewsService.getBeautyPhoto(sBeautyPage)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(_flatMapPhotos());
-    }
-
-    /**
-     * 获取更多美女图片
-     * 注: 因为网易这个原接口参数一大堆，我只传了部分参数，返回的数据会出现图片重复的情况，请不要在意这个问题- -
-     * @return
-     */
-    public static Observable<List<BeautyPhotoInfo>> getMoreBeautyPhoto() {
-        sBeautyPage += INCREASE_PAGE;
-        return sNewsService.getBeautyPhoto(sBeautyPage)
+    public static Observable<List<BeautyPhotoInfo>> getBeautyPhoto(int page) {
+        return sNewsService.getBeautyPhoto(page * INCREASE_PAGE)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(_flatMapPhotos());
@@ -317,56 +264,21 @@ public class RetrofitService {
      * 获取福利图片
      * @return
      */
-    public static Observable<WelfarePhotoInfo> getWelfarePhoto() {
-        sWelfarePage = 1;
-        return sWelfareService.getWelfarePhoto(sWelfarePage)
+    public static Observable<WelfarePhotoInfo> getWelfarePhoto(int page) {
+        return sWelfareService.getWelfarePhoto(page)
+                .flatMap(_flatMapWelfarePhotos())
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(_flatMapWelfarePhotos());
-    }
-
-    /**
-     * 获取福利图片
-     * @return
-     */
-    public static Observable<WelfarePhotoInfo> getMoreWelfarePhoto() {
-        sWelfarePage += 1;
-        return sWelfareService.getWelfarePhoto(sWelfarePage)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(_flatMapWelfarePhotos());
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     /**
      * 获取视频列表
      * @return
      */
-    public static Observable<List<VideoInfo>> getVideoList(String videoId) {
-        synchronized (key) {
-            sNewsPage.put(videoId.hashCode(), 0);
-        }
-        return sNewsService.getVideoList(videoId, 0)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(_flatMapVideo(videoId));
-    }
-
-    /**
-     * 获取下一页视频列表
-     * @return
-     */
-    public static Observable<List<VideoInfo>> getVideoListNext(String videoId) {
-        int page;
-        synchronized (key) {
-            Integer prePage = sNewsPage.get(videoId.hashCode());
-            if (prePage == null) {
-                page = 0;
-            } else {
-                page = prePage + INCREASE_PAGE / 2;
-            }
-            sNewsPage.put(videoId.hashCode(), page);
-        }
-        return sNewsService.getVideoList(videoId, page)
+    public static Observable<List<VideoInfo>> getVideoList(String videoId, int page) {
+        return sNewsService.getVideoList(videoId, page * INCREASE_PAGE / 2)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(_flatMapVideo(videoId));
@@ -437,7 +349,6 @@ public class RetrofitService {
         return new Func1<WelfarePhotoList, Observable<WelfarePhotoInfo>>() {
             @Override
             public Observable<WelfarePhotoInfo> call(WelfarePhotoList welfarePhotoList) {
-                Logger.w(""+welfarePhotoList.getResults().size());
                 if (welfarePhotoList.getResults().size() == 0) {
                     return Observable.empty();
                 }

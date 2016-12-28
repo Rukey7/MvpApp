@@ -18,18 +18,18 @@ import rx.functions.Action0;
  */
 public class BeautyListPresenter implements IBasePresenter {
 
-    private ILoadDataView mView;
+    private final ILoadDataView mView;
 
+    private int mPage = 0;
 
     public BeautyListPresenter(ILoadDataView view) {
         this.mView = view;
     }
 
-
     @Override
     public void getData() {
         // 因为网易这个原接口参数一大堆，我只传了部分参数，返回的数据会出现图片重复的情况，请不要在意这个问题- -
-        RetrofitService.getBeautyPhoto()
+        RetrofitService.getBeautyPhoto(mPage)
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
@@ -56,13 +56,14 @@ public class BeautyListPresenter implements IBasePresenter {
                     @Override
                     public void onNext(List<BeautyPhotoInfo> photoList) {
                         mView.loadData(photoList);
+                        mPage++;
                     }
                 });
     }
 
     @Override
     public void getMoreData() {
-        RetrofitService.getMoreBeautyPhoto()
+        RetrofitService.getBeautyPhoto(mPage)
                 .subscribe(new Subscriber<List<BeautyPhotoInfo>>() {
                     @Override
                     public void onCompleted() {
@@ -77,6 +78,7 @@ public class BeautyListPresenter implements IBasePresenter {
                     @Override
                     public void onNext(List<BeautyPhotoInfo> photoList) {
                         mView.loadMoreData(photoList);
+                        mPage++;
                     }
                 });
     }

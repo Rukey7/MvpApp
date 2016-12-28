@@ -24,6 +24,8 @@ public class WelfareListPresenter implements IBasePresenter {
 
     private WelfareListFragment mView;
 
+    private int mPage = 1;
+
 
     public WelfareListPresenter(WelfareListFragment view) {
         this.mView = view;
@@ -32,7 +34,7 @@ public class WelfareListPresenter implements IBasePresenter {
 
     @Override
     public void getData() {
-        RetrofitService.getWelfarePhoto()
+        RetrofitService.getWelfarePhoto(mPage)
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
@@ -78,13 +80,14 @@ public class WelfareListPresenter implements IBasePresenter {
                     @Override
                     public void onNext(List<WelfarePhotoInfo> photoList) {
                         mView.loadData(photoList);
+                        mPage++;
                     }
                 });
     }
 
     @Override
     public void getMoreData() {
-        RetrofitService.getMoreWelfarePhoto()
+        RetrofitService.getWelfarePhoto(mPage)
                 .observeOn(Schedulers.io())
                 // 接口返回的数据是没有宽高参数的，所以这里设置图片的宽度和高度，速度会慢一点
                 .filter(new Func1<WelfarePhotoInfo, Boolean>() {
@@ -118,6 +121,7 @@ public class WelfareListPresenter implements IBasePresenter {
                     @Override
                     public void onNext(List<WelfarePhotoInfo> photoList) {
                         mView.loadMoreData(photoList);
+                        mPage++;
                     }
                 });
     }
