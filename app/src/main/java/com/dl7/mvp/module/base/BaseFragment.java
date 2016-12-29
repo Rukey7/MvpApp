@@ -3,7 +3,6 @@ package com.dl7.mvp.module.base;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +12,8 @@ import com.dl7.mvp.AndroidApplication;
 import com.dl7.mvp.R;
 import com.dl7.mvp.injector.components.ApplicationComponent;
 import com.dl7.mvp.views.EmptyLayout;
+import com.trello.rxlifecycle.LifecycleTransformer;
+import com.trello.rxlifecycle.components.support.RxFragment;
 
 import javax.inject.Inject;
 
@@ -23,7 +24,7 @@ import butterknife.ButterKnife;
  * Created by long on 2016/5/31.
  * 碎片基类
  */
-public abstract class BaseFragment<T extends IBasePresenter> extends Fragment implements IBaseView {
+public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment implements IBaseView {
 
     @Nullable
     @BindView(R.id.empty_layout)
@@ -98,6 +99,11 @@ public abstract class BaseFragment<T extends IBasePresenter> extends Fragment im
             mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_NO_NET);
             mEmptyLayout.setRetryListener(onRetryListener);
         }
+    }
+
+    @Override
+    public <T> LifecycleTransformer<T> bindToLife() {
+        return this.<T>bindToLifecycle();
     }
 
     /**

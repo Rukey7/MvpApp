@@ -6,7 +6,6 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.MenuItem;
@@ -18,6 +17,8 @@ import com.dl7.mvp.injector.components.ApplicationComponent;
 import com.dl7.mvp.injector.modules.ActivityModule;
 import com.dl7.mvp.views.EmptyLayout;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.trello.rxlifecycle.LifecycleTransformer;
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import javax.inject.Inject;
 
@@ -28,7 +29,7 @@ import butterknife.ButterKnife;
  * Created by long on 2016/8/19.
  * 基类Activity
  */
-public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatActivity implements IBaseView {
+public abstract class BaseActivity<T extends IBasePresenter> extends RxAppCompatActivity implements IBaseView {
 
     /**
      * 把 EmptyLayout 放在基类统一处理，@Nullable 表明 View 可以为 null，详细可看 ButterKnife
@@ -103,6 +104,11 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
             mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_NO_NET);
             mEmptyLayout.setRetryListener(onRetryListener);
         }
+    }
+
+    @Override
+    public <T> LifecycleTransformer<T> bindToLife() {
+        return this.<T>bindToLifecycle();
     }
 
     /**

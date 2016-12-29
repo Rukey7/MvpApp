@@ -128,7 +128,7 @@ public class ChannelPresenter implements IChannelPresenter<NewsTypeInfo> {
                         mDbDao.deleteAll();
                     }
                 })
-                .subscribeOn(Schedulers.computation())
+                .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<NewsTypeInfo>() {
                     @Override
                     public void onCompleted() {

@@ -51,6 +51,7 @@ public class VideoPlayerPresenter implements IVideoPresenter {
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(mView.<VideoInfo>bindToLife())
                 .subscribe(new Action1<VideoInfo>() {
                     @Override
                     public void call(VideoInfo videoBean) {
@@ -58,17 +59,6 @@ public class VideoPlayerPresenter implements IVideoPresenter {
                         mView.loadData(videoBean);
                     }
                 });
-//        mDanmakuDao.queryBuilder().where(DanmakuInfoDao.Properties.Vid.eq(mVideoData.getVid()))
-//                .rx()
-//                .list()
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Action1<List<DanmakuInfo>>() {
-//                    @Override
-//                    public void call(List<DanmakuInfo> danmakuInfos) {
-//                        Logger.e(GsonHelper.object2JsonStr(danmakuInfos));
-//                        mView.loadDanmakuData(danmakuInfos);
-//                    }
-//                });
         mDanmakuDao.queryBuilder().where(DanmakuInfoDao.Properties.Vid.eq(mVideoData.getVid()))
                 .rx()
                 .list()
@@ -83,6 +73,7 @@ public class VideoPlayerPresenter implements IVideoPresenter {
                         return inputStream;
                     }
                 })
+                .compose(mView.<InputStream>bindToLife())
                 .subscribe(new Action1<InputStream>() {
                     @Override
                     public void call(InputStream inputStream) {
@@ -131,6 +122,7 @@ public class VideoPlayerPresenter implements IVideoPresenter {
         mDanmakuDao.queryBuilder().where(DanmakuInfoDao.Properties.Vid.eq(mVideoData.getVid()))
                 .rx()
                 .list()
+                .compose(mView.<List<DanmakuInfo>>bindToLife())
                 .subscribe(new Action1<List<DanmakuInfo>>() {
                     @Override
                     public void call(List<DanmakuInfo> danmakuInfos) {

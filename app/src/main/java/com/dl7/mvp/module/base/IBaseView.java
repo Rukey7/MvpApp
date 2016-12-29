@@ -1,6 +1,7 @@
 package com.dl7.mvp.module.base;
 
 import com.dl7.mvp.views.EmptyLayout;
+import com.trello.rxlifecycle.LifecycleTransformer;
 
 /**
  * Created by long on 2016/8/23.
@@ -24,4 +25,10 @@ public interface IBaseView {
      */
     void showNetError(EmptyLayout.OnRetryListener onRetryListener);
 
+    /**
+     * 绑定生命周期
+     * @param <T>
+     * @return
+     */
+    <T> LifecycleTransformer<T> bindToLife();
 }

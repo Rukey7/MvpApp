@@ -36,6 +36,7 @@ public class BeautyListPresenter implements IBasePresenter {
                         mView.showLoading();
                     }
                 })
+                .compose(mView.<List<BeautyPhotoInfo>>bindToLife())
                 .subscribe(new Subscriber<List<BeautyPhotoInfo>>() {
                     @Override
                     public void onCompleted() {
@@ -64,6 +65,7 @@ public class BeautyListPresenter implements IBasePresenter {
     @Override
     public void getMoreData() {
         RetrofitService.getBeautyPhoto(mPage)
+                .compose(mView.<List<BeautyPhotoInfo>>bindToLife())
                 .subscribe(new Subscriber<List<BeautyPhotoInfo>>() {
                     @Override
                     public void onCompleted() {

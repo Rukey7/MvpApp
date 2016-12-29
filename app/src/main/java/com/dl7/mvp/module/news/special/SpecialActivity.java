@@ -127,6 +127,7 @@ public class SpecialActivity extends BaseActivity<IBasePresenter> implements ISp
      */
     private void _handleTagLayout(List<SpecialItem> specialItems) {
         Observable.from(specialItems)
+                .compose(this.<SpecialItem>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .filter(new Func1<SpecialItem, Boolean>() {

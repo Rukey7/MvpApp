@@ -36,6 +36,7 @@ public class PhotoNewsPresenter implements IBasePresenter {
                         mView.showLoading();
                     }
                 })
+                .compose(mView.<List<PhotoInfo>>bindToLife())
                 .subscribe(new Subscriber<List<PhotoInfo>>() {
                     @Override
                     public void onCompleted() {
@@ -64,6 +65,7 @@ public class PhotoNewsPresenter implements IBasePresenter {
     @Override
     public void getMoreData() {
         RetrofitService.getPhotoMoreList(mNextSetId)
+                .compose(mView.<List<PhotoInfo>>bindToLife())
                 .subscribe(new Subscriber<List<PhotoInfo>>() {
                     @Override
                     public void onCompleted() {

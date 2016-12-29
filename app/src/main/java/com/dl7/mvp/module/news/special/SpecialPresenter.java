@@ -50,6 +50,7 @@ public class SpecialPresenter implements IBasePresenter {
                     }
                 })
                 .toList()
+                .compose(mView.<List<SpecialItem>>bindToLife())
                 .subscribe(new Subscriber<List<SpecialItem>>() {
                     @Override
                     public void onCompleted() {

@@ -1,5 +1,7 @@
 package com.dl7.mvp.api;
 
+import android.text.TextUtils;
+
 import com.dl7.mvp.AndroidApplication;
 import com.dl7.mvp.api.bean.NewsDetailInfo;
 import com.dl7.mvp.api.bean.NewsInfo;
@@ -184,6 +186,8 @@ public class RetrofitService {
         }
         return sNewsService.getNewsList(type, newsId, page * INCREASE_PAGE)
                 .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(_flatMapNews(newsId));
     }
@@ -196,6 +200,8 @@ public class RetrofitService {
     public static Observable<SpecialInfo> getSpecial(String specialId) {
         return sNewsService.getSpecial(specialId)
                 .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(_flatMapSpecial(specialId));
     }
@@ -208,6 +214,8 @@ public class RetrofitService {
     public static Observable<NewsDetailInfo> getNewsDetail(final String newsId) {
         return sNewsService.getNewsDetail(newsId)
                 .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(new Func1<Map<String, NewsDetailInfo>, Observable<NewsDetailInfo>>() {
                     @Override
@@ -225,6 +233,8 @@ public class RetrofitService {
     public static Observable<PhotoSetInfo> getPhotoSet(String photoId) {
         return sNewsService.getPhotoSet(StringUtils.clipPhotoSetId(photoId))
                 .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -235,6 +245,8 @@ public class RetrofitService {
     public static Observable<List<PhotoInfo>> getPhotoList() {
         return sNewsService.getPhotoList()
                 .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -245,6 +257,8 @@ public class RetrofitService {
     public static Observable<List<PhotoInfo>> getPhotoMoreList(String setId) {
         return sNewsService.getPhotoMoreList(setId)
                 .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -256,6 +270,8 @@ public class RetrofitService {
     public static Observable<List<BeautyPhotoInfo>> getBeautyPhoto(int page) {
         return sNewsService.getBeautyPhoto(page * INCREASE_PAGE)
                 .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(_flatMapPhotos());
     }
@@ -266,11 +282,11 @@ public class RetrofitService {
      */
     public static Observable<WelfarePhotoInfo> getWelfarePhoto(int page) {
         return sWelfareService.getWelfarePhoto(page)
-                .flatMap(_flatMapWelfarePhotos())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(_flatMapWelfarePhotos());
     }
 
     /**
@@ -280,11 +296,44 @@ public class RetrofitService {
     public static Observable<List<VideoInfo>> getVideoList(String videoId, int page) {
         return sNewsService.getVideoList(videoId, page * INCREASE_PAGE / 2)
                 .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(_flatMapVideo(videoId));
     }
 
     /******************************************* 转换器 **********************************************/
+
+    /**
+     * 转换器，因为 Key 是动态变动，所以用这种不太合适
+     * @param <T>
+     */
+    @Deprecated
+    public static class FlatMapTransformer<T> implements Observable.Transformer<Map<String, List<T>>, T> {
+
+        private String mMapKey;
+
+        public FlatMapTransformer<T> setMapKey(String mapKey) {
+            mMapKey = mapKey;
+            return this;
+        }
+
+        @Override
+        public Observable<T> call(Observable<Map<String, List<T>>> mapObservable) {
+            return  mapObservable.flatMap(new Func1<Map<String, List<T>>, Observable<T>>() {
+                @Override
+                public Observable<T> call(Map<String, List<T>> stringListMap) {
+                    if (TextUtils.isEmpty(mMapKey)) {
+                        return Observable.error(new Throwable("Map Key is empty"));
+                    }
+                    return Observable.from(stringListMap.get(mMapKey));
+                }
+            }).subscribeOn(Schedulers.io())
+                    .unsubscribeOn(Schedulers.io())
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .observeOn(AndroidSchedulers.mainThread());
+        }
+    }
 
     /**
      * 类型转换

@@ -49,21 +49,7 @@ public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoInfo> {
                         mView.showLoading();
                     }
                 })
-                // 判断数据库是否有数据，有则设置对应参数
-                .doOnNext(new Action1<BeautyPhotoInfo>() {
-                    BeautyPhotoInfo tmpBean;
-
-                    @Override
-                    public void call(BeautyPhotoInfo bean) {
-                        if (mDbLovedData.contains(bean)) {
-                            tmpBean = mDbLovedData.get(mDbLovedData.indexOf(bean));
-                            bean.setLove(tmpBean.isLove());
-                            bean.setPraise(tmpBean.isPraise());
-                            bean.setDownload(tmpBean.isDownload());
-                        }
-                    }
-                })
-                .toList()
+                .compose(mTransformer)
                 .subscribe(new Subscriber<List<BeautyPhotoInfo>>() {
                     @Override
                     public void onCompleted() {
@@ -90,21 +76,7 @@ public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoInfo> {
                         return Observable.from(photoList);
                     }
                 })
-                // 判断数据库是否有数据，有则设置对应参数
-                .doOnNext(new Action1<BeautyPhotoInfo>() {
-                    BeautyPhotoInfo tmpBean;
-
-                    @Override
-                    public void call(BeautyPhotoInfo bean) {
-                        if (mDbLovedData.contains(bean)) {
-                            tmpBean = mDbLovedData.get(mDbLovedData.indexOf(bean));
-                            bean.setLove(tmpBean.isLove());
-                            bean.setPraise(tmpBean.isPraise());
-                            bean.setDownload(tmpBean.isDownload());
-                        }
-                    }
-                })
-                .toList()
+                .compose(mTransformer)
                 .subscribe(new Subscriber<List<BeautyPhotoInfo>>() {
                     @Override
                     public void onCompleted() {
@@ -148,4 +120,32 @@ public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoInfo> {
     @Override
     public void update(List<BeautyPhotoInfo> list) {
     }
+
+    /**
+     * 统一变换
+     */
+    private Observable.Transformer<BeautyPhotoInfo, List<BeautyPhotoInfo>> mTransformer
+            = new Observable.Transformer<BeautyPhotoInfo, List<BeautyPhotoInfo>>() {
+
+        @Override
+        public Observable<List<BeautyPhotoInfo>> call(Observable<BeautyPhotoInfo> listObservable) {
+            return listObservable
+                    .doOnNext(new Action1<BeautyPhotoInfo>() {
+                        BeautyPhotoInfo tmpBean;
+
+                        @Override
+                        public void call(BeautyPhotoInfo bean) {
+                            // 判断数据库是否有数据，有则设置对应参数
+                            if (mDbLovedData.contains(bean)) {
+                                tmpBean = mDbLovedData.get(mDbLovedData.indexOf(bean));
+                                bean.setLove(tmpBean.isLove());
+                                bean.setPraise(tmpBean.isPraise());
+                                bean.setDownload(tmpBean.isDownload());
+                            }
+                        }
+                    })
+                    .toList()
+                    .compose(mView.<List<BeautyPhotoInfo>>bindToLife());
+        }
+    };
 }

@@ -32,6 +32,7 @@ public class PhotoSetPresenter implements IBasePresenter {
                         mView.showLoading();
                     }
                 })
+                .compose(mView.<PhotoSetInfo>bindToLife())
                 .subscribe(new Subscriber<PhotoSetInfo>() {
                     @Override
                     public void onCompleted() {

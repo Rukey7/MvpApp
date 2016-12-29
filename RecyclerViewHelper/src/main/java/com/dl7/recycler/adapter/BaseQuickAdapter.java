@@ -43,6 +43,9 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
     public static final int LOADING_VIEW = 0x00000222;
     public static final int FOOTER_VIEW = 0x00000333;
     public static final int EMPTY_VIEW = 0x00000555;
+    public static final int FULL_VIEW = 0x00000666;
+    public static final int FULL_VIEW_2 = 0x00000777;
+    public static final int FULL_VIEW_3 = 0x00000888;
 
     protected Context mContext;
     protected int mLayoutResId;
@@ -164,7 +167,8 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
     public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
         super.onViewAttachedToWindow(holder);
         int type = holder.getItemViewType();
-        if (type == EMPTY_VIEW || type == HEADER_VIEW || type == FOOTER_VIEW || type == LOADING_VIEW) {
+        if (type == EMPTY_VIEW || type == HEADER_VIEW || type == FOOTER_VIEW || type == LOADING_VIEW || type == FULL_VIEW
+                || type == FULL_VIEW_2 || type == FULL_VIEW_3) {
             _setFullSpan(holder);
         }
     }
@@ -194,7 +198,8 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
                 @Override
                 public int getSpanSize(int position) {
                     int type = getItemViewType(position);
-                    return (type == EMPTY_VIEW || type == HEADER_VIEW || type == FOOTER_VIEW || type == LOADING_VIEW) ? gridManager.getSpanCount() : 1;
+                    return (type == EMPTY_VIEW || type == HEADER_VIEW || type == FOOTER_VIEW || type == LOADING_VIEW
+                            || type == FULL_VIEW || type == FULL_VIEW_2 || type == FULL_VIEW_3) ? gridManager.getSpanCount() : 1;
                 }
             });
         }
@@ -494,9 +499,9 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
         int pos = _calcPosition(position);
         if (mRemoveDataListener != null) {
             // 放在 mData.remove(pos) 前，不然外面获取不到数据
-            mRemoveDataListener.onRemove(pos);
+            mRemoveDataListener.onRemove(position);
         }
-        mData.remove(pos);
+        mData.remove(position);
         notifyItemRemoved(pos);
     }
 

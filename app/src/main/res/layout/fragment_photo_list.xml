@@ -8,8 +8,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <com.dl7.mvp.views.EmptyLayout
-        android:id="@+id/empty_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <include layout="@layout/layout_common_empty"/>
 </FrameLayout>

@@ -42,6 +42,7 @@ public class NewsDetailPresenter implements IBasePresenter {
                         _handleRichTextWithImg(newsDetailBean);
                     }
                 })
+                .compose(mView.<NewsDetailInfo>bindToLife())
                 .subscribe(new Subscriber<NewsDetailInfo>() {
                     @Override
                     public void onCompleted() {

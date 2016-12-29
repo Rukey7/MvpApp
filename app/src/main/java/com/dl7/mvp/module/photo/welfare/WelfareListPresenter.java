@@ -10,6 +10,7 @@ import com.orhanobut.logger.Logger;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
@@ -41,25 +42,7 @@ public class WelfareListPresenter implements IBasePresenter {
                         mView.showLoading();
                     }
                 })
-                .observeOn(Schedulers.io())
-                // 接口返回的数据是没有宽高参数的，所以这里设置图片的宽度和高度，速度会慢一点
-                .filter(new Func1<WelfarePhotoInfo, Boolean>() {
-                    @Override
-                    public Boolean call(WelfarePhotoInfo photoBean) {
-                        try {
-                            photoBean.setPixel(ImageLoader.calePhotoSize(mView.getContext(), photoBean.getUrl()));
-                            return true;
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
-                            return false;
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                            return false;
-                        }
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .toList()
+                .compose(mTransformer)
                 .subscribe(new Subscriber<List<WelfarePhotoInfo>>() {
                     @Override
                     public void onCompleted() {
@@ -88,25 +71,7 @@ public class WelfareListPresenter implements IBasePresenter {
     @Override
     public void getMoreData() {
         RetrofitService.getWelfarePhoto(mPage)
-                .observeOn(Schedulers.io())
-                // 接口返回的数据是没有宽高参数的，所以这里设置图片的宽度和高度，速度会慢一点
-                .filter(new Func1<WelfarePhotoInfo, Boolean>() {
-                    @Override
-                    public Boolean call(WelfarePhotoInfo photoBean) {
-                        try {
-                            photoBean.setPixel(ImageLoader.calePhotoSize(mView.getContext(), photoBean.getUrl()));
-                            return true;
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
-                            return false;
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                            return false;
-                        }
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .toList()
+                .compose(mTransformer)
                 .subscribe(new Subscriber<List<WelfarePhotoInfo>>() {
                     @Override
                     public void onCompleted() {
@@ -125,4 +90,35 @@ public class WelfareListPresenter implements IBasePresenter {
                     }
                 });
     }
+
+    /**
+     * 统一变换
+     */
+    private Observable.Transformer<WelfarePhotoInfo, List<WelfarePhotoInfo>> mTransformer = new Observable.Transformer<WelfarePhotoInfo, List<WelfarePhotoInfo>>() {
+
+        @Override
+        public Observable<List<WelfarePhotoInfo>> call(Observable<WelfarePhotoInfo> welfarePhotoInfoObservable) {
+            return welfarePhotoInfoObservable
+                    .observeOn(Schedulers.io())
+                    // 接口返回的数据是没有宽高参数的，所以这里设置图片的宽度和高度，速度会慢一点
+                    .filter(new Func1<WelfarePhotoInfo, Boolean>() {
+                        @Override
+                        public Boolean call(WelfarePhotoInfo photoBean) {
+                            try {
+                                photoBean.setPixel(ImageLoader.calePhotoSize(mView.getContext(), photoBean.getUrl()));
+                                return true;
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                                return false;
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                                return false;
+                            }
+                        }
+                    })
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .toList()
+                    .compose(mView.<List<WelfarePhotoInfo>>bindToLife());
+        }
+    };
 }

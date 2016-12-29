@@ -39,6 +39,7 @@ public class VideoListPresenter implements IBasePresenter {
                         mView.showLoading();
                     }
                 })
+                .compose(mView.<List<VideoInfo>>bindToLife())
                 .subscribe(new Subscriber<List<VideoInfo>>() {
                     @Override
                     public void onCompleted() {
@@ -68,6 +69,7 @@ public class VideoListPresenter implements IBasePresenter {
     @Override
     public void getMoreData() {
         RetrofitService.getVideoList(mVideoId, mPage)
+                .compose(mView.<List<VideoInfo>>bindToLife())
                 .subscribe(new Subscriber<List<VideoInfo>>() {
                     @Override
                     public void onCompleted() {
