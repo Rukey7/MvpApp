@@ -67,7 +67,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     // slider
     compile 'com.daimajia.slider:library:1.1.5'
-    // picasso, slider 库需要用到下面两个库
+    // picasso, slider 库需要用到下面两个库,这样有点多余，可以选择别的库
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.nineoldandroids:library:2.4.0'
     // recyclerview-animators

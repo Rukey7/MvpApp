@@ -25,16 +25,21 @@ public abstract class BaseVideoDLFragment<T extends IBasePresenter> extends Base
     @Inject
     protected BaseVideoDLAdapter mAdapter;
 
+    private int mEditLayoutHeight;
+
     /**
      * 初始化长按点击，必须在 initViews() 里调用
      */
     public void initItemLongClick() {
+        mEditLayoutHeight = getResources().getDimensionPixelSize(R.dimen.edit_layout_height);
         mAdapter.setOnItemLongClickListener(new OnRecyclerViewItemLongClickListener() {
             @Override
             public boolean onItemLongClick(View view, int position) {
                 if (!mAdapter.isEditMode()) {
                     mAdapter.setEditMode(true);
                     ((DownloadActivity) getActivity()).enableEditMode(true);
+                    // 增加 padding 是防止底下被删除按钮遮住
+                    mRvVideoList.setPadding(0, 0, 0, mEditLayoutHeight);
                 }
                 // 这里获取对应position对应的ViewHolder,需要借助RecyclerView，还有个更简便的做法是自定义的点击事件把ViewHolder一起传过来
                 BaseViewHolder viewHolder = (BaseViewHolder) mRvVideoList.getChildViewHolder(view);
@@ -54,6 +59,7 @@ public abstract class BaseVideoDLFragment<T extends IBasePresenter> extends Base
     public boolean exitEditMode() {
         if (mAdapter.isEditMode()) {
             mAdapter.setEditMode(false);
+            mRvVideoList.setPadding(0, 0, 0, 0);
             return true;
         }
         return false;
@@ -81,4 +87,5 @@ public abstract class BaseVideoDLFragment<T extends IBasePresenter> extends Base
     public void deleteChecked() {
         mAdapter.deleteItemChecked();
     }
+
 }

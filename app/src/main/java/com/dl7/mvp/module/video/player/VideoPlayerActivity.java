@@ -29,6 +29,8 @@ import com.dl7.mvp.local.table.VideoInfo;
 import com.dl7.mvp.module.base.BaseActivity;
 import com.dl7.mvp.utils.CommonConstant;
 import com.dl7.mvp.utils.DialogHelper;
+import com.dl7.mvp.utils.SnackbarUtils;
+import com.dl7.mvp.views.dialog.ShareBottomDialog;
 import com.dl7.player.danmaku.OnDanmakuListener;
 import com.dl7.player.media.IjkPlayerView;
 import com.dl7.player.utils.SoftInputUtils;
@@ -209,6 +211,7 @@ public class VideoPlayerActivity extends BaseActivity<IVideoPresenter> implement
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_video_share:
+                new ShareBottomDialog(this).show();
                 break;
             case R.id.iv_video_download:
                 if (view.isSelected()) {
@@ -219,6 +222,7 @@ public class VideoPlayerActivity extends BaseActivity<IVideoPresenter> implement
                         public void onClick(DialogInterface dialog, int which) {
                             DownloaderWrapper.start(mVideoData);
                             mIvVideoDownload.setSelected(true);
+                            SnackbarUtils.showDownloadSnackbar(VideoPlayerActivity.this, "任务正在下载", true);
                         }
                     });
                 }

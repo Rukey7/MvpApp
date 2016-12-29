@@ -32,7 +32,6 @@ public class WelfareListPresenter implements IBasePresenter {
         this.mView = view;
     }
 
-
     @Override
     public void getData() {
         RetrofitService.getWelfarePhoto(mPage)
