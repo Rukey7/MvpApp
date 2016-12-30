@@ -79,7 +79,7 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
         intent.putExtra(PHOTO_INDEX_KEY, index);
         intent.putExtra(FROM_LOVE_ACTIVITY, false);
         context.startActivity(intent);
-        ((Activity)context).overridePendingTransition(R.anim.expand_vertical_entry, R.anim.hold);
+        ((Activity)context).overridePendingTransition(R.anim.fade_entry, R.anim.hold);
     }
 
     // 这个给 LoveActivity 使用，配合 setResult() 返回取消的收藏，这样做体验会好点，其实用 RxBus 会更容易做
@@ -89,7 +89,7 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
         intent.putExtra(PHOTO_INDEX_KEY, index);
         intent.putExtra(FROM_LOVE_ACTIVITY, true);
         fragment.startActivityForResult(intent, CommonConstant.REQUEST_CODE);
-        fragment.getActivity().overridePendingTransition(R.anim.expand_vertical_entry, R.anim.hold);
+        fragment.getActivity().overridePendingTransition(R.anim.fade_entry, R.anim.hold);
     }
 
     @Override
@@ -293,6 +293,6 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
             setResult(RESULT_OK, intent);
         }
         super.finish();
-        overridePendingTransition(R.anim.hold, R.anim.expand_vertical_exit);
+        overridePendingTransition(R.anim.hold, R.anim.fade_exit);
     }
 }

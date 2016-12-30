@@ -6,6 +6,8 @@ package com.dl7.mvp.utils;
  */
 public final class CommonConstant {
 
+    public static final int INVALID_INTEGER = -1;
+
     public static final int REQUEST_CODE = 10086;
     public static final int VIDEO_REQUEST_CODE = 10087;
 

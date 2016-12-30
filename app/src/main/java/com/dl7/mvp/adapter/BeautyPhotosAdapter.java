@@ -2,20 +2,17 @@ package com.dl7.mvp.adapter;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.dl7.mvp.R;
 import com.dl7.mvp.local.table.BeautyPhotoInfo;
-import com.dl7.mvp.module.photo.bigphoto.BigPhotoActivity;
 import com.dl7.mvp.utils.DefIconFactory;
 import com.dl7.mvp.utils.ImageLoader;
 import com.dl7.mvp.utils.StringUtils;
 import com.dl7.recycler.adapter.BaseQuickAdapter;
 import com.dl7.recycler.adapter.BaseViewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -61,16 +58,16 @@ public class BeautyPhotosAdapter extends BaseQuickAdapter<BeautyPhotoInfo> {
         ivPhoto.setLayoutParams(params);
         ImageLoader.loadFitCenter(mContext, item.getImgsrc(), ivPhoto, DefIconFactory.provideIcon());
         holder.setText(R.id.tv_title, item.getTitle());
-        holder.getConvertView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mFragment != null) {
-                    BigPhotoActivity.launchForResult(mFragment, (ArrayList<BeautyPhotoInfo>) getData(), holder.getAdapterPosition());
-                } else {
-                    BigPhotoActivity.launch(mContext, (ArrayList<BeautyPhotoInfo>) getData(), holder.getAdapterPosition());
-                }
-            }
-        });
+//        holder.getConvertView().setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (mFragment != null) {
+//                    BigPhotoActivity.launchForResult(mFragment, (ArrayList<BeautyPhotoInfo>) getData(), holder.getAdapterPosition());
+//                } else {
+//                    BigPhotoActivity.launch(mContext, (ArrayList<BeautyPhotoInfo>) getData(), holder.getAdapterPosition());
+//                }
+//            }
+//        });
     }
 
 }
