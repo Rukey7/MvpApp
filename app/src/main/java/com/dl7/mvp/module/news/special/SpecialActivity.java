@@ -24,14 +24,14 @@ import com.dl7.mvp.utils.DefIconFactory;
 import com.dl7.mvp.utils.ImageLoader;
 import com.dl7.recycler.adapter.BaseQuickAdapter;
 import com.dl7.recycler.helper.RecyclerViewHelper;
+import com.dl7.tag.TagLayout;
+import com.dl7.tag.TagView.OnTagClickListener;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import co.lujun.androidtagview.TagContainerLayout;
-import co.lujun.androidtagview.TagView;
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import rx.Observable;
@@ -52,7 +52,7 @@ public class SpecialActivity extends BaseActivity<IBasePresenter> implements ISp
     @Inject
     BaseQuickAdapter mSpecialAdapter;
 
-    TagContainerLayout mTagLayout;
+    private TagLayout mTagLayout;
     private String mSpecialId;
     private final int[] mSkipId = new int[20];
     private LinearLayoutManager mLayoutManager;
@@ -111,7 +111,7 @@ public class SpecialActivity extends BaseActivity<IBasePresenter> implements ISp
             TextView tvDigest = (TextView) headView.findViewById(R.id.tv_digest);
             tvDigest.setText(specialBean.getDigest());
         }
-        mTagLayout = (TagContainerLayout) headView.findViewById(R.id.tag_layout);
+        mTagLayout = (TagLayout) headView.findViewById(R.id.tag_layout);
         mSpecialAdapter.addHeaderView(headView);
     }
 
@@ -136,6 +136,7 @@ public class SpecialActivity extends BaseActivity<IBasePresenter> implements ISp
                     @Override
                     public Boolean call(SpecialItem specialItem) {
                         if (specialItem.isHeader) {
+                            // 记录头部的列表索引值，用来跳转
                             mSkipId[i++] = index;
                         }
                         index++;
@@ -154,14 +155,10 @@ public class SpecialActivity extends BaseActivity<IBasePresenter> implements ISp
                         mTagLayout.addTag(s);
                     }
                 });
-        mTagLayout.setOnTagClickListener(new TagView.OnTagClickListener() {
+        mTagLayout.setTagClickListener(new OnTagClickListener() {
             @Override
-            public void onTagClick(int position, String text) {
+            public void onTagClick(int position, String text, @com.dl7.tag.TagView.TagMode int tagMode) {
                 mLayoutManager.scrollToPositionWithOffset(mSkipId[position], 0);
-            }
-
-            @Override
-            public void onTagLongClick(int position, String text) {
             }
         });
     }

@@ -54,7 +54,7 @@ public class DownloadDialog extends BottomBaseDialog<DownloadDialog> {
         }
         mTagLayout.setTagCheckListener(new TagView.OnTagCheckListener() {
             @Override
-            public void onTagCheck(String text, boolean isChecked) {
+            public void onTagCheck(int position, String text, boolean isChecked) {
                 if (isChecked) {
 
                 }

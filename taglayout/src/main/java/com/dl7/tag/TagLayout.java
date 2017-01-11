@@ -140,9 +140,9 @@ public class TagLayout extends ViewGroup {
             mIsPressFeedback = true;
             mInsideTagCheckListener = new TagView.OnTagCheckListener() {
                 @Override
-                public void onTagCheck(String text, boolean isChecked) {
+                public void onTagCheck(int position, String text, boolean isChecked) {
                     if (mTagCheckListener != null) {
-                        mTagCheckListener.onTagCheck(text, isChecked);
+                        mTagCheckListener.onTagCheck(position, text, isChecked);
                     }
                     for (int i = 0; i < mTagViews.size(); i++) {
                         if (mTagViews.get(i).getTagText().toString().equals(text)) {
@@ -354,6 +354,7 @@ public class TagLayout extends ViewGroup {
         tagView.setTagMode(tagMode);
         tagView.setCompoundDrawablePadding(mIconPadding);
         mTagViews.add(tagView);
+        tagView.setTag(mTagViews.size() - 1);
         return tagView;
     }
 
@@ -549,6 +550,17 @@ public class TagLayout extends ViewGroup {
         }
     }
 
+
+    /**
+     * 设置对应位置Tag
+     * @param startPos
+     */
+    private void _refreshPositionTag(int startPos) {
+        for (int i = startPos; i < mTagViews.size(); i++) {
+            mTagViews.get(i).setTag(i);
+        }
+    }
+
     /**
      * delete tag
      * @param position
@@ -572,6 +584,7 @@ public class TagLayout extends ViewGroup {
             mTagViews.remove(position);
         }
         removeViewAt(position);
+        _refreshPositionTag(position);
     }
 
     /**

@@ -17,16 +17,14 @@
         android:layout_height="wrap_content"
         android:layout="@layout/layout_digest"/>
 
-    <co.lujun.androidtagview.TagContainerLayout
+    <com.dl7.tag.TagLayout
         android:id="@+id/tag_layout"
+        android:layout_above="@+id/tv_download"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        app:container_background_color="@android:color/white"
-        app:container_enable_drag="false"
-        app:container_border_radius="0dp"
-        app:horizontal_interval="10dp"
-        app:vertical_interval="10dp"
-        app:tag_clickable="true"
-        app:tag_theme="pure_teal" />
+        style="@style/TagLayout.RandomColor.Arc"
+        app:tag_layout_vertical_interval="10dp"
+        app:tag_layout_horizontal_interval="10dp"
+        app:tag_layout_press_feedback="true"/>
 </LinearLayout>
