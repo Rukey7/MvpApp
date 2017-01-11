@@ -52,11 +52,6 @@ public class PhotoSetActivity extends BaseActivity<IBasePresenter> implements IP
     }
 
     @Override
-    protected boolean isSystemBarTranslucent() {
-        return true;
-    }
-
-    @Override
     protected int attachLayoutRes() {
         return R.layout.activity_photo_set;
     }

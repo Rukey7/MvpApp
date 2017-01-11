@@ -29,8 +29,10 @@
             android:text="长按拖拽排序或左滑删除"/>
     </LinearLayout>
 
+    <!-- android:overScrollMode="never"就是不显示边界阴影效果 -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_checked_list"
+        android:overScrollMode="never"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -56,6 +58,7 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_unchecked_list"
+        android:overScrollMode="never"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

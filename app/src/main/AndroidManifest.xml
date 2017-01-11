@@ -35,8 +35,7 @@
         </activity>
         <activity
             android:name=".module.news.photoset.PhotoSetActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppBaseTheme.TranslucentStatus">
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".module.news.channel.ChannelActivity"

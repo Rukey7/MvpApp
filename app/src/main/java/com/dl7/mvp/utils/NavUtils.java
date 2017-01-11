@@ -21,9 +21,9 @@ public final class NavUtils {
      * @return
      */
     public static int getNavigationBarHeight(Context activity) {
-//        if (!checkDeviceHasNavigationBar(activity)) {
-//            return 0;
-//        }
+        if (!checkDeviceHasNavigationBar(activity)) {
+            return 0;
+        }
         Resources resources = activity.getResources();
         int resourceId = resources.getIdentifier("navigation_bar_height",
                 "dimen", "android");

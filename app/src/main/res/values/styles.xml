@@ -4,6 +4,11 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:fitsSystemWindows">false</item>
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@android:color/white</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
@@ -12,11 +17,6 @@
 
     <!-- Base application theme. -->
     <style name="AppBaseTheme" parent="BaseTheme">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-
         <!--这是文本的主要颜色，用于工具栏标题-->
         <!--<item name="android:textColorPrimary">@color/toolbar_text</item>-->
         <!--这是次文本的主要颜色，用于工具栏次标题-->
@@ -24,7 +24,6 @@
         <!--分割线颜色-->
         <!--<item name="android:divider">@color/divider_line</item>-->
         <!--<item name="android:windowBackground">@color/window_background</item>-->
-        <item name="android:windowBackground">@android:color/white</item>
         <!--<item name="android:windowIsTranslucent">true</item>-->
         <!--<item name="android:windowAnimationStyle">@style/slide_right_entry</item>-->
     </style>

@@ -78,16 +78,6 @@ public final class DownloadUtils {
                     delDownloadPhoto(url);
                 }
             });
-//            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//            builder.setMessage("是否删除?").setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    FileUtils.deleteFile(PreferencesUtils.getSavePath(context) + File.separator + id + ".jpg");
-//                    listener.onDeleted(url);
-//                    delDownloadPhoto(url);
-//                }
-//            }).setNegativeButton("取消", null);
-//            builder.create().show();
             return;
         }
         if (sDoDlPhotos.get(url.hashCode(), false)) {

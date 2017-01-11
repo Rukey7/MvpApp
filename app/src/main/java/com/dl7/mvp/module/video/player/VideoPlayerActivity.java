@@ -82,11 +82,6 @@ public class VideoPlayerActivity extends BaseActivity<IVideoPresenter> implement
     }
 
     @Override
-    protected boolean isSystemBarTranslucent() {
-        return true;
-    }
-
-    @Override
     protected int attachLayoutRes() {
         return R.layout.activity_video_player;
     }

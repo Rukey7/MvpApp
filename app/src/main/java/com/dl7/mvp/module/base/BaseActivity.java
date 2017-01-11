@@ -1,22 +1,18 @@
 package com.dl7.mvp.module.base;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
-import android.util.TypedValue;
 import android.view.MenuItem;
-import android.view.WindowManager;
 
 import com.dl7.mvp.AndroidApplication;
 import com.dl7.mvp.R;
 import com.dl7.mvp.injector.components.ApplicationComponent;
 import com.dl7.mvp.injector.modules.ActivityModule;
 import com.dl7.mvp.views.EmptyLayout;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
@@ -72,7 +68,6 @@ public abstract class BaseActivity<T extends IBasePresenter> extends RxAppCompat
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(attachLayoutRes());
-        _initSystemBarTint(isSystemBarTranslucent());
         ButterKnife.bind(this);
         initInjector();
         initViews();
@@ -127,58 +122,6 @@ public abstract class BaseActivity<T extends IBasePresenter> extends RxAppCompat
      */
     protected ActivityModule getActivityModule() {
         return new ActivityModule(this);
-    }
-
-
-    /**
-     * 设置状态是否透明，默认不透明
-     */
-    protected boolean isSystemBarTranslucent() {
-        return false;
-    }
-
-    /**
-     * 设置状态栏颜色
-     */
-    protected void _initSystemBarTint(boolean isSystemBarTranslucent) {
-        if (isSystemBarTranslucent) {
-            // 设置状态栏和导航栏全透明
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                Window window = getWindow();
-//                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-//                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION );
-//                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//                window.setStatusBarColor(Color.TRANSPARENT);
-//                window.setNavigationBarColor(Color.TRANSPARENT);
-//            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-//                getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//                getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-//            }
-            return;
-        }
-        // 状态栏设置颜色
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
-                Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintColor(getDarkColorPrimary());
-        }
-    }
-
-    /**
-     * 获取深主题色
-     *
-     * @return
-     */
-    public int getDarkColorPrimary() {
-        TypedValue typedValue = new TypedValue();
-        getTheme().resolveAttribute(R.attr.colorPrimaryDark, typedValue, true);
-        return typedValue.data;
     }
 
     /**

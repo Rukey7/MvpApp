@@ -14,8 +14,8 @@
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
-    <!-- 这个用来处理图集界面 -->
-    <style name="AppBaseTheme.TranslucentStatus">
+    <!-- Base application theme. -->
+    <style name="AppBaseTheme" parent="BaseTheme">
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 </resources>

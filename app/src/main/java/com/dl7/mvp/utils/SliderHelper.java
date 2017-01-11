@@ -38,7 +38,8 @@ public final class SliderHelper {
             // initialize a SliderLayout
             textSliderView.description(adData.getTitle())
                     .image(adData.getImgsrc())
-                    .setScaleType(BaseSliderView.ScaleType.Fit)
+                    .empty(DefIconFactory.provideIcon())
+                    .setScaleType(BaseSliderView.ScaleType.CenterCrop)
                     .setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
                         @Override
                         public void onSliderClick(BaseSliderView slider) {

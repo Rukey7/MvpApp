@@ -5,12 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context="com.dl7.mvp.module.manage.download.DownloadActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.v7.widget.Toolbar
@@ -97,4 +97,10 @@
             android:layout_marginBottom="@dimen/edit_layout_height"
             android:background="@color/background_gray"/>
     </FrameLayout>
+
+    <!-- 遮挡状态栏透明的部分 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_margin_top"
+        android:background="?attr/colorPrimary"/>
 </android.support.design.widget.CoordinatorLayout>
