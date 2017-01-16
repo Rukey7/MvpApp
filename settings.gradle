@@ -1,1 +1,1 @@
-include ':app', ':RecyclerViewHelper', ':downloaderLib', ':taglayout', ':playerview'
+include ':app', ':RecyclerViewHelper', ':downloaderLib', ':playerview'

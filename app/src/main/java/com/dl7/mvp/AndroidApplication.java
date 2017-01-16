@@ -19,6 +19,7 @@ import com.dl7.mvp.utils.PreferencesUtils;
 import com.dl7.mvp.utils.ToastUtils;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
+import com.zhy.changeskin.SkinManager;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -92,5 +93,6 @@ public class AndroidApplication extends Application {
         DownloadConfig config = new DownloadConfig.Builder()
                 .setDownloadDir(PreferencesUtils.getSavePath(this) + File.separator + "video/").build();
         FileDownloader.setConfig(config);
+        SkinManager.getInstance().init(this);
     }
 }

@@ -97,12 +97,15 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onBackPressed() {
+        // 获取堆栈里有几个
         final int stackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
         } else if (stackEntryCount == 1) {
+            // 如果剩一个说明在主页，提示按两次退出app
             _exit();
         } else {
+            // 获取上一个堆栈中保存的是哪个页面，根据name来设置导航项的选中状态
             final String tagName = getSupportFragmentManager().getBackStackEntryAt(stackEntryCount - 2).getName();
             mNavView.setCheckedItem(mSparseTags.keyAt(mSparseTags.indexOfValue(tagName)));
             super.onBackPressed();

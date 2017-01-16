@@ -80,23 +80,26 @@ dependencies {
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     // dragsloplayout
     compile 'com.github.Rukey7:DragSlopLayout:1.0.3'
-    // androidtagview
-    compile 'co.lujun:androidtagview:1.0.3'
-    // filepicker
+    // TagLayout
+    compile 'com.github.Rukey7:TagLayout:1.0.0'
+    // file picker
     compile 'com.github.angads25:filepicker:1.0.6'
     // IjkPlayerView
     //    compile 'com.github.Rukey7:IjkPlayerView:v1.0.3'
-    // shinebutton
+    // shine button
     compile 'com.sackcentury:shinebutton:0.1.6'
-    // tablayout
+    // tab layout
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.0@aar'
     // progressbar
     compile 'com.daimajia.numberprogressbar:library:1.2'
     // Dialog
     compile 'com.flyco.dialog:FlycoDialog_Lib:1.3.2@aar'
+    // change skin
+    compile 'com.zhy:changeskin:4.0.2'
+    // fast json
+    compile 'com.alibaba:fastjson:1.2.23'
+
     compile project(':RecyclerViewHelper')
     compile project(':downloaderLib')
-    compile project(':taglayout')
     compile project(':playerview')
-    compile 'com.alibaba:fastjson:1.2.23'
 }

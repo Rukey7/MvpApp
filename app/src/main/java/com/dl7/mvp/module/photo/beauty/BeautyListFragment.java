@@ -15,14 +15,11 @@ import com.dl7.mvp.local.table.BeautyPhotoInfo;
 import com.dl7.mvp.module.base.BaseFragment;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.module.base.ILoadDataView;
-import com.dl7.mvp.module.photo.bigphoto.BigPhotoActivity;
 import com.dl7.mvp.utils.CommonConstant;
 import com.dl7.recycler.adapter.BaseQuickAdapter;
 import com.dl7.recycler.helper.RecyclerViewHelper;
-import com.dl7.recycler.listener.OnRecyclerViewItemClickListener;
 import com.dl7.recycler.listener.OnRequestDataListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -70,9 +67,9 @@ public class BeautyListFragment extends BaseFragment<IBasePresenter> implements 
                 mPresenter.getMoreData();
             }
         });
-        mAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
+//        mAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
 //                ImageView itemPhoto = (ImageView) view.findViewById(R.id.iv_photo);
 //                int[] location = MeasureUtils.getViewLocation(itemPhoto);
 //                int[] location2 = MeasureUtils.getViewLocation(mRvPhotoList);
@@ -93,9 +90,9 @@ public class BeautyListFragment extends BaseFragment<IBasePresenter> implements 
 //                ViewCompat.setTranslationY(mIvTransitionPhoto, location[1] - finalY);
 //                mIvTransitionPhoto.setVisibility(View.VISIBLE);
 //                ViewCompat.animate(mIvTransitionPhoto).scaleY(2.0f).start();
-                BigPhotoActivity.launch(mContext, (ArrayList<BeautyPhotoInfo>) mAdapter.getData(), position);
-            }
-        });
+//                BigPhotoActivity.launch(mContext, (ArrayList<BeautyPhotoInfo>) mAdapter.getData(), position);
+//            }
+//        });
     }
 
     @Override
