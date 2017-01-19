@@ -6,7 +6,7 @@ import com.dl7.mvp.api.bean.SpecialInfo;
 import com.dl7.mvp.api.bean.SpecialInfo.TopicsEntity;
 import com.dl7.mvp.adapter.item.SpecialItem;
 import com.dl7.mvp.module.base.IBasePresenter;
-import com.dl7.mvp.views.EmptyLayout;
+import com.dl7.mvp.widget.EmptyLayout;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;

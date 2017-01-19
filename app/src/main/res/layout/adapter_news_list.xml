@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.dl7.mvp.views.RippleView
+<com.dl7.mvp.widget.RippleView
     android:id="@+id/item_ripple"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -54,4 +54,4 @@
         android:layout_alignTop="@+id/tv_source"
         android:layout_marginRight="10dp"
         android:text="2016-08-23 11:48:46"/>
-</com.dl7.mvp.views.RippleView>
+</com.dl7.mvp.widget.RippleView>

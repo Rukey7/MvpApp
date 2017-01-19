@@ -15,7 +15,7 @@ import com.dl7.mvp.utils.DefIconFactory;
 import com.dl7.mvp.utils.ImageLoader;
 import com.dl7.mvp.utils.ListUtils;
 import com.dl7.mvp.utils.StringUtils;
-import com.dl7.mvp.views.RippleView;
+import com.dl7.mvp.widget.RippleView;
 import com.dl7.recycler.adapter.BaseMultiItemQuickAdapter;
 import com.dl7.recycler.adapter.BaseViewHolder;
 import com.flyco.labelview.LabelView;

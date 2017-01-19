@@ -4,7 +4,7 @@ import com.dl7.mvp.api.RetrofitService;
 import com.dl7.mvp.local.table.VideoInfo;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.module.base.ILoadDataView;
-import com.dl7.mvp.views.EmptyLayout;
+import com.dl7.mvp.widget.EmptyLayout;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;

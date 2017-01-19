@@ -30,7 +30,7 @@ import com.dl7.mvp.module.base.BaseActivity;
 import com.dl7.mvp.utils.CommonConstant;
 import com.dl7.mvp.utils.DialogHelper;
 import com.dl7.mvp.utils.SnackbarUtils;
-import com.dl7.mvp.views.dialog.ShareBottomDialog;
+import com.dl7.mvp.widget.dialog.ShareBottomDialog;
 import com.dl7.player.danmaku.OnDanmakuListener;
 import com.dl7.player.media.IjkPlayerView;
 import com.dl7.player.utils.SoftInputUtils;

@@ -1,6 +1,6 @@
 package com.dl7.mvp.module.base;
 
-import com.dl7.mvp.views.EmptyLayout;
+import com.dl7.mvp.widget.EmptyLayout;
 import com.trello.rxlifecycle.LifecycleTransformer;
 
 /**

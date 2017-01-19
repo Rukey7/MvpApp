@@ -18,4 +18,16 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:SpinKit_Color="@android:color/white" />
+
+    <TextView
+        android:id="@+id/tv_reload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawablePadding="5dp"
+        android:drawableTop="@drawable/sel_btn_reload"
+        android:gravity="center_horizontal"
+        android:text="重新加载"
+        android:textColor="@drawable/sel_text_reload"
+        android:visibility="gone"/>
 </FrameLayout>

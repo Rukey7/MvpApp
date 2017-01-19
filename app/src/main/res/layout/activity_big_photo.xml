@@ -10,7 +10,7 @@
     app:mode="animate"
     tools:context=".module.photo.bigphoto.BigPhotoActivity">
 
-    <com.dl7.mvp.views.PhotoViewPager
+    <com.dl7.mvp.widget.PhotoViewPager
         android:id="@+id/vp_photo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

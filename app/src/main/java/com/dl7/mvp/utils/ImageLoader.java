@@ -62,6 +62,12 @@ public final class ImageLoader {
         }
     }
 
+    public static void loadCenterCrop(Context context, String url, ImageView view, RequestListener listener) {
+//        if (PreferencesUtils.isShowImageAlways(context) || NetUtil.isWifiConnected(context)) {
+        Glide.with(context).load(url).centerCrop().listener(listener).into(view);
+//        }
+    }
+
     /**
      * 设置图片大小处理
      *

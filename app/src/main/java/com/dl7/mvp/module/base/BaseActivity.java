@@ -12,7 +12,7 @@ import com.dl7.mvp.AndroidApplication;
 import com.dl7.mvp.R;
 import com.dl7.mvp.injector.components.ApplicationComponent;
 import com.dl7.mvp.injector.modules.ActivityModule;
-import com.dl7.mvp.views.EmptyLayout;
+import com.dl7.mvp.widget.EmptyLayout;
 import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 

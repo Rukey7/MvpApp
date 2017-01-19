@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
 import com.dl7.mvp.R;
-import com.dl7.mvp.views.XFilePickerPreference;
+import com.dl7.mvp.widget.XFilePickerPreference;
 import com.orhanobut.logger.Logger;
 
 /**

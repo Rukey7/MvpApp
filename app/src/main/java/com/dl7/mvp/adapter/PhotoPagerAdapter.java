@@ -5,6 +5,7 @@ import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
@@ -67,10 +68,11 @@ public class PhotoPagerAdapter extends PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container, final int position) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.adapter_photo_pager, null, false);
         final PhotoView photo = (PhotoView) view.findViewById(R.id.iv_photo);
         final SpinKitView loadingView = (SpinKitView) view.findViewById(R.id.loading_view);
+        final TextView tvReload = (TextView) view.findViewById(R.id.tv_reload);
 
         if ((position >= mImgList.size() - LOAD_MORE_LIMIT) && !mIsLoadMore) {
             if (mLoadMoreListener != null) {
@@ -79,27 +81,37 @@ public class PhotoPagerAdapter extends PagerAdapter {
             }
         }
 
-        RequestListener<String, GlideDrawable> requestListener = new RequestListener<String, GlideDrawable>() {
+        final RequestListener<String, GlideDrawable> requestListener = new RequestListener<String, GlideDrawable>() {
             @Override
             public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
                 loadingView.setVisibility(View.GONE);
+                tvReload.setVisibility(View.VISIBLE);
                 return false;
             }
 
             @Override
             public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
                 loadingView.setVisibility(View.GONE);
+                tvReload.setVisibility(View.GONE);
                 photo.setImageDrawable(resource);
                 return true;
             }
         };
-        ImageLoader.loadFitCenter(mContext, mImgList.get(position % mImgList.size()).getImgsrc(), photo, requestListener);
+        ImageLoader.loadCenterCrop(mContext, mImgList.get(position % mImgList.size()).getImgsrc(), photo, requestListener);
         photo.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
             @Override
             public void onPhotoTap(View view, float x, float y) {
                 if (mTapListener != null) {
                     mTapListener.onPhotoClick();
                 }
+            }
+        });
+        tvReload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tvReload.setVisibility(View.GONE);
+                loadingView.setVisibility(View.VISIBLE);
+                ImageLoader.loadCenterCrop(mContext, mImgList.get(position % mImgList.size()).getImgsrc(), photo, requestListener);
             }
         });
         container.addView(view);

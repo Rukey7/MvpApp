@@ -20,7 +20,7 @@ import com.dl7.mvp.module.base.IRxBusPresenter;
 import com.dl7.mvp.module.manage.download.cache.VideoCacheFragment;
 import com.dl7.mvp.module.manage.download.complete.VideoCompleteFragment;
 import com.dl7.mvp.rxbus.event.VideoEvent;
-import com.dl7.mvp.views.FlexibleViewPager;
+import com.dl7.mvp.widget.FlexibleViewPager;
 import com.flyco.tablayout.SlidingTabLayout;
 
 import java.util.ArrayList;

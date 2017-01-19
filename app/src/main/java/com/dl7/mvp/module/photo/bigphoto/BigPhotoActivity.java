@@ -27,7 +27,7 @@ import com.dl7.mvp.utils.CommonConstant;
 import com.dl7.mvp.utils.DownloadUtils;
 import com.dl7.mvp.utils.NavUtils;
 import com.dl7.mvp.utils.ToastUtils;
-import com.dl7.mvp.views.PhotoViewPager;
+import com.dl7.mvp.widget.PhotoViewPager;
 
 import java.util.ArrayList;
 import java.util.List;

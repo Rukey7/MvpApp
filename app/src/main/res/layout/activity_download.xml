@@ -45,7 +45,7 @@
             app:tl_tab_space_equal="true"/>
     </android.support.design.widget.AppBarLayout>
 
-    <com.dl7.mvp.views.FlexibleViewPager
+    <com.dl7.mvp.widget.FlexibleViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

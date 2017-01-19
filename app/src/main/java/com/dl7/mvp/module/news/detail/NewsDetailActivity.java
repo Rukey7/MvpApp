@@ -15,9 +15,9 @@ import com.dl7.mvp.api.NewsUtils;
 import com.dl7.mvp.api.bean.NewsDetailInfo;
 import com.dl7.mvp.injector.components.DaggerNewsDetailComponent;
 import com.dl7.mvp.injector.modules.NewsDetailModule;
-import com.dl7.mvp.module.base.BaseActivity;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.utils.ListUtils;
+import com.dl7.mvp.widget.swipeback.SwipeBackActivity;
 import com.dl7.recycler.adapter.BaseQuickAdapter;
 import com.dl7.recycler.helper.RecyclerViewHelper;
 import com.zzhoujay.richtext.RichText;
@@ -30,7 +30,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class NewsDetailActivity extends BaseActivity<IBasePresenter> implements INewsDetailView {
+public class NewsDetailActivity extends SwipeBackActivity<IBasePresenter> implements INewsDetailView {
 
     private static final String APP_KEY = "AppKey";
 
