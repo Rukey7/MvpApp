@@ -97,14 +97,11 @@ public class SwipeBackLayout extends FrameLayout {
 
     public SwipeBackLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        _init(context, attrs, defStyleAttr);
+        _init();
     }
 
-    private void _init(Context context, AttributeSet attrs, int defStyleAttr) {
+    private void _init() {
         mDragHelper = ViewDragHelper.create(this, 1.0f, new ViewDragCallback());
-//        final float density = getResources().getDisplayMetrics().density;
-//        final float minVel = MIN_FLING_VELOCITY * density;
-//        mDragHelper.setMinVelocity(minVel);
     }
 
     @Override
@@ -268,9 +265,10 @@ public class SwipeBackLayout extends FrameLayout {
         public int clampViewPositionHorizontal(View child, int left, int dx) {
             int ret = 0;
             /**
+             * 注意：原开源项目中的 ViewDragHelper 是自己写的，感兴趣的可以对比两者中的 shouldInterceptTouchEvent() 方法的区别;
              * 这里和原开源项目处理不同，用 mEdgeFlag 判断而不是 mTrackingEdge，因为系统的 clampViewPositionHorizontal()
              * 会先于 tryCaptureView() 调用，且如果水平方向上这里没发生移动就不会调用 tryCaptureView()，mTrackingEdge 是在
-             * tryCaptureView() 赋值的；但是这样用 EDGE_ALL 就会导致水平垂直能同时动，后面我在想个方法来处理
+             * tryCaptureView() 赋值的；但是这样用 EDGE_ALL 就会导致水平垂直能同时动，后面有新想法再处理
              */
             // 这里控制 ContentView 的水平滑动范围
             if ((mEdgeFlag & EDGE_LEFT) != 0) {

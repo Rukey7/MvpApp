@@ -18,10 +18,10 @@ import com.dl7.mvp.adapter.item.SpecialItem;
 import com.dl7.mvp.api.bean.SpecialInfo;
 import com.dl7.mvp.injector.components.DaggerSpecialComponent;
 import com.dl7.mvp.injector.modules.SpecialModule;
-import com.dl7.mvp.module.base.BaseActivity;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.utils.DefIconFactory;
 import com.dl7.mvp.utils.ImageLoader;
+import com.dl7.mvp.widget.swipeback.SwipeBackActivity;
 import com.dl7.recycler.adapter.BaseQuickAdapter;
 import com.dl7.recycler.helper.RecyclerViewHelper;
 import com.dl7.tag.TagLayout;
@@ -40,7 +40,7 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
-public class SpecialActivity extends BaseActivity<IBasePresenter> implements ISpecialView {
+public class SpecialActivity extends SwipeBackActivity<IBasePresenter> implements ISpecialView {
 
     private static final String SPECIAL_KEY = "SpecialKey";
 
@@ -132,7 +132,7 @@ public class SpecialActivity extends BaseActivity<IBasePresenter> implements ISp
                 .observeOn(AndroidSchedulers.mainThread())
                 .filter(new Func1<SpecialItem, Boolean>() {
                     int i = 0;
-                    int index = 1;  // 存在一个 HeadView 所以从1算起
+                    int index = mSpecialAdapter.getHeaderViewsCount();  // 存在一个 HeadView 所以从1算起
                     @Override
                     public Boolean call(SpecialItem specialItem) {
                         if (specialItem.isHeader) {
@@ -158,6 +158,7 @@ public class SpecialActivity extends BaseActivity<IBasePresenter> implements ISp
         mTagLayout.setTagClickListener(new OnTagClickListener() {
             @Override
             public void onTagClick(int position, String text, @com.dl7.tag.TagView.TagMode int tagMode) {
+                // 跳转到对应position
                 mLayoutManager.scrollToPositionWithOffset(mSkipId[position], 0);
             }
         });
