@@ -18,10 +18,10 @@ import com.dl7.mvp.adapter.item.SpecialItem;
 import com.dl7.mvp.api.bean.SpecialInfo;
 import com.dl7.mvp.injector.components.DaggerSpecialComponent;
 import com.dl7.mvp.injector.modules.SpecialModule;
+import com.dl7.mvp.module.base.BaseSwipeBackActivity;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.utils.DefIconFactory;
 import com.dl7.mvp.utils.ImageLoader;
-import com.dl7.mvp.widget.swipeback.SwipeBackActivity;
 import com.dl7.recycler.adapter.BaseQuickAdapter;
 import com.dl7.recycler.helper.RecyclerViewHelper;
 import com.dl7.tag.TagLayout;
@@ -40,7 +40,7 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
-public class SpecialActivity extends SwipeBackActivity<IBasePresenter> implements ISpecialView {
+public class SpecialActivity extends BaseSwipeBackActivity<IBasePresenter> implements ISpecialView {
 
     private static final String SPECIAL_KEY = "SpecialKey";
 

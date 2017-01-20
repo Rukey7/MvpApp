@@ -1,4 +1,4 @@
-package com.dl7.mvp.widget.swipeback;
+package com.dl7.mvp.widget;
 
 import android.app.Activity;
 import android.content.Context;
@@ -48,8 +48,8 @@ public class SwipeBackLayout extends FrameLayout {
     public static final int EDGE_LEFT = ViewDragHelper.EDGE_LEFT;
     public static final int EDGE_RIGHT = ViewDragHelper.EDGE_RIGHT;
     public static final int EDGE_BOTTOM = ViewDragHelper.EDGE_BOTTOM;
-    // 暂时不支持 EDGE_ALL，滑动会有问题，详见 @see {@link #writeFile(String, InputStream, boolean)}
-//    public static final int EDGE_ALL = EDGE_LEFT | EDGE_RIGHT | EDGE_BOTTOM;
+    // @see {@link #writeFile(String, InputStream, boolean)}
+    public static final int EDGE_ALL = EDGE_LEFT | EDGE_RIGHT | EDGE_BOTTOM;
 
     // 拖拽标志
     private int mEdgeFlag;
@@ -242,10 +242,9 @@ public class SwipeBackLayout extends FrameLayout {
             } else if (mEdgeFlag == EDGE_BOTTOM) {
                 // 下边缘则检测水平方向的滑动
                 directionCheck = !mDragHelper.checkTouchSlop(ViewDragHelper.DIRECTION_HORIZONTAL, pointerId);
+            } else if (mEdgeFlag == EDGE_ALL) {
+                directionCheck = true;
             }
-//            else if (mEdgeFlag == EDGE_ALL) {
-//                directionCheck = true;
-//            }
             return edgeTouched && directionCheck;
         }
 
@@ -268,12 +267,13 @@ public class SwipeBackLayout extends FrameLayout {
              * 注意：原开源项目中的 ViewDragHelper 是自己写的，感兴趣的可以对比两者中的 shouldInterceptTouchEvent() 方法的区别;
              * 这里和原开源项目处理不同，用 mEdgeFlag 判断而不是 mTrackingEdge，因为系统的 clampViewPositionHorizontal()
              * 会先于 tryCaptureView() 调用，且如果水平方向上这里没发生移动就不会调用 tryCaptureView()，mTrackingEdge 是在
-             * tryCaptureView() 赋值的；但是这样用 EDGE_ALL 就会导致水平垂直能同时动，后面有新想法再处理
+             * tryCaptureView() 赋值的，所以这边要做些判断
              */
             // 这里控制 ContentView 的水平滑动范围
-            if ((mEdgeFlag & EDGE_LEFT) != 0) {
+            int edgeFlag = mTrackingEdge == EDGE_INVALID ? mEdgeFlag : mTrackingEdge;
+            if ((edgeFlag & EDGE_LEFT) != 0) {
                 ret = Math.min(child.getWidth(), Math.max(left, 0));
-            } else if ((mEdgeFlag & EDGE_RIGHT) != 0) {
+            } else if ((edgeFlag & EDGE_RIGHT) != 0) {
                 ret = Math.min(0, Math.max(left, -child.getWidth()));
             }
             return ret;
@@ -283,7 +283,8 @@ public class SwipeBackLayout extends FrameLayout {
         public int clampViewPositionVertical(View child, int top, int dy) {
             int ret = 0;
             // 这里控制 ContentView 的垂直滑动范围
-            if ((mEdgeFlag & EDGE_BOTTOM) != 0) {
+            int edgeFlag = mTrackingEdge == EDGE_INVALID ? mEdgeFlag : mTrackingEdge;
+            if ((edgeFlag & EDGE_BOTTOM) != 0) {
                 ret = Math.min(0, Math.max(top, -child.getHeight()));
             }
             return ret;
@@ -334,6 +335,14 @@ public class SwipeBackLayout extends FrameLayout {
             // 让拖拽视图滑动到指定位置
             mDragHelper.settleCapturedViewAt(left, top);
             invalidate();
+        }
+
+        @Override
+        public void onViewDragStateChanged(int state) {
+            super.onViewDragStateChanged(state);
+            if (state == ViewDragHelper.STATE_IDLE) {
+                mTrackingEdge = EDGE_INVALID;
+            }
         }
     }
 
@@ -452,7 +461,7 @@ public class SwipeBackLayout extends FrameLayout {
 
     @Retention(RetentionPolicy.SOURCE)
     @Target(ElementType.PARAMETER)
-    @IntDef({EDGE_LEFT, EDGE_RIGHT, EDGE_BOTTOM})
+    @IntDef({EDGE_LEFT, EDGE_RIGHT, EDGE_BOTTOM, EDGE_ALL})
     public @interface EdgeFlag {
     }
 }
