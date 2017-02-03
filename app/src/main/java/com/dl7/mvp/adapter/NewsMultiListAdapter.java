@@ -60,7 +60,7 @@ public class NewsMultiListAdapter extends BaseMultiItemQuickAdapter<NewsMultiIte
      * @param holder
      * @param item
      */
-    private void _handleNewsNormal(BaseViewHolder holder, final NewsInfo item) {
+    private void _handleNewsNormal(final BaseViewHolder holder, final NewsInfo item) {
         ImageView newsIcon = holder.getView(R.id.iv_icon);
         ImageLoader.loadFit(mContext, item.getImgsrc(), newsIcon, DefIconFactory.provideIcon());
         holder.setText(R.id.tv_title, item.getTitle())

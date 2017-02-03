@@ -19,4 +19,8 @@
         <attr name="rv_zoomScale" format="float" />
         <attr name="rv_listMode" format="boolean"/>
     </declare-styleable>
+
+    <declare-styleable name="EmptyLayout">
+        <attr name="background_color" format="color"/>
+    </declare-styleable>
 </resources>

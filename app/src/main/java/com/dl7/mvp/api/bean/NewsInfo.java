@@ -3,13 +3,14 @@ package com.dl7.mvp.api.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by long on 2016/8/22.
  * 新闻实体
  */
-public final class NewsInfo {
+public final class NewsInfo implements Parcelable {
 
     /**
      * postid : PHOT22SMT000100A
@@ -448,4 +449,91 @@ public final class NewsInfo {
                 ", imgextra=" + imgextra +
                 '}';
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.postid);
+        dest.writeByte(this.hasCover ? (byte) 1 : (byte) 0);
+        dest.writeInt(this.hasHead);
+        dest.writeInt(this.replyCount);
+        dest.writeInt(this.hasImg);
+        dest.writeString(this.digest);
+        dest.writeByte(this.hasIcon ? (byte) 1 : (byte) 0);
+        dest.writeString(this.docid);
+        dest.writeString(this.title);
+        dest.writeInt(this.order);
+        dest.writeInt(this.priority);
+        dest.writeString(this.lmodify);
+        dest.writeString(this.boardid);
+        dest.writeString(this.photosetID);
+        dest.writeString(this.template);
+        dest.writeInt(this.votecount);
+        dest.writeString(this.skipID);
+        dest.writeString(this.alias);
+        dest.writeString(this.skipType);
+        dest.writeString(this.cid);
+        dest.writeInt(this.hasAD);
+        dest.writeString(this.source);
+        dest.writeString(this.ename);
+        dest.writeString(this.imgsrc);
+        dest.writeString(this.tname);
+        dest.writeString(this.ptime);
+        dest.writeString(this.specialID);
+        dest.writeTypedList(this.ads);
+        dest.writeList(this.imgextra);
+    }
+
+    public NewsInfo() {
+    }
+
+    protected NewsInfo(Parcel in) {
+        this.postid = in.readString();
+        this.hasCover = in.readByte() != 0;
+        this.hasHead = in.readInt();
+        this.replyCount = in.readInt();
+        this.hasImg = in.readInt();
+        this.digest = in.readString();
+        this.hasIcon = in.readByte() != 0;
+        this.docid = in.readString();
+        this.title = in.readString();
+        this.order = in.readInt();
+        this.priority = in.readInt();
+        this.lmodify = in.readString();
+        this.boardid = in.readString();
+        this.photosetID = in.readString();
+        this.template = in.readString();
+        this.votecount = in.readInt();
+        this.skipID = in.readString();
+        this.alias = in.readString();
+        this.skipType = in.readString();
+        this.cid = in.readString();
+        this.hasAD = in.readInt();
+        this.source = in.readString();
+        this.ename = in.readString();
+        this.imgsrc = in.readString();
+        this.tname = in.readString();
+        this.ptime = in.readString();
+        this.specialID = in.readString();
+        this.ads = in.createTypedArrayList(AdData.CREATOR);
+        this.imgextra = new ArrayList<ImgExtraData>();
+        in.readList(this.imgextra, ImgExtraData.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<NewsInfo> CREATOR = new Parcelable.Creator<NewsInfo>() {
+        @Override
+        public NewsInfo createFromParcel(Parcel source) {
+            return new NewsInfo(source);
+        }
+
+        @Override
+        public NewsInfo[] newArray(int size) {
+            return new NewsInfo[size];
+        }
+    };
 }

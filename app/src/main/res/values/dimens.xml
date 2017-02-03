@@ -24,6 +24,8 @@
 
     <!-- News Detail-->
     <dimen name="related_news_height">310dp</dimen>
+    <dimen name="news_detail_toolbar_height">90dp</dimen>
+    <dimen name="pull_critical_distance">70dp</dimen>
 
     <dimen name="app_bar_height">180dp</dimen>
 
@@ -36,4 +38,5 @@
 
     <dimen name="video_thumb_width">128dp</dimen>
     <dimen name="video_thumb_height">72dp</dimen>
+
 </resources>

@@ -1,13 +1,12 @@
 package com.dl7.mvp.widget;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.support.annotation.IntDef;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dl7.mvp.R;
@@ -27,20 +26,19 @@ import butterknife.OnClick;
  */
 public class EmptyLayout extends FrameLayout {
 
-    private static final int STATUS_HIDE = 1001;
+    public static final int STATUS_HIDE = 1001;
     public static final int STATUS_LOADING = 1;
     public static final int STATUS_NO_NET = 2;
     public static final int STATUS_NO_DATA = 3;
     private Context mContext;
     private OnRetryListener mOnRetryListener;
     private int mEmptyStatus = STATUS_LOADING;
+    private int mBgColor;
 
-    @BindView(R.id.iv_empty_icon)
-    ImageView mIvEmptyIcon;
-    @BindView(R.id.tv_empty_message)
+    @BindView(R.id.tv_net_error)
     TextView mTvEmptyMessage;
     @BindView(R.id.rl_empty_container)
-    RelativeLayout mRlEmptyContainer;
+    View mRlEmptyContainer;
     @BindView(R.id.empty_loading)
     SpinKitView mEmptyLoading;
     @BindView(R.id.empty_layout)
@@ -53,15 +51,22 @@ public class EmptyLayout extends FrameLayout {
     public EmptyLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
-        init();
+        init(attrs);
     }
 
     /**
      * 初始化
      */
-    private void init() {
+    private void init(AttributeSet attrs) {
+        TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.EmptyLayout);
+        try {
+            mBgColor = a.getColor(R.styleable.EmptyLayout_background_color, Color.WHITE);
+        } finally {
+            a.recycle();
+        }
         View.inflate(mContext, R.layout.layout_empty_loading, this);
         ButterKnife.bind(this);
+        mEmptyLayout.setBackgroundColor(mBgColor);
         _switchEmptyView();
     }
 
@@ -100,21 +105,25 @@ public class EmptyLayout extends FrameLayout {
         mTvEmptyMessage.setText(msg);
     }
 
-    /**
-     * 设置图标
-     * @param resId 资源ID
-     */
-    public void setEmptyIcon(int resId) {
-        mIvEmptyIcon.setImageResource(resId);
+    public void hideErrorIcon() {
+        mTvEmptyMessage.setCompoundDrawables(null, null, null, null);
     }
 
-    /**
-     * 设置图标
-     * @param drawable drawable
-     */
-    public void setEmptyIcon(Drawable drawable) {
-        mIvEmptyIcon.setImageDrawable(drawable);
-    }
+//    /**
+//     * 设置图标
+//     * @param resId 资源ID
+//     */
+//    public void setEmptyIcon(int resId) {
+//        mIvEmptyIcon.setImageResource(resId);
+//    }
+//
+//    /**
+//     * 设置图标
+//     * @param drawable drawable
+//     */
+//    public void setEmptyIcon(Drawable drawable) {
+//        mIvEmptyIcon.setImageDrawable(drawable);
+//    }
 
     public void setLoadingIcon(Sprite d) {
         mEmptyLoading.setIndeterminateDrawable(d);
@@ -151,7 +160,7 @@ public class EmptyLayout extends FrameLayout {
         this.mOnRetryListener = retryListener;
     }
 
-    @OnClick(R.id.iv_empty_icon)
+    @OnClick(R.id.tv_net_error)
     public void onClick() {
         if (mOnRetryListener != null) {
             mOnRetryListener.onRetry();

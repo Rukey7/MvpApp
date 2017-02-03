@@ -81,7 +81,7 @@ dependencies {
     // dragsloplayout
     compile 'com.github.Rukey7:DragSlopLayout:1.0.3'
     // TagLayout
-    compile 'com.github.Rukey7:TagLayout:1.0.0'
+    compile 'com.github.Rukey7:TagLayout:1.0.3'
     // file picker
     compile 'com.github.angads25:filepicker:1.0.6'
     // IjkPlayerView
@@ -98,6 +98,9 @@ dependencies {
     //    compile 'com.zhy:changeskin:4.0.2'
     // fast json
     compile 'com.alibaba:fastjson:1.2.23'
+    // jsoup
+    compile 'com.github.jhy:jsoup:jsoup-1.10.2'
+
     compile project(':RecyclerViewHelper')
     compile project(':downloaderLib')
     compile project(':playerview')

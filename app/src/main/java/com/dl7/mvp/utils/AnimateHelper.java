@@ -7,6 +7,8 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
 /**
@@ -103,6 +105,50 @@ public final class AnimateHelper {
     }
 
     /**
+     * 裁剪视图宽度
+     * @param view
+     * @param srcHeight
+     * @param endHeight
+     * @param duration
+     */
+    public static void doClipViewHeight(final View view, int srcHeight, int endHeight, int duration) {
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(srcHeight, endHeight).setDuration(duration);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                int width = (int) valueAnimator.getAnimatedValue();
+                ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+                layoutParams.height = width;
+                view.setLayoutParams(layoutParams);
+            }
+        });
+        valueAnimator.setInterpolator(new AccelerateInterpolator());
+        valueAnimator.start();
+    }
+
+    /**
+     * 垂直偏移动画
+     * @param view
+     * @param startY
+     * @param endY
+     * @param duration
+     * @return
+     */
+    public static Animator doMoveVertical(View view, int startY, int endY, int duration) {
+        ObjectAnimator animator = ObjectAnimator.ofFloat(view, "translationY", startY, endY).setDuration(duration);
+        animator.start();
+        return animator;
+    }
+
+    /**
+     * 动画是否在运行
+     * @param animator
+     */
+    public static boolean isRunning(Animator animator) {
+        return animator != null && animator.isRunning();
+    }
+
+    /**
      * 启动动画
      * @param animator
      */
@@ -120,5 +166,16 @@ public final class AnimateHelper {
         if (animator != null && animator.isRunning()) {
             animator.cancel();
         }
+    }
+
+    /**
+     * 删除动画
+     * @param animator
+     */
+    public static void deleteAnimator(Animator animator) {
+        if (animator != null && animator.isRunning()) {
+            animator.cancel();
+        }
+        animator = null;
     }
 }

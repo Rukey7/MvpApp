@@ -15,11 +15,12 @@ import com.dl7.mvp.api.NewsUtils;
 import com.dl7.mvp.api.bean.NewsDetailInfo;
 import com.dl7.mvp.injector.components.DaggerNewsDetailComponent;
 import com.dl7.mvp.injector.modules.NewsDetailModule;
+import com.dl7.mvp.module.base.BaseSwipeBackActivity;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.utils.ListUtils;
-import com.dl7.mvp.module.base.BaseSwipeBackActivity;
 import com.dl7.recycler.adapter.BaseQuickAdapter;
 import com.dl7.recycler.helper.RecyclerViewHelper;
+import com.orhanobut.logger.Logger;
 import com.zzhoujay.richtext.RichText;
 import com.zzhoujay.richtext.callback.OnURLClickListener;
 
@@ -114,7 +115,9 @@ public class NewsDetailActivity extends BaseSwipeBackActivity<IBasePresenter> im
                     .urlClick(new OnURLClickListener() {
                         @Override
                         public boolean urlClicked(String url) {
+                            Logger.e(url);
                             String newsId = NewsUtils.clipNewsIdFromUrl(url);
+                            Logger.w(url);
                             if (newsId != null) {
                                 launch(NewsDetailActivity.this, newsId);
                             }
