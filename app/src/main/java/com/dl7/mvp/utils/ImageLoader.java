@@ -64,9 +64,9 @@ public final class ImageLoader {
     }
 
     public static void loadCenterCrop(Context context, String url, ImageView view, RequestListener listener) {
-        if (PreferencesUtils.isShowImageAlways(context) || NetUtil.isWifiConnected(context)) {
-            Glide.with(context).load(url).centerCrop().dontAnimate().listener(listener).into(view);
-        }
+//        if (PreferencesUtils.isShowImageAlways(context) || NetUtil.isWifiConnected(context)) {
+        Glide.with(context).load(url).centerCrop().dontAnimate().listener(listener).into(view);
+//        }
     }
 
     /**
@@ -91,7 +91,6 @@ public final class ImageLoader {
 
     /**
      * 计算图片分辨率
-     *
      * @param context
      * @param url
      * @return

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">HelperLibrary</string>
 
-    <string name="loading_desc">Loading...</string>
-    <string name="no_more_data">- end -</string>
-    <string name="load_abnormal">- abnormal -</string>
+    <string name="loading_desc">加载中...</string>
+    <string name="no_more_data">- 没有更多数据 -</string>
+    <string name="load_abnormal">- 加载异常，点击重试 -</string>
 </resources>

@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class PhotoListAdapter extends BaseQuickAdapter<PhotoInfo> {
 
-    private final static String PERFIX_PHOTO_ID = "0096";
+    private final static String PREFIX_PHOTO_ID = "0096";
 
 
     public PhotoListAdapter(Context context) {
@@ -41,9 +41,9 @@ public class PhotoListAdapter extends BaseQuickAdapter<PhotoInfo> {
         ImageView ivPhoto1 = holder.getView(R.id.iv_photo_1);
         ImageView ivPhoto2 = holder.getView(R.id.iv_photo_2);
         ImageView ivPhoto3 = holder.getView(R.id.iv_photo_3);
-        ImageLoader.loadFit(mContext, item.getPics().get(0), ivPhoto1, DefIconFactory.provideIcon());
-        ImageLoader.loadFit(mContext, item.getPics().get(1), ivPhoto2, DefIconFactory.provideIcon());
-        ImageLoader.loadFit(mContext, item.getPics().get(2), ivPhoto3, DefIconFactory.provideIcon());
+        ImageLoader.loadCenterCrop(mContext, item.getPics().get(0), ivPhoto1, DefIconFactory.provideIcon());
+        ImageLoader.loadCenterCrop(mContext, item.getPics().get(1), ivPhoto2, DefIconFactory.provideIcon());
+        ImageLoader.loadCenterCrop(mContext, item.getPics().get(2), ivPhoto3, DefIconFactory.provideIcon());
         holder.setText(R.id.tv_title, item.getSetname());
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +54,6 @@ public class PhotoListAdapter extends BaseQuickAdapter<PhotoInfo> {
     }
 
     private String _mergePhotoId(String setId) {
-        return PERFIX_PHOTO_ID + "|" + setId;
+        return PREFIX_PHOTO_ID + "|" + setId;
     }
 }

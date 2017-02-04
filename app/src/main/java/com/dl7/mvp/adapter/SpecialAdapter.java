@@ -53,7 +53,7 @@ public class SpecialAdapter extends BaseSectionQuickAdapter<SpecialItem> {
     @Override
     protected void convert(BaseViewHolder holder, final SpecialItem item) {
         ImageView newsIcon = holder.getView(R.id.iv_icon);
-        ImageLoader.loadFit(mContext, item.t.getImgsrc(), newsIcon, DefIconFactory.provideIcon());
+        ImageLoader.loadCenterCrop(mContext, item.t.getImgsrc(), newsIcon, DefIconFactory.provideIcon());
         holder.setText(R.id.tv_title, item.t.getTitle())
                 .setText(R.id.tv_source, StringUtils.clipNewsSource(item.t.getSource()))
                 .setText(R.id.tv_time, item.t.getPtime());

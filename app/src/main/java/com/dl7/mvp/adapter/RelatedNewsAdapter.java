@@ -37,7 +37,7 @@ public class RelatedNewsAdapter extends BaseQuickAdapter<NewsItemInfo> {
     @Override
     protected void convert(BaseViewHolder holder, final NewsItemInfo item) {
         ImageView newsIcon = holder.getView(R.id.iv_icon);
-        ImageLoader.loadFit(mContext, item.getImgsrc(), newsIcon, DefIconFactory.provideIcon());
+        ImageLoader.loadCenterCrop(mContext, item.getImgsrc(), newsIcon, DefIconFactory.provideIcon());
         holder.setText(R.id.tv_title, item.getTitle())
                 .setText(R.id.tv_source, StringUtils.clipNewsSource(item.getSource()))
                 .setText(R.id.tv_time, item.getPtime());

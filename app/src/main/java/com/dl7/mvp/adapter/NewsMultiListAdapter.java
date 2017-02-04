@@ -62,7 +62,7 @@ public class NewsMultiListAdapter extends BaseMultiItemQuickAdapter<NewsMultiIte
      */
     private void _handleNewsNormal(final BaseViewHolder holder, final NewsInfo item) {
         ImageView newsIcon = holder.getView(R.id.iv_icon);
-        ImageLoader.loadFit(mContext, item.getImgsrc(), newsIcon, DefIconFactory.provideIcon());
+        ImageLoader.loadCenterCrop(mContext, item.getImgsrc(), newsIcon, DefIconFactory.provideIcon());
         holder.setText(R.id.tv_title, item.getTitle())
                 .setText(R.id.tv_source, StringUtils.clipNewsSource(item.getSource()))
                 .setText(R.id.tv_time, item.getPtime());
@@ -102,11 +102,11 @@ public class NewsMultiListAdapter extends BaseMultiItemQuickAdapter<NewsMultiIte
         newsPhoto[1] = holder.getView(R.id.iv_icon_2);
         newsPhoto[2] = holder.getView(R.id.iv_icon_3);
         holder.setVisible(R.id.iv_icon_2, false).setVisible(R.id.iv_icon_3, false);
-        ImageLoader.loadFit(mContext, item.getImgsrc(), newsPhoto[0], DefIconFactory.provideIcon());
+        ImageLoader.loadCenterCrop(mContext, item.getImgsrc(), newsPhoto[0], DefIconFactory.provideIcon());
         if (!ListUtils.isEmpty(item.getImgextra())) {
             for (int i = 0; i < Math.min(2, item.getImgextra().size()); i++) {
                 newsPhoto[i + 1].setVisibility(View.VISIBLE);
-                ImageLoader.loadFit(mContext, item.getImgextra().get(i).getImgsrc(),
+                ImageLoader.loadCenterCrop(mContext, item.getImgextra().get(i).getImgsrc(),
                         newsPhoto[i + 1], DefIconFactory.provideIcon());
             }
         }

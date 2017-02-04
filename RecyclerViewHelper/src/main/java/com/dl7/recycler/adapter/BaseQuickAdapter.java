@@ -334,6 +334,14 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
             mLoadingDesc = (TextView) mLoadingView.findViewById(R.id.tv_loading_desc);
             mLoadingIcon = (SpinKitView) mLoadingView.findViewById(R.id.iv_loading_icon);
             mLoadingStr = mContext.getResources().getString(R.string.loading_desc);
+            mLoadingDesc.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!mIsLoadingNow && !mIsNoMoreData) {
+                        _loadMore();
+                    }
+                }
+            });
         }
     }
 
@@ -424,9 +432,25 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
      * @param items
      */
     public void updateItems(List<T> items) {
-        mData = items;
+        mData = new ArrayList<>(items);
         notifyDataSetChanged();
         mIsNoMoreData = false;
+    }
+
+    private void _addItem(int position, T item) {
+        if (mData == null || mData.size() == 0) {
+            mData = new ArrayList<>();
+            mData.add(item);
+        } else {
+            mData.add(position, item);
+        }
+    }
+
+    private void _addItemList(int position, List<T> items) {
+        if (mData == null || mData.size() == 0) {
+            mData = new ArrayList<>();
+        }
+        mData.addAll(position, items);
     }
 
     /**
@@ -435,7 +459,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
      * @param item 数据
      */
     public void addItem(T item) {
-        mData.add(0, item);
+        _addItem(0, item);
         notifyItemInserted(0);
     }
 
@@ -447,7 +471,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
      */
     public void addItem(T item, int position) {
         position = Math.min(position, mData.size());
-        mData.add(position, item);
+        _addItem(position, item);
         notifyItemInserted(_calcPosition(position));
     }
 
@@ -456,7 +480,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
      * @param item 数据
      */
     public void addLastItem(T item) {
-        mData.add(mData.size(), item);
+        _addItem(mData.size(), item);
         notifyItemInserted(_calcPosition(mData.size()));
     }
 
@@ -466,7 +490,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
      * @param items
      */
     public void addItems(List<T> items) {
-        mData.addAll(items);
+        _addItemList(mData.size(), items);
         int position = _calcPosition(mData.size());
         for (T item : items) {
             notifyItemInserted(position++);
@@ -480,7 +504,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
      */
     public void addItems(List<T> items, int position) {
         position = Math.min(position, mData.size());
-        mData.addAll(position, items);
+        _addItemList(position, items);
         int pos = _calcPosition(position);
         for (T item : items) {
             notifyItemInserted(pos++);
@@ -499,9 +523,9 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
         int pos = _calcPosition(position);
         if (mRemoveDataListener != null) {
             // 放在 mData.remove(pos) 前，不然外面获取不到数据
-            mRemoveDataListener.onRemove(position);
+            mRemoveDataListener.onRemove(pos);
         }
-        mData.remove(position);
+        mData.remove(pos);
         notifyItemRemoved(pos);
     }
 
@@ -704,7 +728,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
      */
     public void setSwipeFlags(int swipeFlags) {
         if (mDragCallback != null) {
-            mDragCallback.setDragFlags(swipeFlags);
+            mDragCallback.setSwipeFlags(swipeFlags);
         }
     }
 

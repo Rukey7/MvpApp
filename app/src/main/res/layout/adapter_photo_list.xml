@@ -10,53 +10,56 @@
     app:cardUseCompatPadding="true">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/iv_photo_1"
                 android:layout_width="0dp"
-                android:layout_weight="2"
+                android:layout_height="@dimen/photo_large_height"
                 android:layout_marginRight="2dp"
-                android:layout_height="@dimen/photo_large_height"/>
+                android:layout_weight="2"
+                android:scaleType="fitXY"/>
 
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/photo_large_height">
+                android:layout_height="@dimen/photo_large_height"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/iv_photo_2"
                     android:layout_width="match_parent"
-                    android:layout_weight="1"
+                    android:layout_height="0dp"
                     android:layout_marginBottom="1dp"
-                    android:layout_height="0dp"/>
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"/>
 
                 <ImageView
                     android:id="@+id/iv_photo_3"
                     android:layout_width="match_parent"
-                    android:layout_weight="1"
+                    android:layout_height="0dp"
                     android:layout_marginTop="1dp"
-                    android:layout_height="0dp"/>
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"/>
             </LinearLayout>
         </LinearLayout>
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:layout_height="wrap_content"/>
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

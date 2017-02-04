@@ -1,5 +1,6 @@
 package com.dl7.mvp.module.news.photoset;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
@@ -49,6 +50,7 @@ public class PhotoSetActivity extends BaseActivity<IBasePresenter> implements IP
         Intent intent = new Intent(context, PhotoSetActivity.class);
         intent.putExtra(PHOTO_SET_KEY, photoId);
         context.startActivity(intent);
+        ((Activity)context).overridePendingTransition(R.anim.slide_right_entry, R.anim.hold);
     }
 
     @Override
@@ -111,5 +113,11 @@ public class PhotoSetActivity extends BaseActivity<IBasePresenter> implements IP
                 }
             }
         });
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.hold, R.anim.slide_right_exit);
     }
 }
