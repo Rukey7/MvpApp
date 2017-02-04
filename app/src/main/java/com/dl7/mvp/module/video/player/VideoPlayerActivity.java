@@ -119,7 +119,7 @@ public class VideoPlayerActivity extends BaseActivity<IVideoPresenter> implement
                     }
                 });
         mIvVideoCollect.init(this);
-        mIvVideoCollect.setShapeResource(R.mipmap.video_collect);
+        mIvVideoCollect.setShapeResource(R.mipmap.ic_video_collect);
         mIvVideoCollect.setOnCheckStateChangeListener(new ShineButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(View view, boolean checked) {

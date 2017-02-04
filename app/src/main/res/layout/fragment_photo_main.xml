@@ -42,7 +42,7 @@
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:layout_gravity="center"
-                        android:background="@mipmap/btn_love"
+                        android:background="@mipmap/ic_btn_love"
                         android:gravity="center"
                         android:textColor="@android:color/white"
                         android:textSize="10sp"/>

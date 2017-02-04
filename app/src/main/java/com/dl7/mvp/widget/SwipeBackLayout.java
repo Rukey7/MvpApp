@@ -391,13 +391,13 @@ public class SwipeBackLayout extends FrameLayout {
         mEdgeFlag = edgeFlag;
         mDragHelper.setEdgeTrackingEnabled(edgeFlag);
         if ((mEdgeFlag & EDGE_LEFT) != 0 && mShadowLeft == null) {
-            mShadowLeft = ContextCompat.getDrawable(mAttachActivity, R.mipmap.shadow_left);
+            mShadowLeft = ContextCompat.getDrawable(mAttachActivity, R.mipmap.ic_shadow_left);
         }
         if ((mEdgeFlag & EDGE_RIGHT) != 0 && mShadowRight == null) {
-            mShadowRight = ContextCompat.getDrawable(mAttachActivity, R.mipmap.shadow_right);
+            mShadowRight = ContextCompat.getDrawable(mAttachActivity, R.mipmap.ic_shadow_right);
         }
         if ((mEdgeFlag & EDGE_BOTTOM) != 0 && mShadowBottom == null) {
-            mShadowBottom = ContextCompat.getDrawable(mAttachActivity, R.mipmap.shadow_bottom);
+            mShadowBottom = ContextCompat.getDrawable(mAttachActivity, R.mipmap.ic_shadow_bottom);
         }
         invalidate();
     }

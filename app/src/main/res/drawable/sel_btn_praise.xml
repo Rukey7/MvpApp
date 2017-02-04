@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@mipmap/btn_praised" android:state_selected="true"/>
-    <item android:drawable="@mipmap/btn_praise"/>
+    <item android:drawable="@mipmap/ic_btn_praised" android:state_selected="true"/>
+    <item android:drawable="@mipmap/ic_btn_praise"/>
 </selector>
