@@ -18,15 +18,15 @@ public abstract class BaseSwipeBackActivity<T extends IBasePresenter> extends Ba
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//        ViewCompat.setBackground(getWindow().getDecorView(), null);
         mSwipeBackLayout = new SwipeBackLayout(this);
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        mSwipeBackLayout.attachToActivity(this, SwipeBackLayout.EDGE_ALL);
-//        mSwipeBackLayout.setEdgeSize(getResources().getDisplayMetrics().widthPixels / 2);
+        mSwipeBackLayout.attachToActivity(this, SwipeBackLayout.EDGE_LEFT);
+        // 触摸边缘变为屏幕宽度的1/2
+        mSwipeBackLayout.setEdgeSize(getResources().getDisplayMetrics().widthPixels / 2);
     }
 
     public SwipeBackLayout getSwipeBackLayout() {

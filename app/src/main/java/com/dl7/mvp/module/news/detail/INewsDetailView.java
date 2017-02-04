@@ -7,6 +7,7 @@ import com.dl7.mvp.module.base.IBaseView;
  * Created by long on 2016/8/25.
  * 新闻详情接口
  */
+@Deprecated
 public interface INewsDetailView extends IBaseView {
 
     /**

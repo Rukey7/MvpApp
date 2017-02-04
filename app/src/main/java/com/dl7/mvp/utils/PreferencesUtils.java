@@ -1,6 +1,7 @@
 package com.dl7.mvp.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.dl7.mvp.module.manage.setting.SettingsFragment;
@@ -145,6 +146,22 @@ public class PreferencesUtils {
      */
     public static float getFloat(Context context, String key, float defaultValue) {
         return PreferenceManager.getDefaultSharedPreferences(context).getFloat(key, defaultValue);
+    }
+
+    /**
+     * put boolean preferences
+     *
+     * @param context
+     * @param key The name of the preference to modify
+     * @param value The new value for the preference
+     * @return True if the new values were successfully written to persistent storage.
+     */
+    public static boolean putBoolean(Context context, String key, boolean value) {
+//        SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = settings.edit();
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        editor.putBoolean(key, value);
+        return editor.commit();
     }
 
     /**

@@ -136,7 +136,9 @@ public class RetrofitService {
         }
     };
 
-    // 打印返回的json数据拦截器
+    /**
+     * 打印返回的json数据拦截器
+     */
     private static final Interceptor sLoggingInterceptor = new Interceptor() {
 
         @Override

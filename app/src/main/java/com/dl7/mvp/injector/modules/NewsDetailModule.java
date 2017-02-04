@@ -14,6 +14,7 @@ import dagger.Provides;
  * Created by long on 2016/8/25.
  * 新闻详情 Module
  */
+@Deprecated
 @Module
 public class NewsDetailModule {
 

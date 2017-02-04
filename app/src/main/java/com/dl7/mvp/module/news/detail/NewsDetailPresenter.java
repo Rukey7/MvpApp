@@ -15,6 +15,7 @@ import rx.functions.Action1;
  * Created by long on 2016/8/25.
  * 新闻详情 Presenter
  */
+@Deprecated
 public class NewsDetailPresenter implements IBasePresenter {
 
     private static final String HTML_IMG_TEMPLATE = "<img src=\"http\" />";

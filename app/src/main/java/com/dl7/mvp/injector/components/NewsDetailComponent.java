@@ -10,6 +10,7 @@ import dagger.Component;
  * Created by long on 2016/8/25.
  * 新闻详情 Component
  */
+@Deprecated
 @PerActivity
 @Component(modules = NewsDetailModule.class)
 public interface NewsDetailComponent {

@@ -16,6 +16,8 @@
             android:id="@+id/iv_back"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:background="@drawable/sel_btn_press_bg"
             android:src="@mipmap/ic_return_back"/>
 

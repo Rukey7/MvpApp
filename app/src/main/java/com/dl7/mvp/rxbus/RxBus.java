@@ -82,6 +82,7 @@ public class RxBus {
      */
     public <T> Subscription doSubscribe(Class<T> type, Action1<T> next, Action1<Throwable> error) {
         return toObservable(type)
+                // 加上背压处理，不然有些地方会有异常，关于背压参考这里：https://gold.xitu.io/post/582d413c8ac24700619cceed
                 .onBackpressureBuffer()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

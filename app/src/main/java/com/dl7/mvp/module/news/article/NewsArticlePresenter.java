@@ -7,17 +7,13 @@ import com.dl7.mvp.utils.ListUtils;
 import com.dl7.mvp.widget.EmptyLayout;
 import com.orhanobut.logger.Logger;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-
 import rx.Subscriber;
 import rx.functions.Action0;
 import rx.functions.Action1;
-import rx.functions.Func1;
 
 /**
  * Created by long on 2017/2/3.
+ * 新闻详情 Presenter
  */
 public class NewsArticlePresenter implements IBasePresenter {
 
@@ -33,43 +29,6 @@ public class NewsArticlePresenter implements IBasePresenter {
 
     @Override
     public void getData() {
-//        RetrofitService.getNewsDetail(mNewsId)
-//                .doOnSubscribe(new Action0() {
-//                    @Override
-//                    public void call() {
-//                        mView.showLoading();
-//                    }
-//                })
-////                .doOnNext(new Action1<NewsDetailInfo>() {
-////                    @Override
-////                    public void call(NewsDetailInfo newsDetailBean) {
-////                        _handleRichTextWithImg(newsDetailBean);
-////                    }
-////                })
-//                .compose(mView.<NewsDetailInfo>bindToLife())
-//                .subscribe(new Subscriber<NewsDetailInfo>() {
-//                    @Override
-//                    public void onCompleted() {
-//                        mView.hideLoading();
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        mView.showNetError(new EmptyLayout.OnRetryListener() {
-//                            @Override
-//                            public void onRetry() {
-//                                getData();
-//                            }
-//                        });
-//                    }
-//
-//                    @Override
-//                    public void onNext(NewsDetailInfo newsDetailBean) {
-////                        mView.loadData(newsDetailBean);
-//
-//                    }
-//                });
-
         RetrofitService.getNewsDetail(mNewsId)
                 .doOnSubscribe(new Action0() {
                     @Override
@@ -79,30 +38,12 @@ public class NewsArticlePresenter implements IBasePresenter {
                 })
                 .doOnNext(new Action1<NewsDetailInfo>() {
                     @Override
-                    public void call(NewsDetailInfo newsDetailInfo) {
-                        if (!ListUtils.isEmpty(newsDetailInfo.getRelative_sys())) {
-                            mView.loadRelatedNews(newsDetailInfo);
-                        }
+                    public void call(NewsDetailInfo newsDetailBean) {
+                        _handleRichTextWithImg(newsDetailBean);
                     }
                 })
-                .map(new Func1<NewsDetailInfo, String>() {
-                    @Override
-                    public String call(NewsDetailInfo newsDetailInfo) {
-                        // 这里对html的内容进行解析，并去掉头部标题，如果对url地址进行解析则用注释的那个方法
-                        Document doc;
-                        doc = Jsoup.parse(newsDetailInfo.getBody());
-//                        doc = Jsoup.connect(newsDetailInfo.getUrl()).timeout(5000).get();
-                        Element element = doc.getElementsByClass("deta-news").first();
-                        if (element != null) {
-                            element.child(0).remove();
-                        } else {
-                            return null;
-                        }
-                        return doc.toString();
-                    }
-                })
-                .compose(mView.<String>bindToLife())
-                .subscribe(new Subscriber<String>() {
+                .compose(mView.<NewsDetailInfo>bindToLife())
+                .subscribe(new Subscriber<NewsDetailInfo>() {
                     @Override
                     public void onCompleted() {
                         mView.hideLoading();
@@ -119,11 +60,10 @@ public class NewsArticlePresenter implements IBasePresenter {
                     }
 
                     @Override
-                    public void onNext(String s) {
-                        mView.loadData(s);
+                    public void onNext(NewsDetailInfo newsDetailBean) {
+                        mView.loadData(newsDetailBean);
                     }
                 });
-
     }
 
     @Override

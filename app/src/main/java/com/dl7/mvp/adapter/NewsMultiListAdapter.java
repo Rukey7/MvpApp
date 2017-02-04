@@ -8,7 +8,7 @@ import com.dl7.mvp.R;
 import com.dl7.mvp.adapter.item.NewsMultiItem;
 import com.dl7.mvp.api.NewsUtils;
 import com.dl7.mvp.api.bean.NewsInfo;
-import com.dl7.mvp.module.news.detail.NewsDetailActivity;
+import com.dl7.mvp.module.news.article.NewsArticleActivity;
 import com.dl7.mvp.module.news.photoset.PhotoSetActivity;
 import com.dl7.mvp.module.news.special.SpecialActivity;
 import com.dl7.mvp.utils.DefIconFactory;
@@ -82,7 +82,9 @@ public class NewsMultiListAdapter extends BaseMultiItemQuickAdapter<NewsMultiIte
                 if (NewsUtils.isNewsSpecial(item.getSkipType())) {
                     SpecialActivity.launch(mContext, item.getSpecialID());
                 } else {
-                    NewsDetailActivity.launch(mContext, item.getPostid());
+                    // 旧的实现方式和网易的比较相近，感兴趣的可以切换看看
+//                    NewsDetailActivity.launch(mContext, item.getPostid());
+                    NewsArticleActivity.launch(mContext, item.getPostid());
                 }
             }
         });
