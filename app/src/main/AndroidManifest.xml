@@ -10,11 +10,12 @@
     <application
         android:name=".AndroidApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppBaseTheme">
 
+        <!-- 应用签名:0063c522c5487c0122e5f3b5fb5cf01b -->
         <!-- android:configChanges="orientation|keyboardHidden|screenSize"要加上，不然播放视频翻转后会回收HomeActivity -->
         <activity
             android:name=".module.home.HomeActivity"

@@ -10,14 +10,6 @@
 
     <include layout="@layout/layout_toolbar"/>
 
-    <!--<android.support.v7.widget.Toolbar-->
-        <!--android:id="@+id/toolbar"-->
-        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="?attr/actionBarSize"-->
-        <!--android:background="?attr/colorPrimary"-->
-        <!--app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>-->
-
     <com.dl7.player.media.IjkPlayerView
         android:id="@+id/video_player"
         android:layout_width="match_parent"
