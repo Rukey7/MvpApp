@@ -43,7 +43,7 @@
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:layout_gravity="center"
-                        android:background="@mipmap/btn_star"
+                        android:background="@mipmap/ic_btn_star"
                         android:gravity="center"
                         android:textColor="@android:color/white"
                         android:textSize="10sp"/>
@@ -70,7 +70,7 @@
                         android:layout_gravity="center"
                         android:layout_marginBottom="10dp"
                         android:layout_marginLeft="12dp"
-                        android:background="@mipmap/dot"
+                        android:background="@mipmap/ic_dot"
                         android:gravity="center"
                         android:textColor="@android:color/white"
                         android:textSize="9sp"
