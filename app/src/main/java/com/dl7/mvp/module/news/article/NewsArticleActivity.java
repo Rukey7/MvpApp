@@ -23,6 +23,7 @@ import com.dl7.mvp.injector.modules.NewsArticleModule;
 import com.dl7.mvp.module.base.BaseSwipeBackActivity;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.utils.AnimateHelper;
+import com.dl7.mvp.utils.DialogHelper;
 import com.dl7.mvp.utils.ListUtils;
 import com.dl7.mvp.utils.PreferencesUtils;
 import com.dl7.mvp.widget.EmptyLayout;
@@ -31,8 +32,6 @@ import com.flyco.animation.SlideEnter.SlideBottomEnter;
 import com.flyco.animation.SlideEnter.SlideLeftEnter;
 import com.flyco.animation.SlideExit.SlideRightExit;
 import com.flyco.animation.SlideExit.SlideTopExit;
-import com.flyco.dialog.widget.popup.BubblePopup;
-import com.orhanobut.logger.Logger;
 import com.zzhoujay.richtext.RichText;
 import com.zzhoujay.richtext.callback.OnURLClickListener;
 
@@ -85,7 +84,7 @@ public class NewsArticleActivity extends BaseSwipeBackActivity<IBasePresenter> i
         Intent intent = new Intent(context, NewsArticleActivity.class);
         intent.putExtra(NEWS_ID_KEY, newsId);
         context.startActivity(intent);
-        ((Activity)context).overridePendingTransition(R.anim.slide_right_entry, R.anim.hold);
+        ((Activity) context).overridePendingTransition(R.anim.slide_right_entry, R.anim.hold);
     }
 
     private void launchInside(String newsId) {
@@ -200,7 +199,6 @@ public class NewsArticleActivity extends BaseSwipeBackActivity<IBasePresenter> i
             TextView tvType = (TextView) findViewById(R.id.tv_type);
             TextView tvRelatedContent = (TextView) findViewById(R.id.tv_related_content);
             tvType.setText(spinfo.get(0).getSptype());
-            Logger.w(spinfo.get(0).getSpcontent());
             RichText.from(spinfo.get(0).getSpcontent())
                     // 这里处理超链接的点击
                     .urlClick(new OnURLClickListener() {
@@ -236,19 +234,16 @@ public class NewsArticleActivity extends BaseSwipeBackActivity<IBasePresenter> i
      */
     private void _showPopup() {
         if (PreferencesUtils.getBoolean(this, SHOW_POPUP_DETAIL, true)) {
-            View inflate = View.inflate(NewsArticleActivity.this, R.layout.layout_popup, null);
-            BubblePopup bubblePopup = new BubblePopup(NewsArticleActivity.this, inflate);
-            bubblePopup.anchorView(mTvTitle2)
+            DialogHelper.createPopup(this, R.layout.layout_popup)
+                    .anchorView(mTvTitle2)
                     .gravity(Gravity.BOTTOM)
                     .showAnim(new SlideBottomEnter())
                     .dismissAnim(new SlideTopExit())
                     .autoDismiss(true)
                     .autoDismissDelay(3500)
                     .show();
-
-            View inflateBottom = View.inflate(NewsArticleActivity.this, R.layout.layout_popup_bottom, null);
-            BubblePopup bubblePopupBottom = new BubblePopup(NewsArticleActivity.this, inflateBottom);
-            bubblePopupBottom.anchorView(mLlFootView)
+            DialogHelper.createPopup(this, R.layout.layout_popup_bottom)
+                    .anchorView(mLlFootView)
                     .gravity(Gravity.TOP)
                     .showAnim(new SlideLeftEnter())
                     .dismissAnim(new SlideRightExit())

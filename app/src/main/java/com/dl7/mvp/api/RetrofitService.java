@@ -1,5 +1,6 @@
 package com.dl7.mvp.api;
 
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.dl7.mvp.AndroidApplication;
@@ -18,8 +19,8 @@ import com.orhanobut.logger.Logger;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.UnsupportedCharsetException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -27,13 +28,11 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
 import okio.Buffer;
-import okio.BufferedSource;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -144,34 +143,27 @@ public class RetrofitService {
         @Override
         public Response intercept(Chain chain) throws IOException {
             final Request request = chain.request();
-            Logger.w(request.url().toString());
+            Buffer requestBuffer = new Buffer();
+            if (request.body() != null) {
+                request.body().writeTo(requestBuffer);
+            } else {
+                Logger.d("LogTAG", "request.body() == null");
+            }
+            //打印url信息
+            Logger.w(request.url() + (request.body() != null ? "?" + _parseParams(request.body(), requestBuffer) : ""));
             final Response response = chain.proceed(request);
-
-            final ResponseBody responseBody = response.body();
-            final long contentLength = responseBody.contentLength();
-
-            BufferedSource source = responseBody.source();
-            source.request(Long.MAX_VALUE); // Buffer the entire body.
-            Buffer buffer = source.buffer();
-
-            Charset charset = Charset.forName("UTF-8");
-            MediaType contentType = responseBody.contentType();
-            if (contentType != null) {
-                try {
-                    charset = contentType.charset(charset);
-                } catch (UnsupportedCharsetException e) {
-                    Logger.e("Couldn't decode the response body; charset is likely malformed.");
-                    return response;
-                }
-            }
-
-            if (contentLength != 0) {
-                Logger.json(buffer.clone().readString(charset));
-            }
 
             return response;
         }
     };
+
+    @NonNull
+    private static String _parseParams(RequestBody body, Buffer requestBuffer) throws UnsupportedEncodingException {
+        if (body.contentType() != null && !body.contentType().toString().contains("multipart")) {
+            return URLDecoder.decode(requestBuffer.readUtf8(), "UTF-8");
+        }
+        return "null";
+    }
 
     /************************************ API *******************************************/
 

@@ -3,6 +3,7 @@ package com.dl7.mvp.module.base;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import com.dl7.mvp.AndroidApplication;
 import com.dl7.mvp.R;
 import com.dl7.mvp.injector.components.ApplicationComponent;
+import com.dl7.mvp.utils.SwipeRefreshHelper;
 import com.dl7.mvp.widget.EmptyLayout;
 import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.components.support.RxFragment;
@@ -26,9 +28,15 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment implements IBaseView {
 
+    /**
+     * 注意，资源的ID一定要一样
+     */
     @Nullable
     @BindView(R.id.empty_layout)
     EmptyLayout mEmptyLayout;
+    @Nullable
+    @BindView(R.id.swipe_refresh)
+    SwipeRefreshLayout mSwipeRefresh;
     @Inject
     protected T mPresenter;
 
@@ -52,6 +60,7 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
             ButterKnife.bind(this, mRootView);
             initInjector();
             initViews();
+            initSwipeRefresh();
         }
         ViewGroup parent = (ViewGroup) mRootView.getParent();
         if (parent != null) {
@@ -83,6 +92,7 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
     public void showLoading() {
         if (mEmptyLayout != null) {
             mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_LOADING);
+            SwipeRefreshHelper.enableRefresh(mSwipeRefresh, false);
         }
     }
 
@@ -90,6 +100,8 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
     public void hideLoading() {
         if (mEmptyLayout != null) {
             mEmptyLayout.hide();
+            SwipeRefreshHelper.enableRefresh(mSwipeRefresh, true);
+            SwipeRefreshHelper.controlRefresh(mSwipeRefresh, false);
         }
     }
 
@@ -98,6 +110,7 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
         if (mEmptyLayout != null) {
             mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_NO_NET);
             mEmptyLayout.setRetryListener(onRetryListener);
+            SwipeRefreshHelper.enableRefresh(mSwipeRefresh, false);
         }
     }
 
@@ -124,6 +137,20 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
      */
     protected void initToolBar(Toolbar toolbar, boolean homeAsUpEnabled, String title) {
         ((BaseActivity)getActivity()).initToolBar(toolbar, homeAsUpEnabled, title);
+    }
+
+    /**
+     * 初始化下拉刷新
+     */
+    private void initSwipeRefresh() {
+        if (mSwipeRefresh != null) {
+            SwipeRefreshHelper.init(mSwipeRefresh, new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    updateViews();
+                }
+            });
+        }
     }
 
     /**

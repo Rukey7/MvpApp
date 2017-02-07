@@ -59,7 +59,7 @@ public interface INewsApi {
      * @param newsId 专题ID
      * @return
      */
-    @Headers(CACHE_CONTROL_NETWORK)
+    @Headers(AVOID_HTTP403_FORBIDDEN)
     @GET("nc/article/{newsId}/full.html")
     Observable<Map<String, NewsDetailInfo>> getNewsDetail(@Path("newsId") String newsId);
 

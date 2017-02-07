@@ -51,6 +51,7 @@ public class NewsArticlePresenter implements IBasePresenter {
 
                     @Override
                     public void onError(Throwable e) {
+                        Logger.e(e.toString());
                         mView.showNetError(new EmptyLayout.OnRetryListener() {
                             @Override
                             public void onRetry() {
