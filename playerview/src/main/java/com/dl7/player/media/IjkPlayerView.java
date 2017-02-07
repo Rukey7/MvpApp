@@ -2148,6 +2148,10 @@ public class IjkPlayerView extends FrameLayout implements View.OnClickListener {
             Toast.makeText(mAttachActivity, "内容为空", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (!mDanmakuView.isPrepared()) {
+            Toast.makeText(mAttachActivity, "弹幕还没准备好", Toast.LENGTH_SHORT).show();
+            return;
+        }
         BaseDanmaku danmaku = mDanmakuContext.mDanmakuFactory.createDanmaku(mDanmakuType);
         if (danmaku == null || mDanmakuView == null) {
             return;

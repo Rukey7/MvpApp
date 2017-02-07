@@ -16,16 +16,22 @@
         android:theme="@style/AppBaseTheme">
 
         <!-- 应用签名:0063c522c5487c0122e5f3b5fb5cf01b -->
-        <!-- android:configChanges="orientation|keyboardHidden|screenSize"要加上，不然播放视频翻转后会回收HomeActivity -->
         <activity
-            android:name=".module.home.HomeActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait">
+            android:name=".module.home.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+
+        <!-- android:configChanges="orientation|keyboardHidden|screenSize"要加上，不然播放视频翻转后会回收HomeActivity -->
+        <activity
+            android:name=".module.home.HomeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".module.news.detail.NewsDetailActivity"
@@ -60,7 +66,7 @@
         <activity
             android:name=".module.video.player.VideoPlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustResize|stateHidden">
+            android:windowSoftInputMode="adjustNothing">
         </activity>
         <activity
             android:name=".module.manage.download.DownloadActivity"

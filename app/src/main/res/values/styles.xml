@@ -29,6 +29,11 @@
         <!--<item name="android:windowAnimationStyle">@style/slide_right_entry</item>-->
     </style>
 
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- 用这张图这样会变形，不知是分辨率问题还是怎么着 -->
+        <!--<item name="android:windowBackground">@mipmap/ic_github</item>-->
+    </style>
+
     <style name="VideoPlayerTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>

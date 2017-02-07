@@ -16,6 +16,51 @@
         android:layout_height="200dp"/>
 
     <LinearLayout
+        android:id="@+id/ll_edit_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_content"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_comment_border"
+            android:focusableInTouchMode="true"
+            android:gravity="center_vertical"
+            android:hint="发射弹幕吧"
+            android:inputType="textMultiLine"
+            android:singleLine="true"
+            android:paddingLeft="10dp"
+            android:textColor="#333333"
+            android:textColorHint="#cccccc"
+            android:textSize="14sp"/>
+
+        <com.dl7.tag.TagView
+            android:id="@+id/tag_send"
+            android:layout_width="45dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            app:tag_border_color="@color/colorAccent"
+            app:tag_bg_color="@color/colorAccent"
+            app:tag_text_color="@android:color/white"
+            app:tag_press_feedback="false"
+            android:text="发表"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/divider_line"
+        android:layout_height="1px"/>
+
+    <LinearLayout
         android:id="@+id/ll_operate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,44 +99,5 @@
         android:background="#dddddd"
         android:gravity="center"
         android:text="Something"/>
-
-    <LinearLayout
-        android:id="@+id/ll_edit_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/et_content"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_marginBottom="3dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="3dp"
-            android:layout_weight="1"
-            android:background="@drawable/shape_comment_border"
-            android:focusableInTouchMode="true"
-            android:gravity="center_vertical"
-            android:hint="发射弹幕吧"
-            android:inputType="textMultiLine"
-            android:lines="2"
-            android:paddingLeft="10dp"
-            android:textColor="#333333"
-            android:textColorHint="#cccccc"
-            android:textSize="14sp"/>
-
-        <Button
-            android:id="@+id/btn_send"
-            android:layout_width="45dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:background="@drawable/sel_btn_send"
-            android:text="发表"
-            android:textColor="@drawable/sel_btn_send_text"
-            android:textSize="14sp"/>
-    </LinearLayout>
 
 </LinearLayout>

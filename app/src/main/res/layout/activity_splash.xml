@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dl7.mvp.module.home.SplashActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_github"/>
+
+    <com.dl7.tag.TagView
+        android:id="@+id/tag_skip"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:text="跳过 3"
+        app:tag_auto_check="false"
+        app:tag_bg_color="#44000000"
+        app:tag_border_color="@android:color/holo_red_light"
+        app:tag_mode="normal"
+        app:tag_press_feedback="true"
+        app:tag_shape="arc"
+        app:tag_text_color="@android:color/holo_red_dark"/>
+</FrameLayout>

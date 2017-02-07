@@ -18,4 +18,10 @@
     <style name="AppBaseTheme" parent="BaseTheme">
         <item name="android:windowTranslucentStatus">true</item>
     </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--<item name="android:windowBackground">@mipmap/ic_github</item>-->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
 </resources>
