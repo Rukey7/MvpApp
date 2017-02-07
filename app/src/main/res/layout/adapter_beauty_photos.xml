@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_margin="@dimen/photo_margin_width"
-    android:background="@mipmap/bg_card"
+    android:background="@mipmap/ic_bg_card"
     android:orientation="vertical">
 
     <ImageView
@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="fitXY"
-        android:src="@mipmap/icon_default_1"/>
+        android:src="@mipmap/ic_default_1"/>
 
     <TextView
         android:id="@+id/tv_title"

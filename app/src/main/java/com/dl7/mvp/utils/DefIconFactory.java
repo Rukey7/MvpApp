@@ -11,11 +11,11 @@ import java.util.Random;
 public final class DefIconFactory {
 
     private final static int[] DEF_ICON_ID = new int[] {
-            R.mipmap.icon_default_1,
-            R.mipmap.icon_default_2,
-            R.mipmap.icon_default_3,
-            R.mipmap.icon_default_4,
-            R.mipmap.icon_default_5
+            R.mipmap.ic_default_1,
+            R.mipmap.ic_default_2,
+            R.mipmap.ic_default_3,
+            R.mipmap.ic_default_4,
+            R.mipmap.ic_default_5
     };
 
     private static Random sRandom = new Random();

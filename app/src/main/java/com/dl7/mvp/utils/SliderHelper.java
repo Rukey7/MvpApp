@@ -9,7 +9,7 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.dl7.mvp.api.NewsUtils;
 import com.dl7.mvp.api.bean.NewsInfo;
-import com.dl7.mvp.module.news.detail.NewsDetailActivity;
+import com.dl7.mvp.module.news.article.NewsArticleActivity;
 import com.dl7.mvp.module.news.photoset.PhotoSetActivity;
 import com.dl7.mvp.module.news.special.SpecialActivity;
 
@@ -51,7 +51,8 @@ public final class SliderHelper {
                                     } else if (NewsUtils.isNewsSpecial(adData.getTag())) {
                                         SpecialActivity.launch(context, adData.getUrl());
                                     } else {
-                                        NewsDetailActivity.launch(context, adData.getUrl());
+//                                        NewsDetailActivity.launch(context, adData.getUrl());
+                                        NewsArticleActivity.launch(context, adData.getUrl());
                                     }
                                 }
                             }

@@ -6,9 +6,9 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.dl7.mvp.R;
-import com.dl7.mvp.api.NewsUtils;
 import com.dl7.mvp.adapter.item.SpecialItem;
-import com.dl7.mvp.module.news.detail.NewsDetailActivity;
+import com.dl7.mvp.api.NewsUtils;
+import com.dl7.mvp.module.news.article.NewsArticleActivity;
 import com.dl7.mvp.module.news.photoset.PhotoSetActivity;
 import com.dl7.mvp.module.news.special.SpecialActivity;
 import com.dl7.mvp.utils.DefIconFactory;
@@ -80,7 +80,8 @@ public class SpecialAdapter extends BaseSectionQuickAdapter<SpecialItem> {
                 } else if (NewsUtils.isNewsPhotoSet(item.t.getSkipType())) {
                     PhotoSetActivity.launch(mContext, item.t.getPhotosetID());
                 } else {
-                    NewsDetailActivity.launch(mContext, item.t.getPostid());
+//                    NewsDetailActivity.launch(mContext, item.t.getPostid());
+                    NewsArticleActivity.launch(mContext, item.t.getPostid());
                 }
             }
         });

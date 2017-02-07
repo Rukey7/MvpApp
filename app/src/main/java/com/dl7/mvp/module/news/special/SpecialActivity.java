@@ -3,6 +3,7 @@ package com.dl7.mvp.module.news.special;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -25,6 +26,7 @@ import com.dl7.mvp.utils.ImageLoader;
 import com.dl7.recycler.adapter.BaseQuickAdapter;
 import com.dl7.recycler.helper.RecyclerViewHelper;
 import com.dl7.tag.TagLayout;
+import com.dl7.tag.TagView;
 import com.dl7.tag.TagView.OnTagClickListener;
 
 import java.util.List;
@@ -32,6 +34,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import rx.Observable;
@@ -48,6 +51,8 @@ public class SpecialActivity extends BaseSwipeBackActivity<IBasePresenter> imple
     Toolbar mToolbar;
     @BindView(R.id.rv_news_list)
     RecyclerView mRvNewsList;
+    @BindView(R.id.fab_coping)
+    FloatingActionButton mFabCoping;
 
     @Inject
     BaseQuickAdapter mSpecialAdapter;
@@ -61,7 +66,7 @@ public class SpecialActivity extends BaseSwipeBackActivity<IBasePresenter> imple
         Intent intent = new Intent(context, SpecialActivity.class);
         intent.putExtra(SPECIAL_KEY, newsId);
         context.startActivity(intent);
-        ((Activity)context).overridePendingTransition(R.anim.slide_right_entry, R.anim.hold);
+        ((Activity) context).overridePendingTransition(R.anim.slide_right_entry, R.anim.hold);
     }
 
     @Override
@@ -123,6 +128,7 @@ public class SpecialActivity extends BaseSwipeBackActivity<IBasePresenter> imple
 
     /**
      * 处理导航标签
+     *
      * @param specialItems
      */
     private void _handleTagLayout(List<SpecialItem> specialItems) {
@@ -133,6 +139,7 @@ public class SpecialActivity extends BaseSwipeBackActivity<IBasePresenter> imple
                 .filter(new Func1<SpecialItem, Boolean>() {
                     int i = 0;
                     int index = mSpecialAdapter.getHeaderViewsCount();  // 存在一个 HeadView 所以从1算起
+
                     @Override
                     public Boolean call(SpecialItem specialItem) {
                         if (specialItem.isHeader) {
@@ -157,8 +164,8 @@ public class SpecialActivity extends BaseSwipeBackActivity<IBasePresenter> imple
                 });
         mTagLayout.setTagClickListener(new OnTagClickListener() {
             @Override
-            public void onTagClick(int position, String text, @com.dl7.tag.TagView.TagMode int tagMode) {
-                // 跳转到对应position
+            public void onTagClick(int position, String text, @TagView.TagMode int tagMode) {
+                // 跳转到对应position,比scrollToPosition（）精确
                 mLayoutManager.scrollToPositionWithOffset(mSkipId[position], 0);
             }
         });
@@ -171,5 +178,10 @@ public class SpecialActivity extends BaseSwipeBackActivity<IBasePresenter> imple
             head = headStr.substring(index, headStr.length());
         }
         return head;
+    }
+
+    @OnClick(R.id.fab_coping)
+    public void onClick() {
+        mLayoutManager.scrollToPosition(0);
     }
 }

@@ -20,7 +20,7 @@
             android:layout_width="@dimen/video_thumb_width"
             android:layout_height="@dimen/video_thumb_height"
             android:scaleType="fitXY"
-            android:src="@mipmap/icon_default_1"/>
+            android:src="@mipmap/ic_default_1"/>
 
         <TextView
             android:id="@+id/tv_title"
