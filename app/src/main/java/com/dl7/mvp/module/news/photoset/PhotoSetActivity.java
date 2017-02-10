@@ -16,6 +16,7 @@ import com.dl7.mvp.injector.components.DaggerPhotoSetComponent;
 import com.dl7.mvp.injector.modules.PhotoSetModule;
 import com.dl7.mvp.module.base.BaseActivity;
 import com.dl7.mvp.module.base.IBasePresenter;
+import com.dl7.mvp.widget.PhotoViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class PhotoSetActivity extends BaseActivity<IBasePresenter> implements IP
     private static final String PHOTO_SET_KEY = "PhotoSetKey";
 
     @BindView(R.id.vp_photo)
-    ViewPager mVpPhoto;
+    PhotoViewPager mVpPhoto;
     @BindView(R.id.tv_title)
     TextView mTvTitle;
     @BindView(R.id.tv_index)

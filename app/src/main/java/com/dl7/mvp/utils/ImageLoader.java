@@ -58,15 +58,11 @@ public final class ImageLoader {
      * @param listener
      */
     public static void loadFitCenter(Context context, String url, ImageView view, RequestListener listener) {
-        if (PreferencesUtils.isShowImageAlways(context) || NetUtil.isWifiConnected(context)) {
-            Glide.with(context).load(url).fitCenter().dontAnimate().listener(listener).into(view);
-        }
+        Glide.with(context).load(url).fitCenter().dontAnimate().listener(listener).into(view);
     }
 
     public static void loadCenterCrop(Context context, String url, ImageView view, RequestListener listener) {
-//        if (PreferencesUtils.isShowImageAlways(context) || NetUtil.isWifiConnected(context)) {
         Glide.with(context).load(url).centerCrop().dontAnimate().listener(listener).into(view);
-//        }
     }
 
     /**
@@ -91,6 +87,7 @@ public final class ImageLoader {
 
     /**
      * 计算图片分辨率
+     *
      * @param context
      * @param url
      * @return

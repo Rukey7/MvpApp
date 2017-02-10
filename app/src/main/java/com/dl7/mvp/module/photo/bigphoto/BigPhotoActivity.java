@@ -1,5 +1,6 @@
 package com.dl7.mvp.module.photo.bigphoto;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -26,8 +27,11 @@ import com.dl7.mvp.utils.AnimateHelper;
 import com.dl7.mvp.utils.CommonConstant;
 import com.dl7.mvp.utils.DownloadUtils;
 import com.dl7.mvp.utils.NavUtils;
+import com.dl7.mvp.utils.SnackbarUtils;
 import com.dl7.mvp.utils.ToastUtils;
 import com.dl7.mvp.widget.PhotoViewPager;
+import com.jakewharton.rxbinding.view.RxView;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +40,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.functions.Action1;
 
 /**
  * 大图界面，这里和比较多地方关联，所以逻辑会多一点
@@ -72,6 +77,7 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
     private boolean mIsInteract = false;    // 是否和 ViewPager 联动
     private int mCurPosition;   // Adapter 当前位置
     private boolean[] mIsDelLove;   // 保存被删除的收藏项
+    private RxPermissions mRxPermissions;
 
     public static void launch(Context context, ArrayList<BeautyPhotoInfo> datas, int index) {
         Intent intent = new Intent(context, BigPhotoActivity.class);
@@ -155,6 +161,34 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
                 mIvPraise.setSelected(mAdapter.isPraise(position));
             }
         });
+        mRxPermissions = new RxPermissions(this);
+        RxView.clicks(mIvDownload)
+                .compose(mRxPermissions.ensure(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE))
+                .subscribe(new Action1<Boolean>() {
+                    @Override
+                    public void call(Boolean granted) {
+                        if (granted) {
+                            DownloadUtils.downloadOrDeletePhoto(BigPhotoActivity.this, mAdapter.getData(mCurPosition).getImgsrc(),
+                                    mAdapter.getData(mCurPosition).getDocid(), new DownloadUtils.OnCompletedListener() {
+                                        @Override
+                                        public void onCompleted(String url) {
+                                            mAdapter.getData(url).setDownload(true);
+                                            mIvDownload.setSelected(true);
+                                            mPresenter.insert(mAdapter.getData(url));
+                                        }
+
+                                        @Override
+                                        public void onDeleted(String url) {
+                                            mAdapter.getData(url).setDownload(false);
+                                            mIvDownload.setSelected(false);
+                                            mPresenter.delete(mAdapter.getData(url));
+                                        }
+                                    });
+                        } else {
+                            SnackbarUtils.showSnackbar(BigPhotoActivity.this, "权限授权失败", false);
+                        }
+                    }
+                });
     }
 
     @Override
@@ -184,30 +218,12 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
     public void loadNoData() {
     }
 
-    @OnClick({R.id.iv_favorite, R.id.iv_download, R.id.iv_praise, R.id.iv_share})
+    @OnClick({R.id.iv_favorite, R.id.iv_praise, R.id.iv_share})
     public void onClick(final View view) {
         final boolean isSelected = !view.isSelected();
         switch (view.getId()) {
             case R.id.iv_favorite:
                 mAdapter.getData(mCurPosition).setLove(isSelected);
-                break;
-            case R.id.iv_download:
-                DownloadUtils.downloadOrDeletePhoto(this, mAdapter.getData(mCurPosition).getImgsrc(),
-                        mAdapter.getData(mCurPosition).getDocid(), new DownloadUtils.OnCompletedListener() {
-                            @Override
-                            public void onCompleted(String url) {
-                                mAdapter.getData(url).setDownload(true);
-                                view.setSelected(true);
-                                mPresenter.insert(mAdapter.getData(url));
-                            }
-
-                            @Override
-                            public void onDeleted(String url) {
-                                mAdapter.getData(url).setDownload(false);
-                                view.setSelected(false);
-                                mPresenter.delete(mAdapter.getData(url));
-                            }
-                        });
                 break;
             case R.id.iv_praise:
                 mAdapter.getData(mCurPosition).setPraise(isSelected);
@@ -217,7 +233,7 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
                 break;
         }
         // 除分享外都做动画和数据库处理
-        if (view.getId() != R.id.iv_share && view.getId() != R.id.iv_download) {
+        if (view.getId() != R.id.iv_share) {
             view.setSelected(isSelected);
             AnimateHelper.doHeartBeat(view, 500);
             if (isSelected) {

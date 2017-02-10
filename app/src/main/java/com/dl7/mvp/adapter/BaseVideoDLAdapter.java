@@ -11,12 +11,15 @@ import com.dl7.mvp.rxbus.RxBus;
 import com.dl7.mvp.rxbus.event.VideoEvent;
 import com.dl7.recycler.adapter.BaseQuickAdapter;
 import com.dl7.recycler.adapter.BaseViewHolder;
+import com.orhanobut.logger.Logger;
 
 /**
  * Created by long on 2016/12/19.
  * video下载适配器基类
  */
 public abstract class BaseVideoDLAdapter extends BaseQuickAdapter<VideoInfo> {
+
+    private static final int INVALID_POS = -1;
 
     protected boolean mIsEditMode = false;
     protected SparseBooleanArray mSparseItemChecked = new SparseBooleanArray();
@@ -33,6 +36,10 @@ public abstract class BaseVideoDLAdapter extends BaseQuickAdapter<VideoInfo> {
      * @param isChecked
      */
     protected void _handleCheckedChanged(int position, boolean isChecked) {
+        if (position == INVALID_POS) {
+            Logger.i(position + "" + isChecked);
+            return;
+        }
         mSparseItemChecked.put(position, isChecked);
         int checkedCount = 0;
         int checkedStatus;
@@ -72,6 +79,7 @@ public abstract class BaseVideoDLAdapter extends BaseQuickAdapter<VideoInfo> {
     public void toggleItemChecked(int position, BaseViewHolder holder) {
         boolean isChecked = mSparseItemChecked.get(position);
         mSparseItemChecked.put(position, !isChecked);
+        Logger.d(position+""+!isChecked);
         holder.setChecked(R.id.cb_delete, mSparseItemChecked.get(position));
         // 如果用 notifyItemChanged()，会有一闪的情况
 //        notifyItemChanged(position);
@@ -80,9 +88,9 @@ public abstract class BaseVideoDLAdapter extends BaseQuickAdapter<VideoInfo> {
     public void deleteItemChecked() {
         for (int i = mSparseItemChecked.size() - 1; i >= 0; i--) {
             if (mSparseItemChecked.valueAt(i)) {
-                mSparseItemChecked.delete(mSparseItemChecked.keyAt(i));
                 DownloaderWrapper.delete(getItem(mSparseItemChecked.keyAt(i)));
                 removeItem(mSparseItemChecked.keyAt(i));
+                mSparseItemChecked.delete(mSparseItemChecked.keyAt(i));
             }
         }
     }

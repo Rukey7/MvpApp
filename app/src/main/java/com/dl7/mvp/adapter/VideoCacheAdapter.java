@@ -61,6 +61,7 @@ public class VideoCacheAdapter extends BaseVideoDLAdapter {
         cbDelete.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // 注意这里在切换为编辑状态时，获取holder.getAdapterPosition()=-1 的情况，要在_handleCheckedChanged()进行判断处理
                 _handleCheckedChanged(holder.getAdapterPosition(), isChecked);
             }
         });

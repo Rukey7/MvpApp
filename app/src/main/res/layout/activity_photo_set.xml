@@ -11,7 +11,7 @@
     app:mode="drag"
     tools:context=".module.news.photoset.PhotoSetActivity">
 
-    <android.support.v4.view.ViewPager
+    <com.dl7.mvp.widget.PhotoViewPager
         android:id="@+id/vp_photo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

@@ -571,4 +571,12 @@ public class FileUtils {
         File file = new File(path);
         return (file.exists() && file.isFile() ? file.length() : -1);
     }
+
+    public static File[] getFileList(String dir) {
+        File saveDir = new File(dir);
+        if (saveDir.exists() && saveDir.isDirectory()) {
+            return saveDir.listFiles();
+        }
+        return new File[0];
+    }
 }

@@ -1,5 +1,6 @@
 package com.dl7.mvp.module.home;
 
+import android.Manifest;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -14,14 +15,20 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.dl7.downloaderlib.FileDownloader;
 import com.dl7.mvp.R;
 import com.dl7.mvp.module.base.BaseActivity;
 import com.dl7.mvp.module.manage.setting.SettingsActivity;
 import com.dl7.mvp.module.news.main.NewsMainFragment;
 import com.dl7.mvp.module.photo.main.PhotoMainFragment;
 import com.dl7.mvp.module.video.main.VideoMainFragment;
+import com.dl7.mvp.utils.SnackbarUtils;
+import com.tbruyelle.rxpermissions.RxPermissions;
+
+import java.io.File;
 
 import butterknife.BindView;
+import rx.functions.Action1;
 
 /**
  * 程序入口
@@ -34,6 +41,8 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     NavigationView mNavView;
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
+
+    private RxPermissions mRxPermissions;
 
     // 本来想用这个来存储Fragment做切换，不过貌似fragment会被回收产生异常，估计内存占用太大
 //    private SparseArray<Fragment> mSparseFragments = new SparseArray<>();
@@ -77,6 +86,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         mSparseTags.put(R.id.nav_news, "News");
         mSparseTags.put(R.id.nav_photos, "Photos");
         mSparseTags.put(R.id.nav_videos, "Videos");
+        _getPemission();
     }
 
     @Override
@@ -143,6 +153,24 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
             }
         });
         navView.setNavigationItemSelectedListener(this);
+    }
+
+    private void _getPemission() {
+        final File dir = new File(FileDownloader.getDownloadDir());
+        if (!dir.exists() || !dir.isDirectory()) {
+            dir.delete();
+            new RxPermissions(this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+                    .subscribe(new Action1<Boolean>() {
+                        @Override
+                        public void call(Boolean granted) {
+                            if (granted) {
+                                dir.mkdirs();
+                            } else {
+                                SnackbarUtils.showSnackbar(HomeActivity.this, "下载目录创建失败", true);
+                            }
+                        }
+                    });
+        }
     }
 
 
