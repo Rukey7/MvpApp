@@ -75,11 +75,6 @@ public abstract class BaseActivity<T extends IBasePresenter> extends RxAppCompat
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
     public void showLoading() {
         if (mEmptyLayout != null) {
             mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_LOADING);

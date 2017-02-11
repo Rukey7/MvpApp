@@ -78,7 +78,7 @@ dependencies {
     // photoview
     compile 'com.github.chrisbanes.photoview:library:1.2.4'
     // systembartint
-    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+//    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     // dragsloplayout
     compile 'com.github.Rukey7:DragSlopLayout:1.0.3'
     // TagLayout
