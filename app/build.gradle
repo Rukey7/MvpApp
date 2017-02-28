@@ -4,20 +4,48 @@ apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'com.antfortune.freeline'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    compileSdkVersion rootProject.ext.compileSdk
+    buildToolsVersion rootProject.ext.buildTools
 
     defaultConfig {
         applicationId "com.dl7.mvp"
-        minSdkVersion 14
-        targetSdkVersion 24
+        minSdkVersion rootProject.ext.minSdk
+        targetSdkVersion rootProject.ext.targetSdk
         versionCode 1
         versionName "1.0"
     }
+
+    signingConfigs {
+        release {
+            try {
+                storeFile file("./mvpapp.jks")
+                storePassword "abc123"
+                keyAlias "mvpapp"
+                keyPassword "abc123"
+            } catch (ex) {
+                throw new InvalidUserDataException(ex.toString())
+            }
+        }
+
+        debug {
+            storeFile file("./keystore/debug.keystore")
+        }
+    }
+    //recommend
+    dexOptions {
+        jumboMode = true
+    }
+
     buildTypes {
         release {
-//            minifyEnabled false
+            minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+            minifyEnabled false
+            signingConfig signingConfigs.debug
         }
 
         greendao{
@@ -25,6 +53,7 @@ android {
 //            targetGenDir 'src/main/java'
         }
     }
+
     lintOptions {
         abortOnError false
     }
@@ -33,11 +62,11 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:recyclerview-v7:24.2.1'
-    compile 'com.android.support:cardview-v7:24.2.1'
-    compile 'com.android.support:support-v4:24.2.1'
-    compile 'com.android.support:design:24.2.1'
+    compile "com.android.support:appcompat-v7:${rootProject.ext.support}"
+    compile "com.android.support:recyclerview-v7:${rootProject.ext.support}"
+    compile "com.android.support:cardview-v7:${rootProject.ext.support}"
+    compile "com.android.support:support-v4:${rootProject.ext.support}"
+    compile "com.android.support:design:${rootProject.ext.support}"
     // leakcanary
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
@@ -78,7 +107,7 @@ dependencies {
     // photoview
     compile 'com.github.chrisbanes.photoview:library:1.2.4'
     // systembartint
-//    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    //    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     // dragsloplayout
     compile 'com.github.Rukey7:DragSlopLayout:1.0.3'
     // TagLayout
@@ -101,8 +130,13 @@ dependencies {
     compile 'com.alibaba:fastjson:1.2.23'
     // jsoup
     compile 'com.github.jhy:jsoup:jsoup-1.10.2'
+    //可选，用于生成application类
+    provided("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
 
     compile project(':RecyclerViewHelper')
     compile project(':downloaderLib')
     compile project(':playerview')
+    compile project(':tinkerLib')
 }
+
+apply from: 'tinker_build.gradle'

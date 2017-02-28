@@ -1,7 +1,11 @@
 package com.dl7.mvp;
 
+import android.annotation.TargetApi;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.support.multidex.MultiDex;
 
 import com.dl7.downloaderlib.DownloadConfig;
 import com.dl7.downloaderlib.FileDownloader;
@@ -17,8 +21,15 @@ import com.dl7.mvp.rxbus.RxBus;
 import com.dl7.mvp.utils.DownloadUtils;
 import com.dl7.mvp.utils.PreferencesUtils;
 import com.dl7.mvp.utils.ToastUtils;
+import com.dl7.tinkerlib.Log.MyLogImp;
+import com.dl7.tinkerlib.util.TinkerManager;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
+import com.tencent.tinker.anno.DefaultLifeCycle;
+import com.tencent.tinker.lib.tinker.Tinker;
+import com.tencent.tinker.lib.tinker.TinkerInstaller;
+import com.tencent.tinker.loader.app.DefaultApplicationLike;
+import com.tencent.tinker.loader.shareutil.ShareConstants;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -28,28 +39,71 @@ import java.io.File;
  * Created by long on 2016/8/19.
  * Application
  */
-public class AndroidApplication extends Application {
+@SuppressWarnings("unused")
+@DefaultLifeCycle(application = "com.dl7.mvp.MvpApplication",
+        flags = ShareConstants.TINKER_ENABLE_ALL,
+        loadVerifyFlag = false)
+public class AndroidApplication extends DefaultApplicationLike {
 
     private static final String DB_NAME = "news-db";
 
-    private ApplicationComponent mAppComponent;
+    private static ApplicationComponent sAppComponent;
     private static Context sContext;
     private DaoSession mDaoSession;
     // 因为下载那边需要用，这里在外面实例化在通过 ApplicationModule 设置
     private RxBus mRxBus = new RxBus();
 
+    public AndroidApplication(Application application, int tinkerFlags, boolean tinkerLoadVerifyFlag, long applicationStartElapsedTime, long applicationStartMillisTime, Intent tinkerResultIntent) {
+        super(application, tinkerFlags, tinkerLoadVerifyFlag, applicationStartElapsedTime, applicationStartMillisTime, tinkerResultIntent);
+    }
+
+    /**
+     * install multiDex before install tinker
+     * so we don't need to put the tinker lib classes in the main dex
+     *
+     * @param base
+     */
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+    @Override
+    public void onBaseContextAttached(Context base) {
+        super.onBaseContextAttached(base);
+        sContext = getApplication();
+        //you must install multiDex whatever tinker is installed!
+        MultiDex.install(base);
+
+        TinkerManager.setTinkerApplicationLike(this);
+
+        TinkerManager.initFastCrashProtect();
+        //should set before tinker is installed
+        TinkerManager.setUpgradeRetryEnable(true);
+
+        //optional set logIml, or you can use default debug log
+        TinkerInstaller.setLogIml(new MyLogImp());
+        //installTinker after load multiDex
+        //or you can put com.tencent.tinker.** to main dex
+        TinkerManager.installTinker(this);
+        Tinker tinker = Tinker.with(getApplication());
+    }
+
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+    public void registerActivityLifecycleCallbacks(Application.ActivityLifecycleCallbacks callback) {
+        getApplication().registerActivityLifecycleCallbacks(callback);
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
-        sContext = this;
         _initDatabase();
         _initInjector();
         _initConfig();
     }
 
-
-    public ApplicationComponent getAppComponent() {
-        return mAppComponent;
+    /**
+     * 使用Tinker生成Application，这里改成静态调用
+     * @return
+     */
+    public static ApplicationComponent getAppComponent() {
+        return sAppComponent;
     }
 
     public static Context getContext() {
@@ -61,7 +115,7 @@ public class AndroidApplication extends Application {
      */
     private void _initInjector() {
         // 这里不做注入操作，只提供一些全局单例数据
-        mAppComponent = DaggerApplicationComponent.builder()
+        sAppComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this, mDaoSession, mRxBus))
                 .build();
     }
@@ -70,10 +124,10 @@ public class AndroidApplication extends Application {
      * 初始化数据库
      */
     private void _initDatabase() {
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, DB_NAME);
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(getApplication(), DB_NAME);
         Database database = helper.getWritableDb();
         mDaoSession = new DaoMaster(database).newSession();
-        NewsTypeDao.updateLocalData(this, mDaoSession);
+        NewsTypeDao.updateLocalData(getApplication(), mDaoSession);
         DownloadUtils.init(mDaoSession.getBeautyPhotoInfoDao());
     }
 
@@ -82,15 +136,15 @@ public class AndroidApplication extends Application {
      */
     private void _initConfig() {
         if (BuildConfig.DEBUG) {
-            LeakCanary.install(this);
+            LeakCanary.install(getApplication());
             Logger.init("LogTAG");
         }
         RetrofitService.init();
-        ToastUtils.init(this);
+        ToastUtils.init(getApplication());
         DownloaderWrapper.init(mRxBus, mDaoSession.getVideoInfoDao());
-        FileDownloader.init(this);
+        FileDownloader.init(getApplication());
         DownloadConfig config = new DownloadConfig.Builder()
-                .setDownloadDir(PreferencesUtils.getSavePath(this) + File.separator + "video/").build();
+                .setDownloadDir(PreferencesUtils.getSavePath(getApplication()) + File.separator + "video/").build();
         FileDownloader.setConfig(config);
     }
 }

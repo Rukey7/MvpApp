@@ -107,7 +107,8 @@ public abstract class BaseActivity<T extends IBasePresenter> extends RxAppCompat
      * @return ApplicationComponent
      */
     protected ApplicationComponent getAppComponent() {
-        return ((AndroidApplication) getApplication()).getAppComponent();
+        return AndroidApplication.getAppComponent();
+//        return ((AndroidApplication) getApplication()).getAppComponent();
     }
 
     /**

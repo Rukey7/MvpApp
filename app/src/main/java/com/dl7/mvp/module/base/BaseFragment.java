@@ -125,7 +125,8 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
      * @return ApplicationComponent
      */
     protected ApplicationComponent getAppComponent() {
-        return ((AndroidApplication) getActivity().getApplication()).getAppComponent();
+        return AndroidApplication.getAppComponent();
+//        return ((MvpApplication) getActivity().getApplication().get).getAppComponent();
     }
 
     /**

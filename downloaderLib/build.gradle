@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    compileSdkVersion rootProject.ext.compileSdk
+    buildToolsVersion rootProject.ext.buildTools
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 24
+        minSdkVersion rootProject.ext.minSdk
+        targetSdkVersion rootProject.ext.targetSdk
         versionCode 1
         versionName "1.0"
     }
@@ -24,7 +24,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile "com.android.support:appcompat-v7:${rootProject.ext.support}"
     // okhttp
     compile 'com.squareup.okhttp3:okhttp:3.3.0'
 }

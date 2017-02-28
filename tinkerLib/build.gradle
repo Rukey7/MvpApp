@@ -9,6 +9,9 @@ android {
         targetSdkVersion rootProject.ext.targetSdk
         versionCode 1
         versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
         release {
@@ -20,10 +23,13 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
     compile "com.android.support:appcompat-v7:${rootProject.ext.support}"
-    compile "com.android.support:recyclerview-v7:${rootProject.ext.support}"
-    compile "com.android.support:cardview-v7:${rootProject.ext.support}"
-    //
-    compile 'com.github.ybq:Android-SpinKit:1.1.0'
+    testCompile 'junit:junit:4.12'
+
+    compile "com.android.support:multidex:1.0.1"
+    //tinker的核心库
+    compile("com.tencent.tinker:tinker-android-lib:${TINKER_VERSION}") { changing = true }
 }
