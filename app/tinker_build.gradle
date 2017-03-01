@@ -12,7 +12,8 @@ def bakPath = file("${buildDir}/bakApk/")
  */
 ext {
     //for some reason, you may want to ignore tinkerBuild, such as instant run debug build?
-    tinkerEnabled = true
+    // 要开启tinker需要设为true，不过这样就没法instant run
+    tinkerEnabled = false
 
     //for normal build
     //old apk file to build patch apk
