@@ -525,7 +525,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
             // 放在 mData.remove(pos) 前，不然外面获取不到数据
             mRemoveDataListener.onRemove(pos);
         }
-        mData.remove(pos);
+        mData.remove(position);
         notifyItemRemoved(pos);
     }
 

@@ -78,9 +78,9 @@ public abstract class BaseVideoDLAdapter extends BaseQuickAdapter<VideoInfo> {
      */
     public void toggleItemChecked(int position, BaseViewHolder holder) {
         boolean isChecked = mSparseItemChecked.get(position);
-        mSparseItemChecked.put(position, !isChecked);
         Logger.d(position+""+!isChecked);
-        holder.setChecked(R.id.cb_delete, mSparseItemChecked.get(position));
+        holder.setChecked(R.id.cb_delete, !isChecked);
+        _handleCheckedChanged(position, !isChecked);
         // 如果用 notifyItemChanged()，会有一闪的情况
 //        notifyItemChanged(position);
     }

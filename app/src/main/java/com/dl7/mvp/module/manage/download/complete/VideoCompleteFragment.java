@@ -10,6 +10,7 @@ import com.dl7.mvp.local.table.VideoInfo;
 import com.dl7.mvp.module.base.BaseVideoDLFragment;
 import com.dl7.mvp.module.base.ILocalView;
 import com.dl7.mvp.module.base.IRxBusPresenter;
+import com.dl7.mvp.module.manage.download.DownloadActivity;
 import com.dl7.recycler.helper.RecyclerViewHelper;
 import com.dl7.recycler.listener.OnRemoveDataListener;
 
@@ -51,6 +52,7 @@ public class VideoCompleteFragment extends BaseVideoDLFragment<IRxBusPresenter> 
             public void onRemove(int position) {
                 if (mAdapter.getItemCount() <= 1 && mDefaultBg.getVisibility() == View.GONE) {
                     mDefaultBg.setVisibility(View.VISIBLE);
+                    ((DownloadActivity)getActivity()).enableEditMode(false);
                 }
             }
         });

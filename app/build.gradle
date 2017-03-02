@@ -26,10 +26,6 @@ android {
                 throw new InvalidUserDataException(ex.toString())
             }
         }
-
-        debug {
-            storeFile file("./keystore/debug.keystore")
-        }
     }
     //recommend
     dexOptions {
