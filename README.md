@@ -1,5 +1,4 @@
 # MvpApp
-[![Apache 2.0 License](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
 ##### 练习MVP架构开发的App，算是对自己学过的知识做一个总结，做了有一段时间，界面比较多，代码量还是有的，里面做了大量封装，整体代码整理得很干净，这个我已经尽力整理了- -。
 
@@ -86,33 +85,18 @@
 	：集成多种动画效果的Drawable，之前有看源码觉得代码封装得挺好，动画不仅仅只能用在View上
 - [filepicker](https://github.com/Angads25/android-filepicker)
 	：这个是用来处理PreferenceScreen的文件选中库，PreferenceScreen感觉平时不怎么看到使用，用法到时挺特别
+- [tinker](https://github.com/Tencent/tinker)
+	：微信Android热补丁方案，功能强大，和其它热修补方案对比看这里[wiki](https://github.com/Tencent/tinker/wiki)
 - [DragSlopLayout](https://github.com/Rukey7/DragSlopLayout)
 	：一个辅助开发拖拽功能的库，这是我为了做这个App的某些功能封装的库- -，现在倒也有用在工作的项目上
 - [IjkPlayerView](https://github.com/Rukey7/IjkPlayerView)
 	：基于ijkplayer开发的播放器，也是为了做这个App的视频播放功能封装的库- -，里面加了弹幕功能，感兴趣可以看下
 - [TagLayout](https://github.com/Rukey7/TagLayout)
-	：好吧，这也是我封装的库，主要是标签布局功能，还可以单独作为特殊点击效果的按钮
-
+	：这个库代码有点厚重，有时间再重构下
+	
 Thanks
 ---
 
 - 感谢所有优秀的开源项目
 - [OuNews](https://github.com/oubowu/OuNews)
 	：最初是看了这个项目才开始做的，学了不少东西
-
-License
--------
-
-    Copyright 2017 Rukey7
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
