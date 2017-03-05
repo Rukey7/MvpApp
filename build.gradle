@@ -31,6 +31,8 @@ ext {
     compileSdk = 25
     minSdk = 14
     targetSdk = 25
-    support = "25.1.1"
+    // 尼玛用了25.1.1发现专题界面的浮标按钮没有动画效果了。改回25.0.1
+    // support = "25.1.1"
+    support = "25.0.1"
     buildTools = "25.0.2"
 }
