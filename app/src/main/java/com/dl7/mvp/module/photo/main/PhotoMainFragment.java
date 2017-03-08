@@ -74,14 +74,14 @@ public class PhotoMainFragment extends BaseFragment<IRxBusPresenter> implements 
         mPresenter.registerRxBus(LoveEvent.class, new Action1<LoveEvent>() {
             @Override
             public void call(LoveEvent loveEvent) {
-                mPresenter.getData();
+                mPresenter.getData(false);
             }
         });
     }
 
     @Override
-    protected void updateViews() {
-        mPresenter.getData();
+    protected void updateViews(boolean isRefresh) {
+        mPresenter.getData(isRefresh);
     }
 
     @Override

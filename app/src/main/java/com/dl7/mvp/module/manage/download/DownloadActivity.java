@@ -97,7 +97,7 @@ public class DownloadActivity extends BaseActivity<IRxBusPresenter> {
     }
 
     @Override
-    protected void updateViews() {
+    protected void updateViews(boolean isRefresh) {
         List<Fragment> fragments = new ArrayList<>();
         List<String> titles = new ArrayList<>();
         mCompleteFragment = new VideoCompleteFragment();

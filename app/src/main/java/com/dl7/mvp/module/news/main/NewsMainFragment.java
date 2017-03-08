@@ -72,8 +72,8 @@ public class NewsMainFragment extends BaseFragment<IRxBusPresenter> implements I
     }
 
     @Override
-    protected void updateViews() {
-        mPresenter.getData();
+    protected void updateViews(boolean isRefresh) {
+        mPresenter.getData(isRefresh);
     }
 
     @Override

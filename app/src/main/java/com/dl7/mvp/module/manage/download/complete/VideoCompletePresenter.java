@@ -32,7 +32,7 @@ public class VideoCompletePresenter implements IRxBusPresenter {
     }
 
     @Override
-    public void getData() {
+    public void getData(boolean isRefresh) {
         mDbDao.queryBuilder()
                 .where(VideoInfoDao.Properties.DownloadStatus.eq(DownloadStatus.COMPLETE))
                 .rx()

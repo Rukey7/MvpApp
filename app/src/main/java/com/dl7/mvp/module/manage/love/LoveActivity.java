@@ -59,7 +59,7 @@ public class LoveActivity extends BaseActivity {
     }
 
     @Override
-    protected void updateViews() {
+    protected void updateViews(boolean isRefresh) {
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(new LovePhotoFragment());
         fragments.add(new LoveVideoFragment());

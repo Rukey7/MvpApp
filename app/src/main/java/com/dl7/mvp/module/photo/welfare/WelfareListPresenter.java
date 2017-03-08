@@ -33,7 +33,7 @@ public class WelfareListPresenter implements IBasePresenter {
     }
 
     @Override
-    public void getData() {
+    public void getData(boolean isRefresh) {
         RetrofitService.getWelfarePhoto(mPage)
                 .doOnSubscribe(new Action0() {
                     @Override
@@ -54,7 +54,7 @@ public class WelfareListPresenter implements IBasePresenter {
                         mView.showNetError(new EmptyLayout.OnRetryListener() {
                             @Override
                             public void onRetry() {
-                                getData();
+                                getData(false);
                             }
                         });
                     }

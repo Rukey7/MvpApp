@@ -74,8 +74,8 @@ public class PhotoSetActivity extends BaseActivity<IBasePresenter> implements IP
     }
 
     @Override
-    protected void updateViews() {
-        mPresenter.getData();
+    protected void updateViews(boolean isRefresh) {
+        mPresenter.getData(isRefresh);
     }
 
     @Override

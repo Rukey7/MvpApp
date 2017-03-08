@@ -79,8 +79,8 @@ public class LovePhotoFragment extends BaseFragment<ILocalPresenter> implements 
     }
 
     @Override
-    protected void updateViews() {
-        mPresenter.getData();
+    protected void updateViews(boolean isRefresh) {
+        mPresenter.getData(isRefresh);
     }
 
     @Override

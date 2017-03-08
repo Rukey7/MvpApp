@@ -80,8 +80,8 @@ public class VideoListFragment extends BaseFragment<IBasePresenter> implements I
     }
 
     @Override
-    protected void updateViews() {
-        mPresenter.getData();
+    protected void updateViews(boolean isRefresh) {
+        mPresenter.getData(isRefresh);
     }
 
     @Override

@@ -11,8 +11,8 @@ android {
         applicationId "com.dl7.mvp"
         minSdkVersion rootProject.ext.minSdk
         targetSdkVersion rootProject.ext.targetSdk
-        versionCode 1
-        versionName "1.0"
+        versionCode 101
+        versionName "1.0.1"
     }
 
     signingConfigs {

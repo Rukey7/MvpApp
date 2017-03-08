@@ -29,7 +29,7 @@ public class NewsMainPresenter implements IRxBusPresenter {
     }
 
     @Override
-    public void getData() {
+    public void getData(boolean isRefresh) {
         mDbDao.queryBuilder().rx().list()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<NewsTypeInfo>>() {

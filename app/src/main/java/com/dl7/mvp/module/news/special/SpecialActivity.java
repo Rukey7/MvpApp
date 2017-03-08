@@ -92,8 +92,8 @@ public class SpecialActivity extends BaseSwipeBackActivity<IBasePresenter> imple
     }
 
     @Override
-    protected void updateViews() {
-        mPresenter.getData();
+    protected void updateViews(boolean isRefresh) {
+        mPresenter.getData(isRefresh);
     }
 
     @Override

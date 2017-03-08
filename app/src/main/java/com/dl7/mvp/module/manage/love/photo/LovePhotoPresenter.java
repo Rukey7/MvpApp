@@ -29,7 +29,7 @@ public class LovePhotoPresenter implements ILocalPresenter<BeautyPhotoInfo> {
     }
 
     @Override
-    public void getData() {
+    public void getData(boolean isRefresh) {
         mDbDao.queryBuilder().where(BeautyPhotoInfoDao.Properties.IsLove.eq(true))
                 .rx()
                 .list()

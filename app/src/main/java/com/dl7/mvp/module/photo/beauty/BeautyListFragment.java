@@ -62,8 +62,8 @@ public class BeautyListFragment extends BaseFragment<IBasePresenter> implements 
     }
 
     @Override
-    protected void updateViews() {
-        mPresenter.getData();
+    protected void updateViews(boolean isRefresh) {
+        mPresenter.getData(isRefresh);
     }
 
     @Override

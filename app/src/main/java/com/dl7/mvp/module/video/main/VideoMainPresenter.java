@@ -26,7 +26,7 @@ public class VideoMainPresenter implements IRxBusPresenter {
     }
 
     @Override
-    public void getData() {
+    public void getData(boolean isRefresh) {
         mView.updateLovedCount((int) mDbDao.queryBuilder().where(VideoInfoDao.Properties.IsCollect.eq(true)).count());
         mView.updateDownloadCount((int) mDbDao.queryBuilder()
                 .where(VideoInfoDao.Properties.DownloadStatus.notIn(DownloadStatus.NORMAL, DownloadStatus.COMPLETE)).count());

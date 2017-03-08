@@ -5,6 +5,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
@@ -12,6 +13,7 @@ import com.dl7.mvp.AndroidApplication;
 import com.dl7.mvp.R;
 import com.dl7.mvp.injector.components.ApplicationComponent;
 import com.dl7.mvp.injector.modules.ActivityModule;
+import com.dl7.mvp.utils.SwipeRefreshHelper;
 import com.dl7.mvp.widget.EmptyLayout;
 import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
@@ -39,6 +41,12 @@ public abstract class BaseActivity<T extends IBasePresenter> extends RxAppCompat
      */
     @Inject
     protected T mPresenter;
+    /**
+     * 刷新控件，注意，资源的ID一定要一样
+     */
+    @Nullable
+    @BindView(R.id.swipe_refresh)
+    SwipeRefreshLayout mSwipeRefresh;
 
     /**
      * 绑定布局文件
@@ -61,7 +69,7 @@ public abstract class BaseActivity<T extends IBasePresenter> extends RxAppCompat
     /**
      * 更新视图控件
      */
-    protected abstract void updateViews();
+    protected abstract void updateViews(boolean isRefresh);
 
 
     @Override
@@ -71,7 +79,8 @@ public abstract class BaseActivity<T extends IBasePresenter> extends RxAppCompat
         ButterKnife.bind(this);
         initInjector();
         initViews();
-        updateViews();
+        initSwipeRefresh();
+        updateViews(false);
     }
 
     @Override
@@ -99,6 +108,27 @@ public abstract class BaseActivity<T extends IBasePresenter> extends RxAppCompat
     @Override
     public <T> LifecycleTransformer<T> bindToLife() {
         return this.<T>bindToLifecycle();
+    }
+
+    @Override
+    public void finishRefresh() {
+        if (mSwipeRefresh != null) {
+            mSwipeRefresh.setRefreshing(false);
+        }
+    }
+
+    /**
+     * 初始化下拉刷新
+     */
+    private void initSwipeRefresh() {
+        if (mSwipeRefresh != null) {
+            SwipeRefreshHelper.init(mSwipeRefresh, new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    updateViews(true);
+                }
+            });
+        }
     }
 
     /**

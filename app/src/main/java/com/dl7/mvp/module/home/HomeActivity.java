@@ -90,7 +90,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     @Override
-    protected void updateViews() {
+    protected void updateViews(boolean isRefresh) {
         mNavView.setCheckedItem(R.id.nav_news);
         addFragment(R.id.fl_container, new NewsMainFragment(), "News");
     }

@@ -5,6 +5,7 @@ import com.dl7.mvp.api.NewsUtils;
 import com.dl7.mvp.api.RetrofitService;
 import com.dl7.mvp.api.bean.NewsInfo;
 import com.dl7.mvp.module.base.IBasePresenter;
+import com.dl7.mvp.utils.ToastUtils;
 import com.dl7.mvp.widget.EmptyLayout;
 import com.orhanobut.logger.Logger;
 
@@ -32,12 +33,14 @@ public class NewsListPresenter implements IBasePresenter {
     }
 
     @Override
-    public void getData() {
+    public void getData(final boolean isRefresh) {
         RetrofitService.getNewsList(mNewsId, mPage)
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
-                        mView.showLoading();
+                        if (!isRefresh) {
+                            mView.showLoading();
+                        }
                     }
                 })
                 .filter(new Func1<NewsInfo, Boolean>() {
@@ -53,18 +56,29 @@ public class NewsListPresenter implements IBasePresenter {
                 .subscribe(new Subscriber<List<NewsMultiItem>>() {
                     @Override
                     public void onCompleted() {
-                        mView.hideLoading();
+                        Logger.w("onCompleted " + isRefresh);
+                        if (isRefresh) {
+                            mView.finishRefresh();
+                        } else {
+                            mView.hideLoading();
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Logger.e(e.toString());
-                        mView.showNetError(new EmptyLayout.OnRetryListener() {
-                            @Override
-                            public void onRetry() {
-                                getData();
-                            }
-                        });
+                        Logger.e(e.toString() + " " + isRefresh);
+                        if (isRefresh) {
+                            mView.finishRefresh();
+                            // 可以提示对应的信息，但不更新界面
+                            ToastUtils.showToast("刷新失败提示什么根据实际情况");
+                        } else {
+                            mView.showNetError(new EmptyLayout.OnRetryListener() {
+                                @Override
+                                public void onRetry() {
+                                    getData(false);
+                                }
+                            });
+                        }
                     }
 
                     @Override

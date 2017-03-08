@@ -14,6 +14,7 @@ import com.dl7.mvp.R;
 import com.dl7.mvp.injector.components.ApplicationComponent;
 import com.dl7.mvp.utils.SwipeRefreshHelper;
 import com.dl7.mvp.widget.EmptyLayout;
+import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.components.support.RxFragment;
 
@@ -74,7 +75,7 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
         super.onActivityCreated(savedInstanceState);
         if (getUserVisibleHint() && mRootView != null && !mIsMulti) {
             mIsMulti = true;
-            updateViews();
+            updateViews(false);
         }
     }
 
@@ -82,7 +83,7 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (isVisibleToUser && isVisible() && mRootView != null && !mIsMulti) {
             mIsMulti = true;
-            updateViews();
+            updateViews(false);
         } else {
             super.setUserVisibleHint(isVisibleToUser);
         }
@@ -119,6 +120,15 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
         return this.<T>bindToLifecycle();
     }
 
+    @Override
+    public void finishRefresh() {
+        Logger.w("finishRefresh");
+        if (mSwipeRefresh != null) {
+            Logger.e("finishRefresh");
+            mSwipeRefresh.setRefreshing(false);
+        }
+    }
+
     /**
      * 获取 ApplicationComponent
      *
@@ -148,7 +158,7 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
             SwipeRefreshHelper.init(mSwipeRefresh, new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
-                    updateViews();
+                    updateViews(true);
                 }
             });
         }
@@ -172,7 +182,8 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
 
     /**
      * 更新视图控件
+     * @param isRefresh 新增参数，用来判断是否为下拉刷新调用，下拉刷新的时候不应该再显示加载界面和异常界面
      */
-    protected abstract void updateViews();
+    protected abstract void updateViews(boolean isRefresh);
 
 }

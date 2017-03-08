@@ -33,7 +33,7 @@ public class VideoCachePresenter implements IRxBusPresenter {
     }
 
     @Override
-    public void getData() {
+    public void getData(boolean isRefresh) {
         mDbDao.queryBuilder().rx()
                 .oneByOne()
                 .filter(new Func1<VideoInfo, Boolean>() {

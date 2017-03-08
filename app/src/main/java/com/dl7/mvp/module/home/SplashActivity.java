@@ -40,7 +40,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     @Override
-    protected void updateViews() {
+    protected void updateViews(boolean isRefresh) {
         RxHelper.countdown(5)
                 .compose(this.<Integer>bindToLife())
                 .subscribe(new Subscriber<Integer>() {

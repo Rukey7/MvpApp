@@ -31,7 +31,7 @@ public class LoveVideoPresenter implements ILocalPresenter<VideoInfo> {
     }
 
     @Override
-    public void getData() {
+    public void getData(boolean isRefresh) {
         mDbDao.queryBuilder().where(VideoInfoDao.Properties.IsCollect.eq(true))
                 .rx()
                 .list()

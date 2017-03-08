@@ -104,8 +104,8 @@ public class NewsListFragment extends BaseFragment<IBasePresenter> implements IN
     }
 
     @Override
-    protected void updateViews() {
-        mPresenter.getData();
+    protected void updateViews(boolean isRefresh) {
+        mPresenter.getData(isRefresh);
     }
 
     @Override

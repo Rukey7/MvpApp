@@ -69,8 +69,8 @@ public class VideoCompleteFragment extends BaseVideoDLFragment<IRxBusPresenter> 
     }
 
     @Override
-    protected void updateViews() {
-        mPresenter.getData();
+    protected void updateViews(boolean isRefresh) {
+        mPresenter.getData(isRefresh);
     }
 
     @Override

@@ -28,7 +28,7 @@ public class NewsArticlePresenter implements IBasePresenter {
     }
 
     @Override
-    public void getData() {
+    public void getData(boolean isRefresh) {
         RetrofitService.getNewsDetail(mNewsId)
                 .doOnSubscribe(new Action0() {
                     @Override
@@ -55,7 +55,7 @@ public class NewsArticlePresenter implements IBasePresenter {
                         mView.showNetError(new EmptyLayout.OnRetryListener() {
                             @Override
                             public void onRetry() {
-                                getData();
+                                getData(false);
                             }
                         });
                     }

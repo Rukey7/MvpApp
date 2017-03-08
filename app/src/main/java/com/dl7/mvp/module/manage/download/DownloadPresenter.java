@@ -20,7 +20,7 @@ public class DownloadPresenter implements IRxBusPresenter {
     }
 
     @Override
-    public void getData() {
+    public void getData(boolean isRefresh) {
     }
 
     @Override

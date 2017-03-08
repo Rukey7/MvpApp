@@ -31,4 +31,9 @@ public interface IBaseView {
      * @return
      */
     <T> LifecycleTransformer<T> bindToLife();
+
+    /**
+     * 完成刷新, 新增控制刷新
+     */
+    void finishRefresh();
 }

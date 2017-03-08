@@ -34,7 +34,7 @@ public class SpecialPresenter implements IBasePresenter {
 
 
     @Override
-    public void getData() {
+    public void getData(boolean isRefresh) {
         RetrofitService.getSpecial(mSpecialId)
                 .doOnSubscribe(new Action0() {
                     @Override
@@ -63,7 +63,7 @@ public class SpecialPresenter implements IBasePresenter {
                         mView.showNetError(new EmptyLayout.OnRetryListener() {
                             @Override
                             public void onRetry() {
-                                getData();
+                                getData(false);
                             }
                         });
                     }

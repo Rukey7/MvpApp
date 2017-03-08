@@ -35,7 +35,7 @@ public class ChannelPresenter implements IChannelPresenter<NewsTypeInfo> {
 
 
     @Override
-    public void getData() {
+    public void getData(boolean isRefresh) {
         // 从数据库获取
         final List<NewsTypeInfo> checkList = mDbDao.queryBuilder().list();
         final List<String> typeList = new ArrayList<>();

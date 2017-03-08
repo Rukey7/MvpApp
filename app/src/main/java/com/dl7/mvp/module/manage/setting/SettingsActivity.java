@@ -37,7 +37,7 @@ public class SettingsActivity extends BaseSwipeBackActivity {
     }
 
     @Override
-    protected void updateViews() {
+    protected void updateViews(boolean isRefresh) {
         getFragmentManager().beginTransaction().replace(R.id.settings_view, new SettingsFragment()).commit();
     }
 

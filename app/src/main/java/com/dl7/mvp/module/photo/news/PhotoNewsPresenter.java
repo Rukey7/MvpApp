@@ -28,7 +28,7 @@ public class PhotoNewsPresenter implements IBasePresenter {
 
 
     @Override
-    public void getData() {
+    public void getData(boolean isRefresh) {
         RetrofitService.getPhotoList()
                 .doOnSubscribe(new Action0() {
                     @Override
@@ -49,7 +49,7 @@ public class PhotoNewsPresenter implements IBasePresenter {
                         mView.showNetError(new EmptyLayout.OnRetryListener() {
                             @Override
                             public void onRetry() {
-                                getData();
+                                getData(false);
                             }
                         });
                     }

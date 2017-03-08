@@ -41,7 +41,7 @@ public class VideoPlayerPresenter implements IVideoPresenter {
     }
 
     @Override
-    public void getData() {
+    public void getData(boolean isRefresh) {
         mDbDao.queryBuilder().rx()
                 .oneByOne()
                 .filter(new Func1<VideoInfo, Boolean>() {

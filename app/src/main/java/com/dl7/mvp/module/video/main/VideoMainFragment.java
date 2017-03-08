@@ -79,14 +79,14 @@ public class VideoMainFragment extends BaseFragment<IRxBusPresenter> implements 
             @Override
             public void call(VideoEvent videoEvent) {
                 if (videoEvent.checkStatus == VideoEvent.CHECK_INVALID) {
-                    mPresenter.getData();
+                    mPresenter.getData(false);
                 }
             }
         });
     }
 
     @Override
-    protected void updateViews() {
+    protected void updateViews(boolean isRefresh) {
         ArrayList<Fragment> fragments = new ArrayList<>();
         for (int i = 0; i < VIDEO_ID.length; i++) {
             fragments.add(VideoListFragment.newInstance(VIDEO_ID[i]));
@@ -94,7 +94,7 @@ public class VideoMainFragment extends BaseFragment<IRxBusPresenter> implements 
         mPagerAdapter.setItems(fragments, VIDEO_TITLE);
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setViewPager(mViewPager);
-        mPresenter.getData();
+        mPresenter.getData(isRefresh);
     }
 
     @Override

@@ -40,7 +40,7 @@ public class BigPhotoPresenter implements ILocalPresenter<BeautyPhotoInfo> {
     }
 
     @Override
-    public void getData() {
+    public void getData(boolean isRefresh) {
         // 因为网易这个原接口参数一大堆，我只传了部分参数，返回的数据会出现图片重复的情况，请不要在意这个问题- -
         Observable.from(mPhotoList)
                 .doOnSubscribe(new Action0() {
