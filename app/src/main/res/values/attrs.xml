@@ -23,4 +23,42 @@
     <declare-styleable name="EmptyLayout">
         <attr name="background_color" format="color"/>
     </declare-styleable>
+
+    <!-- SimpleButton，简写sb -->
+    <declare-styleable name="SimpleButton">
+        <attr name="sb_mode" format="enum">
+            <enum name="normal" value="201"/>
+            <enum name="check" value="202"/>
+            <enum name="icon_check_invisible" value="203"/>
+            <enum name="icon_check_change" value="204"/>
+        </attr>
+        <attr name="sb_shape" format="enum">
+            <enum name="round_rect" value="101"/>
+            <enum name="arc" value="102"/>
+            <enum name="rect" value="103"/>
+        </attr>
+        <!-- 3、5 是Gravity里定义的值 -->
+        <attr name="sb_gravity" format="enum">
+            <enum name="left" value="3"/>
+            <enum name="right" value="5"/>
+        </attr>
+        <attr name="sb_auto_check" format="boolean"/>
+        <attr name="sb_checked" format="boolean"/>
+        <attr name="sb_bg_color" format="color"/>
+        <attr name="sb_border_color" format="color"/>
+        <attr name="sb_text_color" format="color"/>
+        <attr name="sb_bg_color_check" format="color"/>
+        <attr name="sb_border_color_check" format="color"/>
+        <attr name="sb_text_color_check" format="color"/>
+        <attr name="sb_text" format="string"/>
+        <attr name="sb_text_check" format="string"/>
+        <attr name="sb_text_size" format="dimension"/>
+        <attr name="sb_border_width" format="dimension"/>
+        <attr name="sb_border_radius" format="dimension"/>
+        <attr name="sb_vertical_padding" format="dimension"/>
+        <attr name="sb_horizontal_padding" format="dimension"/>
+        <attr name="sb_icon_padding" format="dimension"/>
+        <attr name="sb_icon" format="reference"/>
+        <attr name="sb_icon_change" format="reference"/>
+    </declare-styleable>
 </resources>

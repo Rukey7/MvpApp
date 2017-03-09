@@ -13,19 +13,18 @@
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_github"/>
 
-    <com.dl7.tag.TagView
-        android:id="@+id/tag_skip"
+    <com.dl7.mvp.widget.SimpleButton
+        android:id="@+id/sb_skip"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:layout_marginRight="20dp"
         android:layout_marginTop="30dp"
-        android:text="跳过 3"
-        app:tag_auto_check="false"
-        app:tag_bg_color="#44000000"
-        app:tag_border_color="@android:color/holo_red_light"
-        app:tag_mode="normal"
-        app:tag_press_feedback="true"
-        app:tag_shape="arc"
-        app:tag_text_color="@android:color/holo_red_dark"/>
+        app:sb_text="跳过 3"
+        app:sb_auto_check="false"
+        app:sb_bg_color="#aaFF4081"
+        app:sb_border_color="#aaFF4081"
+        app:sb_shape="arc"
+        app:sb_text_color="@android:color/white"/>
+
 </FrameLayout>

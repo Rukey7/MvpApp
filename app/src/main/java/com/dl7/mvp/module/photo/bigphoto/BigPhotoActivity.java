@@ -304,6 +304,6 @@ public class BigPhotoActivity extends BaseActivity<ILocalPresenter> implements I
             setResult(RESULT_OK, intent);
         }
         super.finish();
-        overridePendingTransition(R.anim.hold, R.anim.expand_vertical_exit);
+        overridePendingTransition(R.anim.hold, R.anim.zoom_out_exit);
     }
 }

@@ -5,9 +5,10 @@ import android.content.Intent;
 import com.dl7.mvp.R;
 import com.dl7.mvp.module.base.BaseActivity;
 import com.dl7.mvp.utils.RxHelper;
-import com.dl7.tag.TagView;
+import com.dl7.mvp.widget.SimpleButton;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import rx.Subscriber;
 
 /**
@@ -15,8 +16,8 @@ import rx.Subscriber;
  */
 public class SplashActivity extends BaseActivity {
 
-    @BindView(R.id.tag_skip)
-    TagView mTagSkip;
+    @BindView(R.id.sb_skip)
+    SimpleButton mSbSkip;
 
     private boolean mIsSkip = false;
 
@@ -31,12 +32,6 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        mTagSkip.setTagClickListener(new TagView.OnTagClickListener() {
-            @Override
-            public void onTagClick(int pos, String text, int mode) {
-                _doSkip();
-            }
-        });
     }
 
     @Override
@@ -56,7 +51,7 @@ public class SplashActivity extends BaseActivity {
 
                     @Override
                     public void onNext(Integer integer) {
-                        mTagSkip.setText("跳过 " + integer);
+                        mSbSkip.setText("跳过 " + integer);
                     }
                 });
     }
@@ -74,5 +69,10 @@ public class SplashActivity extends BaseActivity {
     public void onBackPressed() {
         // 不响应后退键
         return;
+    }
+
+    @OnClick(R.id.sb_skip)
+    public void onClick() {
+        _doSkip();
     }
 }

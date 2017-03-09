@@ -42,17 +42,16 @@
             android:textColorHint="#cccccc"
             android:textSize="14sp"/>
 
-        <com.dl7.tag.TagView
-            android:id="@+id/tag_send"
+        <com.dl7.mvp.widget.SimpleButton
+            android:id="@+id/sb_send"
             android:layout_width="45dp"
             android:layout_height="30dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
-            app:tag_border_color="@color/colorAccent"
-            app:tag_bg_color="@color/colorAccent"
-            app:tag_text_color="@android:color/white"
-            app:tag_press_feedback="false"
-            android:text="发表"/>
+            app:sb_border_color="@color/colorAccent"
+            app:sb_bg_color="@color/colorAccent"
+            app:sb_text_color="@android:color/white"
+            app:sb_text="发表"/>
     </LinearLayout>
 
     <View

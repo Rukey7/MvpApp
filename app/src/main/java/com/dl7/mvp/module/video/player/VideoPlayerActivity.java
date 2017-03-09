@@ -29,11 +29,11 @@ import com.dl7.mvp.module.base.BaseActivity;
 import com.dl7.mvp.utils.CommonConstant;
 import com.dl7.mvp.utils.DialogHelper;
 import com.dl7.mvp.utils.SnackbarUtils;
+import com.dl7.mvp.widget.SimpleButton;
 import com.dl7.mvp.widget.dialog.ShareBottomDialog;
 import com.dl7.player.danmaku.OnDanmakuListener;
 import com.dl7.player.media.IjkPlayerView;
 import com.dl7.player.utils.SoftInputUtils;
-import com.dl7.tag.TagView;
 import com.orhanobut.logger.Logger;
 import com.sackcentury.shinebuttonlib.ShineButton;
 
@@ -62,8 +62,8 @@ public class VideoPlayerActivity extends BaseActivity<IVideoPresenter> implement
     EditText mEtContent;
     @BindView(R.id.ll_edit_layout)
     LinearLayout mLlEditLayout;
-    @BindView(R.id.tag_send)
-    TagView mTagSend;
+    @BindView(R.id.sb_send)
+    SimpleButton mSbSend;
 
     private VideoInfo mVideoData;
 
@@ -143,14 +143,6 @@ public class VideoPlayerActivity extends BaseActivity<IVideoPresenter> implement
                 mLlOperate.setVisibility(hasFocus ? View.GONE : View.VISIBLE);
             }
         });
-        mTagSend.setTagClickListener(new TagView.OnTagClickListener() {
-            @Override
-            public void onTagClick(int i, String s, int i1) {
-                mPlayerView.sendDanmaku(mEtContent.getText().toString(), false);
-                mEtContent.setText("");
-                _closeSoftInput();
-            }
-        });
     }
 
     @Override
@@ -210,7 +202,7 @@ public class VideoPlayerActivity extends BaseActivity<IVideoPresenter> implement
         mPlayerView.setDanmakuSource(inputStream);
     }
 
-    @OnClick({R.id.iv_video_share, R.id.iv_video_download})
+    @OnClick({R.id.iv_video_share, R.id.iv_video_download, R.id.sb_send})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_video_share:
@@ -229,6 +221,11 @@ public class VideoPlayerActivity extends BaseActivity<IVideoPresenter> implement
                         }
                     });
                 }
+                break;
+            case R.id.sb_send:
+                mPlayerView.sendDanmaku(mEtContent.getText().toString(), false);
+                mEtContent.setText("");
+                _closeSoftInput();
                 break;
         }
     }
