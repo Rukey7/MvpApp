@@ -42,7 +42,6 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
 
-    private RxPermissions mRxPermissions;
 
     // 本来想用这个来存储Fragment做切换，不过貌似fragment会被回收产生异常，估计内存占用太大
 //    private SparseArray<Fragment> mSparseFragments = new SparseArray<>();
@@ -86,7 +85,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         mSparseTags.put(R.id.nav_news, "News");
         mSparseTags.put(R.id.nav_photos, "Photos");
         mSparseTags.put(R.id.nav_videos, "Videos");
-        _getPemission();
+        _getPermission();
     }
 
     @Override
@@ -155,7 +154,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         navView.setNavigationItemSelectedListener(this);
     }
 
-    private void _getPemission() {
+    private void _getPermission() {
         final File dir = new File(FileDownloader.getDownloadDir());
         if (!dir.exists() || !dir.isDirectory()) {
             dir.delete();

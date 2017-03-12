@@ -37,7 +37,6 @@ public class ShareDialog extends DialogFragment {
         window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         window.setWindowAnimations(R.style.AnimateDialog);
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
         View view = inflater.inflate(R.layout.dialog_share, container);
         final ImageView photo = (ImageView) view.findViewById(R.id.iv_screenshot_photo);
         ViewGroup.LayoutParams layoutParams = photo.getLayoutParams();

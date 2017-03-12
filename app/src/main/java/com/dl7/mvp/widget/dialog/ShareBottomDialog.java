@@ -36,7 +36,7 @@ public class ShareBottomDialog extends BottomBaseDialog<ShareBottomDialog> {
     public View onCreateView() {
         showAnim(new FlipVerticalSwingEnter());
         dismissAnim(null);
-        View inflate = View.inflate(mContext, R.layout.dialog_share, null);
+        View inflate = View.inflate(mContext, R.layout.dialog_bottom_share, null);
         ButterKnife.bind(this, inflate);
 
         return inflate;

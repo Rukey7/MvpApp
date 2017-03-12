@@ -47,6 +47,9 @@ public class XFilePickerPreference extends FilePickerPreference {
 
     @Override
     public void onSelectedFilePaths(String[] files) {
+        if (files == null || files.length == 0) {
+            return;
+        }
         // 这里改成只取第一项
         String dFiles = StringUtils.replaceFilePath(files[0]);
         if (isPersistent()) {
