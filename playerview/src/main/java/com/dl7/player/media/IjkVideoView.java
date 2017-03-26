@@ -48,7 +48,7 @@ import tv.danmaku.ijk.media.player.misc.IMediaDataSource;
 import tv.danmaku.ijk.media.player.misc.ITrackInfo;
 
 public class IjkVideoView extends FrameLayout implements MediaController.MediaPlayerControl {
-    private String TAG = "IjkVideoView";
+    private String TAG = "TTAG";
     // settable by the client
     private Uri mUri;
     private Map<String, String> mHeaders;
@@ -587,6 +587,14 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
         }
     };
 
+    /**
+     * add，返回解码器
+     * @return  解码器
+     */
+    public IMediaPlayer getMediaPlayer() {
+        return mMediaPlayer;
+    }
+
     private IMediaPlayer.OnCompletionListener mCompletionListener =
             new IMediaPlayer.OnCompletionListener() {
                 public void onCompletion(IMediaPlayer mp) {
@@ -663,7 +671,7 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
     private IMediaPlayer.OnErrorListener mErrorListener =
             new IMediaPlayer.OnErrorListener() {
                 public boolean onError(IMediaPlayer mp, int framework_err, int impl_err) {
-                    Log.d(TAG, "Error: " + framework_err + "," + impl_err);
+                    Log.d("TTAG", "Error: " + framework_err + "," + impl_err);
                     mCurrentState = MediaPlayerParams.STATE_ERROR;
                     mTargetState = MediaPlayerParams.STATE_ERROR;
                     _notifyMediaStatus();
@@ -926,6 +934,7 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
 
     @Override
     public void start() {
+        Log.e("TTAG", "start " + isInPlaybackState());
         if (isInPlaybackState()) {
             mMediaPlayer.start();
             mCurrentState = MediaPlayerParams.STATE_PLAYING;
@@ -954,6 +963,11 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
         openVideo();
     }
 
+    public void reload() {
+        mCurrentState = MediaPlayerParams.STATE_PLAYING;
+        mTargetState = MediaPlayerParams.STATE_PLAYING;
+    }
+
     @Override
     public int getDuration() {
         if (isInPlaybackState()) {
@@ -963,8 +977,25 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
         return -1;
     }
 
+    /**
+     * add
+     * 获取中断的进度
+     * @return  进度
+     */
+    public int getInterruptPosition() {
+        if (mMediaPlayer != null) {
+            return (int) mMediaPlayer.getCurrentPosition();
+        }
+        return 0;
+    }
+
     @Override
     public int getCurrentPosition() {
+        Log.w("TTAG", "getCurrentPosition " + (mMediaPlayer == null));
+        Log.i("TTAG", "getCurrentPosition " + mCurrentState);
+        if (mMediaPlayer != null) {
+            Log.e("TTAG", "getCurrentPosition " + mMediaPlayer.getCurrentPosition());
+        }
         if (isInPlaybackState()) {
             return (int) mMediaPlayer.getCurrentPosition();
         }

@@ -66,6 +66,26 @@
         android:layout_width="56dp"
         android:layout_height="56dp"/>
 
+    <FrameLayout
+        android:id="@+id/fl_reload_layout"
+        android:clickable="true"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_reload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="点击重试"
+            android:padding="10dp"
+            android:textColor="#d4237a"
+            android:textSize="16sp"
+            android:drawableTop="@mipmap/ic_reload"/>
+    </FrameLayout>
+
     <include layout="@layout/layout_media_quality"/>
 
     <include layout="@layout/layout_send_danmaku"/>
