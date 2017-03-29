@@ -3,6 +3,7 @@ package com.dl7.mvp.widget;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 
 /**
  * Created by long on 2016/12/19.
@@ -22,9 +23,20 @@ public class FlexibleViewPager extends ViewPager {
     }
 
     @Override
-    public void scrollTo(int x, int y) {
+    public boolean onTouchEvent(MotionEvent arg0) {
         if (mIsCanScroll) {
-            super.scrollTo(x, y);
+            return super.onTouchEvent(arg0);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent arg0) {
+        if (mIsCanScroll) {
+            return super.onInterceptTouchEvent(arg0);
+        } else {
+            return false;
         }
     }
 

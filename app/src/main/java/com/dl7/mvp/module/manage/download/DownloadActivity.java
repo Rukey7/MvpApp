@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dl7.mvp.R;
@@ -135,6 +136,7 @@ public class DownloadActivity extends BaseActivity<IRxBusPresenter> {
         mViewPager.setCanScroll(!isEnable);
         mFlDelLayout.setVisibility(isEnable ? View.VISIBLE : View.GONE);
         mTvCloseEdit.setVisibility(isEnable ? View.VISIBLE : View.GONE);
+        _setTabLayoutCanClick(!isEnable);
     }
 
     /**
@@ -146,6 +148,20 @@ public class DownloadActivity extends BaseActivity<IRxBusPresenter> {
         mBtnSelectDel.setEnabled(videoEvent.checkStatus != VideoEvent.CHECK_NONE);
         mBtnSelectAll.setText(videoEvent.checkStatus == VideoEvent.CHECK_ALL ? "取消全选" : "全选");
         mBtnSelectAll.setSelected(videoEvent.checkStatus == VideoEvent.CHECK_ALL);
+    }
+
+    /**
+     * 控制 TabLayout 点击使能
+     * @param canClick
+     */
+    private void _setTabLayoutCanClick(boolean canClick){
+        LinearLayout tabStrip= (LinearLayout) mTabLayout.getChildAt(0);
+        for (int i = 0; i < tabStrip.getChildCount(); i++) {
+            View tabView = tabStrip.getChildAt(i);
+            if(tabView !=null){
+                tabView.setClickable(canClick);
+            }
+        }
     }
 
     @OnClick({R.id.btn_select_all, R.id.btn_select_del, R.id.tv_close_edit})
