@@ -116,7 +116,8 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         } else {
             // 获取上一个堆栈中保存的是哪个页面，根据name来设置导航项的选中状态
             final String tagName = getSupportFragmentManager().getBackStackEntryAt(stackEntryCount - 2).getName();
-            mNavView.setCheckedItem(mSparseTags.keyAt(mSparseTags.indexOfValue(tagName)));
+            int index = mSparseTags.indexOfValue(tagName);
+            mNavView.setCheckedItem(mSparseTags.keyAt(index));
             super.onBackPressed();
         }
     }

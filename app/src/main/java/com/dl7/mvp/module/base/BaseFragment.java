@@ -14,7 +14,6 @@ import com.dl7.mvp.R;
 import com.dl7.mvp.injector.components.ApplicationComponent;
 import com.dl7.mvp.utils.SwipeRefreshHelper;
 import com.dl7.mvp.widget.EmptyLayout;
-import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.components.support.RxFragment;
 
@@ -27,7 +26,7 @@ import butterknife.ButterKnife;
  * Created by long on 2016/5/31.
  * 碎片基类
  */
-public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment implements IBaseView {
+public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment implements IBaseView, EmptyLayout.OnRetryListener {
 
     /**
      * 注意，资源的ID一定要一样
@@ -107,12 +106,16 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
     }
 
     @Override
-    public void showNetError(final EmptyLayout.OnRetryListener onRetryListener) {
+    public void showNetError() {
         if (mEmptyLayout != null) {
             mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_NO_NET);
-            mEmptyLayout.setRetryListener(onRetryListener);
-            SwipeRefreshHelper.enableRefresh(mSwipeRefresh, false);
+            mEmptyLayout.setRetryListener(this);
         }
+    }
+
+    @Override
+    public void onRetry() {
+        updateViews(false);
     }
 
     @Override
@@ -122,9 +125,7 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
 
     @Override
     public void finishRefresh() {
-        Logger.w("finishRefresh");
         if (mSwipeRefresh != null) {
-            Logger.e("finishRefresh");
             mSwipeRefresh.setRefreshing(false);
         }
     }

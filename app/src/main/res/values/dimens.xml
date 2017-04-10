@@ -39,4 +39,5 @@
     <dimen name="video_thumb_width">128dp</dimen>
     <dimen name="video_thumb_height">72dp</dimen>
 
+    <dimen name="edit_layout_height">50dp</dimen>
 </resources>

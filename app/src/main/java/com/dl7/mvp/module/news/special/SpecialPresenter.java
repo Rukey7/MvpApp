@@ -1,12 +1,11 @@
 package com.dl7.mvp.module.news.special;
 
+import com.dl7.mvp.adapter.item.SpecialItem;
 import com.dl7.mvp.api.RetrofitService;
 import com.dl7.mvp.api.bean.NewsItemInfo;
 import com.dl7.mvp.api.bean.SpecialInfo;
 import com.dl7.mvp.api.bean.SpecialInfo.TopicsEntity;
-import com.dl7.mvp.adapter.item.SpecialItem;
 import com.dl7.mvp.module.base.IBasePresenter;
-import com.dl7.mvp.widget.EmptyLayout;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;
@@ -60,12 +59,7 @@ public class SpecialPresenter implements IBasePresenter {
                     @Override
                     public void onError(Throwable e) {
                         Logger.e(e.toString());
-                        mView.showNetError(new EmptyLayout.OnRetryListener() {
-                            @Override
-                            public void onRetry() {
-                                getData(false);
-                            }
-                        });
+                        mView.showNetError();
                     }
 
                     @Override

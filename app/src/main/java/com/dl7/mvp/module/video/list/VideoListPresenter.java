@@ -4,7 +4,6 @@ import com.dl7.mvp.api.RetrofitService;
 import com.dl7.mvp.local.table.VideoInfo;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.module.base.ILoadDataView;
-import com.dl7.mvp.widget.EmptyLayout;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;
@@ -49,12 +48,7 @@ public class VideoListPresenter implements IBasePresenter {
                     @Override
                     public void onError(Throwable e) {
                         Logger.e(e.toString());
-                        mView.showNetError(new EmptyLayout.OnRetryListener() {
-                            @Override
-                            public void onRetry() {
-                                getData(false);
-                            }
-                        });
+                        mView.showNetError();
                     }
 
                     @Override

@@ -11,6 +11,4 @@
     <dimen name="settings_btn_width">44dp</dimen>
     <dimen name="aspect_btn_height">20dp</dimen>
     <dimen name="aspect_btn_size">30dp</dimen>
-
-    <dimen name="edit_layout_height">50dp</dimen>
 </resources>

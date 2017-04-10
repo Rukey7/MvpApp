@@ -1,6 +1,5 @@
 package com.dl7.mvp.module.base;
 
-import com.dl7.mvp.widget.EmptyLayout;
 import com.trello.rxlifecycle.LifecycleTransformer;
 
 /**
@@ -20,10 +19,9 @@ public interface IBaseView {
     void hideLoading();
 
     /**
-     * 显示网络错误
-     * @param onRetryListener 点击监听
+     * 显示网络错误，modify 对网络异常在 BaseActivity 和 BaseFragment 统一处理
      */
-    void showNetError(EmptyLayout.OnRetryListener onRetryListener);
+    void showNetError();
 
     /**
      * 绑定生命周期

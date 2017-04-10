@@ -4,7 +4,6 @@ import com.dl7.mvp.api.RetrofitService;
 import com.dl7.mvp.api.bean.NewsDetailInfo;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.utils.ListUtils;
-import com.dl7.mvp.widget.EmptyLayout;
 import com.orhanobut.logger.Logger;
 
 import rx.Subscriber;
@@ -52,12 +51,7 @@ public class NewsDetailPresenter implements IBasePresenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        mView.showNetError(new EmptyLayout.OnRetryListener() {
-                            @Override
-                            public void onRetry() {
-                                getData(false);
-                            }
-                        });
+                        mView.showNetError();
                     }
 
                     @Override

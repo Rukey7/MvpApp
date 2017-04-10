@@ -11,6 +11,8 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_news_list"
+            android:animationCache="false"
+            android:persistentDrawingCache="scrolling"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

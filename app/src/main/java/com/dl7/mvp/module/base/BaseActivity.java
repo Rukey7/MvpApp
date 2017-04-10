@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
  * Created by long on 2016/8/19.
  * 基类Activity
  */
-public abstract class BaseActivity<T extends IBasePresenter> extends RxAppCompatActivity implements IBaseView {
+public abstract class BaseActivity<T extends IBasePresenter> extends RxAppCompatActivity implements IBaseView, EmptyLayout.OnRetryListener {
 
     /**
      * 把 EmptyLayout 放在基类统一处理，@Nullable 表明 View 可以为 null，详细可看 ButterKnife
@@ -98,11 +98,16 @@ public abstract class BaseActivity<T extends IBasePresenter> extends RxAppCompat
     }
 
     @Override
-    public void showNetError(final EmptyLayout.OnRetryListener onRetryListener) {
+    public void showNetError() {
         if (mEmptyLayout != null) {
             mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_NO_NET);
-            mEmptyLayout.setRetryListener(onRetryListener);
+            mEmptyLayout.setRetryListener(this);
         }
+    }
+
+    @Override
+    public void onRetry() {
+        updateViews(false);
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.dl7.mvp.module.news.photoset;
 import com.dl7.mvp.api.RetrofitService;
 import com.dl7.mvp.api.bean.PhotoSetInfo;
 import com.dl7.mvp.module.base.IBasePresenter;
-import com.dl7.mvp.widget.EmptyLayout;
 import com.orhanobut.logger.Logger;
 
 import rx.Subscriber;
@@ -42,12 +41,7 @@ public class PhotoSetPresenter implements IBasePresenter {
                     @Override
                     public void onError(Throwable e) {
                         Logger.e(e.toString());
-                        mView.showNetError(new EmptyLayout.OnRetryListener() {
-                            @Override
-                            public void onRetry() {
-                                getData(false);
-                            }
-                        });
+                        mView.showNetError();
                     }
 
                     @Override

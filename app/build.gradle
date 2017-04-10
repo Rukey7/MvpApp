@@ -111,7 +111,7 @@ dependencies {
     // file picker
     compile 'com.github.angads25:filepicker:1.0.6'
     // IjkPlayerView
-    //    compile 'com.github.Rukey7:IjkPlayerView:v1.0.3'
+//    compile 'com.github.Rukey7:IjkPlayerView:1.0.4'
     // shine button
     compile 'com.sackcentury:shinebutton:0.1.6'
     // tab layout

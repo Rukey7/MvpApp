@@ -6,7 +6,6 @@ import com.dl7.mvp.api.RetrofitService;
 import com.dl7.mvp.api.bean.NewsInfo;
 import com.dl7.mvp.module.base.IBasePresenter;
 import com.dl7.mvp.utils.ToastUtils;
-import com.dl7.mvp.widget.EmptyLayout;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;
@@ -72,12 +71,7 @@ public class NewsListPresenter implements IBasePresenter {
                             // 可以提示对应的信息，但不更新界面
                             ToastUtils.showToast("刷新失败提示什么根据实际情况");
                         } else {
-                            mView.showNetError(new EmptyLayout.OnRetryListener() {
-                                @Override
-                                public void onRetry() {
-                                    getData(false);
-                                }
-                            });
+                            mView.showNetError();
                         }
                     }
 
