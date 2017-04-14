@@ -18,6 +18,7 @@ import com.dl7.mvp.local.dao.NewsTypeDao;
 import com.dl7.mvp.local.table.DaoMaster;
 import com.dl7.mvp.local.table.DaoSession;
 import com.dl7.mvp.rxbus.RxBus;
+import com.dl7.mvp.utils.CrashHandler;
 import com.dl7.mvp.utils.DownloadUtils;
 import com.dl7.mvp.utils.PreferencesUtils;
 import com.dl7.mvp.utils.ToastUtils;
@@ -139,6 +140,7 @@ public class AndroidApplication extends DefaultApplicationLike {
             LeakCanary.install(getApplication());
             Logger.init("LogTAG");
         }
+        CrashHandler.getInstance().init(getApplication());
         RetrofitService.init();
         ToastUtils.init(getApplication());
         DownloaderWrapper.init(mRxBus, mDaoSession.getVideoInfoDao());

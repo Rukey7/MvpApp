@@ -156,21 +156,21 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void _getPermission() {
-        final File dir = new File(FileDownloader.getDownloadDir());
-        if (!dir.exists() || !dir.isDirectory()) {
-            dir.delete();
-            new RxPermissions(this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
-                    .subscribe(new Action1<Boolean>() {
-                        @Override
-                        public void call(Boolean granted) {
-                            if (granted) {
+        new RxPermissions(this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+                .subscribe(new Action1<Boolean>() {
+                    @Override
+                    public void call(Boolean granted) {
+                        if (granted) {
+                            final File dir = new File(FileDownloader.getDownloadDir());
+                            if (!dir.exists() || !dir.isDirectory()) {
+                                dir.delete();
                                 dir.mkdirs();
-                            } else {
-                                SnackbarUtils.showSnackbar(HomeActivity.this, "下载目录创建失败", true);
                             }
+                        } else {
+                            SnackbarUtils.showSnackbar(HomeActivity.this, "获取读写文件权限失败", true);
                         }
-                    });
-        }
+                    }
+                });
     }
 
 
