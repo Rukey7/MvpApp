@@ -16,7 +16,7 @@
         android:layout_centerInParent="true"
         android:drawablePadding="10dp"
         android:visibility="gone"
-        android:drawableTop="@mipmap/ic_no_download"
+        android:drawableTop="@drawable/ic_no_download"
         android:gravity="center"
         android:text="暂无下载"/>
 

@@ -61,7 +61,7 @@
 
     <ImageView
         android:id="@+id/iv_play_circle"
-        android:src="@mipmap/ic_play_circle"
+        android:src="@drawable/ic_play_circle"
         android:layout_gravity="center"
         android:layout_width="56dp"
         android:layout_height="56dp"/>
@@ -83,7 +83,7 @@
             android:padding="10dp"
             android:textColor="#d4237a"
             android:textSize="16sp"
-            android:drawableTop="@mipmap/ic_reload"/>
+            android:drawableTop="@drawable/ic_reload"/>
     </FrameLayout>
 
     <include layout="@layout/layout_media_quality"/>

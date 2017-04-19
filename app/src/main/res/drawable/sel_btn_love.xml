@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@mipmap/ic_btn_loved" android:state_selected="true"/>
-    <item android:drawable="@mipmap/ic_btn_love"/>
+    <item android:drawable="@drawable/ic_btn_loved" android:state_selected="true"/>
+    <item android:drawable="@drawable/ic_btn_love"/>
 </selector>

@@ -5,7 +5,7 @@
     <style name="ProgressBarBattery" parent="@android:style/Widget.ProgressBar.Horizontal">
         <item name="android:layout_width">72px</item>
         <item name="android:layout_height">43px</item>
-        <item name="android:background">@mipmap/ic_battery</item>
+        <item name="android:background">@drawable/ic_battery</item>
         <item name="android:paddingTop">6px</item>
         <item name="android:paddingBottom">6px</item>
         <item name="android:paddingLeft">6px</item>

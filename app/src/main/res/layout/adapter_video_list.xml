@@ -7,7 +7,7 @@
     android:layout_gravity="center"
     android:gravity="center"
     android:layout_margin="5dp"
-    android:background="@mipmap/ic_bg_card"
+    android:background="@drawable/ic_bg_card"
     android:orientation="vertical">
 
     <ImageView
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scaleType="fitXY"
-        android:src="@mipmap/ic_default_1"/>
+        android:src="@drawable/ic_default_1"/>
 
     <TextView
         android:id="@+id/tv_title"

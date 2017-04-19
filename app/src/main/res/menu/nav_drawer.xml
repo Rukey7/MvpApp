@@ -4,17 +4,17 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_news"
-            android:icon="@mipmap/ic_nav_news"
+            android:icon="@drawable/ic_nav_news"
             android:title="新闻"/>
 
         <item
             android:id="@+id/nav_photos"
-            android:icon="@mipmap/ic_nav_picture"
+            android:icon="@drawable/ic_nav_picture"
             android:title="图片"/>
 
         <item
             android:id="@+id/nav_videos"
-            android:icon="@mipmap/ic_nav_video"
+            android:icon="@drawable/ic_nav_video"
             android:title="视频"/>
     </group>
 
@@ -22,7 +22,7 @@
 
         <item
             android:id="@+id/nav_setting"
-            android:icon="@mipmap/ic_nav_setting"
+            android:icon="@drawable/ic_nav_setting"
             android:title="设置"/>
     </group>
 </menu>

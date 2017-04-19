@@ -34,7 +34,7 @@
 
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- 用这张图这样会变形，不知是分辨率问题还是怎么着 -->
-        <!--<item name="android:windowBackground">@mipmap/ic_github</item>-->
+        <!--<item name="android:windowBackground">@drawable/ic_github</item>-->
     </style>
 
     <style name="VideoPlayerTheme" parent="Theme.AppCompat.Light.NoActionBar">

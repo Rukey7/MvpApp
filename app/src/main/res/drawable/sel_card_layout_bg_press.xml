@@ -6,5 +6,5 @@
             <solid android:color="#44bababa"/>
         </shape>
     </item>
-    <item android:drawable="@mipmap/ic_bg_card"/>
+    <item android:drawable="@drawable/ic_bg_card"/>
 </selector>

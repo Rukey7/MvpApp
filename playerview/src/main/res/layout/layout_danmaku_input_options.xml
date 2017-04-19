@@ -78,7 +78,7 @@
             android:layout_marginLeft="8.0dip"
             android:layout_marginRight="8.0dip"
             android:contentDescription="@null"
-            android:src="@mipmap/ic_danmaku_input_more_color"/>
+            android:src="@drawable/ic_danmaku_input_more_color"/>
     </LinearLayout>
 
     <RadioGroup

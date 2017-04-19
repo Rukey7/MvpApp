@@ -15,7 +15,7 @@
         android:layout_height="@dimen/news_icon_height"
         android:layout_margin="10dp"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_default_1"/>
+        android:src="@drawable/ic_default_1"/>
 
     <com.flyco.labelview.LabelView
         android:id="@+id/label_view"

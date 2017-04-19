@@ -23,7 +23,7 @@
             <ImageView
                 android:layout_width="43dp"
                 android:layout_height="43dp"
-                android:src="@mipmap/ic_share_wechat_friend_circle" />
+                android:src="@drawable/ic_share_wechat_friend_circle" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
             <ImageView
                 android:layout_width="43dp"
                 android:layout_height="43dp"
-                android:src="@mipmap/ic_share_wechat_friend" />
+                android:src="@drawable/ic_share_wechat_friend" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -69,7 +69,7 @@
             <ImageView
                 android:layout_width="43dp"
                 android:layout_height="43dp"
-                android:src="@mipmap/ic_share_qq" />
+                android:src="@drawable/ic_share_qq" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -92,7 +92,7 @@
             <ImageView
                 android:layout_width="43dp"
                 android:layout_height="43dp"
-                android:src="@mipmap/ic_share_sms" />
+                android:src="@drawable/ic_share_sms" />
 
             <TextView
                 android:layout_width="wrap_content"

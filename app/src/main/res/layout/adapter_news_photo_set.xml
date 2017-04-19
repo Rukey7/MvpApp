@@ -43,7 +43,7 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:scaleType="fitStart"
-            android:src="@mipmap/ic_default_1"/>
+            android:src="@drawable/ic_default_1"/>
 
         <ImageView
             android:id="@+id/iv_icon_2"
@@ -53,7 +53,7 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:scaleType="fitStart"
-            android:src="@mipmap/ic_default_2"
+            android:src="@drawable/ic_default_2"
             android:visibility="gone"/>
 
         <ImageView
@@ -63,7 +63,7 @@
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:scaleType="fitStart"
-            android:src="@mipmap/ic_default_3"
+            android:src="@drawable/ic_default_3"
             android:visibility="gone"/>
     </LinearLayout>
 

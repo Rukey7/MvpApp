@@ -130,7 +130,7 @@
             android:layout_marginRight="5dp"
             android:background="@drawable/sel_item_background"
             android:drawablePadding="2dp"
-            android:drawableTop="@mipmap/ic_media_quality_smooth"
+            android:drawableTop="@drawable/ic_media_quality_smooth"
             android:gravity="center"
             android:padding="5dp"
             android:text="自动"

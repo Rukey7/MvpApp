@@ -26,7 +26,7 @@
                 android:background="@drawable/sel_item_background"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:src="@mipmap/ic_cancel_danmaku"/>
+                android:src="@drawable/ic_cancel_danmaku"/>
 
             <EditText
                 android:id="@+id/et_danmaku_content"
@@ -46,7 +46,7 @@
                 android:layout_gravity="center_vertical"
                 android:padding="10dp"
                 android:background="@drawable/sel_item_background"
-                android:src="@mipmap/ic_send_danmaku"/>
+                android:src="@drawable/ic_send_danmaku"/>
         </LinearLayout>
 
         <include

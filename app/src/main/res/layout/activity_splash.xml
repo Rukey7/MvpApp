@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_github"/>
+        android:src="@drawable/ic_github"/>
 
     <com.dl7.mvp.widget.SimpleButton
         android:id="@+id/sb_skip"

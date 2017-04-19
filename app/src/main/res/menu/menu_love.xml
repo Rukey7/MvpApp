@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/item_love"
-        android:icon="@mipmap/ic_btn_love"
+        android:icon="@drawable/ic_btn_love"
         android:title="收藏"
         app:showAsAction="always"/>
 </menu>

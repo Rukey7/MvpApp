@@ -4,5 +4,5 @@
     <item android:state_checked="false">
         <color android:color="@android:color/transparent"/>
     </item>
-    <item android:drawable="@mipmap/ic_btn_danmaku_input_options_color_checked"/>
+    <item android:drawable="@drawable/ic_btn_danmaku_input_options_color_checked"/>
 </selector>

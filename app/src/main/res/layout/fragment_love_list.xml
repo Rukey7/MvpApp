@@ -16,7 +16,7 @@
         android:layout_gravity="center"
         android:drawablePadding="10dp"
         android:visibility="gone"
-        android:drawableTop="@mipmap/ic_no_collection"
+        android:drawableTop="@drawable/ic_no_collection"
         android:gravity="center"
         android:text="暂无收藏"/>
 </FrameLayout>

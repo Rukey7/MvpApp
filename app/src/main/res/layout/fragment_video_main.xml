@@ -27,7 +27,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways|snap"
-                app:navigationIcon="@mipmap/ic_nav"
+                app:navigationIcon="@drawable/ic_nav"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
                 <FrameLayout
@@ -43,7 +43,7 @@
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:layout_gravity="center"
-                        android:background="@mipmap/ic_btn_star"
+                        android:background="@drawable/ic_btn_star"
                         android:gravity="center"
                         android:textColor="@android:color/white"
                         android:textSize="10sp"/>
@@ -60,7 +60,7 @@
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:layout_gravity="center"
-                        android:background="@mipmap/ic_toolbar_download"
+                        android:background="@drawable/ic_toolbar_download"
                         android:gravity="center"/>
 
                     <TextView
@@ -70,7 +70,7 @@
                         android:layout_gravity="center"
                         android:layout_marginBottom="10dp"
                         android:layout_marginLeft="12dp"
-                        android:background="@mipmap/ic_dot"
+                        android:background="@drawable/ic_dot"
                         android:gravity="center"
                         android:textColor="@android:color/white"
                         android:textSize="9sp"

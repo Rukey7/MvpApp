@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:background="@drawable/sel_item_background"
-            android:src="@mipmap/ic_cancel_skip"/>
+            android:src="@drawable/ic_cancel_skip"/>
 
         <TextView
             android:layout_width="1px"

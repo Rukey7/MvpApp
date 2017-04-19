@@ -71,7 +71,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/sel_btn_press_bg"
-            android:src="@mipmap/ic_video_share"/>
+            android:src="@drawable/ic_video_share"/>
 
         <com.sackcentury.shinebuttonlib.ShineButton
             android:id="@+id/iv_video_collect"

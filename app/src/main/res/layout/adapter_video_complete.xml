@@ -13,7 +13,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@mipmap/ic_bg_card"
+        android:background="@drawable/ic_bg_card"
         android:orientation="horizontal"
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
@@ -34,7 +34,7 @@
             android:layout_height="@dimen/video_thumb_height"
             android:layout_marginRight="10dp"
             android:scaleType="fitXY"
-            android:src="@mipmap/ic_default_1"/>
+            android:src="@drawable/ic_default_1"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

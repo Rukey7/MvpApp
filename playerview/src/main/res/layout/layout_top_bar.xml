@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/sel_item_background"
             android:padding="10dp"
-            android:src="@mipmap/ic_return_back"/>
+            android:src="@drawable/ic_return_back"/>
 
         <com.dl7.player.widgets.MarqueeTextView
             android:id="@+id/tv_title"
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/sel_item_background"
             android:padding="10dp"
-            android:src="@mipmap/ic_video_screenshot"/>
+            android:src="@drawable/ic_video_screenshot"/>
 
         <TextView
             android:id="@+id/tv_settings"
@@ -85,7 +85,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/sel_item_background"
             android:padding="10dp"
-            android:src="@mipmap/ic_return_back"/>
+            android:src="@drawable/ic_return_back"/>
     </FrameLayout>
 
     <RadioGroup

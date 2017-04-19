@@ -1743,8 +1743,8 @@ public class IjkPlayerView extends FrameLayout implements View.OnClickListener {
     public static final int MEDIA_QUALITY_BD = 4;
 
     private static final int QUALITY_DRAWABLE_RES[] = new int[]{
-            R.mipmap.ic_media_quality_smooth, R.mipmap.ic_media_quality_medium, R.mipmap.ic_media_quality_high,
-            R.mipmap.ic_media_quality_super, R.mipmap.ic_media_quality_bd
+            R.drawable.ic_media_quality_smooth, R.drawable.ic_media_quality_medium, R.drawable.ic_media_quality_high,
+            R.drawable.ic_media_quality_super, R.drawable.ic_media_quality_bd
     };
     // 保存Video Url
     private SparseArray<String> mVideoSource = new SparseArray<>();
@@ -2634,15 +2634,15 @@ public class IjkPlayerView extends FrameLayout implements View.OnClickListener {
                 if (status == BatteryManager.BATTERY_STATUS_CHARGING) {
                     mPbBatteryLevel.setSecondaryProgress(0);
                     mPbBatteryLevel.setProgress(curPower);
-                    mPbBatteryLevel.setBackgroundResource(R.mipmap.ic_battery_charging);
+                    mPbBatteryLevel.setBackgroundResource(R.drawable.ic_battery_charging);
                 } else if (curPower < BATTERY_LOW_LEVEL) {
                     mPbBatteryLevel.setProgress(0);
                     mPbBatteryLevel.setSecondaryProgress(curPower);
-                    mPbBatteryLevel.setBackgroundResource(R.mipmap.ic_battery_red);
+                    mPbBatteryLevel.setBackgroundResource(R.drawable.ic_battery_red);
                 } else {
                     mPbBatteryLevel.setSecondaryProgress(0);
                     mPbBatteryLevel.setProgress(curPower);
-                    mPbBatteryLevel.setBackgroundResource(R.mipmap.ic_battery);
+                    mPbBatteryLevel.setBackgroundResource(R.drawable.ic_battery);
                 }
             }
         }

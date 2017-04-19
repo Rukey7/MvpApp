@@ -27,7 +27,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways|snap"
-                app:navigationIcon="@mipmap/ic_nav"
+                app:navigationIcon="@drawable/ic_nav"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
                 <FrameLayout
@@ -42,7 +42,7 @@
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:layout_gravity="center"
-                        android:background="@mipmap/ic_btn_love"
+                        android:background="@drawable/ic_btn_love"
                         android:gravity="center"
                         android:textColor="@android:color/white"
                         android:textSize="10sp"/>
