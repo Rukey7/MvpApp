@@ -6,6 +6,7 @@ import android.os.Looper;
 /**
  * 主线程处理工具
  */
+@Deprecated
 public class MainHandler {
 
     private static final Handler mHandler = new Handler(Looper.getMainLooper());

@@ -1,6 +1,9 @@
 package com.dl7.mvp.utils;
 
+import com.dl7.mvp.engine.danmaku.DanmakuInfoTypeAdapter;
+import com.dl7.mvp.local.table.DanmakuInfo;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -15,8 +18,14 @@ import java.util.List;
  */
 public final class GsonHelper {
 
-    private static Gson sGson = new Gson();
+    private static Gson sGson;
     private static JsonParser sJsonParser = new JsonParser();
+
+    static {
+        sGson = new GsonBuilder()
+                .registerTypeAdapter(DanmakuInfo.class, new DanmakuInfoTypeAdapter())
+                .create();
+    }
 
     private GsonHelper() {}
 

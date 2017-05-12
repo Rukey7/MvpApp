@@ -108,12 +108,14 @@ public class FileDownloader {
 
     /**
      * 启动下载
+     * 线程切换这样处理不好，不建议使用，功能已被去掉
      *
      * @param url                  url
      * @param name                 文件名
      * @param listener             监听器
      * @param callBackInMainThread 是否在主线程中执行回调，需要切换线程效率上会受点影响
      */
+    @Deprecated
     public static void start(String url, String name, DownloadListener listener, boolean callBackInMainThread) {
         start(new FileInfo(url, name), listener, callBackInMainThread);
     }
@@ -122,6 +124,7 @@ public class FileDownloader {
         start(fileInfo, listener, false);
     }
 
+    @Deprecated
     public static void start(FileInfo fileInfo, DownloadListener listener, boolean callBackInMainThread) {
         ListenerDecorator listenerDecorator = new ListenerDecorator(listener, callBackInMainThread);
         if (!_isNetworkAvailable(sContext)) {

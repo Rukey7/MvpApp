@@ -75,7 +75,8 @@
         </activity>
         <activity android:name=".module.video.fullscreen.VideoFullscreenActivity">
         </activity>
-        <activity android:name=".module.news.article.NewsArticleActivity">
+        <activity android:name=".module.news.article.NewsArticleActivity"
+                  android:screenOrientation="portrait">
         </activity>
     </application>
 

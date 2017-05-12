@@ -1,6 +1,5 @@
 package com.dl7.mvp.module.video.player;
 
-import com.alibaba.fastjson.JSON;
 import com.dl7.downloaderlib.model.DownloadStatus;
 import com.dl7.mvp.local.table.DanmakuInfo;
 import com.dl7.mvp.local.table.DanmakuInfoDao;
@@ -8,6 +7,7 @@ import com.dl7.mvp.local.table.VideoInfo;
 import com.dl7.mvp.local.table.VideoInfoDao;
 import com.dl7.mvp.rxbus.RxBus;
 import com.dl7.mvp.rxbus.event.VideoEvent;
+import com.dl7.mvp.utils.GsonHelper;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -65,9 +65,9 @@ public class VideoPlayerPresenter implements IVideoPresenter {
                 .map(new Func1<List<DanmakuInfo>, InputStream>() {
                     @Override
                     public InputStream call(List<DanmakuInfo> danmakuInfos) {
-                        // 由于 DanmakuInfo 和父类用了相同的字段，用 Gson 直接解析会报错，这里用 FastJson 来处理
-//                        GsonHelper.object2JsonStr(danmakuInfos);
-                        String jsonStr = JSON.toJSONString(danmakuInfos);
+                        // 有同志提交了关于 Gson 解析的问题处理，这里去掉之前的 Fastjson
+//                        String jsonStr = JSON.toJSONString(danmakuInfos);
+                        String jsonStr = GsonHelper.object2JsonStr(danmakuInfos);
                         // 将 String 转为 InputStream
                         InputStream inputStream = new ByteArrayInputStream(jsonStr.getBytes());
                         return inputStream;

@@ -3,8 +3,8 @@ package com.dl7.mvp.engine.danmaku;
 import android.graphics.Color;
 import android.text.TextUtils;
 
-import com.alibaba.fastjson.JSON;
 import com.dl7.mvp.local.table.DanmakuInfo;
+import com.dl7.mvp.utils.GsonHelper;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;
@@ -43,9 +43,9 @@ public class DanmakuParser extends BaseDanmakuParser {
             return danmakus;
         }
         try {
-            // 由于 DanmakuInfo 和父类用了相同的字段，用 Gson 直接解析会报错，这里用 FastJson 来处理
-//            List<DanmakuInfo> datas = GsonHelper.convertEntities(jsonStr, DanmakuInfo.class);
-            List<DanmakuInfo> datas = JSON.parseArray(jsonStr, DanmakuInfo.class);
+            // 有同志提交了关于 Gson 解析的问题处理，这里去掉之前的 Fastjson
+//            List<DanmakuInfo> datas = JSON.parseArray(jsonStr, DanmakuInfo.class);
+            List<DanmakuInfo> datas = GsonHelper.convertEntities(jsonStr, DanmakuInfo.class);
             Logger.i(datas.toString());
             int size = datas.size();
             for (int i = 0; i < size; i++) {
