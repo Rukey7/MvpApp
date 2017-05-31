@@ -1,6 +1,7 @@
 # MvpApp
 
-##### 练习MVP架构开发的App，算是对自己学过的知识做一个总结，做了有一段时间，界面比较多，代码量还是有的，里面做了大量封装，整体代码整理得很干净，这个我已经尽力整理了- -。
+##### 练习MVP架构开发的App，算是对自己学过的知识做一个总结，做了有一段时间，界面比较多，代码量还是有的，里面做了大量封装，整体代码整理得很干净。里面有我自己封装的一些库和类，可以作为借鉴参考，有什么问题可以提出来探讨，有好的想法和修改建议也欢迎提交代码上来。
+##### 现在网易的图片接口不能用了，所以“美女”界面获取不到数据了，如果想看效果的可以试着把“福利”标签下的界面按“美女”界面的处理方式改过去，刚好可以拿来自己练手~，代码我暂时不想去改了。
 
 ## Screenshot
 
@@ -71,8 +72,6 @@
 	：添加角标的库
 - [gson](https://github.com/google/gson)
 	：帮助Json和Object转换，这个也常用
-- [fastjson](https://github.com/alibaba/fastjson)
-	：功能同gson，有些地方gson不能处理可以试试这个，阿里巴巴出品
 - [ijkplayer](https://github.com/Bilibili/ijkplayer)
 	：B站出品的视频解码库
 - [DanmakuFlameMaster](https://github.com/Bilibili/DanmakuFlameMaster)
@@ -92,7 +91,7 @@
 - [IjkPlayerView](https://github.com/Rukey7/IjkPlayerView)
 	：基于ijkplayer开发的播放器，也是为了做这个App的视频播放功能封装的库- -，里面加了弹幕功能，感兴趣可以看下
 - [TagLayout](https://github.com/Rukey7/TagLayout)
-	：这个库代码有点厚重，有时间再重构下
+	：标签库，可做为自定义按钮来使用
 	
 Thanks
 ---
@@ -100,3 +99,7 @@ Thanks
 - 感谢所有优秀的开源项目
 - [OuNews](https://github.com/oubowu/OuNews)
 	：最初是看了这个项目才开始做的，学了不少东西
+
+Statement
+---
+该项目仅供交流学习使用，如有侵犯版权问题，可通知本人及时删除
